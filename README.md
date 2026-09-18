@@ -19,14 +19,6 @@
   <img src="assets/architecture_diagram.png" alt="RAKSHA 2.0 System Architecture & End-to-End Data Pipeline" width="100%" />
 </p>
 
-| 🛰️ 1. Multi-Sensor Ingestion | 🧠 2. RAKSHA Decision Core | 💻 3. Command Center (UI) | 📋 4. Operational Action |
-| :--- | :--- | :--- | :--- |
-| **Sentinel-1 SAR:** All-Weather Radar Flood Extent | **Dynamic AOI:** Slope & runoff flow-dilated boundary | **Leaflet GIS Map:** Live Cartosat & Bhuvan WMS | **DDMA Dossier:** Standalone PDF/HTML legal report |
-| **Sentinel-2 L2A:** 10m Optical Multi-Spectral | **5×5 Hazard Grid:** 25-cell runoff decay raster (1 km) | **DEM Transect:** 12-point geodetic profile chart | **QGIS / SEOC Feed:** Real-time GeoJSON export |
-| **ISRO Cartosat-3:** 0.28m PAN & 45m Helipad Audit | **Hard Veto:** Slope 2°–14° & floodway elimination | **6-Stage Stepper:** Step-by-step explainable UI | **Evacuation Fleet:** Buses & ALS ambulances |
-| **ISRO Bhuvan:** 1:50k LULC & 10-Yr Flood Archive | **Sphere Sizing:** 45 m²/person @ 60% usable footprint | **Helipad HUD:** 45m emergency evacuation circle | **Humanitarian:** 15 L/day water, latrines, tents |
-| **SRTM DEM & Weather:** 90m elevation & 24h rain | **100-pt MCDA:** Safety-First multi-criteria rank | **Cinematic Landing:** Intro + system boot audit | **Zero-Deficit:** 100% displaced cohort safe coverage |
-
 ---
 
 ## ⚡ Quick Start (1-Minute Run)
