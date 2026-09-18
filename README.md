@@ -16,91 +16,41 @@
 ## 🏛️ System Architecture
 
 ```mermaid
-flowchart TD
-    subgraph SENSORS["1. MULTI-SENSOR EARTH OBSERVATION & TELEMETRY INGESTION"]
-        S1["🛰️ Sentinel-1 C-SAR<br/>All-Weather Radar Flood Extent<br/>Planetary Computer STAC"]
-        S2["🛰️ Sentinel-2 L2A<br/>10m Multi-Spectral Optical Baseline<br/>MGRS Tile & Cloud %"]
-        C3["🛰️ ISRO Cartosat-3<br/>0.28m PAN Sub-Meter Validation<br/>Bhoonidhi Space Policy 2023"]
-        BHU["🗺️ ISRO Bhuvan / NRSC<br/>1:50k LULC Thematic Anchor<br/>10-Yr Flood Archive & WMS"]
-        MET["🌦️ Open-Meteo & SRTM DEM<br/>24h Rain, Soil Moisture<br/>12-Point Geodetic Transect"]
-        OSM["🏛️ OpenStreetMap<br/>Civic Infrastructure & Campuses<br/>Live Overpass & Benchmark"]
+flowchart LR
+    subgraph IN["🛰️ 1. Multi-Sensor Ingestion"]
+        direction TB
+        S1["Sentinel-1 SAR (Radar)"]
+        S2["Sentinel-2 L2A (Optical)"]
+        C3["ISRO Cartosat-3 (0.28m PAN)"]
+        BH["ISRO Bhuvan (1:50k LULC)"]
+        WX["SRTM DEM & Weather Series"]
     end
 
-    subgraph ENGINE["2. RAKSHA DECISION INTELLIGENCE CORE (FastAPI Backend)"]
-        AOI["Dynamic Anisotropic AOI Engine<br/>Slope & Hydrological Runoff Vector Dilation"]
-        GRID["5×5 Spatial Hazard Raster Grid<br/>25-Cell Runoff Attenuation (1.0 km Res)"]
-        RINGS["Progressive Concentric Scanner<br/>Ring 1 (0-5km) ➔ Ring 2 (5-10km) ➔ Ring 3"]
-        VETO["Zero-Tolerance Hard Veto Gate<br/>Slope (2°-14°), Inundation & Debris Exclusions"]
-        SPHERE["Sphere Standard Sizing Engine<br/>45 m²/person at 60% Usable Footprint"]
-        GREEDY["Greedy Multi-Site Allocator<br/>Optimal Knapsack Zero-Deficit Coverage"]
-        MCDA["100-Point Safety-First MCDA<br/>Safety(30) + Cap(25) + Access(15) + Infra(15) + Land(10) + Env(5)"]
+    subgraph CORE["🧠 2. Decision Core (FastAPI)"]
+        direction TB
+        A1["Dynamic Anisotropic AOI"]
+        A2["5×5 Spatial Hazard Grid"]
+        A3["Zero-Tolerance Hard Veto"]
+        A4["Sphere Capacity Sizing"]
+        A5["100-Point MCDA Ranking"]
     end
 
-    subgraph AUDIT["3. HIGH-RESOLUTION PHYSICAL SITE AUDIT"]
-        CARTO_AUDIT["Cartosat-3 Spatial Validation<br/>• Open Staging Ground Audit (m²)<br/>• Structural Density &lt; 25% Check<br/>• 45m Heavy-Lift Helipad Clearance"]
-        BHU_AUDIT["ISRO Bhuvan Thematic Audit<br/>• 1:50,000 National LULC Category<br/>• Zero Historical Inundation (10-Yr)<br/>• LHZ Zone II Stable Relief Verification"]
+    subgraph OUT["📋 3. Mission Command & Action"]
+        direction TB
+        U1["Leaflet GIS Map & DEM Transect"]
+        U2["6-Stage Relocation Workflow"]
+        U3["Official DDMA Dossier (PDF/HTML)"]
+        U4["Evacuation Fleet & Relief Quotas"]
     end
 
-    subgraph UI["4. MISSION COMMAND INTERFACE (Frontend)"]
-        LANDING["Cinematic Intro & Landing Experience<br/>Autonomous Logo Intro • System Boot HUD"]
-        DASH["Interactive Leaflet Command Map<br/>Active Satellite Overlays • 5x5 Raster Grid • Transect Chart"]
-        STEPS["6-Stage Guided Relocation Workflow<br/>Discover ➔ Safety ➔ Capacity ➔ Infra ➔ MCDA ➔ Allocate"]
-    end
-
-    subgraph OUTPUT["5. OPERATIONAL OUTPUTS & INCIDENT COMMAND"]
-        DOSSIER["Official DDMA Relocation Dossier<br/>Standalone Executive HTML & Print-Ready PDF"]
-        GEOJSON["Machine-Readable Audit JSON<br/>QGIS / ArcGIS / SEOC Incident Feed"]
-        FLEET["Evacuation Fleet & Humanitarian Logistics<br/>Buses, Ambulances, 15L/day Water, Family Shelters"]
-    end
-
-    SENSORS --> ENGINE
-    ENGINE --> AUDIT
-    AUDIT --> UI
-    ENGINE --> UI
-    UI --> OUTPUT
+    IN ==> CORE ==> OUT
 ```
 
-### Architectural Pipeline Flow
-
 ```
-+---------------------------------------------------------------------------------------------------+
-|                        1. MULTI-SENSOR EARTH OBSERVATION & TELEMETRY                              |
-|  [Sentinel-1 SAR]     [Sentinel-2 L2A]     [Cartosat-3 0.28m]    [ISRO Bhuvan 1:50k]   [SRTM DEM] |
-+-------------------------------------------------+-------------------------------------------------+
-                                                  |
-                                                  v
-+---------------------------------------------------------------------------------------------------+
-|                        2. RAKSHA DECISION INTELLIGENCE CORE (FastAPI)                             |
-|  • Dynamic Anisotropic AOI Engine (Runoff Flow Dilated Envelope)                                  |
-|  • 5x5 Spatial Hazard Raster Grid (25 Cells @ 1.0 km Res)                                          |
-|  • Progressive 5 km Concentric Search Rings (0-5 km -> 5-10 km -> 10-15 km)                       |
-|  • Zero-Tolerance Safety Veto Filter (Slope 2°-14°, Drainage Inundation, Debris Flow Paths)       |
-|  • Sphere Planning Sizing (45 m²/person, 60% usable layout) & Greedy Knapsack Allocation          |
-|  • 100-Point Safety-First MCDA Ranking Matrix                                                     |
-+-------------------------------------------------+-------------------------------------------------+
-                                                  |
-                                                  v
-+---------------------------------------------------------------------------------------------------+
-|                        3. SUB-METER VALIDATION & NATIONAL THEMATIC ANCHOR                         |
-|  • ISRO Cartosat-3: 0.28m PAN Staging Ground Verification, Structural Density < 25%, 45m Helipad  |
-|  • ISRO Bhuvan: 1:50k National LULC Classification, 10-Yr Flood Archive 0.0%, LHZ Zone II         |
-+-------------------------------------------------+-------------------------------------------------+
-                                                  |
-                                                  v
-+---------------------------------------------------------------------------------------------------+
-|                        4. MISSION COMMAND DASHBOARD & LEAFLET GIS MAP                             |
-|  • Cinematic Logo-Intro & Mountain/Valley Landing Experience (`/`)                                |
-|  • Interactive Leaflet Map with Cartosat Helipad, Bhuvan Thematic Polygon, and SRTM Transect      |
-|  • Step-by-Step 6-Stage Guided Relocation Decision Workflow (`/simulation`)                       |
-+-------------------------------------------------+-------------------------------------------------+
-                                                  |
-                                                  v
-+---------------------------------------------------------------------------------------------------+
-|                        5. OPERATIONAL OUTPUTS & HUMANITARIAN ACTION                               |
-|  • Official DDMA Relocation Dossier (Standalone Executive HTML & Vector Print-Ready PDF)          |
-|  • Machine-Readable Audit GeoJSON / QGIS Incident Stream                                          |
-|  • Evacuation Fleet Mobilization (Buses, Ambulances, 15 L/day Potable Water, Latrine Quotas)      |
-+---------------------------------------------------------------------------------------------------+
+[ Multi-Sensor EO ] ────────► [ RAKSHA Decision Core ] ────────► [ Command Dashboard & Action ]
+• Sentinel-1 SAR & Sentinel-2  • Dynamic AOI & 5×5 Hazard Grid   • Interactive Leaflet GIS Map
+• Cartosat-3 & ISRO Bhuvan     • Zero-Tolerance Safety Veto      • Official DDMA Dossier (PDF/HTML)
+• SRTM DEM & Live Weather      • Sphere Capacity & 100-pt MCDA   • Evacuation Fleet Mobilization
 ```
 
 ---
