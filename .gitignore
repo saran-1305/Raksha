@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.env
+venv/
+env/
+.vscode/
+.idea/
+RAKSHA_Project.zip
+*.log
+templates/*_step*.html
