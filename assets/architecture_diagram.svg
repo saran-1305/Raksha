@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070d18"/>
+      <stop offset="50%" stop-color="#0b1324"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="grad-blue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c2042"/>
+      <stop offset="100%" stop-color="#071224"/>
+    </linearGradient>
+    <linearGradient id="grad-green" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#062b23"/>
+      <stop offset="100%" stop-color="#031713"/>
+    </linearGradient>
+    <linearGradient id="grad-amber" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d2106"/>
+      <stop offset="100%" stop-color="#171103"/>
+    </linearGradient>
+    <linearGradient id="grad-purple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#26123d"/>
+      <stop offset="100%" stop-color="#140921"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; font-weight: 800; }
+    .header-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; }
+    .col-title { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 800; }
+    .item-title { font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 700; fill: #ffffff; }
+    .item-desc { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 400; fill: #94a3b8; }
+    .pill { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 800; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="1060" height="480" rx="16" fill="url(#bg-grad)" stroke="#1e293b" stroke-width="2" />
+
+  <!-- Top Title Banner -->
+  <g transform="translate(30, 24)">
+    <rect x="0" y="0" width="130" height="26" rx="13" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="14" cy="13" r="4.5" fill="#38bdf8" />
+    <text x="26" y="17" class="header-tag" fill="#38bdf8">RAKSHA 2.0</text>
+    <text x="145" y="19" class="title" font-size="19" fill="#ffffff">SYSTEM ARCHITECTURE &amp; PIPELINE FLOW</text>
+    <text x="1000" y="18" class="header-tag" fill="#64748b" text-anchor="end">EXPLAINABLE RELOCATION INTELLIGENCE</text>
+  </g>
+
+  <!-- COLUMN 1: SATELLITE & TELEMETRY -->
+  <g transform="translate(25, 75)">
+    <rect width="235" height="380" rx="14" fill="url(#grad-blue)" stroke="#0284c7" stroke-width="1.8" />
+    <rect x="0" y="0" width="235" height="42" rx="14" fill="#0369a1" fill-opacity="0.25" />
+    <text x="16" y="27" class="col-title" fill="#38bdf8">1. Earth Observation Feeds</text>
+    
+    <!-- Item 1: S1 SAR -->
+    <g transform="translate(12, 54)">
+      <rect width="211" height="56" rx="8" fill="#0b172a" stroke="#1e3a5f" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🛰️ Sentinel-1 C-Band SAR</text>
+      <text x="10" y="40" class="item-desc">All-weather radar flood extent</text>
+      <rect x="150" y="8" width="52" height="18" rx="4" fill="#0284c7" fill-opacity="0.35" />
+      <text x="176" y="21" class="pill" fill="#38bdf8" text-anchor="middle">RADAR</text>
+    </g>
+
+    <!-- Item 2: S2 L2A -->
+    <g transform="translate(12, 118)">
+      <rect width="211" height="56" rx="8" fill="#0b172a" stroke="#1e3a5f" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🛰️ Sentinel-2 L2A</text>
+      <text x="10" y="40" class="item-desc">10m optical multi-spectral</text>
+      <rect x="146" y="8" width="56" height="18" rx="4" fill="#059669" fill-opacity="0.35" />
+      <text x="174" y="21" class="pill" fill="#34d399" text-anchor="middle">OPTICAL</text>
+    </g>
+
+    <!-- Item 3: Cartosat-3 -->
+    <g transform="translate(12, 182)">
+      <rect width="211" height="56" rx="8" fill="#0b172a" stroke="#1e3a5f" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🛰️ ISRO Cartosat-3</text>
+      <text x="10" y="40" class="item-desc">0.28m PAN &amp; 45m helipad audit</text>
+      <rect x="148" y="8" width="54" height="18" rx="4" fill="#d97706" fill-opacity="0.35" />
+      <text x="175" y="21" class="pill" fill="#fbbf24" text-anchor="middle">0.28m</text>
+    </g>
+
+    <!-- Item 4: Bhuvan -->
+    <g transform="translate(12, 246)">
+      <rect width="211" height="56" rx="8" fill="#0b172a" stroke="#1e3a5f" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🗺️ ISRO Bhuvan / NRSC</text>
+      <text x="10" y="40" class="item-desc">1:50k LULC &amp; 10-Yr flood archive</text>
+      <rect x="156" y="8" width="46" height="18" rx="4" fill="#7c3aed" fill-opacity="0.35" />
+      <text x="179" y="21" class="pill" fill="#c084fc" text-anchor="middle">WMS</text>
+    </g>
+
+    <!-- Item 5: DEM & Weather -->
+    <g transform="translate(12, 310)">
+      <rect width="211" height="56" rx="8" fill="#0b172a" stroke="#1e3a5f" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🌦️ SRTM DEM &amp; Weather</text>
+      <text x="10" y="40" class="item-desc">90m elevation &amp; 24h precipitation</text>
+      <rect x="144" y="8" width="58" height="18" rx="4" fill="#0284c7" fill-opacity="0.35" />
+      <text x="173" y="21" class="pill" fill="#38bdf8" text-anchor="middle">TERRAIN</text>
+    </g>
+  </g>
+
+  <!-- Connective Arrow 1 -> 2 -->
+  <g transform="translate(268, 260)">
+    <line x1="0" y1="0" x2="16" y2="0" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5,3" />
+    <polygon points="16,-5 23,0 16,5" fill="#38bdf8" />
+  </g>
+
+  <!-- COLUMN 2: RAKSHA AI DECISION CORE -->
+  <g transform="translate(295, 75)">
+    <rect width="235" height="380" rx="14" fill="url(#grad-green)" stroke="#059669" stroke-width="1.8" />
+    <rect x="0" y="0" width="235" height="42" rx="14" fill="#059669" fill-opacity="0.25" />
+    <text x="16" y="27" class="col-title" fill="#34d399">2. RAKSHA AI Decision Core</text>
+
+    <!-- Item 1 -->
+    <g transform="translate(12, 54)">
+      <rect width="211" height="56" rx="8" fill="#061a15" stroke="#0f4c3a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🌊 Dynamic AOI Engine</text>
+      <text x="10" y="40" class="item-desc">Slope &amp; flow-dilated risk envelope</text>
+    </g>
+
+    <!-- Item 2 -->
+    <g transform="translate(12, 118)">
+      <rect width="211" height="56" rx="8" fill="#061a15" stroke="#0f4c3a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">📐 5×5 Spatial Hazard Grid</text>
+      <text x="10" y="40" class="item-desc">25-cell runoff decay raster (1.0 km)</text>
+    </g>
+
+    <!-- Item 3 -->
+    <g transform="translate(12, 182)">
+      <rect width="211" height="56" rx="8" fill="#061a15" stroke="#0f4c3a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🚫 Zero-Tolerance Safety Veto</text>
+      <text x="10" y="40" class="item-desc">Slope &gt;14° &amp; floodway elimination</text>
+    </g>
+
+    <!-- Item 4 -->
+    <g transform="translate(12, 246)">
+      <rect width="211" height="56" rx="8" fill="#061a15" stroke="#0f4c3a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">⛺ Sphere Capacity Sizing</text>
+      <text x="10" y="40" class="item-desc">45 m²/person @ 60% usable footprint</text>
+    </g>
+
+    <!-- Item 5 -->
+    <g transform="translate(12, 310)">
+      <rect width="211" height="56" rx="8" fill="#061a15" stroke="#0f4c3a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">⚖️ 100-Pt MCDA Ranking</text>
+      <text x="10" y="40" class="item-desc">Safety(30) + Cap(25) + Access(15) ...</text>
+    </g>
+  </g>
+
+  <!-- Connective Arrow 2 -> 3 -->
+  <g transform="translate(538, 260)">
+    <line x1="0" y1="0" x2="16" y2="0" stroke="#34d399" stroke-width="3" stroke-dasharray="5,3" />
+    <polygon points="16,-5 23,0 16,5" fill="#34d399" />
+  </g>
+
+  <!-- COLUMN 3: MISSION COMMAND UI -->
+  <g transform="translate(565, 75)">
+    <rect width="225" height="380" rx="14" fill="url(#grad-amber)" stroke="#d97706" stroke-width="1.8" />
+    <rect x="0" y="0" width="225" height="42" rx="14" fill="#d97706" fill-opacity="0.25" />
+    <text x="16" y="27" class="col-title" fill="#fbbf24">3. Command Center (UI)</text>
+
+    <!-- Item 1 -->
+    <g transform="translate(12, 54)">
+      <rect width="201" height="56" rx="8" fill="#1c1405" stroke="#4a330a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🗺️ Leaflet GIS Command Map</text>
+      <text x="10" y="40" class="item-desc">Interactive satellite &amp; hazard layers</text>
+    </g>
+
+    <!-- Item 2 -->
+    <g transform="translate(12, 118)">
+      <rect width="201" height="56" rx="8" fill="#1c1405" stroke="#4a330a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">📈 SRTM Elevation Transect</text>
+      <text x="10" y="40" class="item-desc">12-point geodetic terrain profile</text>
+    </g>
+
+    <!-- Item 3 -->
+    <g transform="translate(12, 182)">
+      <rect width="201" height="56" rx="8" fill="#1c1405" stroke="#4a330a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🎯 6-Stage Guided Stepper</text>
+      <text x="10" y="40" class="item-desc">Step-by-step explainable workflow</text>
+    </g>
+
+    <!-- Item 4 -->
+    <g transform="translate(12, 246)">
+      <rect width="201" height="56" rx="8" fill="#1c1405" stroke="#4a330a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🚁 45m Helipad Visualizer</text>
+      <text x="10" y="40" class="item-desc">Heavy-lift casualty evacuation zone</text>
+    </g>
+
+    <!-- Item 5 -->
+    <g transform="translate(12, 310)">
+      <rect width="201" height="56" rx="8" fill="#1c1405" stroke="#4a330a" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🌟 Cinematic Landing Page</text>
+      <text x="10" y="40" class="item-desc">Logo intro + full system boot audit</text>
+    </g>
+  </g>
+
+  <!-- Connective Arrow 3 -> 4 -->
+  <g transform="translate(798, 260)">
+    <line x1="0" y1="0" x2="16" y2="0" stroke="#fbbf24" stroke-width="3" stroke-dasharray="5,3" />
+    <polygon points="16,-5 23,0 16,5" fill="#fbbf24" />
+  </g>
+
+  <!-- COLUMN 4: ACTION & OUTPUTS -->
+  <g transform="translate(825, 75)">
+    <rect width="210" height="380" rx="14" fill="url(#grad-purple)" stroke="#8b5cf6" stroke-width="1.8" />
+    <rect x="0" y="0" width="210" height="42" rx="14" fill="#8b5cf6" fill-opacity="0.25" />
+    <text x="16" y="27" class="col-title" fill="#c084fc">4. Operational Action</text>
+
+    <!-- Item 1 -->
+    <g transform="translate(12, 54)">
+      <rect width="186" height="70" rx="8" fill="#150924" stroke="#3c1b63" stroke-width="1" />
+      <text x="10" y="22" class="item-title">📄 Official DDMA Dossier</text>
+      <text x="10" y="40" class="item-desc">Legal executive report</text>
+      <text x="10" y="56" class="item-desc">Standalone HTML &amp; PDF</text>
+    </g>
+
+    <!-- Item 2 -->
+    <g transform="translate(12, 132)">
+      <rect width="186" height="70" rx="8" fill="#150924" stroke="#3c1b63" stroke-width="1" />
+      <text x="10" y="22" class="item-title">💾 QGIS / SEOC Feed</text>
+      <text x="10" y="40" class="item-desc">GeoJSON telemetry export</text>
+      <text x="10" y="56" class="item-desc">Real-time incident stream</text>
+    </g>
+
+    <!-- Item 3 -->
+    <g transform="translate(12, 210)">
+      <rect width="186" height="92" rx="8" fill="#150924" stroke="#3c1b63" stroke-width="1" />
+      <text x="10" y="22" class="item-title">🚑 Evacuation Logistics</text>
+      <text x="10" y="40" class="item-desc">Buses &amp; ALS ambulances</text>
+      <text x="10" y="56" class="item-desc">15 L/day water quota</text>
+      <text x="10" y="72" class="item-desc">Latrines &amp; family tents</text>
+    </g>
+
+    <!-- Item 4 -->
+    <g transform="translate(12, 310)">
+      <rect width="186" height="56" rx="8" fill="#150924" stroke="#3c1b63" stroke-width="1" />
+      <text x="10" y="22" class="item-title">✅ Zero Deficit Goal</text>
+      <text x="10" y="40" class="item-desc">100% population safe</text>
+    </g>
+  </g>
+</svg>
