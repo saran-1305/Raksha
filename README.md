@@ -51,6 +51,7 @@ RAKSHA 2.0 features **6 interconnected deep-dive portals**, each tailored for di
 | **`/earth-observation`** | **EO Telemetry Studio** | Sentinel-1 SAR $\gamma^0$ radar physics, Sentinel-2 optical, Cartosat-3 sub-meter, Bhuvan |
 | **`/hazard-lab`** | **Hazard Intelligence Lab** | Interactive 5×5 Spatial Hazard Grid, dynamic AOI formulas, 24h hydrograph, DEM transect |
 | **`/relocation-engine`** | **Relocation Decision Studio** | 5km progressive rings, zero-tolerance hard veto audit, Sphere sizing, 100-pt MCDA |
+| **`/workflow/1` .. `/6`** | **6-Step Relocation Engine** | Dedicated page-by-page walkthrough: 01 Discover, 02 Safety Veto, 03 Capacity, 04 Infra, 05 MCDA, 06 Master Plan |
 | **`/logistics-dispatch`** | **Fleet Commander** | Real-time population sliders, KSRTC/108 fleet sizing, turnaround cycles, staging |
 | **`/ddma-dossier`** | **DDMA Legal Brief** | Executive incident directive, printable PDF layout, RFC 7946 QGIS GeoJSON export |
 

@@ -120,6 +120,10 @@
                 <i data-lucide="compass" class="w-3.5 h-3.5 text-emerald-400"></i>
                 <span class="hidden sm:inline">Relocation</span>
             </a>
+            <a href="/workflow/1" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" title="Dedicated Page-by-Page Relocation Workflow (Steps 1 to 6)">
+                <i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span class="hidden sm:inline">Workflow (1-6)</span>
+            </a>
             <a href="/logistics-dispatch" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" title="Evacuation Fleet, Sphere Relief & Turnaround Times">
                 <i data-lucide="truck" class="w-3.5 h-3.5 text-blue-400"></i>
                 <span class="hidden sm:inline">Fleet</span>
@@ -801,9 +805,15 @@
                                 <span class="text-[10px] text-cyan-400 font-bold font-mono tracking-widest uppercase">02 SAFETY</span>
                                 <h3 class="text-sm font-bold text-white uppercase tracking-wider">Zero-Tolerance Safety Filtering</h3>
                             </div>
-                            <span class="text-xs px-2.5 py-0.5 rounded font-mono bg-emerald-950 border border-emerald-800/80 text-emerald-300">
-                                <span id="wfSafe_eligibleCount">0</span> Sites Eligible
-                            </span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs px-2.5 py-0.5 rounded font-mono bg-emerald-950 border border-emerald-800/80 text-emerald-300">
+                                    <span id="wfSafe_eligibleCount">0</span> Sites Eligible
+                                </span>
+                                <a href="/workflow/2" class="px-2 py-0.5 rounded bg-cyan-950/70 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 text-[10px] font-mono transition flex items-center gap-1" title="Open Dedicated Full-Screen Page for Step 2">
+                                    <i data-lucide="external-link" class="w-3 h-3 text-cyan-400"></i>
+                                    <span>Full Page ➔</span>
+                                </a>
+                            </div>
                         </div>
                         <p class="text-[11px] text-slate-400">Filtering candidate sites against multi-hazard exposure, SRTM slope stability (0.5°-14°), and drainage constraints.</p>
 

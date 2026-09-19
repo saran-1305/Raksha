@@ -251,6 +251,16 @@ def serve_dossier():
             return f.read()
     return "<h1>RAKSHA DDMA Legal Dossier template not found</h1>"
 
+@app.get("/workflow", response_class=HTMLResponse)
+@app.get("/workflow/{step}", response_class=HTMLResponse)
+@app.get("/relocation-workflow", response_class=HTMLResponse)
+def serve_workflow(step: str = "1"):
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "workflow.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Relocation Workflow template not found</h1>"
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8050, reload=False)
