@@ -206,6 +206,51 @@ def serve_simulation():
             return f.read()
     return "<h1>RAKSHA Dashboard template not found</h1>"
 
+@app.get("/earth-observation", response_class=HTMLResponse)
+@app.get("/satellite", response_class=HTMLResponse)
+def serve_satellite():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "satellite.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Earth Observation Studio template not found</h1>"
+
+@app.get("/hazard-lab", response_class=HTMLResponse)
+@app.get("/hazard", response_class=HTMLResponse)
+def serve_hazard():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "hazard_lab.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Hazard Intelligence Lab template not found</h1>"
+
+@app.get("/relocation-engine", response_class=HTMLResponse)
+@app.get("/relocation", response_class=HTMLResponse)
+def serve_relocation():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "relocation.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Relocation Decision Studio template not found</h1>"
+
+@app.get("/logistics-dispatch", response_class=HTMLResponse)
+@app.get("/logistics", response_class=HTMLResponse)
+def serve_logistics():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "logistics.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Fleet Logistics template not found</h1>"
+
+@app.get("/ddma-dossier", response_class=HTMLResponse)
+@app.get("/dossier", response_class=HTMLResponse)
+def serve_dossier():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "dossier.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA DDMA Legal Dossier template not found</h1>"
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8050, reload=False)

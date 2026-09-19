@@ -40,6 +40,22 @@ Open your browser and navigate to:
 
 ---
 
+## 🗺️ Multi-Page Geospatial Intelligence Platform
+
+RAKSHA 2.0 features **6 interconnected deep-dive portals**, each tailored for distinct tactical workflows while sharing synchronized real-time state via client-side storage:
+
+| Page / Route | Module Title | Core Tactical Functionality |
+| :--- | :--- | :--- |
+| **`/`** | **Cinematic Mission Command** | Autonomous radar scanner, geospatial telemetry stream, system diagnostics |
+| **`/simulation`** | **Overview Hub & Map** | Interactive Leaflet GIS, 6-step workflow stepper, multi-sensor provenance badges |
+| **`/earth-observation`** | **EO Telemetry Studio** | Sentinel-1 SAR $\gamma^0$ radar physics, Sentinel-2 optical, Cartosat-3 sub-meter, Bhuvan |
+| **`/hazard-lab`** | **Hazard Intelligence Lab** | Interactive 5×5 Spatial Hazard Grid, dynamic AOI formulas, 24h hydrograph, DEM transect |
+| **`/relocation-engine`** | **Relocation Decision Studio** | 5km progressive rings, zero-tolerance hard veto audit, Sphere sizing, 100-pt MCDA |
+| **`/logistics-dispatch`** | **Fleet Commander** | Real-time population sliders, KSRTC/108 fleet sizing, turnaround cycles, staging |
+| **`/ddma-dossier`** | **DDMA Legal Brief** | Executive incident directive, printable PDF layout, RFC 7946 QGIS GeoJSON export |
+
+---
+
 ## 📡 Four-Pillar Satellite & Earth Observation Framework
 
 Judges look for technical precision in Earth Observation pipelines. RAKSHA 2.0 cleanly delineates sensor roles across the disaster timeline:

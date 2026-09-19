@@ -5,29 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAKSHA | Earth Observation & Disaster Relocation Decision Engine</title>
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
-    <!-- Start-over on Refresh Protection -->
+    <!-- Session & Navigation Protection -->
     <script>
         (function() {
             try {
-                const navEntries = performance.getEntriesByType && performance.getEntriesByType('navigation');
-                const isReload = (navEntries && navEntries[0] && navEntries[0].type === 'reload') || 
-                                 (performance.navigation && performance.navigation.type === 1);
-                const isBooted = sessionStorage.getItem('raksha_booted') === 'true';
+                const isBooted = sessionStorage.getItem('raksha_booted') === 'true' || sessionStorage.getItem('raksha_session_active') === 'true';
 
-                // If user refreshes the browser or visits /simulation without booting from landing, restart from beginning
-                if (isReload || !isBooted) {
-                    sessionStorage.removeItem('raksha_booted');
+                // If user visits without booting from landing, restart from beginning
+                if (!isBooted) {
                     window.location.replace('/');
                     return;
                 }
 
-                // Consume boot ticket so any subsequent browser refresh starts over from beginning
-                sessionStorage.removeItem('raksha_booted');
-
-                // Mask URL to root / in the address bar so native browser refresh always requests the beginning
-                if (window.history && window.history.replaceState) {
-                    window.history.replaceState(null, '', '/');
-                }
+                // Keep session active for multi-page deep dive navigation across all portals
+                sessionStorage.setItem('raksha_session_active', 'true');
             } catch (err) {
                 window.location.replace('/');
             }
@@ -111,6 +102,34 @@
             </div>
         </div>
 
+        <!-- Dedicated Deep-Dive Portals Navigation -->
+        <nav class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+            <a href="/simulation" class="px-2.5 py-1.5 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-700/60 font-bold transition flex items-center gap-1.5 shadow">
+                <i data-lucide="map" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span class="hidden sm:inline">Overview</span>
+            </a>
+            <a href="/earth-observation" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" title="Sentinel-1/2, Cartosat-3 & Bhuvan Telemetry Studio">
+                <i data-lucide="satellite" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span class="hidden sm:inline">EO Studio</span>
+            </a>
+            <a href="/hazard-lab" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" title="5x5 Spatial Hazard Runoff Grid & DEM Transect">
+                <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span class="hidden sm:inline">Hazard Lab</span>
+            </a>
+            <a href="/relocation-engine" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" title="Multi-Criteria Relocation & Hard Veto Audit">
+                <i data-lucide="compass" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span class="hidden sm:inline">Relocation</span>
+            </a>
+            <a href="/logistics-dispatch" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" title="Evacuation Fleet, Sphere Relief & Turnaround Times">
+                <i data-lucide="truck" class="w-3.5 h-3.5 text-blue-400"></i>
+                <span class="hidden sm:inline">Fleet</span>
+            </a>
+            <a href="/ddma-dossier" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5" title="Statutory DDMA Incident Directive & Executive Brief">
+                <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span class="hidden sm:inline">DDMA Dossier</span>
+            </a>
+        </nav>
+
         <!-- Hotspot Quick Presets & DDMA Evidence Button -->
         <div class="flex items-center gap-2 flex-wrap">
             <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1 hidden md:inline">Presets:</span>
@@ -164,6 +183,10 @@
                         <i data-lucide="grid" class="w-3.5 h-3.5 text-amber-400"></i>
                         <span id="lblToggleGrid">5x5 Grid: ON</span>
                     </button>
+                    <a href="/hazard-lab" class="px-3 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow" title="Open 5x5 Spatial Hazard Runoff & DEM Laboratory">
+                        <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-400"></i>
+                        <span>Hazard Lab ➔</span>
+                    </a>
                     <button id="btnToggleCarto" onclick="toggleCartosatOverlay()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle ISRO Cartosat-3 Sub-Meter Sanctuary Footprint & Helipad Ring">
                         <i data-lucide="satellite" class="w-3.5 h-3.5 text-amber-400"></i>
                         <span id="lblToggleCarto">Cartosat-3: ON</span>
@@ -285,6 +308,23 @@
             <!-- TAB 1: Satellite & Weather Telemetry -->
             <div id="tabContentSat" class="hidden flex flex-col gap-4">
                 
+                <!-- Dedicated EO Studio Deep-Dive Banner -->
+                <div class="p-3 bg-gradient-to-r from-cyan-950/80 via-slate-900 to-slate-950 border border-cyan-700/50 rounded-xl flex items-center justify-between gap-3 shadow-lg">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
+                            <i data-lucide="satellite" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold text-white font-mono">Multi-Sensor Earth Observation Studio</div>
+                            <div class="text-[11px] text-slate-400">Sentinel-1 SAR radar physics, Cartosat-3 sub-meter &amp; Bhuvan WMS</div>
+                        </div>
+                    </div>
+                    <a href="/earth-observation" class="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 transition shadow shrink-0">
+                        <span>Open Studio</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
                 <!-- Sentinel-2 Optical Pass Card -->
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between mb-3">
@@ -545,6 +585,23 @@
             <!-- TAB 2: Evacuation Logistics -->
             <div id="tabContentLogistics" class="hidden flex flex-col gap-4">
                 
+                <!-- Dedicated Fleet Commander Deep-Dive Banner -->
+                <div class="p-3 bg-gradient-to-r from-blue-950/80 via-slate-900 to-slate-950 border border-blue-700/50 rounded-xl flex items-center justify-between gap-3 shadow-lg">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400 shrink-0">
+                            <i data-lucide="truck" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold text-white font-mono">Evacuation Fleet Commander</div>
+                            <div class="text-[11px] text-slate-400">Sphere standard life-support quotas, dynamic sliders &amp; turnaround cycles</div>
+                        </div>
+                    </div>
+                    <a href="/logistics-dispatch" class="px-3 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 transition shadow shrink-0">
+                        <span>Fleet Commander</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
                         <div>
@@ -619,6 +676,23 @@
             <!-- TAB: Relocation Workflow (6 Steps) -->
             <div id="tabContentDecision" class="flex flex-col gap-3">
                 
+                <!-- Dedicated Relocation Decision Studio Deep-Dive Banner -->
+                <div class="p-3 bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-950 border border-emerald-700/50 rounded-xl flex items-center justify-between gap-3 shadow-lg">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
+                            <i data-lucide="compass" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold text-white font-mono">Relocation Decision Studio</div>
+                            <div class="text-[11px] text-slate-400">5km rings, zero-tolerance hard veto forensic audit, 100-pt MCDA &amp; Sphere sizing</div>
+                        </div>
+                    </div>
+                    <a href="/relocation-engine" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 transition shadow shrink-0">
+                        <span>Decision Studio</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
                 <!-- 6-Stage Workflow Stepper Bar -->
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 shadow-lg relative overflow-hidden">
                     <div class="flex justify-between items-center w-full relative px-2">
@@ -1372,6 +1446,24 @@
                 if (!response.ok) throw new Error("API Error: " + response.statusText);
                 const data = await response.json();
                 lastAnalysisData = data;
+                try {
+                    localStorage.setItem('raksha_last_analysis', JSON.stringify({
+                        name: data.location_name,
+                        lat: data.query_parameters ? data.query_parameters.latitude : lat,
+                        lng: data.query_parameters ? data.query_parameters.longitude : lon,
+                        disaster_type: data.geospatial_telemetry?.hazard_assessment?.hazard_classification || "Landslide & Flash Flood",
+                        evacuation_radius_km: 5.0,
+                        population_at_risk: data.query_parameters ? data.query_parameters.displaced_population : pop,
+                        severity_score: data.geospatial_telemetry?.hazard_assessment?.hazard_index_score || 88.5,
+                        rainfall_mm: data.geospatial_telemetry?.weather?.total_precipitation_24h_mm || 380.0,
+                        slope_deg: data.geospatial_telemetry?.hazard_assessment?.mean_terrain_slope_deg || 28.5,
+                        debris_velocity_ms: 11.2,
+                        timestamp: new Date().toISOString(),
+                        full_data: data
+                    }));
+                } catch (e) {
+                    console.error("Failed to cache analysis state", e);
+                }
                 renderResults(data);
             } catch (err) {
                 alert("Satellite fetch error: " + err.message);

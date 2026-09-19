@@ -531,7 +531,10 @@
             });
 
             setTimeout(() => {
-                try { sessionStorage.setItem('raksha_booted', 'true'); } catch(e) {}
+                try { 
+                    sessionStorage.setItem('raksha_booted', 'true'); 
+                    sessionStorage.setItem('raksha_session_active', 'true');
+                } catch(e) {}
                 window.location.href = '/simulation';
             }, 2050);
         }
