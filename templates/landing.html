@@ -10,7 +10,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
         
         :root {
             --bg-base: #040711;
@@ -27,6 +27,7 @@
         }
 
         .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .font-handwriting { font-family: 'Caveat', cursive; }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
@@ -94,51 +95,133 @@
         </div>
     </header>
 
-    <!-- ================= SECTION 1: HERO ================= -->
-    <main class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pt-16 pb-24 max-w-5xl mx-auto min-h-[85vh]">
+    <!-- ================= SECTION 1: HERO WITH PHOTOGRAPHIC WAYANAD BACKGROUND ================= -->
+    <section class="relative min-h-[92vh] flex flex-col justify-center overflow-hidden border-b border-blue-900/30">
         
-        <!-- Logo Emblem with Subtle Glow & Scan -->
-        <div class="relative mb-8 group">
-            <div class="absolute inset-0 rounded-full bg-cyan-500/15 blur-2xl pulse-logo"></div>
-            <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-28 sm:h-36 w-auto object-contain relative z-10 filter drop-shadow-[0_0_25px_rgba(0,229,255,0.45)]">
+        <!-- Photographic Background: Wayanad Mountain Valley + Field Responder -->
+        <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-[center_right] sm:bg-center scale-100 transition-transform duration-1000 ease-out" 
+                 style="background-image: url('/assets/raksha_wayanad_bg.jpg');"></div>
+            
+            <!-- High-Contrast Left Gradient for Typography Readability -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#040711] via-[#040711]/90 md:via-[#040711]/75 lg:via-[#040711]/45 to-transparent"></div>
+            
+            <!-- Top & Bottom Atmospheric Vignettes for Seamless Blending -->
+            <div class="absolute inset-0 bg-gradient-to-b from-[#040711]/85 via-transparent to-[#040711]"></div>
         </div>
 
-        <!-- Technical Category Pill -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/60 border border-blue-500/30 text-cyan-400 font-mono text-xs font-semibold uppercase tracking-widest mb-6">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            AI-DRIVEN MULTI-HAZARD RELOCATION INTELLIGENCE
+        <!-- Main Hero Container (Split Layout) -->
+        <div class="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 py-12 lg:py-16 w-full flex-1 flex flex-col justify-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                
+                <!-- Left Column: Primary Typography, Pillars & Actions -->
+                <div class="lg:col-span-7 xl:col-span-7 space-y-6">
+                    
+                    <!-- Emblem & Operational Status Bar -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div class="relative group">
+                            <div class="absolute inset-0 rounded-full bg-cyan-500/20 blur-xl pulse-logo"></div>
+                            <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-12 sm:h-14 w-auto object-contain relative z-10 filter drop-shadow-[0_0_15px_rgba(0,229,255,0.4)]">
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/70 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-semibold uppercase tracking-wider backdrop-blur-md shadow">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                            <span>AI-DRIVEN MULTI-HAZARD RELOCATION INTELLIGENCE</span>
+                        </div>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08]">
+                        Detect Risk. Prioritize People.<br>
+                        <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(0,229,255,0.35)]">
+                            Find Safer Ground.
+                        </span>
+                    </h1>
+
+                    <!-- Motto & Mission Narrative -->
+                    <div>
+                        <p class="text-base sm:text-lg font-semibold text-emerald-400 font-mono mb-2 flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            "From Risk to Resilience"
+                        </p>
+                        <p class="text-sm sm:text-base text-slate-200 max-w-xl leading-relaxed font-normal">
+                            RAKSHA converts hazard intelligence, population exposure, and satellite terrain evidence into explainable, life-saving relocation decisions.
+                        </p>
+                    </div>
+
+                    <!-- 4 Core Feature Pillars -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 pt-3 pb-2 border-t border-white/10 max-w-xl">
+                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-cyan-500/40 transition">
+                            <div class="w-8 h-8 rounded-lg bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
+                                <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="text-[11px] font-bold text-white leading-tight">Detect</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Hazards</div>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-amber-500/40 transition">
+                            <div class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+                                <i data-lucide="users" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="text-[11px] font-bold text-white leading-tight">Assess</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Impact</div>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-cyan-500/40 transition">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                                <i data-lucide="compass" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="text-[11px] font-bold text-white leading-tight">Plan</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Relocation</div>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-emerald-500/40 transition">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="text-[11px] font-bold text-white leading-tight">Resilient</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Sanctuary</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Call To Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 max-w-xl pt-2">
+                        <button onclick="startBootSequence()" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black font-mono text-sm tracking-wide transition shadow-xl shadow-teal-500/30 flex items-center justify-center gap-2.5 cursor-pointer transform hover:scale-[1.02]">
+                            <span>ENTER RAKSHA</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                        <a href="#why-raksha" class="px-6 py-3.5 rounded-xl bg-[#080e1c]/70 hover:bg-[#0c162c] text-slate-200 hover:text-white font-mono text-sm border border-blue-900/60 backdrop-blur-md transition flex items-center justify-center gap-2 shadow">
+                            <span>EXPLORE ARCHITECTURE</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Column: Unobstructed Scenery with Bottom Ambient Indicators -->
+                <div class="lg:col-span-5 xl:col-span-5 flex flex-col justify-end items-end h-full pt-16 sm:pt-28 pb-4 pointer-events-none">
+                    <div class="space-y-3 pointer-events-auto text-right">
+                        <!-- Live Field Pilot Chip -->
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/80 border border-emerald-500/30 backdrop-blur-md text-[11px] font-mono text-emerald-300 shadow-xl">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span>WAYANAD PILOT AOI • 11.51° N, 76.13° E</span>
+                        </div>
+                        <!-- Cursive Motto -->
+                        <div class="font-handwriting text-slate-100 text-2xl sm:text-3xl tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)] select-none">
+                            Technology for a Safer Tomorrow
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-
-        <!-- Main Headline -->
-        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.05] mb-4">
-            Detect Risk. Prioritize People.<br>
-            <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300 bg-clip-text text-transparent">
-                Find Safer Ground.
-            </span>
-        </h1>
-
-        <p class="text-lg sm:text-xl font-medium text-slate-300 max-w-2xl font-mono mb-2">
-            "From Risk to Resilience."
-        </p>
-
-        <!-- Supporting Text -->
-        <p class="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed mb-10">
-            RAKSHA converts hazard intelligence, population exposure and geospatial evidence into explainable relocation decisions.
-        </p>
-
-        <!-- Primary & Secondary CTAs -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
-            <button onclick="startBootSequence()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-slate-950 font-extrabold font-mono text-sm tracking-wide transition shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2.5 cursor-pointer transform hover:scale-[1.02]">
-                <span>ENTER RAKSHA</span>
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-            </button>
-            <a href="#why-raksha" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#080e1c] hover:bg-blue-950/60 text-slate-300 hover:text-white font-mono text-sm border border-blue-900/50 transition flex items-center justify-center gap-2">
-                <span>EXPLORE PLATFORM</span>
-                <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400"></i>
-            </a>
-        </div>
-
-    </main>
+    </section>
 
     <!-- ================= SECTION 2: WHY RAKSHA ================= -->
     <section id="why-raksha" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#03060d]">
