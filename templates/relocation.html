@@ -170,195 +170,302 @@
                 </div>
             </div>
 
-            <!-- ================= RIGHT (5 COLS): RELOCATION DECISION & SANCTUARY ALLOCATION STUDIO ================= -->
-            <div class="lg:col-span-5 flex flex-col gap-4 font-mono">
+            <!-- ================= RIGHT (5 COLS): RELOCATION ENGINEERING & SENSITIVITY STUDIO ================= -->
+            <div class="lg:col-span-5 flex flex-col gap-3 font-mono">
                 
-                <!-- Quick Navigation to Mathematical Workflow Engine -->
-                <div class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-[#080e1c] border border-blue-800/40 flex items-center justify-between text-xs">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="compass" class="w-4 h-4 text-emerald-400"></i>
-                        <span class="text-white font-bold">Relocation Allocation Command</span>
-                    </div>
-                    <a href="/workflow" class="text-[11px] text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-bold">
-                        <span>Workflow Studio</span>
-                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                    </a>
+                <!-- Studio Navigation Sub-Tabs -->
+                <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-1.5 shadow-xl flex items-center gap-1 text-[11px] font-bold">
+                    <button id="btnStudioSim" onclick="switchStudioTab('sim')" class="flex-1 py-2 rounded-xl bg-cyan-400 text-slate-950 flex items-center justify-center gap-1.5 transition cursor-pointer shadow">
+                        <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+                        <span>Sensitivity Simulator</span>
+                    </button>
+                    <button id="btnStudioCadastre" onclick="switchStudioTab('cadastre')" class="flex-1 py-2 rounded-xl bg-transparent text-slate-400 hover:text-white flex items-center justify-center gap-1.5 transition cursor-pointer">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                        <span>Cadastral Inspector</span>
+                    </button>
+                    <button id="btnStudioZonation" onclick="switchStudioTab('zonation')" class="flex-1 py-2 rounded-xl bg-transparent text-slate-400 hover:text-white flex items-center justify-center gap-1.5 transition cursor-pointer">
+                        <i data-lucide="grid" class="w-3.5 h-3.5"></i>
+                        <span>Zonation Blueprint</span>
+                    </button>
+                    <button id="btnStudioTimeline" onclick="switchStudioTab('timeline')" class="flex-1 py-2 rounded-xl bg-transparent text-slate-400 hover:text-white flex items-center justify-center gap-1.5 transition cursor-pointer">
+                        <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                        <span>Phased Rollout</span>
+                    </button>
                 </div>
 
-                <!-- 1. HERO CARD: Primary Recommended Sanctuary Tactical Profile -->
-                <div class="bg-gradient-to-br from-emerald-950/40 via-[#080e1c] to-[#040711] border border-emerald-500/40 rounded-2xl p-4 shadow-xl flex flex-col gap-3 relative overflow-hidden">
-                    <div class="flex items-center justify-between border-b border-emerald-800/40 pb-2">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span class="text-xs font-black text-emerald-300 tracking-wider">🏆 RANK #1 PRIMARY SANCTUARY</span>
+                <!-- ================= TAB 1: SENSITIVITY SIMULATOR (MCDA WEIGHTS & HARD VETOS) ================= -->
+                <div id="studioTabSim" class="flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                        <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="sliders" class="w-4 h-4 text-cyan-400"></i>
+                                <h3 class="text-xs font-bold text-white uppercase">Interactive Multi-Criteria Weight Tuning</h3>
+                            </div>
+                            <span id="simConvergenceBadge" class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                                ACTIVE MODEL
+                            </span>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-amber-950/60 text-amber-300 border border-amber-500/30 text-[10px] font-bold">
-                            MCDA 89.4 / 100
-                        </span>
-                    </div>
+                        <p class="text-[11px] text-slate-400">
+                            Simulate how altering policy priorities (Safety vs Distance vs Land Capacity) re-ranks potential sanctuaries.
+                        </p>
 
-                    <div>
-                        <h3 class="text-base font-extrabold text-white tracking-tight">Taluk Stadium &amp; Sports Ground</h3>
-                        <p class="text-[11px] text-emerald-400/80">Chamoli District Sports Complex &bull; Government Institutional Cadastre</p>
-                    </div>
+                        <!-- 4 Interactive Weight Sliders -->
+                        <div class="flex flex-col gap-2.5 bg-[#040711] p-3 rounded-xl border border-blue-900/30 text-xs">
+                            <div>
+                                <div class="flex justify-between text-[11px] mb-1">
+                                    <span class="text-slate-300">Terrain Safety &amp; Slope Factor:</span>
+                                    <span id="lblWeightSafety" class="text-emerald-400 font-bold">35%</span>
+                                </div>
+                                <input id="rngSafety" type="range" min="10" max="60" value="35" oninput="updateSimWeights()" class="w-full accent-emerald-400 cursor-pointer">
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[11px] mb-1">
+                                    <span class="text-slate-300">Evacuation Proximity / Distance:</span>
+                                    <span id="lblWeightDist" class="text-cyan-400 font-bold">25%</span>
+                                </div>
+                                <input id="rngDist" type="range" min="10" max="50" value="25" oninput="updateSimWeights()" class="w-full accent-cyan-400 cursor-pointer">
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[11px] mb-1">
+                                    <span class="text-slate-300">Shelter Hardstand Capacity:</span>
+                                    <span id="lblWeightCap" class="text-amber-400 font-bold">20%</span>
+                                </div>
+                                <input id="rngCap" type="range" min="10" max="50" value="20" oninput="updateSimWeights()" class="w-full accent-amber-400 cursor-pointer">
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[11px] mb-1">
+                                    <span class="text-slate-300">Road Ingress &amp; Power Lifelines:</span>
+                                    <span id="lblWeightInfra" class="text-blue-400 font-bold">20%</span>
+                                </div>
+                                <input id="rngInfra" type="range" min="10" max="50" value="20" oninput="updateSimWeights()" class="w-full accent-blue-400 cursor-pointer">
+                            </div>
+                        </div>
 
-                    <!-- 4 Tactical Vitals -->
-                    <div class="grid grid-cols-4 gap-2 text-center text-[10px]">
-                        <div class="p-2 rounded-lg bg-[#03060c] border border-slate-800">
-                            <span class="text-slate-500 block text-[8.5px]">DISTANCE</span>
-                            <span class="text-xs font-bold text-cyan-300">5.84 km</span>
-                            <span class="text-[8px] text-slate-500">NH-58 Pass</span>
+                        <!-- Hard Veto Sensitivity Controls -->
+                        <div class="p-3 bg-[#040711] rounded-xl border border-blue-900/30 flex flex-col gap-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <span class="text-white font-bold flex items-center gap-1.5">
+                                    <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-red-400"></i>
+                                    Hard Veto Slope Threshold:
+                                </span>
+                                <span id="lblMaxSlope" class="text-red-400 font-bold">14.0°</span>
+                            </div>
+                            <input id="rngMaxSlope" type="range" min="8" max="22" step="0.5" value="14.0" oninput="updateSimWeights()" class="w-full accent-red-400 cursor-pointer">
+                            <div class="flex justify-between text-[9px] text-slate-500">
+                                <span>8° (Ultra Strict)</span>
+                                <span>14° (NDMA Hill Standard)</span>
+                                <span>22° (Relaxed Relief)</span>
+                            </div>
                         </div>
-                        <div class="p-2 rounded-lg bg-[#03060c] border border-slate-800">
-                            <span class="text-slate-500 block text-[8.5px]">CAPACITY</span>
-                            <span class="text-xs font-bold text-emerald-400">4,500</span>
-                            <span class="text-[8px] text-slate-500">Floor: 23.9k m²</span>
-                        </div>
-                        <div class="p-2 rounded-lg bg-[#03060c] border border-slate-800">
-                            <span class="text-slate-500 block text-[8.5px]">TERRAIN SLOPE</span>
-                            <span class="text-xs font-bold text-emerald-400">3.8° Safe</span>
-                            <span class="text-[8px] text-slate-500">&lt;14° Threshold</span>
-                        </div>
-                        <div class="p-2 rounded-lg bg-[#03060c] border border-slate-800">
-                            <span class="text-slate-500 block text-[8.5px]">HYDRAULIC ELEV</span>
-                            <span class="text-xs font-bold text-slate-200">+24.0m</span>
-                            <span class="text-[8px] text-slate-500">Above Flood Line</span>
+
+                        <!-- Action Button -->
+                        <button onclick="recalculateMCDASimulation()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/30 transition cursor-pointer">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                            <span>Re-run TOPSIS Solver under New Weights</span>
+                        </button>
+
+                        <!-- Dynamic Simulated Results -->
+                        <div id="simResultsContainer" class="flex flex-col gap-2 pt-1 border-t border-blue-900/30">
+                            <!-- Injected dynamically via JS -->
                         </div>
                     </div>
+                </div>
 
-                    <!-- Action strip -->
-                    <div class="flex items-center justify-between pt-1 border-t border-slate-800/80 text-[11px]">
-                        <span class="text-slate-400 text-[10px] flex items-center gap-1">
-                            <i data-lucide="satellite" class="w-3 h-3 text-cyan-400"></i>
-                            Cartosat-3 Validated (45m Helipad Cleared)
-                        </span>
-                        <div class="flex items-center gap-2">
-                            <button onclick="focusSanctuary(centerLat + 0.0214, centerLon + 0.0148, 'Taluk Stadium & Sports Ground')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10px] transition flex items-center gap-1 cursor-pointer border border-slate-700">
-                                <i data-lucide="crosshair" class="w-3 h-3"></i> Focus Map
+                <!-- ================= TAB 2: CADASTRAL & GEOTECHNICAL INSPECTOR ================= -->
+                <div id="studioTabCadastre" class="hidden flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                        <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
+                                <h3 class="text-xs font-bold text-white uppercase">Cadastral &amp; Geotechnical Telemetry</h3>
+                            </div>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-blue-500/15 text-cyan-300 font-bold border border-blue-500/30">GIS INSPECTOR</span>
+                        </div>
+
+                        <!-- Site Selector Buttons -->
+                        <div class="grid grid-cols-2 gap-1.5 text-[10px]">
+                            <button id="btnCadSite0" onclick="selectCadastralSite(0)" class="p-2 rounded-lg bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 font-bold text-left transition cursor-pointer">
+                                🏆 Taluk Stadium Complex
                             </button>
-                            <a href="/fleet" class="px-2.5 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-[10px] font-bold transition flex items-center gap-1 shadow">
-                                Convoy ➔
+                            <button id="btnCadSite1" onclick="selectCadastralSite(1)" class="p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
+                                🏫 Polytechnic Campus
+                            </button>
+                            <button id="btnCadSite2" onclick="selectCadastralSite(2)" class="p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
+                                🏢 Helang Community Hall
+                            </button>
+                            <button id="btnCadSite3" onclick="selectCadastralSite(3)" class="p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
+                                🌊 Alaknanda River Terrace
+                            </button>
+                        </div>
+
+                        <!-- Cadastral Details Card -->
+                        <div class="bg-[#040711] p-3.5 rounded-xl border border-blue-900/40 flex flex-col gap-2.5 text-xs">
+                            <div class="flex items-center justify-between border-b border-blue-900/30 pb-1.5">
+                                <span class="text-slate-400 text-[10px]">CADASTRAL PARCEL ID:</span>
+                                <span id="cadParcelId" class="font-mono text-cyan-300 font-bold">UK-CHM-REV-2024-8849</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-blue-900/30 pb-1.5">
+                                <span class="text-slate-400 text-[10px]">STATUTORY TENURE:</span>
+                                <span id="cadTenure" class="text-emerald-300 font-bold">State Govt Institutional Land</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-blue-900/30 pb-1.5">
+                                <span class="text-slate-400 text-[10px]">SOIL BEARING CAPACITY:</span>
+                                <span id="cadBearing" class="text-slate-200 font-bold">185 kN/m² (Fluvial Gravel / Silt)</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-blue-900/30 pb-1.5">
+                                <span class="text-slate-400 text-[10px]">HYDRAULIC FREEBOARD:</span>
+                                <span id="cadFreeboard" class="text-emerald-400 font-bold">+24.0m above 50-Yr Flood Line</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-blue-900/30 pb-1.5">
+                                <span class="text-slate-400 text-[10px]">INGRESS PASSABILITY:</span>
+                                <span id="cadIngress" class="text-cyan-300 font-bold">Dual-Lane Heavy Asphalt (>16T)</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-400 text-[10px]">CARTOSAT-3 HELIPAD:</span>
+                                <span id="cadHelipad" class="text-amber-300 font-bold">Class H1 (45.0m Cleared Zone)</span>
+                            </div>
+                        </div>
+
+                        <!-- Focus Map Button -->
+                        <button onclick="focusCurrentCadastralSite()" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer">
+                            <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
+                            <span>Focus Selected Parcel on Map</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ================= TAB 3: ZONATION BLUEPRINT ================= -->
+                <div id="studioTabZonation" class="hidden flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                        <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
+                                <h3 class="text-xs font-bold text-white uppercase">Tactical Sanctuary Zonation Blueprint</h3>
+                            </div>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">34,200 m² TOTAL</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">
+                            Spatial engineering layout configured to Sphere Humanitarian Standards for 4,500 displaced residents.
+                        </p>
+
+                        <!-- Zonation Grid -->
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-emerald-500/40">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white text-[11px]">Sector A &amp; B: Shelters</span>
+                                    <span class="text-emerald-400 font-bold text-[10px]">14,500 m²</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 block">840 Family Tents (3.5 m²/person floor area)</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-cyan-500/40">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white text-[11px]">Field Hospital / Triage</span>
+                                    <span class="text-cyan-400 font-bold text-[10px]">1,800 m²</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 block">3 Triage Bays + Cold-Chain Vaccine Store</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-blue-500/40">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white text-[11px]">Logistical Staging Yard</span>
+                                    <span class="text-blue-400 font-bold text-[10px]">3,200 m²</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 block">2-Lane Freight Turnaround + 72h Rations</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-purple-500/40">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white text-[11px]">WASH Sanitation Trench</span>
+                                    <span class="text-purple-400 font-bold text-[10px]">2,100 m²</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 block">210 Latrines (1/20p) &bull; Downslope Buffer</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-amber-500/40">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white text-[11px]">Emergency Helipad</span>
+                                    <span class="text-amber-400 font-bold text-[10px]">1,600 m²</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 block">45m Cleared Rotor Ring &bull; Night Lighting</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-teal-500/40">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-white text-[11px]">Livestock Outer Corral</span>
+                                    <span class="text-teal-400 font-bold text-[10px]">4,500 m²</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400 block">2,052 Head of Cattle with Fodder Station</span>
+                            </div>
+                        </div>
+
+                        <!-- Render Blueprint on Map -->
+                        <button onclick="drawZonationOverlay()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30 transition cursor-pointer">
+                            <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+                            <span id="lblDrawZonation">Render Spatial Zonation on Map</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ================= TAB 4: PHASED ROLLOUT TIMELINE ================= -->
+                <div id="studioTabTimeline" class="hidden flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                        <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="clock" class="w-4 h-4 text-cyan-400"></i>
+                                <h3 class="text-xs font-bold text-white uppercase">4-Phase Relocation Tactical Rollout</h3>
+                            </div>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-blue-500/20 text-cyan-300 font-bold">H+0 TO H+72 HOURS</span>
+                        </div>
+
+                        <!-- Timeline Milestones -->
+                        <div class="flex flex-col gap-2.5 text-xs">
+                            <!-- Phase 1 -->
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-cyan-400 border border-blue-900/30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-cyan-300">Phase 1: Ingress &amp; Perimeter Securing</span>
+                                    <span class="text-[10px] text-slate-400">H+0 to H+6 Hours</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300">
+                                    SDRF vanguard clears NH-58 arterial corridor; establishes 45m helipad beacon and mobile water purification (RO unit).
+                                </p>
+                            </div>
+                            <!-- Phase 2 -->
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-amber-400 border border-blue-900/30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-amber-300">Phase 2: Vulnerable Cohorts Influx</span>
+                                    <span class="text-[10px] text-slate-400">H+6 to H+18 Hours</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300">
+                                    Priority convoy transfers 1,368 children and 1,026 elderly to indoor gymnasium pavilions; 53 ambulances route 205 medical patients to field clinic.
+                                </p>
+                            </div>
+                            <!-- Phase 3 -->
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-blue-400 border border-blue-900/30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-blue-300">Phase 3: General Population Relocation</span>
+                                    <span class="text-[10px] text-slate-400">H+18 to H+36 Hours</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300">
+                                    84 state buses relocate general community; family tents assigned in Sector A &amp; B; biometric registration wristbands issued.
+                                </p>
+                            </div>
+                            <!-- Phase 4 -->
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-emerald-400 border border-blue-900/30">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="font-bold text-emerald-300">Phase 4: Humanitarian Stabilization</span>
+                                    <span class="text-[10px] text-slate-400">H+36 to H+72 Hours</span>
+                                </div>
+                                <p class="text-[11px] text-slate-300">
+                                    Full Sphere relief quotas (15L/day water, community kitchens, field schooling) operational; livestock quarantine holding active.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Direct Mobilization Action -->
+                        <div class="flex items-center gap-2 pt-1 border-t border-blue-900/40">
+                            <a href="/ddma" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-center font-bold text-xs flex items-center justify-center gap-1.5 shadow transition">
+                                <i data-lucide="file-check" class="w-3.5 h-3.5"></i> Export Official DDMA Order
+                            </a>
+                            <a href="/fleet" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs flex items-center gap-1 transition border border-slate-700">
+                                <i data-lucide="truck" class="w-3.5 h-3.5"></i> Fleet
                             </a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- 2. Candidate Sanctuaries Comparison & Veto Audit Matrix -->
-                <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
-                    <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="list-ordered" class="w-4 h-4 text-cyan-400"></i>
-                            <h4 class="text-xs font-bold text-white uppercase">Candidate Sanctuaries Evaluation Matrix</h4>
-                        </div>
-                        <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 font-bold">4 EVALUATED</span>
-                    </div>
-
-                    <div class="flex flex-col gap-2 max-h-[220px] overflow-y-auto pr-1">
-                        <!-- Candidate 1 -->
-                        <div class="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-700/50 flex flex-col gap-1">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-emerald-300">Taluk Stadium &amp; Sports Ground</span>
-                                <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-bold">RANK #1 PRIMARY</span>
-                            </div>
-                            <div class="flex items-center justify-between text-[10.5px] text-slate-400">
-                                <span>Dist: <b class="text-slate-200">5.84 km</b> | Cap: <b class="text-cyan-300">4,500</b> | Slope: <b class="text-emerald-400">3.8°</b></span>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-amber-300 font-bold">89.4/100</span>
-                                    <button onclick="focusSanctuary(centerLat + 0.0214, centerLon + 0.0148, 'Taluk Stadium & Sports Ground')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[9px] cursor-pointer">Pan</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Candidate 2 -->
-                        <div class="p-2.5 rounded-xl bg-[#040711] border border-blue-900/40 flex flex-col gap-1">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-white">Government Polytechnic College</span>
-                                <span class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300 font-bold">RANK #2 RESERVE</span>
-                            </div>
-                            <div class="flex items-center justify-between text-[10.5px] text-slate-400">
-                                <span>Dist: <b class="text-slate-200">6.12 km</b> | Cap: <b class="text-cyan-300">2,499</b> | Slope: <b class="text-emerald-400">1.8°</b></span>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-amber-300 font-bold">82.1/100</span>
-                                    <button onclick="focusSanctuary(centerLat - 0.0093, centerLon + 0.0578, 'Government Polytechnic College')" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[9px] cursor-pointer">Pan</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Candidate 3 (Vetoed) -->
-                        <div class="p-2.5 rounded-xl bg-red-950/15 border border-red-900/40 flex flex-col gap-1">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-slate-400 line-through">Helang Community Hall</span>
-                                <span class="text-[9px] px-1.5 py-0.2 rounded bg-red-950 text-red-400 font-bold">✕ VETOED</span>
-                            </div>
-                            <div class="flex items-center justify-between text-[10.5px] text-slate-400">
-                                <span>Dist: 3.41 km | Slope: <b class="text-red-400">18.4°</b> (Exceeds 14° safe limit)</span>
-                                <span class="text-red-400 font-bold">0/100</span>
-                            </div>
-                        </div>
-
-                        <!-- Candidate 4 (Vetoed) -->
-                        <div class="p-2.5 rounded-xl bg-red-950/15 border border-red-900/40 flex flex-col gap-1">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-slate-400 line-through">Upper Alaknanda Riverbank</span>
-                                <span class="text-[9px] px-1.5 py-0.2 rounded bg-red-950 text-red-400 font-bold">✕ VETOED</span>
-                            </div>
-                            <div class="flex items-center justify-between text-[10.5px] text-slate-400">
-                                <span>Dist: 4.89 km | Reason: <b class="text-red-400">Flood Inundation & Debris Risk</b></span>
-                                <span class="text-red-400 font-bold">0/100</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. Displaced Population Absorption & Knapsack Allocation -->
-                <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
-                    <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="users" class="w-4 h-4 text-emerald-400"></i>
-                            <h4 class="text-xs font-bold text-white uppercase">Population Absorption &amp; Cohort Distribution</h4>
-                        </div>
-                        <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">100% ZERO-DEFICIT</span>
-                    </div>
-
-                    <!-- Knapsack Capacity Bar -->
-                    <div class="flex flex-col gap-1 text-[11px]">
-                        <div class="flex justify-between text-slate-400">
-                            <span>Displaced Target: <b class="text-white">6,840</b></span>
-                            <span>Safe Capacity: <b class="text-emerald-400">6,999 (+159 Surplus)</b></span>
-                        </div>
-                        <!-- Two-tone bar -->
-                        <div class="w-full bg-[#040711] rounded-full h-2.5 border border-slate-800 flex overflow-hidden">
-                            <div class="bg-emerald-500 h-full" style="width: 65.7%;" title="Taluk Stadium (4,500)"></div>
-                            <div class="bg-cyan-500 h-full" style="width: 34.3%;" title="Polytechnic College (2,340)"></div>
-                        </div>
-                        <div class="flex justify-between text-[9px] text-slate-500 font-mono">
-                            <span class="text-emerald-400">&FilledSmallSquare; Hub 1: Taluk Stadium (4,500)</span>
-                            <span class="text-cyan-400">&FilledSmallSquare; Hub 2: Polytechnic (2,340)</span>
-                        </div>
-                    </div>
-
-                    <!-- Vulnerability Cohort Routing -->
-                    <div class="grid grid-cols-2 gap-2 text-[10px]">
-                        <div class="p-2 rounded-lg bg-[#040711] border border-blue-900/30">
-                            <span class="text-slate-400 block text-[9px]">CHILDREN &amp; ELDERLY</span>
-                            <span class="text-slate-200 font-bold">2,394 Persons (35%)</span>
-                            <span class="text-[8.5px] text-emerald-400 block">Indoor Pavilion &amp; Ramp Access</span>
-                        </div>
-                        <div class="p-2 rounded-lg bg-[#040711] border border-blue-900/30">
-                            <span class="text-slate-400 block text-[9px]">MEDICAL &amp; LIVESTOCK</span>
-                            <span class="text-slate-200 font-bold">205 Triage / 2,052 Head</span>
-                            <span class="text-[8.5px] text-cyan-400 block">Field Clinic &amp; Outer Corral</span>
-                        </div>
-                    </div>
-
-                    <!-- Mobilization Directives & Actions -->
-                    <div class="flex items-center gap-2 pt-1 border-t border-blue-900/40">
-                        <a href="/ddma" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-center font-bold text-xs flex items-center justify-center gap-1.5 shadow transition">
-                            <i data-lucide="file-check" class="w-3.5 h-3.5"></i> DDMA Relocation Order
-                        </a>
-                        <a href="/fleet" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs flex items-center gap-1 transition border border-slate-700">
-                            <i data-lucide="truck" class="w-3.5 h-3.5"></i> Fleet
-                        </a>
                     </div>
                 </div>
 
@@ -467,46 +574,335 @@
             }, 800);
         }
 
-        function switchStep(stepNum) {
-            currentStep = stepNum;
-            for (let i = 1; i <= 6; i++) {
-                const tab = document.getElementById(`tabStep${i}`);
-                const view = document.getElementById(`stepView${i}`);
-                if (i === stepNum) {
-                    tab.className = "py-1.5 rounded bg-cyan-400 text-slate-950 font-bold transition cursor-pointer";
+        // Relocation Candidate Sites Data Model
+        const candidateSites = [
+            {
+                id: 'site_a',
+                name: 'Taluk Stadium & Sports Ground',
+                badge: 'SITE A',
+                lat: centerLat + 0.0214,
+                lon: centerLon + 0.0148,
+                slope: 4.8,
+                distanceKm: 6.2,
+                capacity: 4500,
+                infraScore: 92,
+                defaultScore: 0.835
+            },
+            {
+                id: 'site_b',
+                name: 'Government Polytechnic College',
+                badge: 'SITE B',
+                lat: centerLat - 0.0093,
+                lon: centerLon + 0.0578,
+                slope: 8.2,
+                distanceKm: 11.4,
+                capacity: 2800,
+                infraScore: 84,
+                defaultScore: 0.782
+            },
+            {
+                id: 'site_c',
+                name: 'Helang Community Hall Grounds',
+                badge: 'SITE C',
+                lat: centerLat + 0.0341,
+                lon: centerLon + 0.0211,
+                slope: 18.4,
+                distanceKm: 8.5,
+                capacity: 1200,
+                infraScore: 70,
+                defaultScore: 0.512
+            },
+            {
+                id: 'site_d',
+                name: 'Alaknanda River Terrace Site',
+                badge: 'SITE D',
+                lat: centerLat - 0.0182,
+                lon: centerLon - 0.0241,
+                slope: 6.1,
+                distanceKm: 4.1,
+                capacity: 3500,
+                infraScore: 55,
+                defaultScore: 0.440
+            }
+        ];
+
+        // Cadastral GIS Data Model
+        const cadastralSites = [
+            {
+                name: 'Taluk Stadium Complex',
+                parcelId: 'UK-CHM-REV-2024-8849',
+                tenure: 'State Govt Institutional Land (DM Requisitioned)',
+                bearing: '185 kN/m² (Fluvial Gravel / Silt)',
+                freeboard: '+24.0m above 50-Yr Flood Line',
+                ingress: 'Dual-Lane Heavy Asphalt (>16T capacity)',
+                helipad: 'Class H1 (45.0m Cleared Zone)',
+                lat: centerLat + 0.0214,
+                lon: centerLon + 0.0148
+            },
+            {
+                name: 'Polytechnic Campus',
+                parcelId: 'UK-CHM-EDU-2018-4102',
+                tenure: 'Dept of Higher Education (Memorandum of Use)',
+                bearing: '210 kN/m² (Compacted Bedrock Subbase)',
+                freeboard: '+42.0m above 50-Yr Flood Line',
+                ingress: 'Single-Lane Paved with 3 Passing Bays',
+                helipad: 'Class H2 (30.0m Cleared Playfield)',
+                lat: centerLat - 0.0093,
+                lon: centerLon + 0.0578
+            },
+            {
+                name: 'Helang Community Hall',
+                parcelId: 'UK-CHM-GP-2012-0941',
+                tenure: 'Gram Panchayat Common Land (Under Dispute)',
+                bearing: '115 kN/m² (Colluvial Talus / Fractured)',
+                freeboard: '+12.0m (Unstable drainage culvert)',
+                ingress: 'Unpaved Mountain Track (High Landslide Risk)',
+                helipad: 'None (Steep Gradient >18°)',
+                lat: centerLat + 0.0341,
+                lon: centerLon + 0.0211
+            },
+            {
+                name: 'Alaknanda River Terrace',
+                parcelId: 'UK-CHM-IRR-2005-0012',
+                tenure: 'Irrigation Dept Buffer Reserve',
+                bearing: '95 kN/m² (Loose River Sand / Saturated)',
+                freeboard: '-1.5m BELOW High Water Inundation Level',
+                ingress: 'Embankment Service Road (Submersible)',
+                helipad: 'None (Active Floodway)',
+                lat: centerLat - 0.0182,
+                lon: centerLon - 0.0241
+            }
+        ];
+
+        let currentCadIndex = 0;
+        let zonationGroup = null;
+
+        // Switch Sub-Tabs in Studio
+        function switchStudioTab(tabId) {
+            const tabs = ['sim', 'cadastre', 'zonation', 'timeline'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`btnStudio${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const view = document.getElementById(`studioTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (t === tabId) {
+                    btn.className = "flex-1 py-2 rounded-xl bg-cyan-400 text-slate-950 flex items-center justify-center gap-1.5 transition cursor-pointer shadow font-bold";
                     view.classList.remove('hidden');
                 } else {
-                    tab.className = "py-1.5 rounded bg-[#040711] text-slate-400 border border-blue-900/40 hover:text-white transition cursor-pointer";
+                    btn.className = "flex-1 py-2 rounded-xl bg-transparent text-slate-400 hover:text-white flex items-center justify-center gap-1.5 transition cursor-pointer font-bold";
                     view.classList.add('hidden');
                 }
-            }
-            document.getElementById('lblStepIndicator').textContent = `Step ${stepNum} of 6`;
+            });
             lucide.createIcons();
         }
 
-        function navigateRelocStep(dir) {
-            let next = currentStep + dir;
-            if (next >= 1 && next <= 6) {
-                switchStep(next);
+        // Live update slider labels
+        function updateSimWeights() {
+            const wSafety = document.getElementById('rngSafety').value;
+            const wDist = document.getElementById('rngDist').value;
+            const wCap = document.getElementById('rngCap').value;
+            const wInfra = document.getElementById('rngInfra').value;
+            const maxSlope = parseFloat(document.getElementById('rngMaxSlope').value).toFixed(1);
+
+            document.getElementById('lblWeightSafety').textContent = `${wSafety}%`;
+            document.getElementById('lblWeightDist').textContent = `${wDist}%`;
+            document.getElementById('lblWeightCap').textContent = `${wCap}%`;
+            document.getElementById('lblWeightInfra').textContent = `${wInfra}%`;
+            document.getElementById('lblMaxSlope').textContent = `${maxSlope}°`;
+        }
+
+        // Recalculate TOPSIS simulation scores under custom weights
+        function recalculateMCDASimulation() {
+            const wSafety = parseFloat(document.getElementById('rngSafety').value);
+            const wDist = parseFloat(document.getElementById('rngDist').value);
+            const wCap = parseFloat(document.getElementById('rngCap').value);
+            const wInfra = parseFloat(document.getElementById('rngInfra').value);
+            const maxSlope = parseFloat(document.getElementById('rngMaxSlope').value);
+            const totalW = wSafety + wDist + wCap + wInfra;
+
+            const results = candidateSites.map(site => {
+                const isVetoed = site.slope > maxSlope || site.id === 'site_d'; // Site D has river floodway veto
+                let vetoReason = '';
+                if (site.slope > maxSlope) vetoReason = `Slope ${site.slope}° > ${maxSlope}° Veto Limit`;
+                else if (site.id === 'site_d') vetoReason = 'Within 50-Yr Active Floodway';
+
+                // Normalized scores (higher is better)
+                const sSafety = Math.max(0, 1 - (site.slope / 25.0));
+                const sDist = Math.max(0, 1 - (site.distanceKm / 15.0));
+                const sCap = Math.min(1, site.capacity / 5000.0);
+                const sInfra = site.infraScore / 100.0;
+
+                const score = ((wSafety * sSafety) + (wDist * sDist) + (wCap * sCap) + (wInfra * sInfra)) / totalW;
+
+                return {
+                    ...site,
+                    isVetoed,
+                    vetoReason,
+                    simScore: isVetoed ? 0.0 : score
+                };
+            });
+
+            // Sort: non-vetoed by score descending, then vetoed
+            results.sort((a, b) => {
+                if (a.isVetoed && !b.isVetoed) return 1;
+                if (!a.isVetoed && b.isVetoed) return -1;
+                return b.simScore - a.simScore;
+            });
+
+            renderSimResults(results);
+        }
+
+        function renderSimResults(results) {
+            const container = document.getElementById('simResultsContainer');
+            if (!container) return;
+            let html = `<div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1 flex justify-between">
+                <span>Simulated Candidate Ranking</span>
+                <span>TOPSIS Score</span>
+            </div>`;
+
+            results.forEach((item, index) => {
+                if (item.isVetoed) {
+                    html += `
+                    <div class="p-2.5 rounded-xl bg-red-950/20 border border-red-900/40 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-5 h-5 rounded-full bg-red-900/50 text-red-300 font-bold text-[10px] flex items-center justify-center">✕</span>
+                            <div>
+                                <div class="text-white font-bold text-xs">${item.name}</div>
+                                <div class="text-[10px] text-red-400">HARD VETO: ${item.vetoReason}</div>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 font-bold text-[10px]">VETOED</span>
+                    </div>`;
+                } else {
+                    const rankBadge = index === 0 
+                        ? `<span class="w-5 h-5 rounded-full bg-emerald-400 text-slate-950 font-bold text-[10px] flex items-center justify-center">1</span>`
+                        : `<span class="w-5 h-5 rounded-full bg-blue-900/60 text-cyan-300 font-bold text-[10px] flex items-center justify-center">${index + 1}</span>`;
+                    
+                    const scorePct = Math.round(item.simScore * 100);
+                    const borderCls = index === 0 ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-blue-900/40 bg-[#040711]';
+
+                    html += `
+                    <div class="p-2.5 rounded-xl ${borderCls} border flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            ${rankBadge}
+                            <div>
+                                <div class="text-white font-bold text-xs flex items-center gap-1.5">
+                                    ${item.name}
+                                    ${index === 0 ? '<span class="px-1.5 py-0.2 rounded bg-emerald-400 text-slate-950 font-black text-[9px]">RECOMMENDED</span>' : ''}
+                                </div>
+                                <div class="text-[10px] text-slate-400">Slope ${item.slope}° &bull; Dist ${item.distanceKm}km &bull; Cap ${item.capacity.toLocaleString()}</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-emerald-400 font-bold text-xs">${(item.simScore).toFixed(3)}</div>
+                            <div class="w-14 bg-slate-800 rounded-full h-1.5 mt-1 overflow-hidden">
+                                <div class="bg-gradient-to-r from-cyan-400 to-emerald-400 h-1.5 rounded-full" style="width: ${scorePct}%"></div>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Cadastral Site Selection
+        function selectCadastralSite(idx) {
+            currentCadIndex = parseInt(idx);
+            for (let i = 0; i < 4; i++) {
+                const b = document.getElementById(`btnCadSite${i}`);
+                if (b) {
+                    if (i === currentCadIndex) {
+                        b.className = "p-2 rounded-lg bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 font-bold text-left transition cursor-pointer";
+                    } else {
+                        b.className = "p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer";
+                    }
+                }
+            }
+
+            const data = cadastralSites[currentCadIndex];
+            if (data) {
+                document.getElementById('cadParcelId').textContent = data.parcelId;
+                document.getElementById('cadTenure').textContent = data.tenure;
+                document.getElementById('cadBearing').textContent = data.bearing;
+                document.getElementById('cadFreeboard').textContent = data.freeboard;
+                document.getElementById('cadIngress').textContent = data.ingress;
+                document.getElementById('cadHelipad').textContent = data.helipad;
             }
         }
 
-        function runRelocationAnalysis() {
-            const btn = document.getElementById('btnRelocAnalyze');
-            btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Analyzing...</span>`;
-            lucide.createIcons();
-            setTimeout(() => {
-                btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i><span>Converged</span>`;
-                lucide.createIcons();
-                setTimeout(() => {
-                    btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i><span>Re-evaluate Candidates</span>`;
-                    lucide.createIcons();
-                }, 1500);
-            }, 800);
+        function focusCurrentCadastralSite() {
+            const data = cadastralSites[currentCadIndex];
+            if (data) {
+                focusSanctuary(data.lat, data.lon, data.name);
+            }
+        }
+
+        // Spatial Zonation Overlay on Leaflet Map
+        function drawZonationOverlay() {
+            const sLat = centerLat + 0.0214;
+            const sLon = centerLon + 0.0148;
+            const btnLbl = document.getElementById('lblDrawZonation');
+
+            if (zonationGroup && relocMap.hasLayer(zonationGroup)) {
+                relocMap.removeLayer(zonationGroup);
+                zonationGroup = null;
+                if (btnLbl) btnLbl.textContent = "Render Spatial Zonation on Map";
+                return;
+            }
+
+            // Create sector zones around Sanctuary
+            const sA = L.polygon([
+                [sLat + 0.0018, sLon - 0.0022],
+                [sLat + 0.0035, sLon - 0.0022],
+                [sLat + 0.0035, sLon + 0.0005],
+                [sLat + 0.0018, sLon + 0.0005]
+            ], { color: '#10b981', fillColor: '#10b981', fillOpacity: 0.45, weight: 2 }).bindPopup("<b>Sector A & B: Shelters</b><br>14,500 m² &bull; 840 Family Tents");
+
+            const sHospital = L.polygon([
+                [sLat + 0.0005, sLon - 0.0022],
+                [sLat + 0.0015, sLon - 0.0022],
+                [sLat + 0.0015, sLon - 0.0005],
+                [sLat + 0.0005, sLon - 0.0005]
+            ], { color: '#00e5ff', fillColor: '#00e5ff', fillOpacity: 0.5, weight: 2 }).bindPopup("<b>Field Hospital & Triage</b><br>1,800 m² &bull; 3 Triage Bays + Cold-Chain Vaccine Store");
+
+            const sLogistics = L.polygon([
+                [sLat + 0.0005, sLon + 0.0008],
+                [sLat + 0.0022, sLon + 0.0008],
+                [sLat + 0.0022, sLon + 0.0025],
+                [sLat + 0.0005, sLon + 0.0025]
+            ], { color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.45, weight: 2 }).bindPopup("<b>Logistical Staging Yard</b><br>3,200 m² &bull; 2-Lane Turnaround & 72h Rations");
+
+            const sWash = L.polygon([
+                [sLat - 0.0010, sLon - 0.0020],
+                [sLat - 0.0002, sLon - 0.0020],
+                [sLat - 0.0002, sLon - 0.0002],
+                [sLat - 0.0010, sLon - 0.0002]
+            ], { color: '#a855f7', fillColor: '#a855f7', fillOpacity: 0.45, weight: 2 }).bindPopup("<b>WASH Sanitation Trench</b><br>2,100 m² &bull; 210 Latrines (1/20p)");
+
+            const sHelipad = L.circle([sLat + 0.0026, sLon + 0.0018], {
+                radius: 45,
+                color: '#f59e0b',
+                fillColor: '#f59e0b',
+                fillOpacity: 0.6,
+                weight: 2
+            }).bindPopup("<b>Emergency Helipad</b><br>1,600 m² &bull; 45m Rotor Ring");
+
+            const sLivestock = L.polygon([
+                [sLat - 0.0018, sLon + 0.0005],
+                [sLat - 0.0002, sLon + 0.0005],
+                [sLat - 0.0002, sLon + 0.0025],
+                [sLat - 0.0018, sLon + 0.0025]
+            ], { color: '#14b8a6', fillColor: '#14b8a6', fillOpacity: 0.45, weight: 2 }).bindPopup("<b>Livestock Outer Corral</b><br>4,500 m² &bull; 2,052 Head of Cattle");
+
+            zonationGroup = L.layerGroup([sA, sHospital, sLogistics, sWash, sHelipad, sLivestock]);
+            zonationGroup.addTo(relocMap);
+
+            relocMap.flyTo([sLat + 0.001, sLon], 16, { duration: 1.2 });
+            if (btnLbl) btnLbl.textContent = "Remove Zonation Overlay from Map";
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             initRelocationMap();
+            recalculateMCDASimulation();
         });
     </script>
 </body>
