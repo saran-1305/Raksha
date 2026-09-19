@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAKSHA | Evacuation Fleet Commander & Logistics Dispatch</title>
+    <title>RAKSHA | Evacuation Fleet Logistics</title>
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #080d1a; color: #f1f5f9; }
+        body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #060a14; }
@@ -21,55 +21,51 @@
 <body class="min-h-screen flex flex-col antialiased">
 
     <!-- Unified Global Header -->
-    <header class="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-xl">
+    <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
             <div class="flex items-center gap-3">
                 <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(6,182,212,0.5)]" />
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
                 </a>
                 <div>
-                    <div class="flex items-center gap-2.5">
-                        <span class="font-extrabold text-lg tracking-tight text-white font-mono flex items-center gap-1.5">
-                            RAKSHA <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">2.0 PRO</span>
-                        </span>
-                        <span class="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/15 text-purple-400 border border-purple-500/30">
-                            FLEET LOGISTICS
-                        </span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-lg text-white font-mono tracking-tight">RAKSHA</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 font-semibold">FLEET LOGISTICS</span>
                     </div>
                     <p class="text-[11px] text-slate-400 hidden sm:block">State Transport Fleet Sizing &amp; Humanitarian Lifelines</p>
                 </div>
             </div>
 
-            <!-- Portal Navigation Bar -->
-            <nav class="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800 text-xs font-mono">
-                <a href="/simulation" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5">
-                    <i data-lucide="map" class="w-3.5 h-3.5"></i>
-                    <span>Overview Hub</span>
+            <!-- PRIMARY CANONICAL NAVIGATION (Single Canonical Entry Point) -->
+            <nav class="flex items-center gap-1 bg-[#091122] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
+                <a href="/overview" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
+                    <span>Overview</span>
                 </a>
-                <a href="/earth-observation" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5">
+                <a href="/eo-studio" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="satellite" class="w-3.5 h-3.5"></i>
-                    <span>Earth Observation</span>
+                    <span>EO Studio</span>
                 </a>
-                <a href="/hazard-lab" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5">
+                <a href="/hazard-lab" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="flame" class="w-3.5 h-3.5"></i>
                     <span>Hazard Lab</span>
                 </a>
-                <a href="/relocation-engine" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5">
+                <a href="/relocation" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="compass" class="w-3.5 h-3.5"></i>
-                    <span>Relocation Engine</span>
+                    <span>Relocation</span>
                 </a>
-                <a href="/workflow/1" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5">
-                    <i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i>
-                    <span>Workflow (1-6)</span>
+                <a href="/workflow" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                    <i data-lucide="git-pull-request" class="w-3.5 h-3.5"></i>
+                    <span>Workflow</span>
                 </a>
-                <a href="/logistics-dispatch" class="px-3 py-1.5 rounded-lg bg-purple-950 text-purple-300 border border-purple-700/60 font-bold transition flex items-center gap-1.5 shadow">
+                <a href="/fleet" class="px-3 py-1.5 rounded-lg bg-blue-950 text-purple-300 border border-purple-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(168,85,247,0.2)]">
                     <i data-lucide="truck" class="w-3.5 h-3.5 text-purple-400"></i>
-                    <span>Evacuation Fleet</span>
+                    <span>Fleet</span>
                 </a>
-                <a href="/ddma-dossier" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition flex items-center gap-1.5">
+                <a href="/ddma" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                    <span>DDMA Dossier</span>
+                    <span>DDMA</span>
                 </a>
             </nav>
 
@@ -77,18 +73,35 @@
             <div class="flex items-center gap-2">
                 <div class="hidden xl:flex items-center gap-1.5 text-xs font-mono">
                     <span class="text-slate-500 text-[11px] uppercase mr-1">Hotspot:</span>
-                    <button onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs transition border border-slate-700">Devgram</button>
-                    <button onclick="selectPreset('wayanad')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-red-300 text-xs transition border border-slate-700">Wayanad</button>
-                    <button onclick="selectPreset('silchar')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-blue-300 text-xs transition border border-slate-700">Silchar</button>
-                    <button onclick="selectPreset('chamoli')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs transition border border-slate-700">Joshimath</button>
+                    <button onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-cyan-300 text-xs transition border border-blue-800/60">Devgram</button>
+                    <button onclick="selectPreset('wayanad')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-red-300 text-xs transition border border-blue-800/60">Wayanad</button>
+                    <button onclick="selectPreset('silchar')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-blue-300 text-xs transition border border-blue-800/60">Silchar</button>
+                    <button onclick="selectPreset('chamoli')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-amber-300 text-xs transition border border-blue-800/60">Joshimath</button>
                 </div>
-                <button onclick="refreshAnalysis()" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-400 border border-slate-700 transition" title="Recompute Fleet">
+                <button onclick="refreshAnalysis()" class="p-2 rounded-lg bg-blue-950/60 hover:bg-blue-900/70 text-purple-400 border border-blue-800/60 transition" title="Recompute Fleet">
                     <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                 </button>
             </div>
-
         </div>
     </header>
+
+    <!-- Contextual Breadcrumb Ribbon -->
+    <div class="border-b border-blue-900/30 bg-[#070e1c] px-6 py-2.5">
+        <div class="max-w-[1850px] mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+                <a href="/overview" class="text-cyan-400 hover:underline">RAKSHA</a>
+                <span>/</span>
+                <span class="text-slate-200 font-semibold uppercase tracking-wider">EVACUATION FLEET LOGISTICS</span>
+                <span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-300 border border-purple-500/30 hidden sm:inline-block">
+                    SIMULATED / ESTIMATED EVACUATION DISPATCH
+                </span>
+            </div>
+            <a href="/overview" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition flex items-center gap-1.5 group">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
+                <span>BACK TO OVERVIEW</span>
+            </a>
+        </div>
+    </div>
 
     <!-- Sub-header Ribbon -->
     <div class="bg-slate-950/90 border-b border-slate-800/80 px-6 py-2">

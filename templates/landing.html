@@ -1,570 +1,616 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAKSHA | Earth Observation & Disaster Relocation System</title>
+    <title>RAKSHA | AI-Driven Multi-Hazard Relocation Intelligence</title>
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts: Inter, JetBrains Mono, and Caveat (for handwritten script) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #040810;
-            margin: 0;
-            padding: 0;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        
+        :root {
+            --bg-base: #040711;
+            --bg-card: #080e1c;
+            --border-blue: rgba(37, 99, 235, 0.2);
+            --accent-cyan: #00e5ff;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-base); 
+            color: #f1f5f9; 
             overflow-x: hidden;
         }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .font-script { font-family: 'Caveat', cursive; }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #040810; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #03050a; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
 
-        @keyframes radar-sweep {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .radar-sweep-beam {
-            animation: radar-sweep 4s linear infinite;
-            transform-origin: center center;
+        /* Grid Background Pattern */
+        .cyber-grid-bg {
+            background-image: radial-gradient(rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
         }
 
-        @keyframes hud-float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        .hud-card-float {
-            animation: hud-float 6s ease-in-out infinite;
-        }
-
-        @keyframes vertical-laser-scan {
-            0% { top: 0%; opacity: 0; }
-            15% { opacity: 1; }
-            85% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
-        .laser-scan-line {
-            animation: vertical-laser-scan 1.8s ease-in-out forwards;
+        /* Scan Line Animation */
+        @keyframes scanline {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(1000%); opacity: 0; }
         }
 
-        /* ========================================================================= */
-        /* CINEMATIC ZOOM-IN & DIVE-THROUGH REVEAL TRANSITIONS                       */
-        /* ========================================================================= */
-        #raksha-intro-screen {
-            transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1);
+        .animate-scan {
+            animation: scanline 8s ease-in-out infinite;
         }
 
-        #intro-center-stage {
-            transform-origin: center center;
-            will-change: transform, opacity, filter;
-            transition: transform 900ms cubic-bezier(0.25, 0.1, 0.25, 1), 
-                        opacity 650ms cubic-bezier(0.4, 0, 0.2, 1) 150ms, 
-                        filter 800ms ease-out;
+        /* Pulse Ring */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.08); opacity: 0.3; }
+            100% { transform: scale(0.95); opacity: 0.8; }
         }
 
-        .intro-zoom-in {
-            transform: scale(4.8) translateZ(0) !important;
-            opacity: 0 !important;
-            filter: blur(14px) brightness(2.0) !important;
-            pointer-events: none !important;
-        }
-
-        #raksha-landing-page {
-            transform-origin: center center;
-            will-change: transform, opacity;
-            transition: opacity 850ms cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 950ms cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .landing-hidden {
-            opacity: 0 !important;
-            transform: scale(0.92) translateZ(0) !important;
-            pointer-events: none !important;
-        }
-
-        .landing-reveal {
-            opacity: 1 !important;
-            transform: scale(1) translateZ(0) !important;
-            pointer-events: auto !important;
+        .pulse-logo {
+            animation: pulse-ring 4s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col antialiased select-none bg-[#040810]">
+<body class="min-h-screen flex flex-col antialiased cyber-grid-bg relative">
 
-    <!-- ========================================================================= -->
-    <!-- 1. CINEMATIC LOGO-INTRO SCREEN (Zoom-out transition into landing page)    -->
-    <!-- ========================================================================= -->
-    <div id="raksha-intro-screen" class="fixed inset-0 z-[100] bg-[#040810] flex flex-col items-center justify-center overflow-hidden">
-        <canvas id="intro-particles" class="absolute inset-0 pointer-events-none"></canvas>
-        
-        <!-- Radar Ring & Free-Floating Hologram (Zero Box) -->
-        <div id="intro-center-stage" class="relative flex flex-col items-center justify-center p-8">
-            <div class="absolute w-80 h-80 sm:w-[420px] sm:h-[420px] rounded-full border border-cyan-500/20 animate-ping opacity-20 pointer-events-none"></div>
-            <div class="absolute w-72 h-72 sm:w-[380px] sm:h-[380px] rounded-full border border-cyan-500/30 pointer-events-none"></div>
-            <div class="absolute w-72 h-72 sm:w-[380px] sm:h-[380px] rounded-full border-t-2 border-emerald-400/70 radar-sweep-beam pointer-events-none"></div>
-            <div class="absolute w-60 h-60 sm:w-[320px] sm:h-[320px] rounded-full border border-dashed border-teal-500/30 animate-spin pointer-events-none" style="animation-duration: 22s;"></div>
+    <!-- Atmospheric Particle Canvas -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
 
-            <!-- Free-floating Transparent Logo Emblem -->
-            <div class="relative z-10 flex items-center justify-center transition-transform duration-700 hover:scale-105">
-                <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-52 sm:h-64 w-auto object-contain filter drop-shadow-[0_0_45px_rgba(6,182,212,0.55)]" />
-            </div>
+    <!-- Subtle Radar Scan Line Overlay -->
+    <div class="fixed inset-x-0 h-40 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent pointer-events-none z-0 animate-scan"></div>
 
-            <!-- Intelligent System Status HUD -->
-            <div id="intro-hud-text" class="mt-8 text-center space-y-2 z-10">
-                <div class="flex items-center justify-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-xs font-mono font-bold tracking-[0.25em] text-cyan-300 uppercase">SYS_ONLINE // EO TELEMETRY</span>
+    <!-- ================= TOP MINIMAL HEADER ================= -->
+    <header class="relative z-30 border-b border-blue-900/30 bg-[#040711]/80 backdrop-blur-md px-6 py-4 sticky top-0">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3 group">
+                <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_0_10px_rgba(0,229,255,0.4)]">
+                <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-lg text-white font-mono tracking-wider">RAKSHA</span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-cyan-400 border border-cyan-500/30 font-semibold">GEOSPATIAL INTELLIGENCE</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-widest text-white font-mono">RAKSHA</h2>
-                <p class="text-xs sm:text-sm font-mono text-slate-400 max-w-sm">EARTH OBSERVATION & DISASTER RELOCATION INTELLIGENCE</p>
-                <p class="text-[11px] font-mono text-cyan-400/80 animate-pulse">SYNCHRONIZING ORBITAL RADAR & RECOVERY FEEDS...</p>
-            </div>
-        </div>
+            </a>
 
-        <!-- Skip Control -->
-        <button onclick="skipIntroToLanding()" class="absolute bottom-6 right-6 px-3.5 py-1.5 rounded-lg bg-slate-900/70 hover:bg-slate-800 text-slate-400 hover:text-cyan-300 border border-slate-700/60 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer backdrop-blur shadow z-20">
-            <span>Skip Intro [ESC]</span>
-            <i data-lucide="chevrons-right" class="w-3.5 h-3.5"></i>
-        </button>
-    </div>
-
-    <!-- ========================================================================= -->
-    <!-- 2. CINEMATIC LANDING PAGE (Exact Match to User Reference Mock)            -->
-    <!-- ========================================================================= -->
-    <div id="raksha-landing-page" class="fixed inset-0 z-[90] overflow-y-auto bg-[#040810] flex flex-col landing-hidden">
-        
-        <!-- Photographic Background: Wayanad Mountain Valley + Field Responder -->
-        <div class="fixed inset-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-10000 ease-out scale-105" 
-                 style="background-image: url('/assets/raksha_wayanad_bg.jpg');"></div>
-            
-            <!-- Left-side dark contrast gradient for optimal typography readability -->
-            <div class="absolute inset-0 bg-gradient-to-r from-[#040810]/95 via-[#040810]/70 sm:via-[#040810]/40 to-transparent"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#040810] via-transparent to-[#040810]/60"></div>
-            
-            <!-- Interactive subtle particle canvas -->
-            <canvas id="landing-particle-canvas" class="absolute inset-0"></canvas>
-        </div>
-
-        <!-- Navigation Header -->
-        <header class="relative z-20 px-6 sm:px-12 py-5 flex items-center justify-between border-b border-white/10 backdrop-blur-sm">
-            <div class="flex items-center gap-3">
-                <div class="h-10 w-10 flex items-center justify-center">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA" class="h-10 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
-                </div>
-                <div>
-                    <span class="font-extrabold text-lg tracking-wider text-white font-mono flex items-center gap-1.5">
-                        RAKSHA <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono">EO-AI 2.0</span>
-                    </span>
-                    <p class="text-[10px] text-slate-400 tracking-wide font-mono hidden sm:block">EARTH OBSERVATION DISASTER RELOCATION</p>
-                </div>
-            </div>
-
-            <!-- Center Provenance Badge -->
-            <div class="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-950/80 border border-slate-700/60 text-[11px] font-mono text-slate-300 shadow">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>SENTINEL-1 SAR</span>
-                <span class="text-slate-600">•</span>
-                <span>SENTINEL-2 L2A</span>
-                <span class="text-slate-600">•</span>
-                <span>CARTOSAT-3</span>
-                <span class="text-slate-600">•</span>
-                <span>ISRO BHUVAN</span>
-            </div>
-
-            <!-- Direct Enter Button -->
-            <button onclick="bootSystemAndEnter()" class="text-xs font-mono text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition cursor-pointer px-3.5 py-1.5 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/50 border border-emerald-500/30">
-                <span>Enter Simulation</span>
-                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-            </button>
-        </header>
-
-        <!-- Main Hero Section (Split Layout) -->
-        <main class="relative z-20 flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 py-8 max-w-7xl mx-auto w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[70vh]">
+            <div class="flex items-center gap-4">
+                <a href="#how-it-thinks" class="text-xs font-mono text-slate-400 hover:text-cyan-300 transition hidden md:inline">ARCHITECTURE</a>
+                <a href="#data-intelligence" class="text-xs font-mono text-slate-400 hover:text-cyan-300 transition hidden md:inline">DATA ECOSYSTEM</a>
+                <a href="#platform-modules" class="text-xs font-mono text-slate-400 hover:text-cyan-300 transition hidden sm:inline">MODULES</a>
                 
-                <!-- ================= LEFT COLUMN: HERO CONTENT ================= -->
-                <div class="lg:col-span-6 space-y-6">
-                    
-                    <!-- Headline: From Risk to Resilience -->
-                    <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black text-white tracking-tight leading-[1.05]">
-                        From Risk<br>
-                        <span class="text-emerald-400 drop-shadow-[0_0_25px_rgba(16,185,129,0.35)]">to Resilience</span>
-                    </h1>
-
-                    <!-- Subtitle -->
-                    <p class="text-slate-200 text-sm sm:text-base xl:text-lg max-w-xl font-normal leading-relaxed">
-                        An AI-powered geospatial platform for disaster analysis, safe relocation planning, and faster recovery.
-                    </p>
-
-                    <!-- 4 Feature Pillars (Exact Icons & Labels from Mock) -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 pt-4 pb-2 border-t border-white/10 max-w-xl">
-                        
-                        <!-- Pillar 1: Detect Hazards -->
-                        <div class="flex flex-col items-start gap-2 group">
-                            <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-slate-300 group-hover:text-emerald-400 group-hover:bg-emerald-950/50 transition">
-                                <i data-lucide="crosshair" class="w-4 h-4"></i>
-                            </div>
-                            <span class="text-xs font-semibold text-slate-200 group-hover:text-white transition leading-snug">Detect<br class="hidden sm:inline"> Hazards</span>
-                        </div>
-
-                        <!-- Pillar 2: Assess Impact -->
-                        <div class="flex flex-col items-start gap-2 group">
-                            <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-slate-300 group-hover:text-amber-400 group-hover:bg-amber-950/50 transition">
-                                <i data-lucide="trending-up" class="w-4 h-4"></i>
-                            </div>
-                            <span class="text-xs font-semibold text-slate-200 group-hover:text-white transition leading-snug">Assess<br class="hidden sm:inline"> Impact</span>
-                        </div>
-
-                        <!-- Pillar 3: Plan Relocation -->
-                        <div class="flex flex-col items-start gap-2 group">
-                            <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-slate-300 group-hover:text-cyan-400 group-hover:bg-cyan-950/50 transition">
-                                <i data-lucide="home" class="w-4 h-4"></i>
-                            </div>
-                            <span class="text-xs font-semibold text-slate-200 group-hover:text-white transition leading-snug">Plan<br class="hidden sm:inline"> Relocation</span>
-                        </div>
-
-                        <!-- Pillar 4: Build Resilient Communities -->
-                        <div class="flex flex-col items-start gap-2 group">
-                            <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-slate-300 group-hover:text-teal-400 group-hover:bg-teal-950/50 transition">
-                                <i data-lucide="shield" class="w-4 h-4"></i>
-                            </div>
-                            <span class="text-xs font-semibold text-slate-200 group-hover:text-white transition leading-snug">Build Resilient<br class="hidden sm:inline"> Communities</span>
-                        </div>
-                    </div>
-
-                    <!-- Call To Action Button -->
-                    <div class="pt-4">
-                        <!-- Primary Button: Enter RAKSHA (Run a Simulation) -->
-                        <button onclick="bootSystemAndEnter()" 
-                                class="group relative px-8 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold shadow-[0_0_35px_rgba(16,185,129,0.45)] hover:shadow-[0_0_50px_rgba(16,185,129,0.65)] border border-emerald-300/40 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer transform hover:scale-[1.02] min-w-[200px]">
-                            <div class="flex items-center gap-2">
-                                <span class="text-base tracking-wide font-semibold">Enter RAKSHA</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                            </div>
-                            <span class="text-[11px] text-emerald-100/90 font-normal tracking-wide">Run a Simulation</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- ================= RIGHT COLUMN (UNOBSTRUCTED SCENERY) ================= -->
-                <div class="lg:col-span-6 flex flex-col items-center lg:items-end justify-end relative h-full pb-4 sm:pb-8 pointer-events-none">
-                </div>
-
-            </div>
-        </main>
-
-        <!-- Footer Bar -->
-        <footer class="relative z-20 px-6 sm:px-12 py-4 text-center text-slate-500 text-[11px] font-mono border-t border-white/5 bg-[#040810]/80 backdrop-blur-sm">
-            RAKSHA Earth Observation & AI Relocation Engine • National Disaster Management Architecture 2026
-        </footer>
-    </div>
-
-    <!-- ========================================================================= -->
-    <!-- 3. BOOT-UP TRANSITION OVERLAY                                             -->
-    <!-- ========================================================================= -->
-    <div id="raksha-boot-overlay" class="fixed inset-0 z-[95] bg-[#040810]/95 backdrop-blur-md flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-700">
-        <div class="relative flex items-center justify-center mb-6">
-            <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA" class="h-24 w-auto object-contain filter drop-shadow-[0_0_35px_rgba(16,185,129,0.6)]" />
-        </div>
-        <div id="boot-laser-line" class="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_20px_#10b981] opacity-0 pointer-events-none"></div>
-        <div class="w-full max-w-md px-6 font-mono text-left space-y-2">
-            <div id="boot-title" class="text-sm font-bold tracking-widest text-emerald-300 mb-3 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                INITIALIZING RAKSHA ENGINE...
-            </div>
-            <div id="boot-step-1" class="text-xs text-slate-400 opacity-0 transition-opacity duration-300 flex items-center gap-2">
-                <span class="text-emerald-400 font-bold">✓</span> Earth Observation (Sentinel-1 SAR & Sentinel-2 Optical)
-            </div>
-            <div id="boot-step-2" class="text-xs text-slate-400 opacity-0 transition-opacity duration-300 flex items-center gap-2">
-                <span class="text-emerald-400 font-bold">✓</span> Hazard Intelligence & Soil Saturation Inundation
-            </div>
-            <div id="boot-step-3" class="text-xs text-slate-400 opacity-0 transition-opacity duration-300 flex items-center gap-2">
-                <span class="text-emerald-400 font-bold">✓</span> Topographic DEM Gravity Runoff Analysis
-            </div>
-            <div id="boot-step-4" class="text-xs text-slate-400 opacity-0 transition-opacity duration-300 flex items-center gap-2">
-                <span class="text-emerald-400 font-bold">✓</span> Safe Sanctuary Ranking (Zero-Tolerance Vetoes)
-            </div>
-            <div id="boot-step-5" class="text-xs text-slate-400 opacity-0 transition-opacity duration-300 flex items-center gap-2">
-                <span class="text-emerald-400 font-bold">✓</span> ISRO Cartosat-3 Sub-Meter High-Res Verification
-            </div>
-            <div id="boot-ready" class="text-sm font-bold text-emerald-400 tracking-wider pt-3 opacity-0 transition-opacity duration-300 text-center font-mono">
-                ★ ALL SYSTEMS READY • ENTERING SIMULATION ★
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================================================= -->
-    <!-- 4. WATCH VIDEO / SYSTEM OVERVIEW MODAL                                    -->
-    <!-- ========================================================================= -->
-    <div id="raksha-overview-modal" class="fixed inset-0 z-[110] bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4">
-        <div class="relative w-full max-w-2xl bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl p-6 overflow-hidden">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 flex items-center justify-center">
-                        <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-8 w-auto object-contain" />
-                    </div>
-                    <div>
-                        <h3 class="font-extrabold text-white text-base tracking-wide font-mono">RAKSHA SYSTEM OVERVIEW</h3>
-                        <p class="text-[11px] text-slate-400 font-mono">From Risk to Resilience • AI & Earth Observation Architecture</p>
-                    </div>
-                </div>
-                <button onclick="closeOverviewModal()" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition cursor-pointer">
-                    <i data-lucide="x" class="w-4 h-4"></i>
-                </button>
-            </div>
-
-            <div class="mt-5 space-y-4 font-mono text-xs text-slate-300 max-h-[65vh] overflow-y-auto pr-1">
-                <div class="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-emerald-400 font-bold">01 // HAZARD DETECTION</span>
-                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-bold">DETECT</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">
-                        Continuous radar backscatter (Sentinel-1 C-Band SAR) and optical spectral indices (Sentinel-2 L2A) detect flood extent, landslide scarring, and precipitation runoff.
-                    </p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-amber-300 font-bold">02 // IMPACT ASSESSMENT</span>
-                        <span class="text-[10px] px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800 font-bold">UNDERSTAND</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">
-                        SRTM 90-meter DEM elevation curves model gravitational runoff channels and assess structural vulnerability across mountain settlements.
-                    </p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-cyan-300 font-bold">03 // RELOCATION PLANNING</span>
-                        <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-bold">DECIDE</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">
-                        Evaluates progressive 5 km safety rings against multi-criteria vetoes: slope ≤ 15°, zero flood hazard, road transit access, hospital distances, and water access.
-                    </p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1.5">
-                    <div class="flex items-center justify-between">
-                        <span class="text-teal-300 font-bold">04 // RESILIENT RECOVERY</span>
-                        <span class="text-[10px] px-2 py-0.5 rounded bg-teal-950 text-teal-400 border border-teal-800 font-bold">RESTORE</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">
-                        Validates top recommended sanctuaries with ISRO Cartosat-3 sub-meter (0.28m) frameworks and exports official DDMA relocation dossiers.
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-5 pt-3 border-t border-slate-800 flex justify-between items-center">
-                <span class="text-[11px] text-slate-500 font-mono">Press ESC or click close to dismiss</span>
-                <button onclick="bootSystemAndEnter()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow-lg shadow-emerald-600/30">
-                    <span>Proceed to Simulation</span>
+                <button onclick="startBootSequence()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-slate-950 font-extrabold font-mono text-xs transition shadow-lg shadow-cyan-500/20 flex items-center gap-2 cursor-pointer">
+                    <span>ENTER RAKSHA</span>
                     <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </button>
             </div>
         </div>
+    </header>
+
+    <!-- ================= SECTION 1: HERO ================= -->
+    <main class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 pt-16 pb-24 max-w-5xl mx-auto min-h-[85vh]">
+        
+        <!-- Logo Emblem with Subtle Glow & Scan -->
+        <div class="relative mb-8 group">
+            <div class="absolute inset-0 rounded-full bg-cyan-500/15 blur-2xl pulse-logo"></div>
+            <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-28 sm:h-36 w-auto object-contain relative z-10 filter drop-shadow-[0_0_25px_rgba(0,229,255,0.45)]">
+        </div>
+
+        <!-- Technical Category Pill -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/60 border border-blue-500/30 text-cyan-400 font-mono text-xs font-semibold uppercase tracking-widest mb-6">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            AI-DRIVEN MULTI-HAZARD RELOCATION INTELLIGENCE
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.05] mb-4">
+            Detect Risk. Prioritize People.<br>
+            <span class="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-300 bg-clip-text text-transparent">
+                Find Safer Ground.
+            </span>
+        </h1>
+
+        <p class="text-lg sm:text-xl font-medium text-slate-300 max-w-2xl font-mono mb-2">
+            "From Risk to Resilience."
+        </p>
+
+        <!-- Supporting Text -->
+        <p class="text-sm sm:text-base text-slate-400 max-w-2xl leading-relaxed mb-10">
+            RAKSHA converts hazard intelligence, population exposure and geospatial evidence into explainable relocation decisions.
+        </p>
+
+        <!-- Primary & Secondary CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
+            <button onclick="startBootSequence()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-slate-950 font-extrabold font-mono text-sm tracking-wide transition shadow-xl shadow-cyan-500/25 flex items-center justify-center gap-2.5 cursor-pointer transform hover:scale-[1.02]">
+                <span>ENTER RAKSHA</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+            <a href="#why-raksha" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#080e1c] hover:bg-blue-950/60 text-slate-300 hover:text-white font-mono text-sm border border-blue-900/50 transition flex items-center justify-center gap-2">
+                <span>EXPLORE PLATFORM</span>
+                <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400"></i>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- ================= SECTION 2: WHY RAKSHA ================= -->
+    <section id="why-raksha" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#03060d]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-xl mx-auto mb-14">
+                <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">CORE VALUE PROPOSITION</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1 font-mono">WHY RAKSHA</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
+                <!-- Block 01 -->
+                <div class="p-8 rounded-2xl bg-[#080e1c]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-3xl font-black text-cyan-400/30 mb-4">01</div>
+                        <h3 class="text-lg font-bold text-white mb-2">DETECT RISK</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Identify hazardous areas using multi-source geospatial intelligence, terrain slope, rainfall accumulation, and dynamic envelope calculation.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-blue-950 text-[10px] text-cyan-400 flex items-center gap-1.5">
+                        <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+                        <span>Dynamic Risk Envelope</span>
+                    </div>
+                </div>
+
+                <!-- Block 02 -->
+                <div class="p-8 rounded-2xl bg-[#080e1c]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-3xl font-black text-blue-400/30 mb-4">02</div>
+                        <h3 class="text-lg font-bold text-white mb-2">UNDERSTAND IMPACT</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Measure population, infrastructure and accessibility exposure to establish human relocation urgency before routes become impassable.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-blue-950 text-[10px] text-blue-400 flex items-center gap-1.5">
+                        <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                        <span>Human Exposure Assessment</span>
+                    </div>
+                </div>
+
+                <!-- Block 03 -->
+                <div class="p-8 rounded-2xl bg-[#080e1c]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
+                    <div>
+                        <div class="text-3xl font-black text-emerald-400/30 mb-4">03</div>
+                        <h3 class="text-lg font-bold text-white mb-2">FIND SAFER GROUND</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Search, filter and rank potential relocation sites using progressive concentric search rings and strict zero-tolerance safety exclusions.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-blue-950 text-[10px] text-emerald-400 flex items-center gap-1.5">
+                        <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                        <span>Concentric Safety Search</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 3: HOW RAKSHA THINKS ================= -->
+    <section id="how-it-thinks" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#040711]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-xl mx-auto mb-14">
+                <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">DECISION PIPELINE</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1 font-mono">HOW RAKSHA THINKS</h2>
+                <p class="text-xs text-slate-400 mt-2 font-mono">Sequential 8-stage decision progression from initial hazard detection to verified relocation deployment</p>
+            </div>
+
+            <!-- Horizontal Process Pipeline -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 font-mono">
+                
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                    <span class="text-[10px] text-red-400 font-bold mb-1">01</span>
+                    <div class="text-xs font-bold text-white">HAZARD</div>
+                    <span class="text-[9px] text-slate-500 mt-1">Multi-Source</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                    <span class="text-[10px] text-amber-400 font-bold mb-1">02</span>
+                    <div class="text-xs font-bold text-white">EXPOSURE</div>
+                    <span class="text-[9px] text-slate-500 mt-1">Settlements</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                    <span class="text-[10px] text-amber-400 font-bold mb-1">03</span>
+                    <div class="text-xs font-bold text-white">IMPACT</div>
+                    <span class="text-[9px] text-slate-500 mt-1">Vulnerability</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                    <span class="text-[10px] text-cyan-400 font-bold mb-1">04</span>
+                    <div class="text-xs font-bold text-white">URGENCY</div>
+                    <span class="text-[9px] text-slate-500 mt-1">Prioritization</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                    <span class="text-[10px] text-cyan-400 font-bold mb-1">05</span>
+                    <div class="text-xs font-bold text-white">SAFE SITES</div>
+                    <span class="text-[9px] text-slate-500 mt-1">5km Rings</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                    <span class="text-[10px] text-blue-400 font-bold mb-1">06</span>
+                    <div class="text-xs font-bold text-white">CAPACITY</div>
+                    <span class="text-[9px] text-slate-500 mt-1">Sphere 3.5m²</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                    <span class="text-[10px] text-emerald-400 font-bold mb-1">07</span>
+                    <div class="text-xs font-bold text-white">RANKING</div>
+                    <span class="text-[9px] text-slate-500 mt-1">100-Pt MCDA</span>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#080e1c] border border-emerald-500/40 flex flex-col items-center text-center shadow-lg shadow-emerald-500/10">
+                    <span class="text-[10px] text-emerald-400 font-bold mb-1">08</span>
+                    <div class="text-xs font-bold text-emerald-300">PLAN</div>
+                    <span class="text-[9px] text-emerald-400 mt-1">DDMA Directive</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 4: DATA INTELLIGENCE ================= -->
+    <section id="data-intelligence" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#03060d]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-xl mx-auto mb-14">
+                <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">DATA INTEGRITY &amp; PROVENANCE</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1 font-mono">DATA INTELLIGENCE ECOSYSTEM</h2>
+                <p class="text-xs text-slate-400 mt-2 font-mono">
+                    Transparently distinguishing live prototype integrations from architecture and production target sources.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+                
+                <!-- Implemented: SRTM DEM -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">DEM / TERRAIN</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">LIVE PROTOTYPE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">SRTM 30m topographic elevation models, slope gradient derivation and cross-section transects.</p>
+                    </div>
+                </div>
+
+                <!-- Implemented: Open-Meteo -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">WEATHER / RAIN</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">LIVE PROTOTYPE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">24-hour antecedent precipitation, cloudburst thresholds and runoff saturation heuristics.</p>
+                    </div>
+                </div>
+
+                <!-- Implemented: OSM Infrastructure -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">OSM / INFRA</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">LIVE PROTOTYPE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Pre-indexed educational institutions, sports stadia, community halls and primary road lifelines.</p>
+                    </div>
+                </div>
+
+                <!-- Implemented: Dynamic AOI -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">DYNAMIC AOI</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">LIVE PROTOTYPE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Automated disaster envelope computation expanding radius based on hazard severity and terrain.</p>
+                    </div>
+                </div>
+
+                <!-- Architecture: Sentinel-1 SAR -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-950 flex flex-col justify-between opacity-85">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">SENTINEL-1 SAR</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">STAC PROTOTYPE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Planetary Computer STAC catalog querying C-band radar backscatter and orbit metadata.</p>
+                    </div>
+                </div>
+
+                <!-- Architecture: Sentinel-2 Optical -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-950 flex flex-col justify-between opacity-85">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">SENTINEL-2 L2A</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">STAC PROTOTYPE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">10m optical multispectral imagery catalog querying true-color scenes and MGRS cloud telemetry.</p>
+                    </div>
+                </div>
+
+                <!-- Architecture: ISRO Cartosat-3 -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-amber-900/30 flex flex-col justify-between opacity-85">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">CARTOSAT-3</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">TARGET ARCHITECTURE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">0.28m sub-meter validation architecture for open-ground footprinting and 45m helipad clearance.</p>
+                    </div>
+                </div>
+
+                <!-- Architecture: ISRO Bhuvan -->
+                <div class="p-5 rounded-xl bg-[#080e1c] border border-amber-900/30 flex flex-col justify-between opacity-85">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-white">ISRO BHUVAN</span>
+                            <span class="text-[9px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">TARGET ARCHITECTURE</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">NRSC 1:50,000 Land Use/Land Cover (LULC) baseline and national disaster exposure layer integration.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 5: PLATFORM MODULES ================= -->
+    <section id="platform-modules" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#040711]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-xl mx-auto mb-14">
+                <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">CANONICAL WORKSPACES</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mt-1 font-mono">PLATFORM MODULES</h2>
+                <p class="text-xs text-slate-400 mt-2 font-mono">Dedicated tactical environments designed for distinct operational stakeholders</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 font-mono text-xs">
+                
+                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                    <div class="flex items-center gap-2.5 text-cyan-400 font-bold mb-2">
+                        <i data-lucide="satellite" class="w-4 h-4"></i>
+                        <span class="text-sm text-white">EO Studio</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-[11px]">
+                        Multi-sensor satellite observation console inspecting SAR radar backscatter, optical scenes, and spatial evidence.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                    <div class="flex items-center gap-2.5 text-amber-400 font-bold mb-2">
+                        <i data-lucide="flame" class="w-4 h-4"></i>
+                        <span class="text-sm text-white">Hazard Lab</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-[11px]">
+                        Analytical hazard modeling examining 5×5 spatial grids, 24h precipitation hydrographs, and terrain slope stability.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                    <div class="flex items-center gap-2.5 text-emerald-400 font-bold mb-2">
+                        <i data-lucide="compass" class="w-4 h-4"></i>
+                        <span class="text-sm text-white">Relocation Dashboard</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-[11px]">
+                        Main decision GIS dashboard running progressive concentric search, safety filtering, and capacity evaluation.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                    <div class="flex items-center gap-2.5 text-blue-400 font-bold mb-2">
+                        <i data-lucide="git-pull-request" class="w-4 h-4"></i>
+                        <span class="text-sm text-white">Workflow Studio</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-[11px]">
+                        Explainable 6-stage sequential decision walkthrough operating candidate discovery, safety vetoes, and final directives.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                    <div class="flex items-center gap-2.5 text-purple-400 font-bold mb-2">
+                        <i data-lucide="truck" class="w-4 h-4"></i>
+                        <span class="text-sm text-white">Fleet Commander</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-[11px]">
+                        Tactical evacuation logistics dispatch allocating bus fleets, ambulances, staging nodes, and turnaround cycles.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                    <div class="flex items-center gap-2.5 text-emerald-400 font-bold mb-2">
+                        <i data-lucide="file-check" class="w-4 h-4"></i>
+                        <span class="text-sm text-white">DDMA Dossier</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-[11px]">
+                        Official statutory brief for Incident Commanders featuring one-click printable PDF layouts and RFC 7946 QGIS layers.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Single Explore CTA Button -->
+            <div class="mt-12 text-center">
+                <button onclick="startBootSequence()" class="px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono font-bold text-xs tracking-wider transition shadow-lg shadow-blue-500/20 inline-flex items-center gap-2 cursor-pointer">
+                    <span>EXPLORE PLATFORM →</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= SECTION 6: FINAL LANDING CTA ================= -->
+    <section class="relative z-10 py-24 px-6 border-t border-blue-900/30 bg-gradient-to-b from-[#03060d] to-[#050914] text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight font-mono mb-4">
+                TURN GEOSPATIAL DATA<br>
+                <span class="text-cyan-400">INTO ACTIONABLE DECISIONS.</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto font-mono mb-8">
+                Equip district disaster authorities with explainable multi-hazard relocation intelligence when every minute matters.
+            </p>
+            <button onclick="startBootSequence()" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-slate-950 font-extrabold font-mono text-sm tracking-wide transition shadow-xl shadow-cyan-500/25 inline-flex items-center gap-2.5 cursor-pointer transform hover:scale-105">
+                <span>ENTER RAKSHA →</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="relative z-10 border-t border-blue-950 bg-[#020409] text-slate-500 text-xs py-8 px-6 font-mono">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <img src="/assets/raksha_emblem_transparent.png" alt="Logo" class="h-6 w-auto object-contain">
+                <span>RAKSHA 2.0 &bull; AI-Driven Multi-Hazard Relocation Intelligence</span>
+            </div>
+            <div class="text-[11px] text-slate-500">
+                Architected for NDMA, SDRF &amp; State Emergency Operations Centres
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= INITIALIZATION BOOT OVERLAY ================= -->
+    <div id="bootOverlay" class="fixed inset-0 z-50 bg-[#040711]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="max-w-md w-full bg-[#080e1c] border border-blue-900/60 rounded-2xl p-8 shadow-2xl font-mono text-xs text-slate-300 flex flex-col gap-4">
+            
+            <div class="flex items-center gap-3 border-b border-blue-900/50 pb-4">
+                <img src="/assets/raksha_emblem_transparent.png" alt="Emblem" class="h-8 w-auto object-contain animate-pulse">
+                <div>
+                    <div class="font-bold text-white tracking-wider">INITIALIZING RAKSHA</div>
+                    <div class="text-[10px] text-cyan-400">Emergency Operations Decision System</div>
+                </div>
+            </div>
+
+            <div class="space-y-2 py-2">
+                <div id="step-1" class="flex items-center gap-2 text-slate-500 transition-colors">
+                    <span class="text-cyan-400">✓</span> <span>Geospatial Intelligence</span>
+                </div>
+                <div id="step-2" class="flex items-center gap-2 text-slate-500 transition-colors">
+                    <span class="text-cyan-400">✓</span> <span>Earth Observation Layer</span>
+                </div>
+                <div id="step-3" class="flex items-center gap-2 text-slate-500 transition-colors">
+                    <span class="text-cyan-400">✓</span> <span>Hazard Intelligence</span>
+                </div>
+                <div id="step-4" class="flex items-center gap-2 text-slate-500 transition-colors">
+                    <span class="text-cyan-400">✓</span> <span>Impact Assessment</span>
+                </div>
+                <div id="step-5" class="flex items-center gap-2 text-slate-500 transition-colors">
+                    <span class="text-cyan-400">✓</span> <span>Relocation Engine</span>
+                </div>
+                <div id="step-6" class="flex items-center gap-2 text-slate-500 transition-colors">
+                    <span class="text-cyan-400">✓</span> <span>Safety &amp; Capacity Engine</span>
+                </div>
+                <div id="step-7" class="flex items-center gap-2 text-slate-500 transition-colors">
+                    <span class="text-cyan-400">✓</span> <span>Decision Interface</span>
+                </div>
+            </div>
+
+            <div id="bootStatus" class="pt-3 border-t border-blue-900/50 text-center font-bold text-cyan-400 text-xs tracking-wider">
+                COMMENCING SUBSYSTEM VERIFICATION...
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Script: Particles & Boot Sequence -->
     <script>
         lucide.createIcons();
-        let hasSkippedIntro = false;
 
-
-        function initParticleCanvas(canvasId, particleCount = 35) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return null;
+        // Atmospheric Particle Background
+        (function initParticles() {
+            const canvas = document.getElementById('particleCanvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            let width = canvas.width = window.innerWidth;
-            let height = canvas.height = window.innerHeight;
+            let w, h, particles = [];
 
-            window.addEventListener('resize', () => {
-                width = canvas.width = window.innerWidth;
-                height = canvas.height = window.innerHeight;
-            });
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
 
-            const particles = [];
-            for (let i = 0; i < particleCount; i++) {
+            for (let i = 0; i < 40; i++) {
                 particles.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    radius: Math.random() * 1.8 + 0.5,
+                    x: Math.random() * w,
+                    y: Math.random() * h,
                     vx: (Math.random() - 0.5) * 0.4,
-                    vy: -Math.random() * 0.6 - 0.2,
-                    alpha: Math.random() * 0.7 + 0.2,
-                    color: Math.random() > 0.4 ? '16, 185, 129' : '56, 189, 248'
+                    vy: -Math.random() * 0.5 - 0.2,
+                    size: Math.random() * 2 + 1,
+                    alpha: Math.random() * 0.5 + 0.2
                 });
             }
 
-            let animId;
             function render() {
-                ctx.clearRect(0, 0, width, height);
+                ctx.clearRect(0, 0, w, h);
                 particles.forEach(p => {
                     p.x += p.vx;
                     p.y += p.vy;
-                    if (p.y < 0) p.y = height;
-                    if (p.x < 0) p.x = width;
-                    if (p.x > width) p.x = 0;
+                    if (p.y < 0) p.y = h;
+                    if (p.x < 0) p.x = w;
+                    if (p.x > w) p.x = 0;
 
+                    ctx.fillStyle = `rgba(0, 229, 255, ${p.alpha})`;
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     ctx.fill();
                 });
-                animId = requestAnimationFrame(render);
+                requestAnimationFrame(render);
             }
             render();
-            return () => cancelAnimationFrame(animId);
-        }
+        })();
 
-        let hasTransitioned = false;
-
-        function triggerIntroTransition() {
-            if (hasTransitioned) return;
-            hasTransitioned = true;
-
-            const intro = document.getElementById('raksha-intro-screen');
-            const stage = document.getElementById('intro-center-stage');
-            const hudText = document.getElementById('intro-hud-text');
-            const landing = document.getElementById('raksha-landing-page');
-            if (!intro || !landing) return;
-
-            // 1. Instantly fade telemetry text so visual focus centers on the emblem & radar rings zooming in
-            if (hudText) {
-                hudText.style.transition = 'opacity 180ms ease-out';
-                hudText.style.opacity = '0';
-            }
-
-            // 2. Zoom in the central logo emblem and radar halo forward towards the viewer
-            if (stage) {
-                stage.classList.add('intro-zoom-in');
-            }
-
-            // 3. Reveal landing page with forward dive-through parallax settling
-            setTimeout(() => {
-                intro.style.opacity = '0';
-                intro.style.pointerEvents = 'none';
-
-                landing.classList.remove('landing-hidden');
-                landing.classList.add('landing-reveal');
-                lucide.createIcons();
-                initParticleCanvas('landing-particle-canvas', 30);
-            }, 360);
-
-            // 4. Fully remove intro screen from DOM rendering
-            setTimeout(() => {
-                intro.style.display = 'none';
-            }, 1150);
-        }
-
-        function triggerIntroDissolve() {
-            triggerIntroTransition();
-        }
-
-        function skipIntroToLanding() {
-            hasSkippedIntro = true;
-            triggerIntroTransition();
-        }
-
-        function openOverviewModal() {
-            const m = document.getElementById('raksha-overview-modal');
-            if (m) {
-                m.classList.remove('hidden');
-                m.classList.add('flex');
-                lucide.createIcons();
-            }
-        }
-
-        function closeOverviewModal() {
-            const m = document.getElementById('raksha-overview-modal');
-            if (m) {
-                m.classList.add('hidden');
-                m.classList.remove('flex');
-            }
-        }
-
-        function bootSystemAndEnter() {
-            closeOverviewModal();
-            const bootOverlay = document.getElementById('raksha-boot-overlay');
-            const laserLine = document.getElementById('boot-laser-line');
-            if (!bootOverlay) {
-                try { sessionStorage.setItem('raksha_booted', 'true'); } catch(e) {}
-                window.location.href = '/simulation';
+        // Boot Sequence Trigger
+        function startBootSequence() {
+            const overlay = document.getElementById('bootOverlay');
+            if (!overlay) {
+                window.location.href = '/overview';
                 return;
             }
 
-            bootOverlay.style.opacity = '1';
-            bootOverlay.style.pointerEvents = 'auto';
-
-            const stepIds = ['boot-step-1', 'boot-step-2', 'boot-step-3', 'boot-step-4', 'boot-step-5', 'boot-ready'];
-            stepIds.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.style.opacity = '0';
-            });
-
-            if (laserLine) {
-                laserLine.classList.remove('laser-scan-line');
-                void laserLine.offsetWidth;
-                laserLine.classList.add('laser-scan-line');
-            }
+            overlay.style.opacity = '1';
+            overlay.style.pointerEvents = 'auto';
 
             const steps = [
-                { id: 'boot-step-1', delay: 250 },
-                { id: 'boot-step-2', delay: 500 },
-                { id: 'boot-step-3', delay: 750 },
-                { id: 'boot-step-4', delay: 1000 },
-                { id: 'boot-step-5', delay: 1250 },
-                { id: 'boot-ready', delay: 1550 }
+                { id: 'step-1', delay: 180 },
+                { id: 'step-2', delay: 360 },
+                { id: 'step-3', delay: 540 },
+                { id: 'step-4', delay: 720 },
+                { id: 'step-5', delay: 900 },
+                { id: 'step-6', delay: 1080 },
+                { id: 'step-7', delay: 1260 }
             ];
 
             steps.forEach(s => {
                 setTimeout(() => {
                     const el = document.getElementById(s.id);
-                    if (el) el.style.opacity = '1';
+                    if (el) {
+                        el.classList.remove('text-slate-500');
+                        el.classList.add('text-white', 'font-semibold');
+                    }
                 }, s.delay);
             });
 
             setTimeout(() => {
-                try { 
-                    sessionStorage.setItem('raksha_booted', 'true'); 
-                    sessionStorage.setItem('raksha_session_active', 'true');
-                } catch(e) {}
-                window.location.href = '/simulation';
-            }, 2050);
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
-                closeOverviewModal();
-                if (!hasTransitioned) {
-                    skipIntroToLanding();
+                const status = document.getElementById('bootStatus');
+                if (status) {
+                    status.textContent = 'RAKSHA SYSTEM READY';
+                    status.classList.add('text-emerald-400');
                 }
-            }
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            initParticleCanvas('intro-particles', 30);
-            const introScreen = document.getElementById('raksha-intro-screen');
-            if (introScreen) {
-                introScreen.addEventListener('click', (e) => {
-                    if (!e.target.closest('button')) {
-                        skipIntroToLanding();
-                    }
-                });
-            }
+            }, 1450);
 
             setTimeout(() => {
-                if (!hasSkippedIntro) {
-                    triggerIntroTransition();
-                }
-            }, 2400);
-        });
+                try { sessionStorage.setItem('raksha_session_active', 'true'); } catch(e) {}
+                window.location.href = '/overview';
+            }, 1900);
+        }
     </script>
 </body>
 </html>

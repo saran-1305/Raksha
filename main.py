@@ -198,58 +198,44 @@ def serve_landing():
             return f.read()
     return "<h1>RAKSHA Landing template not found</h1>"
 
+@app.get("/overview", response_class=HTMLResponse)
 @app.get("/simulation", response_class=HTMLResponse)
-def serve_simulation():
-    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
+def serve_overview():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "overview.html")
+    if not os.path.exists(template_path):
+        template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
     if os.path.exists(template_path):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
-    return "<h1>RAKSHA Dashboard template not found</h1>"
+    return "<h1>RAKSHA Overview template not found</h1>"
 
+@app.get("/eo-studio", response_class=HTMLResponse)
 @app.get("/earth-observation", response_class=HTMLResponse)
 @app.get("/satellite", response_class=HTMLResponse)
-def serve_satellite():
+def serve_eo_studio():
     template_path = os.path.join(os.path.dirname(__file__), "templates", "satellite.html")
     if os.path.exists(template_path):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
-    return "<h1>RAKSHA Earth Observation Studio template not found</h1>"
+    return "<h1>RAKSHA EO Studio template not found</h1>"
 
 @app.get("/hazard-lab", response_class=HTMLResponse)
 @app.get("/hazard", response_class=HTMLResponse)
-def serve_hazard():
+def serve_hazard_lab():
     template_path = os.path.join(os.path.dirname(__file__), "templates", "hazard_lab.html")
     if os.path.exists(template_path):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
     return "<h1>RAKSHA Hazard Intelligence Lab template not found</h1>"
 
-@app.get("/relocation-engine", response_class=HTMLResponse)
 @app.get("/relocation", response_class=HTMLResponse)
+@app.get("/relocation-engine", response_class=HTMLResponse)
 def serve_relocation():
     template_path = os.path.join(os.path.dirname(__file__), "templates", "relocation.html")
     if os.path.exists(template_path):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
     return "<h1>RAKSHA Relocation Decision Studio template not found</h1>"
-
-@app.get("/logistics-dispatch", response_class=HTMLResponse)
-@app.get("/logistics", response_class=HTMLResponse)
-def serve_logistics():
-    template_path = os.path.join(os.path.dirname(__file__), "templates", "logistics.html")
-    if os.path.exists(template_path):
-        with open(template_path, "r", encoding="utf-8") as f:
-            return f.read()
-    return "<h1>RAKSHA Fleet Logistics template not found</h1>"
-
-@app.get("/ddma-dossier", response_class=HTMLResponse)
-@app.get("/dossier", response_class=HTMLResponse)
-def serve_dossier():
-    template_path = os.path.join(os.path.dirname(__file__), "templates", "dossier.html")
-    if os.path.exists(template_path):
-        with open(template_path, "r", encoding="utf-8") as f:
-            return f.read()
-    return "<h1>RAKSHA DDMA Legal Dossier template not found</h1>"
 
 @app.get("/workflow", response_class=HTMLResponse)
 @app.get("/workflow/{step}", response_class=HTMLResponse)
@@ -260,6 +246,26 @@ def serve_workflow(step: str = "1"):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
     return "<h1>RAKSHA Relocation Workflow template not found</h1>"
+
+@app.get("/fleet", response_class=HTMLResponse)
+@app.get("/logistics-dispatch", response_class=HTMLResponse)
+@app.get("/logistics", response_class=HTMLResponse)
+def serve_fleet():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "logistics.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Fleet Logistics template not found</h1>"
+
+@app.get("/ddma", response_class=HTMLResponse)
+@app.get("/ddma-dossier", response_class=HTMLResponse)
+@app.get("/dossier", response_class=HTMLResponse)
+def serve_ddma():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "dossier.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA DDMA Legal Dossier template not found</h1>"
 
 if __name__ == "__main__":
     import uvicorn
