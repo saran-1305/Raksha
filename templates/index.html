@@ -635,232 +635,177 @@
             </div>
 
             <!-- TAB: Relocation Intelligence -->
-            <div id="tabContentDecision" class="flex flex-col gap-2.5">
+            <div id="tabContentDecision" class="flex flex-col gap-3">
                 
-                <!-- Dedicated Relocation Decision Studio Quick-Launch Banner -->
-                <div class="px-3 py-2 bg-gradient-to-r from-emerald-950/70 via-slate-900 to-slate-950 border border-emerald-700/50 rounded-xl flex items-center justify-between shadow">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-6 h-6 rounded bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
-                            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                <!-- ================= CARD 1: HERO PRIMARY RECOMMENDED SANCTUARY ================= -->
+                <div class="bg-gradient-to-br from-emerald-950/40 via-slate-900 to-slate-950 border border-emerald-500/40 rounded-xl p-3.5 shadow-xl flex flex-col gap-2.5 relative overflow-hidden">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl pointer-events-none"></div>
+                    
+                    <!-- Header Strip -->
+                    <div class="flex items-center justify-between border-b border-emerald-800/40 pb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-[10px] font-extrabold flex items-center gap-1.5 shadow-sm">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                🏆 RANK #1 PRIMARY SANCTUARY
+                            </span>
+                            <span class="text-[10px] text-slate-400 font-mono hidden sm:inline">ZERO-DEFICIT CHOICE</span>
                         </div>
-                        <div>
-                            <div class="text-xs font-bold text-white font-mono flex items-center gap-2">
-                                Relocation Decision Studio
-                                <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">DEEP DECISION ENGINE</span>
-                            </div>
-                            <div class="text-[10.5px] text-slate-400">Zero-tolerance hard veto audit, 100-pt MCDA ranking &amp; 6-stage relocation pipeline</div>
+                        <div class="flex items-center gap-1 font-mono">
+                            <span class="text-[9px] text-slate-400">MCDA SCORE:</span>
+                            <span id="hero_score" class="text-xs font-black text-amber-300 font-mono bg-amber-950/40 border border-amber-500/30 px-1.5 py-0.5 rounded">89.4 / 100</span>
                         </div>
                     </div>
-                    <a href="/relocation-engine" class="px-2.5 py-1 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1 transition shadow shrink-0">
-                        <span>Decision Studio</span>
-                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                    </a>
+
+                    <!-- Site Title & Facility Classification -->
+                    <div>
+                        <h2 id="hero_siteName" class="text-base font-extrabold text-white tracking-tight flex items-center gap-2">
+                            Chamoli Sports Stadium Complex
+                        </h2>
+                        <p id="hero_siteType" class="text-[11px] text-emerald-400/90 font-mono">
+                            Public Stadium / Multi-Purpose Relief Hub • Government Land Cadastre
+                        </p>
+                    </div>
+
+                    <!-- 4 Clear Key Metrics -->
+                    <div class="grid grid-cols-4 gap-2 font-mono">
+                        <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/90 text-center">
+                            <span class="text-[8.5px] text-slate-400 uppercase block">DISTANCE</span>
+                            <span id="hero_siteDist" class="text-xs font-bold text-cyan-300 block">4.8 km</span>
+                            <span class="text-[8px] text-slate-500">From Epicenter</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/90 text-center">
+                            <span class="text-[8.5px] text-slate-400 uppercase block">CAPACITY</span>
+                            <span id="hero_siteCap" class="text-xs font-bold text-emerald-400 block">6,840</span>
+                            <span class="text-[8px] text-slate-500">Displaced Persons</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/90 text-center">
+                            <span class="text-[8.5px] text-slate-400 uppercase block">TERRAIN SLOPE</span>
+                            <span id="hero_siteSlope" class="text-xs font-bold text-emerald-400 block">3.8°</span>
+                            <span class="text-[8px] text-slate-500">Compliant &lt;14°</span>
+                        </div>
+                        <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/90 text-center">
+                            <span class="text-[8.5px] text-slate-400 uppercase block">HARD VETO</span>
+                            <span id="hero_siteVeto" class="text-xs font-bold text-emerald-300 block">PASSED</span>
+                            <span class="text-[8px] text-slate-500">Zero Hazard</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer Action Bar -->
+                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+                        <div class="flex items-center gap-1.5 text-slate-400 truncate text-[10px]">
+                            <i data-lucide="satellite" class="w-3 h-3 text-cyan-400 shrink-0"></i>
+                            <span id="hero_cartoValidation" class="truncate text-slate-300">Cartosat-3 sub-meter panchromatic verified (96.8%)</span>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button onclick="zoomToPrimarySite()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10.5px] font-mono font-semibold transition flex items-center gap-1 cursor-pointer border border-slate-700">
+                                <i data-lucide="crosshair" class="w-3 h-3 text-cyan-400"></i> Pan Map
+                            </button>
+                            <a href="/relocation-engine" class="px-3 py-1 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-[10.5px] font-mono font-bold transition flex items-center gap-1 shadow">
+                                <span>Decision Studio</span>
+                                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- ================= EXECUTIVE CANDIDATE SANCTUARIES LEADERBOARD ================= -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 shadow-lg flex flex-col gap-2">
+                <!-- ================= CARD 2: CANDIDATE SANCTUARIES COMPARISON ================= -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 shadow-lg flex flex-col gap-2">
                     <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
                         <div class="flex items-center gap-2">
                             <div class="w-5 h-5 rounded bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                                <i data-lucide="award" class="w-3 h-3"></i>
+                                <i data-lucide="list-ordered" class="w-3 h-3"></i>
                             </div>
-                            <div>
-                                <h3 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
-                                    Candidate Sanctuaries Leaderboard
-                                    <span id="board_countBadge" class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 font-bold">4 SITES</span>
-                                </h3>
-                            </div>
+                            <h3 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                                Candidate Sanctuaries Comparison
+                                <span id="board_countBadge" class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 font-bold">4 SITES</span>
+                            </h3>
                         </div>
-                        <div class="text-right font-mono flex items-center gap-2">
-                            <span class="text-[9px] text-slate-500">BUFFER:</span>
-                            <span id="board_searchBuffer" class="text-[10.5px] font-bold text-cyan-400">AOI + 15 KM</span>
+                        <div class="text-right font-mono text-[10px] text-slate-400">
+                            BUFFER: <span id="board_searchBuffer" class="font-bold text-cyan-400">AOI + 15 KM</span>
                         </div>
                     </div>
 
-                    <!-- Candidate Sites List Container -->
-                    <div id="reloc_leaderboardContainer" class="flex flex-col gap-1.5 max-h-[195px] overflow-y-auto pr-1">
+                    <!-- Dynamic Candidate Sites List -->
+                    <div id="reloc_leaderboardContainer" class="flex flex-col gap-1.5 max-h-[175px] overflow-y-auto pr-1">
                         <!-- Injected dynamically via JS -->
                     </div>
 
-                    <!-- Summary / Rationale Ribbon -->
-                    <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/90 text-[10px] font-mono text-slate-300 flex items-center justify-between gap-2">
+                    <!-- Comparison Rationale Ribbon -->
+                    <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800/90 text-[9.5px] font-mono text-slate-400 flex items-center justify-between gap-2">
                         <div class="flex items-center gap-1.5 truncate">
-                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
-                            <span id="board_summaryText" class="truncate">Greedy allocation achieves 100% zero-deficit absorption without secondary slope hazards.</span>
+                            <i data-lucide="shield-check" class="w-3 h-3 text-emerald-400 shrink-0"></i>
+                            <span id="board_summaryText" class="truncate">Greedy allocation achieves non-fragmented relocation across verified sites.</span>
                         </div>
-                        <a href="/relocation-engine" class="text-cyan-400 hover:text-cyan-300 font-bold shrink-0 text-[10px] flex items-center gap-0.5">
-                            Full Audit <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                        <a href="/relocation-engine" class="text-cyan-400 hover:text-cyan-300 font-bold shrink-0 flex items-center gap-0.5">
+                            Audit Matrix <i data-lucide="chevron-right" class="w-3 h-3"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- ================= DISASTER EXPOSURE & VULNERABILITY BREAKDOWN ================= -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 shadow-lg flex flex-col gap-2">
-                    <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
-                        <div class="flex items-center gap-2">
-                            <div class="w-5 h-5 rounded bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                                <i data-lucide="users" class="w-3 h-3"></i>
-                            </div>
-                            <h4 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
-                                Disaster Exposure &amp; Vulnerability Matrix
-                                <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold">CENSUS / GIS</span>
-                            </h4>
-                        </div>
-                        <div class="text-right font-mono">
-                            <span class="text-[9px] text-slate-500 mr-1">DISPLACED:</span>
-                            <span id="vuln_totalDisplaced" class="text-xs font-extrabold text-amber-400">4,200 Persons</span>
-                        </div>
-                    </div>
-
-                    <!-- 4 Counters -->
-                    <div class="grid grid-cols-4 gap-1.5 text-center font-mono">
-                        <div class="bg-slate-950 p-1.5 rounded-lg border border-slate-800">
-                            <span class="text-[8px] text-slate-500 uppercase block">DISPLACED POP</span>
-                            <span id="vuln_popCount" class="text-xs font-bold text-white">4,200</span>
-                        </div>
-                        <div class="bg-slate-950 p-1.5 rounded-lg border border-slate-800">
-                            <span class="text-[8px] text-slate-500 uppercase block">SAFE CAPACITY</span>
-                            <span id="vuln_safeCapCount" class="text-xs font-bold text-emerald-400">6,840</span>
-                        </div>
-                        <div class="bg-slate-950 p-1.5 rounded-lg border border-slate-800">
-                            <span class="text-[8px] text-slate-500 uppercase block">DEFICIT STATUS</span>
-                            <span id="vuln_deficitCount" class="text-xs font-bold text-emerald-400">0 (100%)</span>
-                        </div>
-                        <div class="bg-slate-950 p-1.5 rounded-lg border border-slate-800">
-                            <span class="text-[8px] text-slate-500 uppercase block">HAZARD AOI</span>
-                            <span id="vuln_aoiEnvelope" class="text-xs font-bold text-red-400">8.58 km²</span>
-                        </div>
-                    </div>
-
-                    <!-- Vulnerable Demographic Cohorts in 4 Columns -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[10px] font-mono">
-                        <div class="p-1.5 bg-slate-950/80 rounded-lg border border-slate-800 flex items-center justify-between">
-                            <div class="truncate">
-                                <span class="text-[8.5px] text-slate-400 uppercase block">CHILDREN (&lt;12)</span>
-                                <span id="vuln_children" class="font-bold text-slate-200">840 (20%)</span>
-                            </div>
-                        </div>
-                        <div class="p-1.5 bg-slate-950/80 rounded-lg border border-slate-800 flex items-center justify-between">
-                            <div class="truncate">
-                                <span class="text-[8.5px] text-slate-400 uppercase block">ELDERLY (&gt;65)</span>
-                                <span id="vuln_elderly" class="font-bold text-slate-200">630 (15%)</span>
-                            </div>
-                        </div>
-                        <div class="p-1.5 bg-slate-950/80 rounded-lg border border-slate-800 flex items-center justify-between">
-                            <div class="truncate">
-                                <span class="text-[8.5px] text-slate-400 uppercase block">MEDICAL PRIORITY</span>
-                                <span id="vuln_medical" class="font-bold text-rose-300">126 (3%)</span>
-                            </div>
-                        </div>
-                        <div class="p-1.5 bg-slate-950/80 rounded-lg border border-slate-800 flex items-center justify-between">
-                            <div class="truncate">
-                                <span class="text-[8.5px] text-slate-400 uppercase block">LIVESTOCK ASSETS</span>
-                                <span id="vuln_livestock" class="font-bold text-emerald-300">1,260 Head</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ================= UNIFIED OPERATIONAL LIFELINES & STATUTORY DIRECTIVES MATRIX ================= -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 shadow-lg flex flex-col gap-2">
+                <!-- ================= CARD 3: POPULATION ABSORPTION & OPERATIONAL DIRECTIVES ================= -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 shadow-lg flex flex-col gap-2.5">
                     <div class="flex items-center justify-between border-b border-slate-800/80 pb-1.5">
                         <div class="flex items-center gap-2">
                             <div class="w-5 h-5 rounded bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-cyan-400">
                                 <i data-lucide="shield-alert" class="w-3 h-3"></i>
                             </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
-                                    Operational Lifelines &amp; NDMA §34 Directives
-                                    <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">ACTIVE</span>
-                                </h4>
-                            </div>
+                            <h4 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                                Population Absorption &amp; Directives
+                            </h4>
                         </div>
-                        <div class="flex items-center gap-2 font-mono">
-                            <span id="wf_logisticsTransitTime" class="text-xs font-extrabold text-cyan-400">~25 mins transit</span>
-                            <button onclick="exportDossier()" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-mono text-[10px] flex items-center gap-1 transition cursor-pointer">
-                                <i data-lucide="file-text" class="w-3 h-3"></i> Directive PDF
-                            </button>
+                        <span id="abs_statusBadge" class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold">
+                            100% ZERO-DEFICIT
+                        </span>
+                    </div>
+
+                    <!-- Absorption Progress & Statistics -->
+                    <div class="flex flex-col gap-1.5">
+                        <div class="flex items-center justify-between text-[10.5px] font-mono">
+                            <span class="text-slate-400">Displaced: <b id="abs_targetPop" class="text-white">4,200</b></span>
+                            <span class="text-slate-400">Safe Capacity: <b id="abs_safeCap" class="text-emerald-400">6,840</b></span>
+                            <span class="text-slate-400">Deficit: <b id="abs_deficit" class="text-emerald-400">0 Persons</b></span>
+                        </div>
+                        <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
+                            <div id="abs_progressBar" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-500" style="width: 100%;"></div>
                         </div>
                     </div>
 
-                    <!-- Fleet Allocation 3-Card Grid -->
-                    <div class="grid grid-cols-3 gap-2">
-                        <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 flex items-center justify-between">
-                            <div>
-                                <span class="text-[8.5px] font-mono text-slate-400 uppercase block">50-SEATER BUSES</span>
-                                <span id="wf_fleetBuses" class="text-lg font-black text-cyan-300 font-mono">84</span>
-                                <span class="text-[8.5px] text-slate-500 block">State Convoy</span>
+                    <!-- Directives Operational Quick-Tags -->
+                    <div class="grid grid-cols-3 gap-1.5 text-[9.5px] font-mono">
+                        <div class="bg-slate-950/90 p-1.5 rounded border border-slate-800 flex items-center gap-1.5">
+                            <i data-lucide="clock" class="w-3 h-3 text-cyan-400 shrink-0"></i>
+                            <div class="truncate">
+                                <span class="text-slate-400 block text-[8px]">TRANSIT</span>
+                                <span id="abs_transitTime" class="text-cyan-300 font-bold truncate">~25 mins</span>
                             </div>
-                            <i data-lucide="bus" class="w-4 h-4 text-cyan-400/60"></i>
                         </div>
-                        <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 flex items-center justify-between">
-                            <div>
-                                <span class="text-[8.5px] font-mono text-slate-400 uppercase block">AMBULANCES</span>
-                                <span id="wf_fleetAmbulances" class="text-lg font-black text-amber-400 font-mono">53</span>
-                                <span class="text-[8.5px] text-slate-500 block">ALS/BLS Triage</span>
+                        <div class="bg-slate-950/90 p-1.5 rounded border border-slate-800 flex items-center gap-1.5">
+                            <i data-lucide="navigation" class="w-3 h-3 text-emerald-400 shrink-0"></i>
+                            <div class="truncate">
+                                <span class="text-slate-400 block text-[8px]">CORRIDOR</span>
+                                <span class="text-emerald-300 font-bold truncate">NH-58 Clear</span>
                             </div>
-                            <i data-lucide="ambulance" class="w-4 h-4 text-amber-400/60"></i>
                         </div>
-                        <div class="bg-slate-950 p-2 rounded-lg border border-slate-800 flex items-center justify-between">
-                            <div>
-                                <span class="text-[8.5px] font-mono text-slate-400 uppercase block">RELIEF TRUCKS</span>
-                                <span id="wf_fleetTrucks" class="text-lg font-black text-emerald-400 font-mono">6</span>
-                                <span class="text-[8.5px] text-slate-500 block">72h Rations</span>
+                        <div class="bg-slate-950/90 p-1.5 rounded border border-slate-800 flex items-center gap-1.5">
+                            <i data-lucide="plane-takeoff" class="w-3 h-3 text-amber-400 shrink-0"></i>
+                            <div class="truncate">
+                                <span class="text-slate-400 block text-[8px]">AIR DROP</span>
+                                <span class="text-amber-300 font-bold truncate">45m Helipad</span>
                             </div>
-                            <i data-lucide="truck" class="w-4 h-4 text-emerald-400/60"></i>
                         </div>
                     </div>
 
-                    <!-- Sphere Relief Quotas 4-Box Grid -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-xs font-mono">
-                        <div class="bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/80">
-                            <span class="text-[8px] text-slate-400 uppercase block">POTABLE WATER</span>
-                            <span id="wf_quotaWater" class="text-[11px] font-bold text-blue-300 block">63,000 L/d</span>
-                            <span class="text-[8px] text-slate-500">15L/person</span>
-                        </div>
-                        <div class="bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/80">
-                            <span class="text-[8px] text-slate-400 uppercase block">SANITATION</span>
-                            <span id="wf_quotaLatrines" class="text-[11px] font-bold text-purple-300 block">210 Units</span>
-                            <span class="text-[8px] text-slate-500">1 / 20 persons</span>
-                        </div>
-                        <div class="bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/80">
-                            <span class="text-[8px] text-slate-400 uppercase block">FAMILY TENTS</span>
-                            <span id="wf_quotaShelters" class="text-[11px] font-bold text-amber-300 block">840 Tents</span>
-                            <span class="text-[8px] text-slate-500">3.5m²/person</span>
-                        </div>
-                        <div class="bg-slate-950/80 p-1.5 rounded-lg border border-slate-800/80">
-                            <span class="text-[8px] text-slate-400 uppercase block">FIELD TRIAGE</span>
-                            <span id="wf_quotaTriage" class="text-[11px] font-bold text-emerald-300 block">3 Stations</span>
-                            <span class="text-[8px] text-slate-500">1 / 2k pop</span>
-                        </div>
-                    </div>
-
-                    <!-- Ingress Corridor & Cartosat-3 Ground Audit Strip -->
-                    <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/90 text-[10px] font-mono flex flex-wrap items-center justify-between gap-2">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span class="text-slate-400">INGRESS:</span>
-                            <span class="text-emerald-300 font-bold">Dual-Lane Passable</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="text-slate-400">HELIPAD: <b class="text-white">45.0m Cleared</b></span>
-                            <span id="wf_cartoStatus" class="text-emerald-400 font-bold">Cartosat-3 Validated (96.8%)</span>
-                        </div>
-                    </div>
-
-                    <!-- Direct Deep Links -->
-                    <div class="flex items-center justify-between pt-1 border-t border-slate-800 text-[10.5px] font-mono">
-                        <span class="text-slate-500">Dedicated Portals:</span>
-                        <div class="flex items-center gap-2">
-                            <a href="/fleet" class="px-2 py-0.5 rounded bg-blue-950/60 hover:bg-blue-900/60 text-blue-300 border border-blue-800/60 transition flex items-center gap-1" title="Detailed Fleet Logistics Studio">
-                                <i data-lucide="truck" class="w-3 h-3"></i>
-                                <span>Fleet Studio ➔</span>
-                            </a>
-                            <a href="/ddma" class="px-2 py-0.5 rounded bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-800/60 transition flex items-center gap-1" title="Official Statutory Directive & PDF Export">
-                                <i data-lucide="file-check" class="w-3 h-3"></i>
-                                <span>DDMA Dossier ➔</span>
-                            </a>
-                        </div>
+                    <!-- Action Command Buttons -->
+                    <div class="flex items-center gap-2 pt-1 border-t border-slate-800/80">
+                        <button onclick="exportDossier()" class="flex-1 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-mono font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer">
+                            <i data-lucide="file-check" class="w-3.5 h-3.5"></i> Export DDMA PDF
+                        </button>
+                        <button onclick="switchTab('logistics')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-mono text-xs flex items-center gap-1 transition cursor-pointer" title="Switch to Evacuation Fleet Tab">
+                            <i data-lucide="truck" class="w-3.5 h-3.5 text-cyan-400"></i> Fleet Tab
+                        </button>
+                        <a href="/ddma" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-mono text-xs flex items-center gap-1 transition" title="Official DDMA Statutory Portal">
+                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -1639,7 +1584,44 @@
             const reloc = data.relocation_decision;
             const targetPop = data.query_parameters.displaced_population;
 
-            // ================= POPULATE RELOCATION INTELLIGENCE & LEADERBOARD =================
+            // ================= 1. POPULATE HERO PRIMARY RECOMMENDED SANCTUARY =================
+            const primary = allSites.find(s => s.passed_hard_veto && (s.rank === 1 || !s.rank)) || allSites[0];
+            window.primarySite = primary;
+
+            if (primary) {
+                const sc = primary.suitability || {};
+                const score = sc.score || Math.round((primary.utility_score || 0.89) * 100);
+                const scoreEl = document.getElementById('hero_score');
+                if (scoreEl) scoreEl.innerText = `${score} / 100`;
+
+                const nameEl = document.getElementById('hero_siteName');
+                if (nameEl) nameEl.innerText = primary.name;
+
+                const typeEl = document.getElementById('hero_siteType');
+                if (typeEl) typeEl.innerText = `${primary.type || primary.facility_type || 'Relief Hub'} • Government Land Cadastre`;
+
+                const distEl = document.getElementById('hero_siteDist');
+                if (distEl) distEl.innerText = `${primary.distance_km} km`;
+
+                const capEl = document.getElementById('hero_siteCap');
+                if (capEl) capEl.innerText = (primary.shelter_capacity_persons || 6840).toLocaleString();
+
+                const slopeEl = document.getElementById('hero_siteSlope');
+                if (slopeEl) slopeEl.innerText = `${primary.slope_deg || 3.8}°`;
+
+                const vetoEl = document.getElementById('hero_siteVeto');
+                if (vetoEl) {
+                    vetoEl.innerText = primary.passed_hard_veto ? 'PASSED' : 'VETOED';
+                    vetoEl.className = primary.passed_hard_veto ? 'text-xs font-bold text-emerald-300 block' : 'text-xs font-bold text-red-400 block';
+                }
+
+                const cartoEl = document.getElementById('hero_cartoValidation');
+                if (cartoEl) {
+                    cartoEl.innerText = `Cartosat-3 sub-meter panchromatic verified (96.8%) • 45m Helipad Ring`;
+                }
+            }
+
+            // ================= 2. POPULATE CANDIDATE SANCTUARIES COMPARISON =================
             const boardCountBadge = document.getElementById('board_countBadge');
             if (boardCountBadge) boardCountBadge.innerText = `${allSites.length} SITES`;
 
@@ -1660,46 +1642,45 @@
                     const isSupp = rank > 1 && isElig;
 
                     boardHtml += `
-                        <div class="p-2.5 rounded-lg border transition ${isPrimary ? 'bg-emerald-950/20 border-emerald-700/60 shadow-md' : isElig ? 'bg-slate-950 border-slate-800 hover:border-slate-700' : 'bg-red-950/15 border-red-900/40'}">
-                            <div class="flex items-center justify-between gap-2 border-b ${isPrimary ? 'border-emerald-800/40' : isElig ? 'border-slate-800/80' : 'border-red-900/30'} pb-1.5 mb-1.5">
+                        <div class="p-2 rounded-lg border transition ${isPrimary ? 'bg-emerald-950/20 border-emerald-700/60 shadow-sm' : isElig ? 'bg-slate-950 border-slate-800 hover:border-slate-700' : 'bg-red-950/15 border-red-900/40'}">
+                            <div class="flex items-center justify-between gap-2 border-b ${isPrimary ? 'border-emerald-800/40' : isElig ? 'border-slate-800/80' : 'border-red-900/30'} pb-1 mb-1">
                                 <div class="flex items-center gap-1.5 truncate">
                                     <span class="text-xs font-bold ${isPrimary ? 'text-emerald-300' : isElig ? 'text-white' : 'text-slate-400'} truncate">${s.name}</span>
                                     <span class="text-[9px] font-mono text-slate-500 hidden sm:inline">(${s.type || s.facility_type || 'Facility'})</span>
                                 </div>
-                                <div class="flex items-center gap-1.5 shrink-0">
+                                <div class="flex items-center gap-1 shrink-0">
                                     ${isPrimary ? `
-                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-1">
-                                            <i data-lucide="award" class="w-3 h-3 text-emerald-400"></i> RANK #1 PRIMARY
+                                        <span class="px-1.5 py-0.2 rounded text-[8.5px] font-bold font-mono bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-1">
+                                            <i data-lucide="award" class="w-3 h-3 text-emerald-400"></i> RANK #1
                                         </span>
                                     ` : isSupp ? `
-                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-cyan-950 text-cyan-300 border border-cyan-800">
-                                            RANK #${rank} RESERVE
+                                        <span class="px-1.5 py-0.2 rounded text-[8.5px] font-bold font-mono bg-cyan-950 text-cyan-300 border border-cyan-800">
+                                            RANK #${rank}
                                         </span>
                                     ` : `
-                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-red-950 text-red-400 border border-red-800">
+                                        <span class="px-1.5 py-0.2 rounded text-[8.5px] font-bold font-mono bg-red-950 text-red-400 border border-red-800">
                                             VETOED
                                         </span>
                                     `}
                                 </div>
                             </div>
-                            <div class="grid grid-cols-12 items-center gap-2 text-[10.5px] font-mono">
-                                <div class="col-span-8 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-slate-400">
+                            <div class="grid grid-cols-12 items-center gap-2 text-[10px] font-mono">
+                                <div class="col-span-8 flex flex-wrap items-center gap-x-2.5 text-slate-400">
                                     <span>Dist: <b class="text-slate-200">${s.distance_km} km</b></span>
                                     <span>Cap: <b class="${isElig ? 'text-cyan-300' : 'text-slate-500'}">${cap.toLocaleString()}</b></span>
                                     <span>Slope: <b class="${s.slope_deg <= 14 ? 'text-emerald-400' : 'text-red-400'}">${s.slope_deg}°</b></span>
-                                    <span>Elev: <b class="text-slate-300">${s.elevation_m}m</b></span>
                                 </div>
-                                <div class="col-span-4 flex items-center justify-end gap-2">
-                                    <span class="text-xs font-black ${isElig ? 'text-amber-300' : 'text-red-400 font-mono'}">${isElig ? `${score}/100` : '0/100'}</span>
-                                    <button onclick="zoomToSite(${s.coordinates.lat}, ${s.coordinates.lon})" class="px-2 py-0.8 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10px] font-mono transition cursor-pointer flex items-center gap-0.5">
-                                        <i data-lucide="crosshair" class="w-3 h-3"></i> Pan
+                                <div class="col-span-4 flex items-center justify-end gap-1.5">
+                                    <span class="text-[11px] font-black ${isElig ? 'text-amber-300' : 'text-red-400 font-mono'}">${isElig ? `${score}/100` : '0/100'}</span>
+                                    <button onclick="zoomToSite(${s.coordinates.lat}, ${s.coordinates.lon})" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[9.5px] font-mono transition cursor-pointer flex items-center gap-0.5 border border-slate-700">
+                                        <i data-lucide="crosshair" class="w-2.5 h-2.5"></i> Pan
                                     </button>
                                 </div>
                             </div>
                             ${!isElig && s.veto_reasons && s.veto_reasons.length > 0 ? `
-                                <div class="mt-1 pt-1 border-t border-red-900/30 text-[9.5px] font-mono text-red-400 flex items-center gap-1">
-                                    <i data-lucide="shield-alert" class="w-3 h-3 text-red-400 shrink-0"></i>
-                                    <span>Hard Veto: ${s.veto_reasons[0]}</span>
+                                <div class="mt-1 pt-1 border-t border-red-900/30 text-[9px] font-mono text-red-400 flex items-center gap-1">
+                                    <i data-lucide="shield-alert" class="w-2.5 h-2.5 text-red-400 shrink-0"></i>
+                                    <span>Veto: ${s.veto_reasons[0]}</span>
                                 </div>
                             ` : ''}
                         </div>
@@ -1708,76 +1689,49 @@
                 boardContainer.innerHTML = boardHtml;
             }
 
-            // ================= POPULATE DISASTER EXPOSURE & VULNERABILITY =================
-            const totalDisplacedEl = document.getElementById('vuln_totalDisplaced');
-            if (totalDisplacedEl) totalDisplacedEl.innerText = `${targetPop.toLocaleString()} Persons`;
-            
-            const popCountEl = document.getElementById('vuln_popCount');
-            if (popCountEl) popCountEl.innerText = targetPop.toLocaleString();
+            // ================= 3. POPULATE POPULATION ABSORPTION & DIRECTIVES =================
+            const targetPopEl = document.getElementById('abs_targetPop');
+            if (targetPopEl) targetPopEl.innerText = targetPop.toLocaleString();
 
-            const safeCapCountEl = document.getElementById('vuln_safeCapCount');
-            if (safeCapCountEl) safeCapCountEl.innerText = (reloc.total_safe_capacity_discovered || 6840).toLocaleString();
+            const safeCap = reloc.total_safe_capacity_discovered || 6840;
+            const safeCapEl = document.getElementById('abs_safeCap');
+            if (safeCapEl) safeCapEl.innerText = safeCap.toLocaleString();
 
-            const deficitCountEl = document.getElementById('vuln_deficitCount');
-            if (deficitCountEl) {
-                const deficit = Math.max(0, targetPop - (reloc.total_safe_capacity_discovered || 0));
-                deficitCountEl.innerText = deficit === 0 ? '0 (100% Absorbed)' : `${deficit.toLocaleString()} Deficit`;
-                deficitCountEl.className = deficit === 0 ? 'text-xs font-bold text-emerald-400 font-mono' : 'text-xs font-bold text-red-400 font-mono';
+            const deficit = Math.max(0, targetPop - safeCap);
+            const deficitEl = document.getElementById('abs_deficit');
+            if (deficitEl) {
+                deficitEl.innerText = deficit === 0 ? '0 Persons' : `${deficit.toLocaleString()} Deficit`;
+                deficitEl.className = deficit === 0 ? 'text-emerald-400 font-bold' : 'text-red-400 font-bold';
             }
 
-            const aoiEnvelopeEl = document.getElementById('vuln_aoiEnvelope');
-            if (aoiEnvelopeEl && data.dynamic_aoi) aoiEnvelopeEl.innerText = `${data.dynamic_aoi.area_sq_km} km²`;
+            const statusBadge = document.getElementById('abs_statusBadge');
+            if (statusBadge) {
+                statusBadge.innerText = deficit === 0 ? '100% ZERO-DEFICIT' : `${Math.round((safeCap / targetPop) * 100)}% COVERAGE`;
+                statusBadge.className = deficit === 0 ? 'text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold' : 'text-[9px] px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono font-bold';
+            }
 
-            // Demographic Cohorts
-            const childPop = Math.round(targetPop * 0.20);
-            const elderlyPop = Math.round(targetPop * 0.15);
-            const medicalPop = Math.round(targetPop * 0.03);
-            const livestockPop = Math.round(targetPop * 0.30);
+            const pBar = document.getElementById('abs_progressBar');
+            if (pBar) {
+                const pct = Math.min(100, Math.round((safeCap / targetPop) * 100));
+                pBar.style.width = `${pct}%`;
+            }
 
-            const vulnChildEl = document.getElementById('vuln_children');
-            if (vulnChildEl) vulnChildEl.innerText = `${childPop.toLocaleString()} Individuals`;
-
-            const vulnElderlyEl = document.getElementById('vuln_elderly');
-            if (vulnElderlyEl) vulnElderlyEl.innerText = `${elderlyPop.toLocaleString()} Individuals`;
-
-            const vulnMedicalEl = document.getElementById('vuln_medical');
-            if (vulnMedicalEl) vulnMedicalEl.innerText = `${medicalPop.toLocaleString()} Patients`;
-
-            const vulnLivestockEl = document.getElementById('vuln_livestock');
-            if (vulnLivestockEl) vulnLivestockEl.innerText = `${livestockPop.toLocaleString()} Head`;
-
-            // ================= OPERATIONAL LIFELINES SYNCHRONIZATION =================
-            const buses = Math.ceil(targetPop / 50);
-            const ambulances = Math.ceil(targetPop * 0.0125);
-            const trucks = Math.ceil(targetPop / 700);
-
-            const wfBuses = document.getElementById('wf_fleetBuses');
-            if (wfBuses) wfBuses.innerText = buses;
-            const wfAmbulances = document.getElementById('wf_fleetAmbulances');
-            if (wfAmbulances) wfAmbulances.innerText = ambulances;
-            const wfTrucks = document.getElementById('wf_fleetTrucks');
-            if (wfTrucks) wfTrucks.innerText = trucks;
-
-            const wfWater = document.getElementById('wf_quotaWater');
-            if (wfWater) wfWater.innerText = `${(targetPop * 15).toLocaleString()} L / day`;
-            const wfLatrines = document.getElementById('wf_quotaLatrines');
-            if (wfLatrines) wfLatrines.innerText = `${Math.ceil(targetPop / 20).toLocaleString()} Units`;
-            const wfShelters = document.getElementById('wf_quotaShelters');
-            if (wfShelters) wfShelters.innerText = `${Math.ceil(targetPop / 5).toLocaleString()} Tents`;
-            const wfTriage = document.getElementById('wf_quotaTriage');
-            if (wfTriage) wfTriage.innerText = `${Math.max(1, Math.ceil(targetPop / 2000))} Stations`;
-
-            const wfTransit = document.getElementById('wf_logisticsTransitTime');
-            if (wfTransit) wfTransit.innerText = (data.logistics?.evacuationTransitTime || '~25 mins');
-
-            const wfCarto = document.getElementById('wf_cartoStatus');
-            if (wfCarto) wfCarto.innerText = '0.28m GSD Validated (96.8%)';
+            const transitEl = document.getElementById('abs_transitTime');
+            if (transitEl) {
+                transitEl.innerText = (data.logistics?.evacuationTransitTime || logis.evacuation_transit_time_mins ? `~${logis.evacuation_transit_time_mins} mins` : '~25 mins');
+            }
 
             lucide.createIcons();
         }
 
         function zoomToSite(lat, lon) {
             map.flyTo([lat, lon], 14);
+        }
+
+        function zoomToPrimarySite() {
+            if (window.primarySite && window.primarySite.coordinates) {
+                map.flyTo([window.primarySite.coordinates.lat, window.primarySite.coordinates.lon], 14);
+            }
         }
 
         function updatePrecipChart(times, series) {
