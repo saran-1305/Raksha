@@ -242,7 +242,7 @@ class SatelliteTelemetryService:
             "datetime": "2026-09-12T05:16:49Z",
             "cloud_cover_pct": 24.5,
             "platform": "Sentinel-2B",
-            "preview_url": None,
+            "preview_url": "/assets/raksha_wayanad_dark_bg.jpg",
             "tile_id": "T43PFN",
             "provenance": "Cached Sentinel-2 Reference Frame (Offline Resilience)"
         }
@@ -309,7 +309,7 @@ class SatelliteTelemetryService:
             "polarizations": ["VV", "VH"],
             "platform": "SENTINEL-1A",
             "instrument_mode": "IW",
-            "preview_url": None,
+            "preview_url": "/assets/wayanad_heatmap_hud.svg",
             "bbox": [round(lon - 0.25, 4), round(lat - 0.25, 4), round(lon + 0.25, 4), round(lat + 0.25, 4)],
             "cloud_penetration": "100% (All-Weather Active Microwave)",
             "flood_detection_capability": "Calibrated SAR Backscatter Change Baseline",

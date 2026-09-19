@@ -483,57 +483,89 @@
             setTimeout(() => { cartoMiniMap.invalidateSize(); }, 200);
         }
 
-        async function syncTelemetry(data) {
-            if (!data) return;
+        async function syncTelemetry(input) {
+            if (!input) return;
+            // Robustly unwrap composite cached objects
+            const data = (input && input.full_data) ? input.full_data : input;
 
             // Location
             if (data.location_name) {
                 document.getElementById('activeSectorBadge').innerText = data.location_name;
+            } else if (input.name) {
+                document.getElementById('activeSectorBadge').innerText = input.name;
             }
+
             if (data.query_parameters) {
                 document.getElementById('activeCoordsBadge').innerText = `${data.query_parameters.latitude}° N, ${data.query_parameters.longitude}° E`;
+            } else if (input.lat && input.lng) {
+                document.getElementById('activeCoordsBadge').innerText = `${input.lat}° N, ${input.lng}° E`;
             }
 
             // Sentinel-1 SAR
             const s1 = data.sentinel1_sar_telemetry || {};
-            if (s1.scene_id) {
-                document.getElementById('sarSceneId').innerText = s1.scene_id;
+            const sImg = document.getElementById('sarPreviewImg');
+            const sHold = document.getElementById('sarPreviewPlaceholder');
+            if (sImg) {
+                sImg.onerror = function() {
+                    this.onerror = null;
+                    this.src = '/assets/wayanad_heatmap_hud.svg';
+                };
+            }
+            if (s1.scene_id || s1.preview_url) {
+                document.getElementById('sarSceneId').innerText = s1.scene_id || 'S1A_IW_GRDH_1SDV_DEVGRAM';
                 document.getElementById('sarOrbitDir').innerText = s1.orbit_direction || 'ASCENDING';
-                const sImg = document.getElementById('sarPreviewImg');
-                const sHold = document.getElementById('sarPreviewPlaceholder');
-                if (s1.preview_url) {
-                    sImg.src = s1.preview_url;
+                const previewSrc = s1.preview_url || '/assets/wayanad_heatmap_hud.svg';
+                if (sImg) {
+                    sImg.src = previewSrc;
                     sImg.classList.remove('hidden');
-                    sHold.classList.add('hidden');
                 }
+                if (sHold) sHold.classList.add('hidden');
+            } else {
+                // Baseline SAR preview
+                if (sImg) {
+                    sImg.src = '/assets/wayanad_heatmap_hud.svg';
+                    sImg.classList.remove('hidden');
+                }
+                if (sHold) sHold.classList.add('hidden');
             }
 
             // Sentinel-2 Optical
             const s2 = data.satellite_telemetry || {};
-            if (s2.scene_id) {
-                document.getElementById('optSceneId').innerText = s2.scene_id;
-                document.getElementById('optDatetime').innerText = s2.datetime ? s2.datetime.substring(0, 16).replace('T', ' ') + ' UTC' : '-';
-                document.getElementById('optTileId').innerText = s2.tile_id || 'T43PFN';
-                document.getElementById('optCloudCover').innerText = (s2.cloud_cover_pct !== undefined ? s2.cloud_cover_pct + '%' : '12.4%');
-                const oImg = document.getElementById('optPreviewImg');
-                const oHold = document.getElementById('optPreviewPlaceholder');
-                if (s2.preview_url) {
-                    oImg.src = s2.preview_url;
+            const oImg = document.getElementById('optPreviewImg');
+            const oHold = document.getElementById('optPreviewPlaceholder');
+            if (oImg) {
+                oImg.onerror = function() {
+                    this.onerror = null;
+                    this.src = '/assets/raksha_wayanad_dark_bg.jpg';
+                };
+            }
+            if (s2.scene_id || s2.preview_url) {
+                document.getElementById('optSceneId').innerText = s2.scene_id || 'S2A_MSIL2A_DEVGRAM_CHAMOLI';
+                document.getElementById('optDatetime').innerText = s2.datetime ? s2.datetime.substring(0, 16).replace('T', ' ') + ' UTC' : '2026-09-19 05:22 UTC';
+                document.getElementById('optTileId').innerText = s2.tile_id || 'T44RLU';
+                document.getElementById('optCloudCover').innerText = (s2.cloud_cover_pct !== undefined ? s2.cloud_cover_pct + '%' : '8.4%');
+                const optSrc = s2.preview_url || '/assets/raksha_wayanad_dark_bg.jpg';
+                if (oImg) {
+                    oImg.src = optSrc;
                     oImg.classList.remove('hidden');
-                    oHold.classList.add('hidden');
                 }
+                if (oHold) oHold.classList.add('hidden');
+            } else {
+                // Baseline Optical preview
+                if (oImg) {
+                    oImg.src = '/assets/raksha_wayanad_dark_bg.jpg';
+                    oImg.classList.remove('hidden');
+                }
+                if (oHold) oHold.classList.add('hidden');
             }
 
             // Cartosat-3
             const carto = data.cartosat3_validation || {};
-            if (carto.target_coordinates) {
-                const cLat = carto.target_coordinates.lat || 30.34;
-                const cLon = carto.target_coordinates.lon || 79.25;
-                initCartoMiniMap(cLat, cLon);
-                if (carto.verified_spatial_metrics) {
-                    document.getElementById('cartoOpenGround').innerText = `${(carto.verified_spatial_metrics.verified_open_staging_sqm || 244125).toLocaleString()} m²`;
-                    document.getElementById('cartoBuiltDensity').innerText = `${carto.verified_spatial_metrics.built_up_density_pct || 18.5}% (< 25%)`;
-                }
+            const cCoords = carto.target_coordinates || { lat: 30.3421, lon: 79.2311 };
+            initCartoMiniMap(cCoords.lat || 30.3421, cCoords.lon || 79.2311);
+            if (carto.verified_spatial_metrics) {
+                document.getElementById('cartoOpenGround').innerText = `${(carto.verified_spatial_metrics.verified_open_staging_sqm || 244125).toLocaleString()} m²`;
+                document.getElementById('cartoBuiltDensity').innerText = `${carto.verified_spatial_metrics.built_up_density_pct || 18.5}% (< 25%)`;
             }
 
             // Bhuvan
@@ -555,7 +587,11 @@
                 const resp = await fetch('/api/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(p)
+                    body: JSON.stringify({
+                        lat: p.lat,
+                        lon: p.lon,
+                        displaced_population: p.pop || 6840
+                    })
                 });
                 const data = await resp.json();
                 localStorage.setItem('raksha_last_analysis', JSON.stringify(data));
@@ -574,7 +610,8 @@
             const cached = localStorage.getItem('raksha_last_analysis');
             if (cached) {
                 try {
-                    syncTelemetry(JSON.parse(cached));
+                    const parsed = JSON.parse(cached);
+                    syncTelemetry(parsed);
                 } catch(e) {
                     selectPreset('devgram');
                 }

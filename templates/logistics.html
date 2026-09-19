@@ -350,12 +350,20 @@
             document.getElementById('simLatrines').innerText = latrines;
         }
 
-        function syncData(data) {
-            if (!data) return;
+        function syncData(input) {
+            if (!input) return;
+            const data = (input && input.full_data) ? input.full_data : input;
 
             if (data.location_name) document.getElementById('activeSectorName').innerText = `${data.location_name} ➔ Top Sanctuary`;
+            else if (input.name) document.getElementById('activeSectorName').innerText = `${input.name} ➔ Top Sanctuary`;
+
             if (data.query_parameters) {
                 const pop = data.query_parameters.displaced_population || 6840;
+                document.getElementById('lblPopToMove').innerText = `${pop.toLocaleString()} Citizens`;
+                document.getElementById('popSlider').value = pop;
+                simUpdate(pop);
+            } else if (input.population_at_risk) {
+                const pop = input.population_at_risk;
                 document.getElementById('lblPopToMove').innerText = `${pop.toLocaleString()} Citizens`;
                 document.getElementById('popSlider').value = pop;
                 simUpdate(pop);
@@ -386,7 +394,11 @@
                 const resp = await fetch('/api/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(p)
+                    body: JSON.stringify({
+                        lat: p.lat,
+                        lon: p.lon,
+                        displaced_population: p.pop || 6840
+                    })
                 });
                 const data = await resp.json();
                 localStorage.setItem('raksha_last_analysis', JSON.stringify(data));
@@ -405,7 +417,8 @@
             const cached = localStorage.getItem('raksha_last_analysis');
             if (cached) {
                 try {
-                    syncData(JSON.parse(cached));
+                    const parsed = JSON.parse(cached);
+                    syncData(parsed);
                 } catch(e) {
                     selectPreset('devgram');
                 }
