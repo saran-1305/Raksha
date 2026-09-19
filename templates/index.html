@@ -22,6 +22,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Direct PDF Generation Library -->
+    <script src="/assets/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #0b0f19; }
@@ -853,8 +855,8 @@
 
             <div class="flex justify-between items-center pt-3 border-t border-slate-800 flex-wrap gap-2">
                 <div class="flex items-center gap-2">
-                    <button onclick="downloadDossierReport()" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-sans font-semibold text-xs flex items-center gap-1.5 cursor-pointer shadow-lg shadow-cyan-500/20">
-                        <i data-lucide="download" class="w-3.5 h-3.5"></i> Download Official Dossier (.HTML / PDF)
+                    <button onclick="downloadDossierReport()" class="px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-sans font-semibold text-xs flex items-center gap-1.5 cursor-pointer shadow-lg shadow-emerald-500/20">
+                        <i data-lucide="file-down" class="w-3.5 h-3.5"></i> Download Official Dossier (.pdf)
                     </button>
                     <button onclick="downloadDossierJson()" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-mono text-xs flex items-center gap-1.5 cursor-pointer">
                         <i data-lucide="file-json" class="w-3.5 h-3.5"></i> Export JSON Data
@@ -2006,185 +2008,42 @@
             document.getElementById('dossierModal').classList.add('hidden');
         }
 
-        function downloadDossierReport() {
+        async function downloadDossierReport() {
             if (!lastAnalysisData) {
                 alert("Please run analysis first.");
                 return;
             }
 
-            const data = lastAnalysisData;
-            const topSite = (data.relocation_decision && data.relocation_decision.ranked_safe_sites && data.relocation_decision.ranked_safe_sites[0]) || {};
-            const logis = (data.relocation_decision && data.relocation_decision.evacuation_logistics) || {};
-            const multiAlloc = (data.relocation_decision && data.relocation_decision.multi_site_allocation) || {};
-            const prov = data.data_provenance || {};
-            const grid = (data.relocation_decision && data.relocation_decision.spatial_hazard_grid) || {};
-            const transect = (data.relocation_decision && data.relocation_decision.elevation_transect) || {};
-            const s1 = data.sentinel1_sar_telemetry || {};
-            const carto = data.cartosat3_validation || {};
-
-            let allocRowsHtml = '';
-            if (multiAlloc.allocations) {
-                multiAlloc.allocations.forEach(a => {
-                    allocRowsHtml += `
-                        <tr style="border-bottom: 1px solid #334155;">
-                            <td style="padding: 8px; font-weight: bold; color: #38bdf8;">${a.site_name}</td>
-                            <td style="padding: 8px; text-align: center;">${a.role}</td>
-                            <td style="padding: 8px; text-align: right;">${a.site_capacity?.toLocaleString()}</td>
-                            <td style="padding: 8px; text-align: right; font-weight: bold; color: #34d399;">${a.allocated_population?.toLocaleString()}</td>
-                            <td style="padding: 8px; text-align: right;">${a.utilization_pct}%</td>
-                        </tr>
-                    `;
-                });
+            const content = document.getElementById('dossierContent');
+            if (!content) {
+                window.location.href = '/ddma?download=true';
+                return;
             }
 
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const locClean = (data.location_name || 'Disaster_Sector').replace(/[^a-zA-Z0-9]/g, '_');
-            const fileName = `RAKSHA_DDMA_Relocation_Dossier_${locClean}_${timestamp}.html`;
+            const data = lastAnalysisData;
+            const locClean = (data.location_name || 'Disaster_Sector').replace(/[^a-zA-Z0-9_-]/g, '_');
+            const dateStr = new Date().toISOString().slice(0, 10);
+            const fileName = `RAKSHA_DDMA_Executive_Directive_${locClean}_${dateStr}.pdf`;
 
-            const htmlDoc = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>DDMA Relocation Dossier - ${data.location_name}</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #0b0f19; color: #e2e8f0; padding: 24px; margin: 0; }
-        .container { max-width: 880px; margin: 0 auto; background: #0f172a; padding: 28px; border-radius: 12px; border: 1px solid #1e293b; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0284c7; padding-bottom: 14px; margin-bottom: 20px; }
-        .title { font-size: 18px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; }
-        .subtitle { font-size: 11px; color: #94a3b8; margin-top: 3px; }
-        .badge { display: inline-block; padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: bold; background: #0369a1; color: #ffffff; font-family: monospace; }
-        .section { background: #0b0f19; border: 1px solid #1e293b; border-radius: 8px; padding: 14px; margin-bottom: 14px; }
-        .section-title { font-size: 11px; font-weight: 700; color: #38bdf8; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; font-family: monospace; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 11px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 10px; }
-        .field { background: #1e293b; padding: 8px 10px; border-radius: 6px; border: 1px solid #334155; }
-        .label { color: #64748b; font-size: 9px; text-transform: uppercase; font-weight: bold; margin-bottom: 2px; font-family: monospace; }
-        .val { color: #f8fafc; font-weight: 600; font-family: monospace; font-size: 11px; }
-        table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 6px; }
-        th { background: #1e293b; color: #94a3b8; text-align: left; padding: 6px 8px; font-weight: 600; border-bottom: 1px solid #334155; font-size: 10px; font-family: monospace; }
-        .footer { text-align: center; font-size: 9px; color: #64748b; margin-top: 20px; padding-top: 10px; border-top: 1px solid #1e293b; font-family: monospace; }
-        @media print {
-            body { background: #ffffff; color: #000000; padding: 0; }
-            .container { background: #ffffff; color: #000000; border: none; box-shadow: none; padding: 0; }
-            .section, .field { background: #f8fafc; border-color: #cbd5e1; color: #000000; }
-            .val, .title { color: #000000; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <div>
-                <div class="title">Official Disaster Relocation Decision Dossier</div>
-                <div class="subtitle">District Disaster Management Authority (DDMA) • State Emergency Operations Centre (SEOC)</div>
-            </div>
-            <div style="text-align: right;">
-                <span class="badge">RAKSHA 2.0 VERIFIED</span>
-                <div style="font-size: 9px; color: #94a3b8; margin-top: 4px; font-family: monospace;">Generated: ${new Date().toUTCString()}</div>
-            </div>
-        </div>
+            const opt = {
+                margin:       [8, 8, 8, 8],
+                filename:     fileName,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
 
-        <!-- 1. Incident Profile -->
-        <div class="section">
-            <div class="section-title">1. INCIDENT & DYNAMIC AOI PROFILE</div>
-            <div class="grid">
-                <div class="field"><div class="label">HABITATION / SECTOR</div><div class="val">${data.location_name}</div></div>
-                <div class="field"><div class="label">COORDINATES</div><div class="val">${data.query_parameters?.latitude}° N, ${data.query_parameters?.longitude}° E</div></div>
-                <div class="field"><div class="label">SCENARIO DISPLACEMENT</div><div class="val">${data.query_parameters?.displaced_population?.toLocaleString()} Persons</div></div>
-                <div class="field"><div class="label">DYNAMIC HAZARD AOI</div><div class="val">${data.dynamic_aoi?.area_sq_km} sq km (Bearing: ${data.dynamic_aoi?.flow_bearing_deg}°)</div></div>
-            </div>
-        </div>
-
-        <!-- 2. Multi-Sensor Data Provenance -->
-        <div class="section">
-            <div class="section-title">2. MULTI-SENSOR EARTH OBSERVATION & TELEMETRY AUDIT</div>
-            <div class="grid-3">
-                <div class="field"><div class="label">SENTINEL-1 C-SAR</div><div class="val" style="color: #38bdf8;">${prov.sentinel1 || 'LIVE STAC'} • ${s1.polarizations ? s1.polarizations.join('/') : 'VV/VH'}</div></div>
-                <div class="field"><div class="label">SENTINEL-2 L2A</div><div class="val" style="color: #34d399;">${prov.sentinel2 || 'LIVE STAC'} • MGRS ${data.satellite_telemetry?.tile_id || 'T43PFN'}</div></div>
-                <div class="field"><div class="label">CARTOSAT-3</div><div class="val" style="color: #fbbf24;">${prov.cartosat3 || '0.28m PAN'} • ${carto.open_staging_area_sq_m?.toLocaleString() || '4,500'} m² Open Ground</div></div>
-                <div class="field"><div class="label">OPEN-METEO WEATHER</div><div class="val" style="color: #34d399;">${prov.weather || 'LIVE API'} • Rain: ${data.precipitation_telemetry?.accumulated_24h_mm || 0} mm</div></div>
-                <div class="field"><div class="label">SRTM DEM ELEVATION</div><div class="val" style="color: #34d399;">${prov.elevation || 'LIVE DEM'} • 12-pt Continuous Transect</div></div>
-                <div class="field"><div class="label">OPENSTREETMAP</div><div class="val" style="color: #38bdf8;">${prov.osm || 'PRE-INDEXED'} • Public Civic Infrastructure</div></div>
-            </div>
-        </div>
-
-        <!-- 3. Spatial Hazard & Terrain Transect -->
-        <div class="section">
-            <div class="section-title">3. 5×5 SPATIAL HAZARD GRID & TERRAIN TRANSECT</div>
-            <div class="grid">
-                <div class="field"><div class="label">SPATIAL HAZARD RASTER</div><div class="val">25 Cells (1 km res) | Critical: ${grid.tier_summary?.Critical || 0}, High: ${grid.tier_summary?.High || 0}, Mod: ${grid.tier_summary?.Moderate || 0}</div></div>
-                <div class="field"><div class="label">ORIGIN-TO-SITE TERRAIN TRANSECT</div><div class="val">Min: ${transect.summary?.min_elevation_m || 0}m | Max: ${transect.summary?.max_elevation_m || 0}m | Delta: ${transect.summary?.net_elevation_delta_m || 0}m | Max Grad: ${transect.summary?.max_gradient_pct || 0}%</div></div>
-            </div>
-        </div>
-
-        <!-- 4. Greedy Multi-Site Capacity Allocation -->
-        <div class="section">
-            <div class="section-title">4. GREEDY MULTI-SITE CAPACITY ALLOCATION (SPHERE PLANNING SIZING)</div>
-            <div style="font-size: 11px; margin-bottom: 8px; color: #38bdf8; font-family: monospace;">${multiAlloc.allocation_formula || 'Full Population Coverage Satisfied'}</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Site Name</th>
-                        <th style="text-align: center;">Role</th>
-                        <th style="text-align: right;">Sphere Capacity</th>
-                        <th style="text-align: right;">Allocated Citizens</th>
-                        <th style="text-align: right;">Utilization</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${allocRowsHtml}
-                </tbody>
-            </table>
-        </div>
-
-        <!-- 5. Evacuation Fleet & Humanitarian Lifelines -->
-        <div class="section">
-            <div class="section-title">5. EVACUATION FLEET & HUMANITARIAN LIFELINES</div>
-            <div class="grid">
-                <div class="field"><div class="label">FLEET MOBILIZATION</div><div class="val">${logis.transport_fleet?.buses_50_seater || 0} Buses (50-seater) + ${logis.transport_fleet?.ambulances_als_bls || 0} Ambulances</div></div>
-                <div class="field"><div class="label">POTABLE WATER SUPPLY</div><div class="val">${logis.humanitarian_relief_quota?.drinking_water_liters_day?.toLocaleString() || 0} Liters / Day (15 L/person)</div></div>
-                <div class="field"><div class="label">SANITATION LATRINES</div><div class="val">${logis.humanitarian_relief_quota?.sanitation_units || 0} Portable Latrine Units</div></div>
-                <div class="field"><div class="label">EMERGENCY SHELTERS</div><div class="val">${logis.humanitarian_relief_quota?.family_shelter_units || 0} Family Tents</div></div>
-            </div>
-        </div>
-
-        <!-- 6. Zero-Tolerance Safety Veto Audit -->
-        <div class="section">
-            <div class="section-title">6. ZERO-TOLERANCE SAFETY VETO AUDIT TRAIL</div>
-            <div style="font-size: 11px; line-height: 1.5;">
-                <div><b>Operational Principle:</b> Unsafe candidate parcels are eliminated by hard veto, not merely penalized in score.</div>
-                <div style="color: #f87171; margin-top: 4px;"><b>Vetoed Candidate:</b> Site D (Upper Alaknanda Riverbed Terrace) — REJECTED due to active fluvial inundation corridor and terrain slope > 14°. Zero unsafe sites allocated.</div>
-            </div>
-        </div>
-
-        <!-- 7. Satellite Decision Architecture Matrix -->
-        <div class="section">
-            <div class="section-title">7. SATELLITE EO DECISION ARCHITECTURE MATRIX</div>
-            <div class="grid">
-                <div class="field"><div class="label">SENTINEL-1 SAR (DETECT)</div><div class="val">All-weather cloud-penetrating radar flood extent & specular backscatter drop.</div></div>
-                <div class="field"><div class="label">SENTINEL-2 OPTICAL (UNDERSTAND)</div><div class="val">Multi-spectral land cover, vegetation condition & environmental baseline.</div></div>
-                <div class="field"><div class="label">CARTOSAT-3 (VALIDATE)</div><div class="val">Sub-meter (0.28m) site boundary, open ground & 45m helipad clearance verification.</div></div>
-                <div class="field"><div class="label">ISRO BHUVAN / NRSC (ANCHOR)</div><div class="val">Authoritative 1:50k LULC classification & drainage vector foundation.</div></div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <div>Authenticated Post-Disaster Decision Intelligence • RAKSHA Engine 2.0</div>
-            <div>Issued under DDMA Incident Command System • State Emergency Operations Centre</div>
-        </div>
-    </div>
-</body>
-</html>`;
-
-            const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            try {
+                if (typeof html2pdf !== 'undefined') {
+                    await html2pdf().set(opt).from(content).save();
+                } else {
+                    window.location.href = '/ddma?download=true';
+                }
+            } catch (err) {
+                console.error("Direct PDF export error, redirecting to dedicated DDMA portal:", err);
+                window.location.href = '/ddma?download=true';
+            }
         }
 
         function downloadDossierJson() {

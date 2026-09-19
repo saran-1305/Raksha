@@ -9,6 +9,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Direct PDF Generation Library (html2pdf.js) -->
+    <script src="/assets/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
@@ -17,7 +19,58 @@
         ::-webkit-scrollbar-track { background: #060a14; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
         
-        /* Print Styles for Executive Government PDF */
+        /* Direct PDF Export Styles (Official Government Order Theme) */
+        .pdf-export-mode {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            padding: 12px !important;
+            max-width: 100% !important;
+        }
+        .pdf-export-mode * {
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+        .pdf-export-mode .print-card {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #0f172a !important;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            margin-bottom: 1rem !important;
+        }
+        .pdf-export-mode .print-card * {
+            color: #0f172a !important;
+        }
+        .pdf-export-mode .print-header {
+            border-bottom: 2px solid #0f172a !important;
+        }
+        .pdf-export-mode .print-badge {
+            border: 1px solid #0f172a !important;
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+        }
+        .pdf-export-mode .text-white {
+            color: #0f172a !important;
+        }
+        .pdf-export-mode .text-slate-300,
+        .pdf-export-mode .text-slate-400,
+        .pdf-export-mode .text-slate-500 {
+            color: #475569 !important;
+        }
+        .pdf-export-mode .bg-slate-900,
+        .pdf-export-mode .bg-slate-900\/90,
+        .pdf-export-mode .bg-slate-950,
+        .pdf-export-mode .bg-slate-950\/60,
+        .pdf-export-mode .bg-slate-950\/70 {
+            background-color: #f8fafc !important;
+            border-color: #cbd5e1 !important;
+        }
+        .pdf-export-mode .border-slate-800,
+        .pdf-export-mode .border-slate-800\/80 {
+            border-color: #cbd5e1 !important;
+        }
+
+        /* Print Styles fallback */
         @media print {
             body { background: white !important; color: #0f172a !important; font-size: 11pt; }
             header, nav, .no-print { display: none !important; }
@@ -93,13 +146,16 @@
 
             <!-- Right: Action Controls -->
             <div class="flex items-center gap-2.5">
-                <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/20 font-mono">
-                    <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-                    <span>Print PDF Brief</span>
+                <button id="btnDownloadPDF" onclick="downloadOfficialPDF()" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/30 font-mono cursor-pointer">
+                    <i data-lucide="file-down" class="w-4 h-4"></i>
+                    <span id="lblDownloadPDF">Download PDF Order (.pdf)</span>
                 </button>
-                <button onclick="exportGeoJSON()" class="px-3 py-1.5 rounded-lg bg-blue-950/60 hover:bg-blue-900/70 text-cyan-300 border border-blue-800/60 text-xs flex items-center gap-1.5 transition font-mono" title="Export GeoJSON for QGIS / ArcGIS">
+                <button onclick="exportGeoJSON()" class="px-3 py-1.5 rounded-lg bg-blue-950/60 hover:bg-blue-900/70 text-cyan-300 border border-blue-800/60 text-xs flex items-center gap-1.5 transition font-mono cursor-pointer" title="Export GeoJSON for QGIS / ArcGIS">
                     <i data-lucide="download" class="w-3.5 h-3.5"></i>
                     <span>Export QGIS Layer</span>
+                </button>
+                <button onclick="window.print()" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700 transition cursor-pointer" title="Print to paper printer">
+                    <i data-lucide="printer" class="w-3.5 h-3.5"></i>
                 </button>
             </div>
 
@@ -124,8 +180,8 @@
         </div>
     </div>
 
-    <!-- Main Container -->
-    <main class="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 lg:p-8 space-y-6 print-container">
+    <!-- Main Container (PDF Printable Target) -->
+    <main id="dossierDocument" class="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 lg:p-8 space-y-6 print-container">
 
         <!-- Top Government Clearance Banner -->
         <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden shadow-2xl print-card print-header">
@@ -585,27 +641,52 @@
             try {
                 const stored = localStorage.getItem('raksha_last_analysis');
                 if (stored) {
-                    analysisData = JSON.parse(stored);
+                    const parsed = JSON.parse(stored);
+                    const raw = parsed.full_data || parsed;
+                    // Normalize into analysisData
+                    analysisData = {
+                        name: raw.location_name || raw.name || "Devgram Hazard Habitation (Chamoli, Uttarakhand)",
+                        lat: (raw.query_parameters && raw.query_parameters.latitude) || raw.lat || 30.3207,
+                        lng: (raw.query_parameters && raw.query_parameters.longitude) || raw.lng || 79.2163,
+                        disaster_type: (raw.query_parameters && raw.query_parameters.hazard_type) || raw.disaster_type || "Glacial Inundation & Landslide Runoff",
+                        evacuation_radius_km: 5.0,
+                        population_at_risk: (raw.query_parameters && raw.query_parameters.displaced_population) || raw.population_at_risk || 6840,
+                        estimated_fatalities: 0,
+                        severity_score: (raw.precipitation_telemetry && raw.precipitation_telemetry.computed_hazard_index * 100) || raw.severity_score || 88.5,
+                        rainfall_mm: (raw.precipitation_telemetry && raw.precipitation_telemetry.accumulated_24h_mm) || raw.rainfall_mm || 142.5,
+                        slope_deg: (raw.relocation_decision && raw.relocation_decision.elevation_transect && raw.relocation_decision.elevation_transect.summary && raw.relocation_decision.elevation_transect.summary.max_gradient_pct) || raw.slope_deg || 28.5,
+                        debris_velocity_ms: 11.2,
+                        timestamp: new Date().toISOString(),
+                        full_data: raw
+                    };
+                    
+                    const topSite = (raw.relocation_decision && raw.relocation_decision.ranked_safe_sites && raw.relocation_decision.ranked_safe_sites[0]);
+                    if (topSite) {
+                        analysisData.designated_camp = topSite.name;
+                        analysisData.camp_distance = (topSite.distance_km || 4.8) + " km (Safe)";
+                    }
                 }
             } catch (e) {
                 console.error("Failed to parse stored analysis", e);
             }
 
-            // Fallback default if direct navigation occurred
+            // Fallback default if direct navigation occurred without cache
             if (!analysisData) {
                 analysisData = {
-                    name: "Wayanad Chooralmala Event",
-                    lat: 11.5204,
-                    lng: 76.1583,
-                    disaster_type: "Landslide",
+                    name: "Devgram Hazard Habitation (Chamoli, Uttarakhand)",
+                    lat: 30.3207,
+                    lng: 79.2163,
+                    disaster_type: "Glacial Inundation & Landslide Runoff",
                     evacuation_radius_km: 5.0,
-                    population_at_risk: 1240,
+                    population_at_risk: 6840,
                     estimated_fatalities: 0,
-                    severity_score: 94.8,
-                    rainfall_mm: 572.0,
-                    slope_deg: 32.4,
-                    debris_velocity_ms: 11.8,
-                    timestamp: new Date().toISOString()
+                    severity_score: 88.5,
+                    rainfall_mm: 142.5,
+                    slope_deg: 28.5,
+                    debris_velocity_ms: 11.2,
+                    timestamp: new Date().toISOString(),
+                    designated_camp: "Taluk Stadium & Sports Ground",
+                    camp_distance: "6.2 km (Verified Safe)"
                 };
             }
 
@@ -621,16 +702,31 @@
             document.getElementById('signDate1').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ' IST';
             
             // Random hash generator for digital stamp
-            const seed = (d.lat || 11.52) + "" + (d.lng || 76.15) + "" + (d.population_at_risk || 1240);
+            const seed = (d.lat || 30.32) + "" + (d.lng || 79.21) + "" + (d.population_at_risk || 6840);
             document.getElementById('cryptoHash').textContent = generateMockHash(seed);
 
             // Populate Quick Snapshot
             if (d.name) document.getElementById('targetHotspotName').textContent = d.name;
             if (d.lat && d.lng) document.getElementById('targetCoords').textContent = `${Number(d.lat).toFixed(4)}° N, ${Number(d.lng).toFixed(4)}° E`;
-            if (d.disaster_type) document.getElementById('disasterCategory').textContent = `${d.disaster_type} & Debris Flow`;
+            if (d.disaster_type) document.getElementById('disasterCategory').textContent = `${d.disaster_type}`;
             
-            const pop = d.population_at_risk || 1240;
+            const pop = d.population_at_risk || 6840;
             document.getElementById('estPopulation').textContent = `${pop.toLocaleString()} Citizens`;
+
+            // Designated camp
+            if (d.designated_camp) {
+                document.getElementById('designatedCamp').textContent = d.designated_camp;
+            }
+            if (d.camp_distance) {
+                document.getElementById('designatedDistance').textContent = `Distance: ${d.camp_distance}`;
+            }
+
+            // Command Hub
+            if (d.name && (d.name.toLowerCase().includes('chamoli') || d.name.toLowerCase().includes('devgram') || d.name.toLowerCase().includes('uttarakhand'))) {
+                document.getElementById('commandHubName').textContent = "SEOC Dehradun / DDMA Chamoli";
+            } else {
+                document.getElementById('commandHubName').textContent = "SEOC Thiruvananthapuram / DDMA Wayanad";
+            }
 
             // Sphere Life-Support calculations
             const waterNeeded = pop * 15; // 15L/day
@@ -645,9 +741,9 @@
             document.getElementById('sphereFoodVal').textContent = `${caloriesNeeded} M kcal`;
 
             // Fleet Sizing
-            const buses = Math.ceil(pop / 50);
-            const ambulances = Math.max(4, Math.ceil(pop * 0.007));
-            const shuttles = Math.max(6, Math.ceil(pop * 0.01));
+            const buses = Math.ceil(pop / 50 * 1.22);
+            const ambulances = Math.max(8, Math.ceil(pop * 0.007));
+            const shuttles = Math.max(12, Math.ceil(pop * 0.01));
 
             document.getElementById('fleetSummary').textContent = `${buses} Buses • ${ambulances} Ambulances`;
             document.getElementById('ksrtcCount').textContent = `${buses} Vehicles`;
@@ -676,11 +772,79 @@
             return `${p1}${p2}${p3}${p4}7f129a0c7bb0d28fa2d512a8684d0b16524`.substring(0, 64);
         }
 
+        // Direct Client-Side PDF Download via html2pdf.js (No Print Dialog!)
+        async function downloadOfficialPDF() {
+            const btn = document.getElementById('btnDownloadPDF');
+            const origHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-slate-950"></i><span>Generating PDF...</span>`;
+                if (window.lucide) lucide.createIcons();
+            }
+
+            const element = document.getElementById('dossierDocument');
+            if (!element) {
+                alert("Dossier document element not found");
+                if (btn) btn.innerHTML = origHtml;
+                return;
+            }
+
+            // Apply pristine white PDF export theme
+            element.classList.add('pdf-export-mode');
+
+            const d = analysisData || {};
+            const safeName = (d.name || 'Disaster_Event').replace(/[^a-zA-Z0-9_-]/g, '_');
+            const dateStr = new Date().toISOString().slice(0, 10);
+            const filename = `RAKSHA_DDMA_Executive_Directive_${safeName}_${dateStr}.pdf`;
+
+            const opt = {
+                margin:       [8, 8, 8, 8],
+                filename:     filename,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2, 
+                    useCORS: true,
+                    letterRendering: true,
+                    scrollY: 0
+                },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            try {
+                if (typeof html2pdf !== 'undefined') {
+                    await html2pdf().set(opt).from(element).save();
+                } else {
+                    window.print();
+                }
+
+                if (btn) {
+                    btn.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-950"></i><span>PDF Downloaded!</span>`;
+                    if (window.lucide) lucide.createIcons();
+                    setTimeout(() => {
+                        btn.innerHTML = origHtml;
+                        btn.disabled = false;
+                        if (window.lucide) lucide.createIcons();
+                    }, 2500);
+                }
+            } catch (err) {
+                console.error("PDF generation failed:", err);
+                if (btn) {
+                    btn.innerHTML = origHtml;
+                    btn.disabled = false;
+                    if (window.lucide) lucide.createIcons();
+                }
+                alert("PDF generation failed: " + err.message);
+            } finally {
+                element.classList.remove('pdf-export-mode');
+            }
+        }
+
         // Export GeoJSON FeatureCollection for QGIS / ArcGIS
         function exportGeoJSON() {
-            const d = analysisData || { lat: 11.5204, lng: 76.1583, name: "Wayanad Event", population_at_risk: 1240 };
-            const centerLat = Number(d.lat) || 11.5204;
-            const centerLng = Number(d.lng) || 76.1583;
+            const d = analysisData || { lat: 30.3207, lng: 79.2163, name: "Devgram Hazard Habitation", population_at_risk: 6840 };
+            const centerLat = Number(d.lat) || 30.3207;
+            const centerLng = Number(d.lng) || 79.2163;
 
             // Generate circular buffer polygon (32 points) for AOI
             const radiusKm = Number(d.evacuation_radius_km) || 5.0;
@@ -706,10 +870,10 @@
                         properties: {
                             feature_type: "Hazard_Footprint_AOI",
                             hazard_name: d.name || "Incident AOI",
-                            disaster_category: d.disaster_type || "Landslide",
+                            disaster_category: d.disaster_type || "Landslide & Flash Flood",
                             radius_km: radiusKm,
-                            population_at_risk: d.population_at_risk || 1240,
-                            severity_score: d.severity_score || 94.8,
+                            population_at_risk: d.population_at_risk || 6840,
+                            severity_score: d.severity_score || 88.5,
                             evacuation_status: "MANDATORY_ORDER_ACTIVE"
                         },
                         geometry: {
@@ -724,8 +888,8 @@
                             feature_type: "Disaster_Epicenter",
                             name: (d.name || "Incident Epicenter") + " Epicenter",
                             severity: "CRITICAL_RED",
-                            peak_slope_deg: d.slope_deg || 32.4,
-                            rainfall_24h_mm: d.rainfall_mm || 572.0
+                            peak_slope_deg: d.slope_deg || 28.5,
+                            rainfall_24h_mm: d.rainfall_mm || 142.5
                         },
                         geometry: {
                             type: "Point",
@@ -737,35 +901,15 @@
                         type: "Feature",
                         properties: {
                             feature_type: "Safe_Relocation_Camp_Primary",
-                            name: "Meppadi GHSS Campus Relief Node",
-                            capacity_citizens: 1500,
-                            sphere_potable_water_liters_day: (d.population_at_risk || 1240) * 15,
-                            distance_km: 4.8,
+                            name: d.designated_camp || "Taluk Stadium & Sports Ground",
+                            capacity_citizens: 4500,
+                            sphere_potable_water_liters_day: (d.population_at_risk || 6840) * 15,
+                            distance_km: 6.2,
                             status: "APPROVED_DESIGNATED"
                         },
                         geometry: {
                             type: "Point",
-                            coordinates: [centerLng + 0.032, centerLat - 0.021]
-                        }
-                    },
-                    // Evacuation Corridor Line
-                    {
-                        type: "Feature",
-                        properties: {
-                            feature_type: "Evacuation_Transit_Corridor",
-                            name: "Meppadi Ingress / Egress Lifeline Corridor (SH-59)",
-                            surface_type: "Asphalt 2-lane",
-                            clearance_status: "PRIORITY_ONE_OPEN",
-                            convoy_speed_limit_kmh: 35
-                        },
-                        geometry: {
-                            type: "LineString",
-                            coordinates: [
-                                [centerLng, centerLat],
-                                [centerLng + 0.012, centerLat - 0.008],
-                                [centerLng + 0.022, centerLat - 0.015],
-                                [centerLng + 0.032, centerLat - 0.021]
-                            ]
+                            coordinates: [centerLng + 0.0148, centerLat + 0.0214]
                         }
                     }
                 ]
@@ -780,7 +924,13 @@
             downloadAnchor.remove();
         }
 
-        window.onload = initDossier;
+        window.onload = () => {
+            initDossier();
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('download') === 'true' || urlParams.get('download') === '1') {
+                setTimeout(downloadOfficialPDF, 700);
+            }
+        };
     </script>
 </body>
 </html>
