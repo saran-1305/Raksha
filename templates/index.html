@@ -5,23 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RAKSHA | Earth Observation & Disaster Relocation Decision Engine</title>
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
-    <!-- Session & Navigation Protection -->
+    <!-- Session Active Flag -->
     <script>
         (function() {
             try {
-                const isBooted = sessionStorage.getItem('raksha_booted') === 'true' || sessionStorage.getItem('raksha_session_active') === 'true';
-
-                // If user visits without booting from landing, restart from beginning
-                if (!isBooted) {
-                    window.location.replace('/');
-                    return;
-                }
-
-                // Keep session active for multi-page deep dive navigation across all portals
                 sessionStorage.setItem('raksha_session_active', 'true');
-            } catch (err) {
-                window.location.replace('/');
-            }
+            } catch (err) {}
         })();
     </script>
     <!-- Tailwind CSS -->

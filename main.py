@@ -201,13 +201,20 @@ def serve_landing():
 @app.get("/overview", response_class=HTMLResponse)
 @app.get("/simulation", response_class=HTMLResponse)
 def serve_overview():
-    template_path = os.path.join(os.path.dirname(__file__), "templates", "overview.html")
-    if not os.path.exists(template_path):
-        template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
     if os.path.exists(template_path):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
-    return "<h1>RAKSHA Overview template not found</h1>"
+    return "<h1>RAKSHA Dashboard template not found</h1>"
+
+@app.get("/executive-summary", response_class=HTMLResponse)
+@app.get("/summary", response_class=HTMLResponse)
+def serve_summary():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "overview.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Executive Summary template not found</h1>"
 
 @app.get("/eo-studio", response_class=HTMLResponse)
 @app.get("/earth-observation", response_class=HTMLResponse)
