@@ -276,7 +276,6 @@ def serve_ddma():
 
 @app.get("/presentation", response_class=HTMLResponse)
 @app.get("/script", response_class=HTMLResponse)
-@app.get("/demo-script", response_class=HTMLResponse)
 def serve_presentation():
     template_path = os.path.join(os.path.dirname(__file__), "templates", "presentation.html")
     if os.path.exists(template_path):
@@ -287,5 +286,4 @@ def serve_presentation():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="127.0.0.1", port=8050, reload=False)
-
 
