@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAKSHA — 5-Minute Demonstration Master Script</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-card { border: 1px solid #cbd5e1 !important; background: #f8fafc !important; color: black !important; page-break-inside: avoid; }
+            .print-text { color: black !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Top Floating Header & Stopwatch -->
+    <header class="max-w-4xl w-full flex flex-wrap items-center justify-between gap-4 bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-2xl mb-6 backdrop-blur sticky top-4 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+                <i data-lucide="mic" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h1 class="text-base font-bold text-white flex items-center gap-2">
+                    RAKSHA Demo Script <span class="text-xs px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 font-mono">5 MINUTES</span>
+                </h1>
+                <p class="text-xs text-slate-400">Official Evaluator & Hackathon Jury Demonstration Guide</p>
+            </div>
+        </div>
+
+        <!-- Stopwatch & Print Controls -->
+        <div class="flex items-center gap-3 no-print">
+            <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 font-mono">
+                <i data-lucide="timer" class="w-4 h-4 text-cyan-400"></i>
+                <span id="timerDisplay" class="text-lg font-bold text-cyan-300">05:00</span>
+                <button onclick="toggleTimer()" id="btnTimer" class="px-2 py-0.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition cursor-pointer">START</button>
+                <button onclick="resetTimer()" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition cursor-pointer">RESET</button>
+            </div>
+            <button onclick="window.print()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                <i data-lucide="printer" class="w-4 h-4"></i>
+                <span>Print / Save PDF</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Script Container -->
+    <main class="max-w-4xl w-full flex flex-col gap-6">
+
+        <!-- Timeline Ribbon -->
+        <div class="grid grid-cols-5 gap-2 text-center text-[11px] font-mono font-bold no-print">
+            <div class="p-2 rounded-lg bg-slate-900 border border-cyan-500/40 text-cyan-300">0:00 - 1:00<br><span class="text-[9px] font-normal text-slate-400">Vision & Problem</span></div>
+            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">1:00 - 2:00<br><span class="text-[9px] font-normal text-slate-400">Multi-Sensor EO</span></div>
+            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">2:00 - 3:00<br><span class="text-[9px] font-normal text-slate-400">Decision Engine</span></div>
+            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">3:00 - 4:00<br><span class="text-[9px] font-normal text-slate-400">Relocation Studio</span></div>
+            <div class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">4:00 - 5:00<br><span class="text-[9px] font-normal text-slate-400">DDMA PDF Order</span></div>
+        </div>
+
+        <!-- ================= CARD 1: MINUTE 1 ================= -->
+        <section class="print-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 font-mono font-bold text-xs border border-cyan-800">00:00 – 01:00</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Minute 1: The Problem Statement & RAKSHA Vision</h2>
+                </div>
+                <a href="http://127.0.0.1:8050/" target="_blank" class="no-print text-xs text-cyan-400 hover:underline flex items-center gap-1 font-mono">
+                    <span>Open Landing Page</span> <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+            </div>
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-xs font-mono text-cyan-400 flex items-center gap-2">
+                <i data-lucide="monitor" class="w-4 h-4 shrink-0"></i>
+                <span><b>SCREEN ACTION:</b> Start on the Landing Page. Highlight the core question: <i>"When disaster strikes, where do we move displaced populations safely and with dignity?"</i></span>
+            </div>
+            <div class="text-sm text-slate-200 leading-relaxed space-y-2">
+                <p>
+                    <b class="text-cyan-300">"Respected judges and panel members,</b> in sudden-onset disasters like the Chamoli flash floods or the Wayanad landslides, existing warning systems can detect that a disaster has occurred. But they fail completely at the most critical operational question: <b>'Where do we move the displaced population right now?'</b>"
+                </p>
+                <p>
+                    "Currently, emergency relocation is chaotic. Displaced families are often sent to schools situated on unstable slopes or low-lying riverbeds because ground authorities lack fused, real-time spatial intelligence."
+                </p>
+                <p>
+                    "This is <b class="text-cyan-300">RAKSHA</b>—an explainable geospatial decision intelligence platform that fuses Earth Observation satellite telemetry, terrain physics, and international humanitarian standards to automate disaster relocation planning within seconds."
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= CARD 2: MINUTE 2 ================= -->
+        <section class="print-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 font-mono font-bold text-xs border border-cyan-800">01:00 – 02:00</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Minute 2: Multi-Sensor Ingestion (How Data Fuels Relocation)</h2>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="http://127.0.0.1:8050/overview" target="_blank" class="no-print text-xs text-cyan-400 hover:underline flex items-center gap-1 font-mono">Overview</a>
+                    <a href="http://127.0.0.1:8050/eo-studio" target="_blank" class="no-print text-xs text-cyan-400 hover:underline flex items-center gap-1 font-mono">EO Studio</a>
+                </div>
+            </div>
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-xs font-mono text-cyan-400 flex items-center gap-2">
+                <i data-lucide="monitor" class="w-4 h-4 shrink-0"></i>
+                <span><b>SCREEN ACTION:</b> Open Overview Command Center. Click <b>"Devgram (Chamoli)"</b> preset. Show the live map updating, then click <b>"Satellite Telemetry"</b> tab or open EO Studio.</span>
+            </div>
+            <div class="text-sm text-slate-200 leading-relaxed space-y-2">
+                <p>
+                    "RAKSHA does not rely on a single data feed. Real disaster zones are choked with heavy cloud cover, rain, and severed infrastructure. We synthesize <b class="text-cyan-300">four complementary satellite systems and terrain models</b>:"
+                </p>
+                <ul class="list-disc pl-5 space-y-1 text-slate-300 text-xs font-mono">
+                    <li><b class="text-cyan-300">1. Sentinel-1 SAR Radar (C-Band):</b> Penetrates storm clouds and night darkness to map floodwater backscatter drop and mudflow boundaries.</li>
+                    <li><b class="text-emerald-300">2. Sentinel-2 Multi-Spectral Optical:</b> 10-meter STAC imagery providing vegetation health (NDVI) and environmental baselines.</li>
+                    <li><b class="text-sky-300">3. ISRO Cartosat-3 (0.28m Sub-Meter PAN):</b> Audits open ground (>20,000 m²), ensures building density is under 25%, and verifies a 45m radius cleared helipad.</li>
+                    <li><b class="text-blue-300">4. ISRO Bhuvan & NRSC 1:50,000 Thematic Anchor:</b> Provides authoritative land-use classification (LULC), institutional land tenure, and 10-year historical disaster zonation.</li>
+                    <li><b class="text-slate-200">5. NASA SRTM 30m DEM:</b> Generates continuous slope angles and topographic transect profiles between the disaster origin and candidate sanctuaries.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ================= CARD 3: MINUTE 3 ================= -->
+        <section class="print-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 font-mono font-bold text-xs border border-cyan-800">02:00 – 03:00</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Minute 3: The Decision Engine (Dynamic AOI, Vetoes & Sphere Sizing)</h2>
+                </div>
+                <a href="http://127.0.0.1:8050/overview" target="_blank" class="no-print text-xs text-cyan-400 hover:underline flex items-center gap-1 font-mono">
+                    <span>View Map Layers</span> <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+            </div>
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-xs font-mono text-cyan-400 flex items-center gap-2">
+                <i data-lucide="monitor" class="w-4 h-4 shrink-0"></i>
+                <span><b>SCREEN ACTION:</b> Point to the map: Red Dynamic AOI polygon, 5km/10km distance rings, Red ✕ (vetoed sites), Green # (passed sites), and the SRTM DEM Elevation Transect chart.</span>
+            </div>
+            <div class="text-sm text-slate-200 leading-relaxed space-y-2">
+                <p>
+                    "Here is how RAKSHA converts raw satellite feeds into life-saving decisions:
+                </p>
+                <p>
+                    First, we reject static circular hazard zones. Using precipitation accumulation and terrain slope vectors, RAKSHA computes a <b class="text-red-400">Dynamic Anisotropic Hazard AOI</b> along the true hydrological runoff corridor.
+                </p>
+                <p>
+                    Second, we enforce <b class="text-red-400">Zero-Tolerance Safety Vetoes</b>. In RAKSHA, an unsafe site is eliminated outright—never merely penalized in score. If a facility sits on a slope over 14 degrees, inside an active inundation zone, or within 50 meters of drainage corridors, it receives an instant hard veto. You can see Site D—the Upper Alaknanda riverbed—eliminated with zero tolerance.
+                </p>
+                <p>
+                    Third, for every passing site, RAKSHA enforces <b class="text-emerald-400">Sphere Humanitarian Standards (2018)</b>: 45 square meters per person total settlement space and 3.5 square meters covered living space. We don’t just say 'this school is safe'—we calculate exactly how many of the 6,840 displaced citizens it can legally and humanely absorb."
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= CARD 4: MINUTE 4 ================= -->
+        <section class="print-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 font-mono font-bold text-xs border border-cyan-800">03:00 – 04:00</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Minute 4: Relocation Engineering Studio (MCDA Sliders & Zonation)</h2>
+                </div>
+                <a href="http://127.0.0.1:8050/relocation" target="_blank" class="no-print text-xs text-cyan-400 hover:underline flex items-center gap-1 font-mono">
+                    <span>Open Relocation Studio</span> <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+            </div>
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-xs font-mono text-cyan-400 flex items-center gap-2">
+                <i data-lucide="monitor" class="w-4 h-4 shrink-0"></i>
+                <span><b>SCREEN ACTION:</b> Move the <b>Safety Weight Slider</b> or <b>Slope Limit Slider</b> to show live TOPSIS recalculation. Click the <b>"Zonation"</b> tab and the <b>"Cadastre"</b> tab.</span>
+            </div>
+            <div class="text-sm text-slate-200 leading-relaxed space-y-2">
+                <p>
+                    "Moving to our <b class="text-cyan-300">Relocation Engineering Studio</b>, district magistrates have interactive sensitivity control.
+                </p>
+                <p>
+                    Using our <b>MCDA TOPSIS Sensitivity Simulator</b>, administrators can tune policy weights across Safety (35%), Proximity (25%), Usable Capacity (20%), and Road Ingress (20%). If we tighten our hard veto slope limit down to 10 degrees, the model dynamically re-evaluates all candidates in real time.
+                </p>
+                <p>
+                    Under our <b>Zonation Blueprint</b>, RAKSHA automatically drafts the tactical camp layout: family shelter clusters, medical triage clinics, and sanitary buffers placed downwind and strictly 50 meters away from groundwater sources.
+                </p>
+                <p>
+                    Under the <b>Cadastral Inspector</b>, we verify statutory land tenure under District Collector Requisition powers, ensuring immediate administrative access without private land disputes."
+                </p>
+            </div>
+        </section>
+
+        <!-- ================= CARD 5: MINUTE 5 ================= -->
+        <section class="print-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 font-mono font-bold text-xs border border-cyan-800">04:00 – 05:00</span>
+                    <h2 class="text-sm font-bold uppercase tracking-wider text-white">Minute 5: Evacuation Fleet & Statutory DDMA Order (NDMA Act §34)</h2>
+                </div>
+                <a href="http://127.0.0.1:8050/ddma" target="_blank" class="no-print text-xs text-cyan-400 hover:underline flex items-center gap-1 font-mono">
+                    <span>Open DDMA Dossier</span> <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
+            </div>
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-xs font-mono text-cyan-400 flex items-center gap-2">
+                <i data-lucide="monitor" class="w-4 h-4 shrink-0"></i>
+                <span><b>SCREEN ACTION:</b> Open DDMA Executive Dossier. Click the primary button: <b>"Download PDF Order (.pdf)"</b>. Show the direct PDF file downloaded in the browser.</span>
+            </div>
+            <div class="text-sm text-slate-200 leading-relaxed space-y-2">
+                <p>
+                    "Finally, intelligence without logistics cannot save lives.  
+                </p>
+                <p>
+                    RAKSHA calculates the full <b>Humanitarian Fleet Mobilization</b>: 42 state transport buses (50-seaters), 6 ALS/BLS triage ambulances, 102,600 liters per day of potable water, and 680 family tent units.
+                </p>
+                <p>
+                    With one click on <b>'Download PDF Order'</b>, RAKSHA compiles an official statutory directive under <b>Section 34 of the Disaster Management Act, 2005</b>, complete with GPS coordinates, capacity quotas, and commanding authority signatures ready for dispatch to the SDRF and NDRF.
+                </p>
+                <p class="pt-1 text-base font-semibold text-cyan-300">
+                    To conclude: <i>Sentinel-1 detects the hazard. Sentinel-2 provides environmental context. Cartosat-3 validates ground reality. Bhuvan anchors statutory zoning. And RAKSHA transforms all of it into immediate, explainable, life-saving relocation action.</i>
+                </p>
+                <p class="font-bold text-white">
+                    Thank you. We are now open for your questions."
+                </p>
+            </div>
+        </section>
+
+        <!-- Q&A Section -->
+        <section class="print-card bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+                <i data-lucide="help-circle" class="w-4 h-4"></i>
+                <span>Jury Q&A Defense Quick-Cards (Top 5 Questions)</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                    <b class="text-amber-400 block mb-1">Q1: "What if monsoon clouds block optical imagery?"</b>
+                    <span class="text-slate-300 font-mono text-[11px]">"That is precisely why we ingest <b>Sentinel-1 C-Band SAR radar</b>. SAR uses active microwave signals (5.4 GHz) that penetrate through torrential rain, cloud cover, and nighttime smoke, detecting floodwater backscatter drop regardless of weather."</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                    <b class="text-amber-400 block mb-1">Q2: "How do you prevent shelter overcrowding?"</b>
+                    <span class="text-slate-300 font-mono text-[11px]">"We compute capacity strictly using <b>Sphere Humanitarian Standards (2018)</b>: 45 m² total settlement space and 3.5 m² covered shelter space per capita. Greedy multi-site allocation spreads excess populations across secondary rings."</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                    <b class="text-amber-400 block mb-1">Q3: "Can a high-scoring site be chosen on a steep slope?"</b>
+                    <span class="text-slate-300 font-mono text-[11px]">"No. RAKSHA enforces <b>Zero-Tolerance Hard Vetoes</b>. Safety criteria are boolean gatekeepers, not weighted scores. If slope exceeds 14° or active inundation is detected, the site score is nullified to 0 and eliminated."</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                    <b class="text-amber-400 block mb-1">Q4: "Why include Cartosat-3 and Bhuvan?"</b>
+                    <span class="text-slate-300 font-mono text-[11px]">"Global feeds are 10m to 30m resolution. <b>ISRO Cartosat-3 gives 0.28m sub-meter clarity</b> to inspect ingress roads and helipads, while <b>ISRO Bhuvan provides authoritative Indian cadastral tenure and 1:50k LULC</b> required for District Magistrate requisition."</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Stopwatch Script -->
+    <script>
+        lucide.createIcons();
+        let totalSeconds = 300;
+        let timerInterval = null;
+        let isRunning = false;
+
+        function updateDisplay() {
+            const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+            const s = (totalSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('btnTimer');
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                btn.innerText = 'RESUME';
+                btn.className = 'px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition cursor-pointer';
+            } else {
+                isRunning = true;
+                btn.innerText = 'PAUSE';
+                btn.className = 'px-2 py-0.5 rounded bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition cursor-pointer';
+                timerInterval = setInterval(() => {
+                    if (totalSeconds > 0) {
+                        totalSeconds--;
+                        updateDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        btn.innerText = 'DONE';
+                        alert('5 Minutes Completed!');
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            totalSeconds = 300;
+            updateDisplay();
+            const btn = document.getElementById('btnTimer');
+            btn.innerText = 'START';
+            btn.className = 'px-2 py-0.5 rounded bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition cursor-pointer';
+        }
+    </script>
+</body>
+</html>
