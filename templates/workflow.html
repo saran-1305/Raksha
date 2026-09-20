@@ -7,77 +7,6 @@
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        raksha: {
-                            bg: '#0B0F12',
-                            secondary: '#111A24',
-                            panel: '#17222D',
-                            border: '#2A3742',
-                            primary: '#E8ECE9',
-                            secondaryText: '#9AA7AE',
-                            accent: '#4B8FB8',
-                            safe: '#4F9D78',
-                            warning: '#C79A45',
-                            critical: '#C95C55'
-                        },
-                        slate: {
-                            950: '#0B0F12',
-                            900: '#111A24',
-                            850: '#141E28',
-                            800: '#17222D',
-                            750: '#1F2D3B',
-                            700: '#2A3742',
-                            600: '#3E5060',
-                            500: '#64748B',
-                            400: '#9AA7AE',
-                            300: '#CBD5E1',
-                            200: '#DDE2DE',
-                            100: '#E8ECE9',
-                            50: '#F5F7F6'
-                        },
-                        cyan: {
-                            300: '#7BB3D4',
-                            400: '#4B8FB8',
-                            500: '#3A779C',
-                            600: '#2C5E7D'
-                        },
-                        blue: {
-                            400: '#6FAFD6',
-                            500: '#4B8FB8',
-                            600: '#387399',
-                            900: '#17222D',
-                            950: '#111A24'
-                        },
-                        emerald: {
-                            300: '#6FBA95',
-                            400: '#4F9D78',
-                            500: '#3F8263',
-                            600: '#2E664D',
-                            950: '#111F19'
-                        },
-                        amber: {
-                            300: '#DEB362',
-                            400: '#C79A45',
-                            500: '#AA8236',
-                            600: '#8A6828',
-                            950: '#261C0D'
-                        },
-                        red: {
-                            300: '#E58A84',
-                            400: '#D8736D',
-                            500: '#C95C55',
-                            600: '#B04B45',
-                            950: '#261211'
-                        }
-                    }
-                }
-            }
-        };
-    </script>
     <!-- Leaflet CSS & JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -89,33 +18,28 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
         
         :root {
-            --bg-base: #0B0F12;
-            --bg-card: #17222D;
-            --bg-card-hover: #1F2D3B;
-            --accent-cyan: #4B8FB8;
-            --accent-blue: #4B8FB8;
-            --border-blue: #2A3742;
-            --border-glow: rgba(75, 143, 184, 0.4);
-            --safe-green: #4F9D78;
-            --warning-ochre: #C79A45;
-            --critical-terracotta: #C95C55;
-            --text-primary: #E8ECE9;
-            --text-secondary: #9AA7AE;
+            --bg-base: #070a13;
+            --bg-card: #0c1222;
+            --bg-card-hover: #111a30;
+            --accent-cyan: #00e5ff;
+            --accent-blue: #2563eb;
+            --border-blue: rgba(37, 99, 235, 0.25);
+            --border-glow: rgba(0, 229, 255, 0.4);
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #0B0F12 !important; 
-            color: #E8ECE9 !important; 
+            background-color: var(--bg-base); 
+            color: #f1f5f9; 
         }
 
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0B0F12; }
-        ::-webkit-scrollbar-thumb { background: #2A3742; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3E5060; }
+        ::-webkit-scrollbar-track { background: #05070d; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
 
         /* Stepper Glowing Line */
         .glow-stepper-active {
@@ -164,7 +88,7 @@
             </div>
 
             <!-- Center: PRIMARY CANONICAL NAVIGATION (Single Canonical Entry Point) -->
-            <nav class="flex items-center gap-1 bg-[#111A24] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
+            <nav class="flex items-center gap-1 bg-[#091122] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
                 <a href="/overview" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
                     <span>Overview</span>
@@ -231,7 +155,7 @@
     <main class="flex-1 max-w-[1650px] w-full mx-auto p-4 md:p-6 lg:p-8 flex flex-col gap-6">
 
         <!-- ================= MASTER 6-STAGE STEPPER RIBBON ================= -->
-        <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-4 sm:p-5 shadow-2xl relative overflow-hidden backdrop-blur">
+        <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-4 sm:p-5 shadow-2xl relative overflow-hidden backdrop-blur">
             <div class="flex items-center justify-between w-full relative px-2 sm:px-6">
                 
                 <!-- Background Rail -->
@@ -242,7 +166,7 @@
 
                 <!-- Step 1: DISCOVER -->
                 <a href="/workflow/1" id="stepNode_1" class="flex flex-col items-center gap-2 relative z-10 group cursor-pointer">
-                    <div id="stepDot_1" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-cyan-400 text-slate-950 glow-stepper-active">
+                    <div id="stepDot_1" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-cyan-400 text-slate-950 glow-stepper-active">
                         <i data-lucide="check" class="w-4 h-4 hidden" id="stepCheck_1"></i>
                         <span id="stepNum_1">1</span>
                     </div>
@@ -251,7 +175,7 @@
 
                 <!-- Step 2: SAFETY -->
                 <a href="/workflow/2" id="stepNode_2" class="flex flex-col items-center gap-2 relative z-10 group cursor-pointer">
-                    <div id="stepDot_2" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
+                    <div id="stepDot_2" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
                         <i data-lucide="check" class="w-4 h-4 hidden" id="stepCheck_2"></i>
                         <span id="stepNum_2">2</span>
                     </div>
@@ -260,7 +184,7 @@
 
                 <!-- Step 3: CAPACITY -->
                 <a href="/workflow/3" id="stepNode_3" class="flex flex-col items-center gap-2 relative z-10 group cursor-pointer">
-                    <div id="stepDot_3" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
+                    <div id="stepDot_3" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
                         <i data-lucide="check" class="w-4 h-4 hidden" id="stepCheck_3"></i>
                         <span id="stepNum_3">3</span>
                     </div>
@@ -269,7 +193,7 @@
 
                 <!-- Step 4: INFRA -->
                 <a href="/workflow/4" id="stepNode_4" class="flex flex-col items-center gap-2 relative z-10 group cursor-pointer">
-                    <div id="stepDot_4" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
+                    <div id="stepDot_4" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
                         <i data-lucide="check" class="w-4 h-4 hidden" id="stepCheck_4"></i>
                         <span id="stepNum_4">4</span>
                     </div>
@@ -278,7 +202,7 @@
 
                 <!-- Step 5: SUITABILITY -->
                 <a href="/workflow/5" id="stepNode_5" class="flex flex-col items-center gap-2 relative z-10 group cursor-pointer">
-                    <div id="stepDot_5" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
+                    <div id="stepDot_5" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
                         <i data-lucide="check" class="w-4 h-4 hidden" id="stepCheck_5"></i>
                         <span id="stepNum_5">5</span>
                     </div>
@@ -287,7 +211,7 @@
 
                 <!-- Step 6: PLAN -->
                 <a href="/workflow/6" id="stepNode_6" class="flex flex-col items-center gap-2 relative z-10 group cursor-pointer">
-                    <div id="stepDot_6" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
+                    <div id="stepDot_6" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400">
                         <i data-lucide="check" class="w-4 h-4 hidden" id="stepCheck_6"></i>
                         <span id="stepNum_6">6</span>
                     </div>
@@ -304,7 +228,7 @@
         <!-- ------------------------------------------------------------- -->
         <section id="page_step_1" class="workflow-step-page flex flex-col gap-6">
             <!-- Step Headline Banner -->
-            <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <div class="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
                         <span>STAGE 01 &bull; CANDIDATE DISCOVERY</span>
@@ -328,7 +252,7 @@
             <!-- Interactive Search Ring Grid & Micro GIS Map -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- Left 7 Cols: Micro-Map of Epicenter & Concentric Search Rings -->
-                <div class="lg:col-span-7 bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                <div class="lg:col-span-7 bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                     <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
                         <div class="flex items-center gap-2 text-xs font-mono text-cyan-300 font-bold">
                             <i data-lucide="crosshair" class="w-4 h-4 text-cyan-400"></i>
@@ -341,7 +265,7 @@
 
                 <!-- Right 5 Cols: Deep Ring Telemetry & Bounding Box -->
                 <div class="lg:col-span-5 flex flex-col gap-4">
-                    <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
+                    <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
                         <h3 class="text-xs font-mono font-bold uppercase text-white flex items-center gap-2">
                             <i data-lucide="layers" class="w-4 h-4 text-blue-400"></i>
                             <span>Concentric Ring Metrics</span>
@@ -381,7 +305,7 @@
                     </div>
 
                     <!-- Geodetic Bounding Box -->
-                    <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl text-xs font-mono">
+                    <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl text-xs font-mono">
                         <div class="text-[10px] uppercase text-slate-400 mb-2 font-bold">Search Footprint Bounding Box</div>
                         <div class="grid grid-cols-2 gap-2 text-[11px]">
                             <div class="p-2 bg-[#070a14] rounded-lg border border-blue-900/30">
@@ -406,7 +330,7 @@
             </div>
 
             <!-- Discovered Candidates Table -->
-            <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+            <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
                 <div class="flex items-center justify-between">
                     <h3 class="font-bold text-white text-sm font-mono flex items-center gap-2">
                         <i data-lucide="list-checks" class="w-4 h-4 text-cyan-400"></i>
@@ -498,7 +422,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 font-mono">
                 
                 <!-- CARD 1: SITE A (Eligible) -->
-                <div class="bg-[#17222D] border border-blue-900/60 rounded-xl p-5 shadow-xl flex flex-col justify-between hover:border-cyan-500/40 transition">
+                <div class="bg-[#0c1222] border border-blue-900/60 rounded-xl p-5 shadow-xl flex flex-col justify-between hover:border-cyan-500/40 transition">
                     <div>
                         <div class="flex items-center justify-between border-b border-blue-950 pb-3 mb-4">
                             <h3 class="text-base font-bold text-white truncate pr-2">SITE A - Pipalkoti Intermediate College</h3>
@@ -529,7 +453,7 @@
                 </div>
 
                 <!-- CARD 2: SITE B (Rejected) -->
-                <div class="bg-[#17222D] border border-red-900/40 rounded-xl p-5 shadow-xl flex flex-col justify-between rejected-glow">
+                <div class="bg-[#0c1222] border border-red-900/40 rounded-xl p-5 shadow-xl flex flex-col justify-between rejected-glow">
                     <div>
                         <div class="flex items-center justify-between border-b border-blue-950 pb-3 mb-4">
                             <h3 class="text-base font-bold text-white truncate pr-2">SITE B - Helang Community Hall</h3>
@@ -563,7 +487,7 @@
                 </div>
 
                 <!-- CARD 3: SITE C (Eligible) -->
-                <div class="bg-[#17222D] border border-blue-900/60 rounded-xl p-5 shadow-xl flex flex-col justify-between hover:border-cyan-500/40 transition">
+                <div class="bg-[#0c1222] border border-blue-900/60 rounded-xl p-5 shadow-xl flex flex-col justify-between hover:border-cyan-500/40 transition">
                     <div>
                         <div class="flex items-center justify-between border-b border-blue-950 pb-3 mb-4">
                             <h3 class="text-base font-bold text-white truncate pr-2">SITE C - Government Polytechnic College</h3>
@@ -594,7 +518,7 @@
                 </div>
 
                 <!-- CARD 4: SITE D (Rejected) -->
-                <div class="bg-[#17222D] border border-red-900/40 rounded-xl p-5 shadow-xl flex flex-col justify-between rejected-glow">
+                <div class="bg-[#0c1222] border border-red-900/40 rounded-xl p-5 shadow-xl flex flex-col justify-between rejected-glow">
                     <div>
                         <div class="flex items-center justify-between border-b border-blue-950 pb-3 mb-4">
                             <h3 class="text-base font-bold text-white truncate pr-2">SITE D - Upper Alaknanda Riverbank</h3>
@@ -633,7 +557,7 @@
             </div>
 
             <!-- Forensic Cutoff Thresholds Audit Card -->
-            <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl text-xs font-mono">
+            <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl text-xs font-mono">
                 <div class="flex items-center justify-between border-b border-blue-900/40 pb-2 mb-3">
                     <span class="font-bold text-white flex items-center gap-2">
                         <i data-lucide="shield-alert" class="w-4 h-4 text-cyan-400"></i>
@@ -685,7 +609,7 @@
             </div>
 
             <!-- Dynamic Population Sizing Slider -->
-            <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
+            <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                     <div>
                         <span class="text-xs font-mono uppercase text-slate-400 block">Scenario Displaced Population Sizing</span>
@@ -707,7 +631,7 @@
 
             <!-- 4 Sphere Standards Life-Support Tiles -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
-                <div class="p-4 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-4 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between text-xs text-slate-400">
                             <span>SHELTER FLOOR SPACE</span>
@@ -719,7 +643,7 @@
                     <p class="text-[10px] text-slate-500 mt-3 pt-2 border-t border-blue-950">Meppadi / Pipalkoti facilities provide 6,200 m² usable ground (Surplus).</p>
                 </div>
 
-                <div class="p-4 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-4 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between text-xs text-slate-400">
                             <span>POTABLE WATER QUOTA</span>
@@ -731,7 +655,7 @@
                     <p class="text-[10px] text-slate-500 mt-3 pt-2 border-t border-blue-950">Requires 3x 6,000L water bowsers staged at primary hub.</p>
                 </div>
 
-                <div class="p-4 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-4 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between text-xs text-slate-400">
                             <span>SANITATION LATRINES</span>
@@ -743,7 +667,7 @@
                     <p class="text-[10px] text-slate-500 mt-3 pt-2 border-t border-blue-950">Mobile bio-toilets mobilised via State Disaster Management stock.</p>
                 </div>
 
-                <div class="p-4 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-4 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between text-xs text-slate-400">
                             <span>EMERGENCY RATIONS</span>
@@ -757,7 +681,7 @@
             </div>
 
             <!-- Site Absorption Ledger -->
-            <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4 font-mono">
+            <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4 font-mono">
                 <h3 class="font-bold text-white text-sm flex items-center gap-2">
                     <i data-lucide="bar-chart-3" class="w-4 h-4 text-cyan-400"></i>
                     <span>Eligible Sites Absorption Capacity Distribution</span>
@@ -823,7 +747,7 @@
             <!-- 4 Critical Lifeline Metric Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
                 
-                <div class="p-5 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-5 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase block">Road Surface &amp; Axle Load</span>
                         <div class="text-xl font-bold text-white mt-1">2-Lane Asphalt</div>
@@ -834,7 +758,7 @@
                     </div>
                 </div>
 
-                <div class="p-5 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-5 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase block">Cartosat-3 Aerial Helipad</span>
                         <div class="text-xl font-bold text-cyan-300 mt-1">45 m Rotor Zone</div>
@@ -845,7 +769,7 @@
                     </div>
                 </div>
 
-                <div class="p-5 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-5 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase block">Electrical Grid &amp; Genset</span>
                         <div class="text-xl font-bold text-amber-400 mt-1">11 kV + 62.5 kVA</div>
@@ -856,7 +780,7 @@
                     </div>
                 </div>
 
-                <div class="p-5 bg-[#17222D] border border-blue-900/50 rounded-xl flex flex-col justify-between">
+                <div class="p-5 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
                         <span class="text-[10px] text-slate-400 uppercase block">Medical Triage Distance</span>
                         <div class="text-xl font-bold text-emerald-400 mt-1">1.8 km to PHC</div>
@@ -870,7 +794,7 @@
             </div>
 
             <!-- Detailed Facility Ingress Matrix -->
-            <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4 font-mono">
+            <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4 font-mono">
                 <h3 class="font-bold text-white text-sm flex items-center gap-2">
                     <i data-lucide="truck" class="w-4 h-4 text-cyan-400"></i>
                     <span>Lifeline Infrastructure Audit Comparison Matrix</span>
@@ -938,7 +862,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 font-mono">
                 
                 <!-- Left 5 Cols: Criteria Weight Distribution -->
-                <div class="lg:col-span-5 bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
+                <div class="lg:col-span-5 bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
                     <h3 class="font-bold text-white text-xs uppercase flex items-center gap-2">
                         <i data-lucide="sliders" class="w-4 h-4 text-cyan-400"></i>
                         <span>Statutory Criteria Weights (\(\sum w_i = 100\%\))</span>
@@ -993,7 +917,7 @@
                 </div>
 
                 <!-- Right 7 Cols: Comparative Scoring Leaderboard -->
-                <div class="lg:col-span-7 bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col justify-between gap-4">
+                <div class="lg:col-span-7 bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-col justify-between gap-4">
                     <div>
                         <h3 class="font-bold text-white text-xs uppercase flex items-center gap-2 mb-3">
                             <i data-lucide="award" class="w-4 h-4 text-emerald-400"></i>
@@ -1071,7 +995,7 @@
             <!-- Master Allocation Summary Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 font-mono">
                 
-                <div class="bg-[#17222D] border border-cyan-500/40 rounded-xl p-5 shadow-xl flex flex-col justify-between">
+                <div class="bg-[#0c1222] border border-cyan-500/40 rounded-xl p-5 shadow-xl flex flex-col justify-between">
                     <div>
                         <div class="text-[10px] text-cyan-400 uppercase font-bold">PRIMARY RELOCATION HUB</div>
                         <div class="text-lg font-bold text-white mt-1">SITE A &bull; Pipalkoti Complex</div>
@@ -1084,7 +1008,7 @@
                     </div>
                 </div>
 
-                <div class="bg-[#17222D] border border-blue-900/50 rounded-xl p-5 shadow-xl flex flex-col justify-between">
+                <div class="bg-[#0c1222] border border-blue-900/50 rounded-xl p-5 shadow-xl flex flex-col justify-between">
                     <div>
                         <div class="text-[10px] text-blue-400 uppercase font-bold">SECONDARY STANDBY SURGE HUB</div>
                         <div class="text-lg font-bold text-white mt-1">SITE C &bull; Polytechnic Campus</div>
@@ -1097,7 +1021,7 @@
                     </div>
                 </div>
 
-                <div class="bg-[#17222D] border border-blue-900/50 rounded-xl p-5 shadow-xl flex flex-col justify-between">
+                <div class="bg-[#0c1222] border border-blue-900/50 rounded-xl p-5 shadow-xl flex flex-col justify-between">
                     <div>
                         <div class="text-[10px] text-emerald-400 uppercase font-bold">EVACUATION FLEET DISPATCH</div>
                         <div class="text-lg font-bold text-white mt-1">25 Buses &bull; 8 Ambulances</div>
@@ -1113,7 +1037,7 @@
             </div>
 
             <!-- Action Toolbar & Exports -->
-            <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4 font-mono">
+            <div class="bg-[#0c1222]/90 border border-blue-900/50 rounded-2xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4 font-mono">
                 <div>
                     <div class="font-bold text-white text-sm">Official DDMA Tactical Execution</div>
                     <p class="text-xs text-slate-400">Directly export official legal dossier or transfer route layers into QGIS / ArcGIS.</p>
@@ -1133,7 +1057,7 @@
         </section>
 
         <!-- ================= PERSISTENT BOTTOM NAVIGATION BAR ================= -->
-        <div class="bg-[#17222D]/95 border border-blue-900/60 rounded-2xl p-4 shadow-2xl flex items-center justify-between gap-4 font-mono">
+        <div class="bg-[#0c1222]/95 border border-blue-900/60 rounded-2xl p-4 shadow-2xl flex items-center justify-between gap-4 font-mono">
             <button id="btnPrevStep" onclick="navigateStep(-1)" class="px-4 py-2 rounded-xl bg-[#070a14] hover:bg-blue-950 text-slate-300 border border-blue-900/50 text-xs transition flex items-center gap-2 cursor-pointer">
                 <i data-lucide="arrow-left" class="w-4 h-4 text-cyan-400"></i>
                 <span id="btnPrevText">Overview Hub</span>
@@ -1230,19 +1154,19 @@
                 // Node styling
                 if (i < activeStep) {
                     // Completed
-                    dotEl.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-blue-600 text-white";
+                    dotEl.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-blue-600 text-white";
                     lblEl.className = "text-[10px] sm:text-xs font-mono font-bold tracking-wider text-cyan-300";
                     if (checkEl) checkEl.classList.remove('hidden');
                     if (numEl) numEl.classList.add('hidden');
                 } else if (i === activeStep) {
                     // Current Active
-                    dotEl.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-cyan-400 text-slate-950 glow-stepper-active";
+                    dotEl.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-cyan-400 text-slate-950 glow-stepper-active";
                     lblEl.className = "text-[10px] sm:text-xs font-mono font-bold tracking-wider text-cyan-400";
                     if (checkEl) checkEl.classList.add('hidden');
                     if (numEl) numEl.classList.remove('hidden');
                 } else {
                     // Future Step
-                    dotEl.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#0B0F12] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400";
+                    dotEl.className = "w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ring-4 ring-[#070a13] transition-all text-xs sm:text-sm font-extrabold bg-slate-800 text-slate-400";
                     lblEl.className = "text-[10px] sm:text-xs font-mono font-bold tracking-wider text-slate-500";
                     if (checkEl) checkEl.classList.add('hidden');
                     if (numEl) numEl.classList.remove('hidden');

@@ -7,77 +7,6 @@
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        raksha: {
-                            bg: '#0B0F12',
-                            secondary: '#111A24',
-                            panel: '#17222D',
-                            border: '#2A3742',
-                            primary: '#E8ECE9',
-                            secondaryText: '#9AA7AE',
-                            accent: '#4B8FB8',
-                            safe: '#4F9D78',
-                            warning: '#C79A45',
-                            critical: '#C95C55'
-                        },
-                        slate: {
-                            950: '#0B0F12',
-                            900: '#111A24',
-                            850: '#141E28',
-                            800: '#17222D',
-                            750: '#1F2D3B',
-                            700: '#2A3742',
-                            600: '#3E5060',
-                            500: '#64748B',
-                            400: '#9AA7AE',
-                            300: '#CBD5E1',
-                            200: '#DDE2DE',
-                            100: '#E8ECE9',
-                            50: '#F5F7F6'
-                        },
-                        cyan: {
-                            300: '#7BB3D4',
-                            400: '#4B8FB8',
-                            500: '#3A779C',
-                            600: '#2C5E7D'
-                        },
-                        blue: {
-                            400: '#6FAFD6',
-                            500: '#4B8FB8',
-                            600: '#387399',
-                            900: '#17222D',
-                            950: '#111A24'
-                        },
-                        emerald: {
-                            300: '#6FBA95',
-                            400: '#4F9D78',
-                            500: '#3F8263',
-                            600: '#2E664D',
-                            950: '#111F19'
-                        },
-                        amber: {
-                            300: '#DEB362',
-                            400: '#C79A45',
-                            500: '#AA8236',
-                            600: '#8A6828',
-                            950: '#261C0D'
-                        },
-                        red: {
-                            300: '#E58A84',
-                            400: '#D8736D',
-                            500: '#C95C55',
-                            600: '#B04B45',
-                            950: '#261211'
-                        }
-                    }
-                }
-            }
-        };
-    </script>
     <!-- Leaflet CSS & JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -86,34 +15,20 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
         
-        :root {
-            --bg-base: #0B0F12;
-            --bg-secondary: #111A24;
-            --bg-card: #17222D;
-            --border-blue: #2A3742;
-            --text-primary: #E8ECE9;
-            --text-secondary: #9AA7AE;
-            --accent-steel: #4B8FB8;
-            --safe-green: #4F9D78;
-            --warning-ochre: #C79A45;
-            --critical-terracotta: #C95C55;
-        }
-
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #0B0F12 !important; 
-            color: #E8ECE9 !important; 
+            background-color: #040711; 
+            color: #f1f5f9; 
         }
 
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0B0F12; }
-        ::-webkit-scrollbar-thumb { background: #2A3742; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3E5060; }
+        ::-webkit-scrollbar-track { background: #03050a; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
 
         .space-grid-bg {
-            background-image: radial-gradient(rgba(75, 143, 184, 0.08) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(14, 165, 233, 0.08) 1px, transparent 1px);
             background-size: 28px 28px;
         }
 
@@ -194,7 +109,7 @@
     <main class="flex-1 max-w-[1850px] w-full mx-auto p-4 md:p-6 lg:p-8 flex flex-col gap-6">
 
         <!-- Top Scenario Ribbon -->
-        <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl flex flex-wrap items-center justify-between gap-4 font-mono">
+        <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-5 shadow-xl flex flex-wrap items-center justify-between gap-4 font-mono">
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">RELOCATION INTELLIGENCE</span>
@@ -223,7 +138,7 @@
 
             <!-- ================= LEFT (7 COLS): GIS MAP ================= -->
             <div class="lg:col-span-7 flex flex-col gap-4">
-                <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                     
                     <!-- Contextual Relocation Map Layer Controls -->
                     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-blue-900/40 pb-2">
@@ -240,7 +155,7 @@
                     </div>
 
                     <!-- Map Viewport -->
-                    <div id="relocationMap" class="w-full h-[580px] rounded-xl border border-blue-900/40 bg-[#0B0F12]"></div>
+                    <div id="relocationMap" class="w-full h-[580px] rounded-xl border border-blue-900/40 bg-[#040711]"></div>
 
                     <!-- Map Legend -->
                     <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400 pt-1">
@@ -259,7 +174,7 @@
             <div class="lg:col-span-5 flex flex-col gap-3 font-mono">
                 
                 <!-- Studio Navigation Sub-Tabs -->
-                <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-1.5 shadow-xl flex items-center gap-1.5 text-xs font-bold">
+                <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-1.5 shadow-xl flex items-center gap-1.5 text-xs font-bold">
                     <button id="btnStudioSim" onclick="switchStudioTab('sim')" class="flex-1 py-2 px-2 rounded-xl bg-cyan-400 text-slate-950 flex items-center justify-center gap-1.5 transition cursor-pointer shadow whitespace-nowrap" title="Interactive Sensitivity Simulator">
                         <i data-lucide="sliders" class="w-3.5 h-3.5 shrink-0"></i>
                         <span>Sensitivity<span class="hidden 2xl:inline"> Simulator</span></span>
@@ -280,7 +195,7 @@
 
                 <!-- ================= TAB 1: SENSITIVITY SIMULATOR (MCDA WEIGHTS & HARD VETOS) ================= -->
                 <div id="studioTabSim" class="flex flex-col gap-3">
-                    <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                         <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="sliders" class="w-4 h-4 text-cyan-400"></i>
@@ -295,7 +210,7 @@
                         </p>
 
                         <!-- 4 Interactive Weight Sliders -->
-                        <div class="flex flex-col gap-2.5 bg-[#0B0F12] p-3 rounded-xl border border-blue-900/30 text-xs">
+                        <div class="flex flex-col gap-2.5 bg-[#040711] p-3 rounded-xl border border-blue-900/30 text-xs">
                             <div>
                                 <div class="flex justify-between text-[11px] mb-1">
                                     <span class="text-slate-300">Terrain Safety &amp; Slope Factor:</span>
@@ -327,7 +242,7 @@
                         </div>
 
                         <!-- Hard Veto Sensitivity Controls -->
-                        <div class="p-3 bg-[#0B0F12] rounded-xl border border-blue-900/30 flex flex-col gap-2">
+                        <div class="p-3 bg-[#040711] rounded-xl border border-blue-900/30 flex flex-col gap-2">
                             <div class="flex items-center justify-between text-xs">
                                 <span class="text-white font-bold flex items-center gap-1.5">
                                     <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-red-400"></i>
@@ -358,7 +273,7 @@
 
                 <!-- ================= TAB 2: CADASTRAL & GEOTECHNICAL INSPECTOR ================= -->
                 <div id="studioTabCadastre" class="hidden flex flex-col gap-3">
-                    <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                         <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
@@ -372,19 +287,19 @@
                             <button id="btnCadSite0" onclick="selectCadastralSite(0)" class="p-2 rounded-lg bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 font-bold text-left transition cursor-pointer">
                                 🏆 Taluk Stadium Complex
                             </button>
-                            <button id="btnCadSite1" onclick="selectCadastralSite(1)" class="p-2 rounded-lg bg-[#0B0F12] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
+                            <button id="btnCadSite1" onclick="selectCadastralSite(1)" class="p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
                                 🏫 Polytechnic Campus
                             </button>
-                            <button id="btnCadSite2" onclick="selectCadastralSite(2)" class="p-2 rounded-lg bg-[#0B0F12] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
+                            <button id="btnCadSite2" onclick="selectCadastralSite(2)" class="p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
                                 🏢 Helang Community Hall
                             </button>
-                            <button id="btnCadSite3" onclick="selectCadastralSite(3)" class="p-2 rounded-lg bg-[#0B0F12] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
+                            <button id="btnCadSite3" onclick="selectCadastralSite(3)" class="p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer">
                                 🌊 Alaknanda River Terrace
                             </button>
                         </div>
 
                         <!-- Cadastral Details Card -->
-                        <div class="bg-[#0B0F12] p-3.5 rounded-xl border border-blue-900/40 flex flex-col gap-2.5 text-xs">
+                        <div class="bg-[#040711] p-3.5 rounded-xl border border-blue-900/40 flex flex-col gap-2.5 text-xs">
                             <div class="flex items-center justify-between border-b border-blue-900/30 pb-1.5">
                                 <span class="text-slate-400 text-[10px]">CADASTRAL PARCEL ID:</span>
                                 <span id="cadParcelId" class="font-mono text-cyan-300 font-bold">UK-CHM-REV-2024-8849</span>
@@ -421,7 +336,7 @@
 
                 <!-- ================= TAB 3: ZONATION BLUEPRINT ================= -->
                 <div id="studioTabZonation" class="hidden flex flex-col gap-3">
-                    <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                         <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="grid" class="w-4 h-4 text-cyan-400"></i>
@@ -435,42 +350,42 @@
 
                         <!-- Zonation Grid -->
                         <div class="grid grid-cols-2 gap-2 text-xs">
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border border-emerald-500/40">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-emerald-500/40">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-white text-[11px]">Sector A &amp; B: Shelters</span>
                                     <span class="text-emerald-400 font-bold text-[10px]">14,500 m²</span>
                                 </div>
                                 <span class="text-[10px] text-slate-400 block">840 Family Tents (3.5 m²/person floor area)</span>
                             </div>
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border border-cyan-500/40">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-cyan-500/40">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-white text-[11px]">Field Hospital / Triage</span>
                                     <span class="text-cyan-400 font-bold text-[10px]">1,800 m²</span>
                                 </div>
                                 <span class="text-[10px] text-slate-400 block">3 Triage Bays + Cold-Chain Vaccine Store</span>
                             </div>
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border border-blue-500/40">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-blue-500/40">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-white text-[11px]">Logistical Staging Yard</span>
                                     <span class="text-blue-400 font-bold text-[10px]">3,200 m²</span>
                                 </div>
                                 <span class="text-[10px] text-slate-400 block">2-Lane Freight Turnaround + 72h Rations</span>
                             </div>
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border border-purple-500/40">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-purple-500/40">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-white text-[11px]">WASH Sanitation Trench</span>
                                     <span class="text-purple-400 font-bold text-[10px]">2,100 m²</span>
                                 </div>
                                 <span class="text-[10px] text-slate-400 block">210 Latrines (1/20p) &bull; Downslope Buffer</span>
                             </div>
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border border-amber-500/40">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-amber-500/40">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-white text-[11px]">Emergency Helipad</span>
                                     <span class="text-amber-400 font-bold text-[10px]">1,600 m²</span>
                                 </div>
                                 <span class="text-[10px] text-slate-400 block">45m Cleared Rotor Ring &bull; Night Lighting</span>
                             </div>
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border border-teal-500/40">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border border-teal-500/40">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-white text-[11px]">Livestock Outer Corral</span>
                                     <span class="text-teal-400 font-bold text-[10px]">4,500 m²</span>
@@ -489,7 +404,7 @@
 
                 <!-- ================= TAB 4: PHASED ROLLOUT TIMELINE ================= -->
                 <div id="studioTabTimeline" class="hidden flex flex-col gap-3">
-                    <div class="bg-[#17222D]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                    <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                         <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="clock" class="w-4 h-4 text-cyan-400"></i>
@@ -501,7 +416,7 @@
                         <!-- Timeline Milestones -->
                         <div class="flex flex-col gap-2.5 text-xs">
                             <!-- Phase 1 -->
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border-l-4 border-cyan-400 border border-blue-900/30">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-cyan-400 border border-blue-900/30">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-cyan-300">Phase 1: Ingress &amp; Perimeter Securing</span>
                                     <span class="text-[10px] text-slate-400">H+0 to H+6 Hours</span>
@@ -511,7 +426,7 @@
                                 </p>
                             </div>
                             <!-- Phase 2 -->
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border-l-4 border-amber-400 border border-blue-900/30">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-amber-400 border border-blue-900/30">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-amber-300">Phase 2: Vulnerable Cohorts Influx</span>
                                     <span class="text-[10px] text-slate-400">H+6 to H+18 Hours</span>
@@ -521,7 +436,7 @@
                                 </p>
                             </div>
                             <!-- Phase 3 -->
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border-l-4 border-blue-400 border border-blue-900/30">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-blue-400 border border-blue-900/30">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-blue-300">Phase 3: General Population Relocation</span>
                                     <span class="text-[10px] text-slate-400">H+18 to H+36 Hours</span>
@@ -531,7 +446,7 @@
                                 </p>
                             </div>
                             <!-- Phase 4 -->
-                            <div class="p-2.5 rounded-xl bg-[#0B0F12] border-l-4 border-emerald-400 border border-blue-900/30">
+                            <div class="p-2.5 rounded-xl bg-[#040711] border-l-4 border-emerald-400 border border-blue-900/30">
                                 <div class="flex justify-between items-center mb-1">
                                     <span class="font-bold text-emerald-300">Phase 4: Humanitarian Stabilization</span>
                                     <span class="text-[10px] text-slate-400">H+36 to H+72 Hours</span>
@@ -881,7 +796,7 @@
                         : `<span class="w-5 h-5 rounded-full bg-blue-900/60 text-cyan-300 font-bold text-[10px] flex items-center justify-center">${index + 1}</span>`;
                     
                     const scorePct = Math.round(item.simScore * 100);
-                    const borderCls = index === 0 ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-blue-900/40 bg-[#0B0F12]';
+                    const borderCls = index === 0 ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-blue-900/40 bg-[#040711]';
 
                     html += `
                     <div class="p-2.5 rounded-xl ${borderCls} border flex items-center justify-between">
@@ -917,7 +832,7 @@
                     if (i === currentCadIndex) {
                         b.className = "p-2 rounded-lg bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 font-bold text-left transition cursor-pointer";
                     } else {
-                        b.className = "p-2 rounded-lg bg-[#0B0F12] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer";
+                        b.className = "p-2 rounded-lg bg-[#040711] border border-blue-900/30 text-slate-300 hover:text-white text-left transition cursor-pointer";
                     }
                 }
             }
