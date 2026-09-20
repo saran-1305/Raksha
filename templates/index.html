@@ -904,17 +904,22 @@
             attribution: 'Map &copy; ISRO / NRSC Bhuvan Thematic Portal'
         });
 
-        // CartoDB Dark Matter
-        const cartoDark = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CARTO',
-            maxZoom: 19
+        // Esri Clean Dark Canvas (Zero Watermarks)
+        const darkCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &bull; USGS',
+            maxZoom: 17
         });
+        const darkLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '',
+            maxZoom: 17
+        });
+        const darkCanvasGroup = L.layerGroup([darkCanvas, darkLabels]);
 
         // Layer Control
         const baseMaps = {
             "🛰️ High-Res Optical (0.3m Cartosat-3 GSD)": esriSatellite,
             "🗺️ ISRO Bhuvan Base Map (NRSC WMS)": bhuvanWMS,
-            "🌑 CartoDB Dark Matter": cartoDark
+            "🌑 Clean Dark Canvas": darkCanvasGroup
         };
         const overlayMaps = {};
         const layerControl = L.control.layers(baseMaps, overlayMaps, { position: 'topleft' }).addTo(map);

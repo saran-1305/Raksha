@@ -165,7 +165,7 @@
                             <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span> Vetoed Site</span>
                             <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full border border-cyan-400 border-dashed"></span> Search Ring</span>
                         </div>
-                        <span class="text-slate-500 text-[10px]">Projection: WGS84 &bull; CartoDB &bull; SRTM 30m</span>
+                        <span class="text-slate-500 text-[10px]">Projection: WGS84 &bull; Esri Dark Canvas &bull; SRTM 30m</span>
                     </div>
                 </div>
             </div>
@@ -506,9 +506,28 @@
         function initRelocationMap() {
             relocMap = L.map('relocationMap', { zoomControl: true }).setView([centerLat, centerLon], 12);
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; CartoDB &bull; ISRO Bhuvan'
+            // Clean Esri Dark Gray Base + Reference (Zero Watermarks, 100% Free)
+            const darkBase = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &bull; USGS &bull; ISRO Bhuvan',
+                maxZoom: 17
             }).addTo(relocMap);
+
+            const darkRef = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '',
+                maxZoom: 17
+            }).addTo(relocMap);
+
+            const esriSat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri World Imagery (0.3m GSD)',
+                maxZoom: 19
+            });
+
+            // Basemap Switcher Control
+            const baseLayers = {
+                "🌑 Clean Dark Canvas": L.layerGroup([darkBase, darkRef]),
+                "🛰️ Satellite Imagery": esriSat
+            };
+            L.control.layers(baseLayers, null, { position: 'topleft' }).addTo(relocMap);
 
             // Epicenter
             const epicenterIcon = L.divIcon({

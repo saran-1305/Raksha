@@ -294,9 +294,14 @@
         function initOverviewMap() {
             map = L.map('overviewMap', { zoomControl: true }).setView([currentPreset.lat, currentPreset.lon], 12);
 
-            // Dark CartoDB basemap
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; CartoDB &bull; ISRO Bhuvan'
+            // Clean Esri Dark Canvas basemap (Zero Watermarks)
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &bull; USGS &bull; ISRO Bhuvan',
+                maxZoom: 17
+            }).addTo(map);
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '',
+                maxZoom: 17
             }).addTo(map);
 
             // 1. Epicenter Beacon

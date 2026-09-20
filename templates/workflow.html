@@ -1226,9 +1226,14 @@
             mapInstance = L.map('discoverMap', { zoomControl: false }).setView([centerLat, centerLon], 12);
             L.control.zoom({ position: 'topright' }).addTo(mapInstance);
 
-            // Dark CartoDB basemap
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; CartoDB &bull; ISRO Bhuvan'
+            // Clean Esri Dark Canvas basemap (Zero Watermarks)
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &bull; USGS &bull; ISRO Bhuvan',
+                maxZoom: 17
+            }).addTo(mapInstance);
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '',
+                maxZoom: 17
             }).addTo(mapInstance);
 
             // Disaster Epicenter Marker
