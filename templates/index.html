@@ -15,6 +15,77 @@
     </script>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        raksha: {
+                            bg: '#0B0F12',
+                            secondary: '#111A24',
+                            panel: '#17222D',
+                            border: '#2A3742',
+                            primary: '#E8ECE9',
+                            secondaryText: '#9AA7AE',
+                            accent: '#4B8FB8',
+                            safe: '#4F9D78',
+                            warning: '#C79A45',
+                            critical: '#C95C55'
+                        },
+                        slate: {
+                            950: '#0B0F12',
+                            900: '#111A24',
+                            850: '#141E28',
+                            800: '#17222D',
+                            750: '#1F2D3B',
+                            700: '#2A3742',
+                            600: '#3E5060',
+                            500: '#64748B',
+                            400: '#9AA7AE',
+                            300: '#CBD5E1',
+                            200: '#DDE2DE',
+                            100: '#E8ECE9',
+                            50: '#F5F7F6'
+                        },
+                        cyan: {
+                            300: '#7BB3D4',
+                            400: '#4B8FB8',
+                            500: '#3A779C',
+                            600: '#2C5E7D'
+                        },
+                        blue: {
+                            400: '#6FAFD6',
+                            500: '#4B8FB8',
+                            600: '#387399',
+                            900: '#17222D',
+                            950: '#111A24'
+                        },
+                        emerald: {
+                            300: '#6FBA95',
+                            400: '#4F9D78',
+                            500: '#3F8263',
+                            600: '#2E664D',
+                            950: '#111F19'
+                        },
+                        amber: {
+                            300: '#DEB362',
+                            400: '#C79A45',
+                            500: '#AA8236',
+                            600: '#8A6828',
+                            950: '#261C0D'
+                        },
+                        red: {
+                            300: '#E58A84',
+                            400: '#D8736D',
+                            500: '#C95C55',
+                            600: '#B04B45',
+                            950: '#261211'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
     <!-- Leaflet CSS & JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -26,9 +97,25 @@
     <script src="/assets/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; }
+        :root {
+            --bg-main: #0B0F12;
+            --bg-secondary: #111A24;
+            --panel-bg: #17222D;
+            --border-muted: #2A3742;
+            --text-primary: #E8ECE9;
+            --text-secondary: #9AA7AE;
+            --accent-steel: #4B8FB8;
+            --safe-green: #4F9D78;
+            --warning-ochre: #C79A45;
+            --critical-terracotta: #C95C55;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0B0F12 !important; 
+            color: #E8ECE9 !important; 
+        }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
-        #map { height: 500px; width: 100%; border-radius: 0.75rem; z-index: 1; }
+        #map { height: 500px; width: 100%; border-radius: 0.75rem; z-index: 1; border: 1px solid #2A3742; }
         .pulse-beacon {
             animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
         }
@@ -38,11 +125,12 @@
             100% { transform: scale(0.8); opacity: 0.9; }
         }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #090d16; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #0B0F12; }
+        ::-webkit-scrollbar-thumb { background: #2A3742; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3E5060; }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col antialiased">
+<body class="text-[#E8ECE9] bg-[#0B0F12] min-h-screen flex flex-col antialiased">
 
     <!-- Top Navigation Bar -->
     <header class="border-b border-slate-800 bg-slate-900 px-6 py-2.5 flex flex-wrap items-center justify-between gap-4 shadow-lg relative z-20">

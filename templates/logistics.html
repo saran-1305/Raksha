@@ -7,21 +7,109 @@
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        raksha: {
+                            bg: '#0B0F12',
+                            secondary: '#111A24',
+                            panel: '#17222D',
+                            border: '#2A3742',
+                            primary: '#E8ECE9',
+                            secondaryText: '#9AA7AE',
+                            accent: '#4B8FB8',
+                            safe: '#4F9D78',
+                            warning: '#C79A45',
+                            critical: '#C95C55'
+                        },
+                        slate: {
+                            950: '#0B0F12',
+                            900: '#111A24',
+                            850: '#141E28',
+                            800: '#17222D',
+                            750: '#1F2D3B',
+                            700: '#2A3742',
+                            600: '#3E5060',
+                            500: '#64748B',
+                            400: '#9AA7AE',
+                            300: '#CBD5E1',
+                            200: '#DDE2DE',
+                            100: '#E8ECE9',
+                            50: '#F5F7F6'
+                        },
+                        cyan: {
+                            300: '#7BB3D4',
+                            400: '#4B8FB8',
+                            500: '#3A779C',
+                            600: '#2C5E7D'
+                        },
+                        blue: {
+                            400: '#6FAFD6',
+                            500: '#4B8FB8',
+                            600: '#387399',
+                            900: '#17222D',
+                            950: '#111A24'
+                        },
+                        emerald: {
+                            300: '#6FBA95',
+                            400: '#4F9D78',
+                            500: '#3F8263',
+                            600: '#2E664D',
+                            950: '#111F19'
+                        },
+                        amber: {
+                            300: '#DEB362',
+                            400: '#C79A45',
+                            500: '#AA8236',
+                            600: '#8A6828',
+                            950: '#261C0D'
+                        },
+                        red: {
+                            300: '#E58A84',
+                            400: '#D8736D',
+                            500: '#C95C55',
+                            600: '#B04B45',
+                            950: '#261211'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
+        :root {
+            --bg-base: #0B0F12;
+            --bg-secondary: #111A24;
+            --bg-card: #17222D;
+            --border-blue: #2A3742;
+            --text-primary: #E8ECE9;
+            --text-secondary: #9AA7AE;
+            --accent-steel: #4B8FB8;
+            --safe-green: #4F9D78;
+            --warning-ochre: #C79A45;
+            --critical-terracotta: #C95C55;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0B0F12 !important; 
+            color: #E8ECE9 !important; 
+        }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #060a14; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #0B0F12; }
+        ::-webkit-scrollbar-thumb { background: #2A3742; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3E5060; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased bg-[#0B0F12] text-[#E8ECE9]">
 
     <!-- Unified Global Header -->
-    <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
+    <header class="border-b border-blue-900/40 bg-[#111A24]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
             <div class="flex items-center gap-3">
@@ -38,7 +126,7 @@
             </div>
 
             <!-- PRIMARY CANONICAL NAVIGATION (Single Canonical Entry Point) -->
-            <nav class="flex items-center gap-1 bg-[#091122] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
+            <nav class="flex items-center gap-1 bg-[#111A24] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
                 <a href="/overview" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
                     <span>Overview</span>

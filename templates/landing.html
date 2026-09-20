@@ -7,22 +7,101 @@
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        raksha: {
+                            bg: '#0B0F12',
+                            secondary: '#111A24',
+                            panel: '#17222D',
+                            border: '#2A3742',
+                            primary: '#E8ECE9',
+                            secondaryText: '#9AA7AE',
+                            accent: '#4B8FB8',
+                            safe: '#4F9D78',
+                            warning: '#C79A45',
+                            critical: '#C95C55'
+                        },
+                        slate: {
+                            950: '#0B0F12',
+                            900: '#111A24',
+                            850: '#141E28',
+                            800: '#17222D',
+                            750: '#1F2D3B',
+                            700: '#2A3742',
+                            600: '#3E5060',
+                            500: '#64748B',
+                            400: '#9AA7AE',
+                            300: '#CBD5E1',
+                            200: '#DDE2DE',
+                            100: '#E8ECE9',
+                            50: '#F5F7F6'
+                        },
+                        cyan: {
+                            300: '#7BB3D4',
+                            400: '#4B8FB8',
+                            500: '#3A779C',
+                            600: '#2C5E7D'
+                        },
+                        blue: {
+                            400: '#6FAFD6',
+                            500: '#4B8FB8',
+                            600: '#387399',
+                            900: '#17222D',
+                            950: '#111A24'
+                        },
+                        emerald: {
+                            300: '#6FBA95',
+                            400: '#4F9D78',
+                            500: '#3F8263',
+                            600: '#2E664D',
+                            950: '#111F19'
+                        },
+                        amber: {
+                            300: '#DEB362',
+                            400: '#C79A45',
+                            500: '#AA8236',
+                            600: '#8A6828',
+                            950: '#261C0D'
+                        },
+                        red: {
+                            300: '#E58A84',
+                            400: '#D8736D',
+                            500: '#C95C55',
+                            600: '#B04B45',
+                            950: '#261211'
+                        }
+                    }
+                }
+            }
+        };
+    </script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
         
         :root {
-            --bg-base: #040711;
-            --bg-card: #080e1c;
-            --border-blue: rgba(37, 99, 235, 0.2);
-            --accent-cyan: #00e5ff;
+            --bg-base: #0B0F12;
+            --bg-secondary: #111A24;
+            --bg-card: #17222D;
+            --border-blue: #2A3742;
+            --border-muted: #2A3742;
+            --text-primary: #E8ECE9;
+            --text-secondary: #9AA7AE;
+            --accent-cyan: #4B8FB8;
+            --accent-steel: #4B8FB8;
+            --safe-green: #4F9D78;
+            --warning-ochre: #C79A45;
+            --critical-terracotta: #C95C55;
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-base); 
-            color: #f1f5f9; 
+            background-color: #0B0F12 !important; 
+            color: #E8ECE9 !important; 
             overflow-x: hidden;
         }
 
@@ -31,8 +110,9 @@
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #03050a; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #0B0F12; }
+        ::-webkit-scrollbar-thumb { background: #2A3742; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3E5060; }
 
         /* Grid Background Pattern */
         .cyber-grid-bg {
@@ -72,7 +152,7 @@
     <div class="fixed inset-x-0 h-40 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent pointer-events-none z-0 animate-scan"></div>
 
     <!-- ================= TOP MINIMAL HEADER ================= -->
-    <header class="relative z-30 border-b border-blue-900/30 bg-[#040711]/80 backdrop-blur-md px-6 py-4 sticky top-0">
+    <header class="relative z-30 border-b border-blue-900/30 bg-[#0B0F12]/80 backdrop-blur-md px-6 py-4 sticky top-0">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="/" class="flex items-center gap-3 group">
                 <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_0_10px_rgba(0,229,255,0.4)]">
@@ -93,10 +173,10 @@
                  style="background-image: url('/assets/raksha_wayanad_bg.jpg');"></div>
             
             <!-- High-Contrast Left Gradient for Typography Readability -->
-            <div class="absolute inset-0 bg-gradient-to-r from-[#040711] via-[#040711]/90 md:via-[#040711]/75 lg:via-[#040711]/45 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0B0F12] via-[#0B0F12]/90 md:via-[#0B0F12]/75 lg:via-[#0B0F12]/45 to-transparent"></div>
             
             <!-- Top & Bottom Atmospheric Vignettes for Seamless Blending -->
-            <div class="absolute inset-0 bg-gradient-to-b from-[#040711]/85 via-transparent to-[#040711]"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F12]/85 via-transparent to-[#0B0F12]"></div>
         </div>
 
         <!-- Main Hero Container (Split Layout) -->
@@ -139,7 +219,7 @@
 
                     <!-- 4 Core Feature Pillars -->
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 pt-3 pb-2 border-t border-white/10 max-w-xl">
-                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-cyan-500/40 transition">
+                        <div class="p-2.5 rounded-xl bg-[#0B0F12]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-cyan-500/40 transition">
                             <div class="w-8 h-8 rounded-lg bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0">
                                 <i data-lucide="shield-alert" class="w-4 h-4"></i>
                             </div>
@@ -149,7 +229,7 @@
                             </div>
                         </div>
 
-                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-amber-500/40 transition">
+                        <div class="p-2.5 rounded-xl bg-[#0B0F12]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-amber-500/40 transition">
                             <div class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
                                 <i data-lucide="users" class="w-4 h-4"></i>
                             </div>
@@ -159,7 +239,7 @@
                             </div>
                         </div>
 
-                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-cyan-500/40 transition">
+                        <div class="p-2.5 rounded-xl bg-[#0B0F12]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-cyan-500/40 transition">
                             <div class="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
                                 <i data-lucide="compass" class="w-4 h-4"></i>
                             </div>
@@ -169,7 +249,7 @@
                             </div>
                         </div>
 
-                        <div class="p-2.5 rounded-xl bg-[#040711]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-emerald-500/40 transition">
+                        <div class="p-2.5 rounded-xl bg-[#0B0F12]/70 border border-white/10 backdrop-blur-md flex items-center gap-2.5 shadow-sm hover:border-emerald-500/40 transition">
                             <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
                                 <i data-lucide="shield-check" class="w-4 h-4"></i>
                             </div>
@@ -186,7 +266,7 @@
                             <span>ENTER RAKSHA</span>
                             <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </button>
-                        <a href="#why-raksha" class="px-6 py-3.5 rounded-xl bg-[#080e1c]/70 hover:bg-[#0c162c] text-slate-200 hover:text-white font-mono text-sm border border-blue-900/60 backdrop-blur-md transition flex items-center justify-center gap-2 shadow">
+                        <a href="#why-raksha" class="px-6 py-3.5 rounded-xl bg-[#17222D]/70 hover:bg-[#0c162c] text-slate-200 hover:text-white font-mono text-sm border border-blue-900/60 backdrop-blur-md transition flex items-center justify-center gap-2 shadow">
                             <span>EXPLORE ARCHITECTURE</span>
                             <i data-lucide="chevron-down" class="w-4 h-4 text-cyan-400"></i>
                         </a>
@@ -222,7 +302,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono">
                 <!-- Block 01 -->
-                <div class="p-8 rounded-2xl bg-[#080e1c]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
+                <div class="p-8 rounded-2xl bg-[#17222D]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
                     <div>
                         <div class="text-3xl font-black text-cyan-400/30 mb-4">01</div>
                         <h3 class="text-lg font-bold text-white mb-2">DETECT RISK</h3>
@@ -237,7 +317,7 @@
                 </div>
 
                 <!-- Block 02 -->
-                <div class="p-8 rounded-2xl bg-[#080e1c]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
+                <div class="p-8 rounded-2xl bg-[#17222D]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
                     <div>
                         <div class="text-3xl font-black text-blue-400/30 mb-4">02</div>
                         <h3 class="text-lg font-bold text-white mb-2">UNDERSTAND IMPACT</h3>
@@ -252,7 +332,7 @@
                 </div>
 
                 <!-- Block 03 -->
-                <div class="p-8 rounded-2xl bg-[#080e1c]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
+                <div class="p-8 rounded-2xl bg-[#17222D]/80 border border-blue-900/40 hover:border-cyan-500/40 transition flex flex-col justify-between">
                     <div>
                         <div class="text-3xl font-black text-emerald-400/30 mb-4">03</div>
                         <h3 class="text-lg font-bold text-white mb-2">FIND SAFER GROUND</h3>
@@ -270,7 +350,7 @@
     </section>
 
     <!-- ================= SECTION 3: HOW RAKSHA THINKS ================= -->
-    <section id="how-it-thinks" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#040711]">
+    <section id="how-it-thinks" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#0B0F12]">
         <div class="max-w-6xl mx-auto">
             <div class="text-center max-w-xl mx-auto mb-14">
                 <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">DECISION PIPELINE</span>
@@ -281,49 +361,49 @@
             <!-- Horizontal Process Pipeline -->
             <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 font-mono">
                 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col items-center text-center">
                     <span class="text-[10px] text-red-400 font-bold mb-1">01</span>
                     <div class="text-xs font-bold text-white">HAZARD</div>
                     <span class="text-[9px] text-slate-500 mt-1">Multi-Source</span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col items-center text-center">
                     <span class="text-[10px] text-amber-400 font-bold mb-1">02</span>
                     <div class="text-xs font-bold text-white">EXPOSURE</div>
                     <span class="text-[9px] text-slate-500 mt-1">Settlements</span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col items-center text-center">
                     <span class="text-[10px] text-amber-400 font-bold mb-1">03</span>
                     <div class="text-xs font-bold text-white">IMPACT</div>
                     <span class="text-[9px] text-slate-500 mt-1">Vulnerability</span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col items-center text-center">
                     <span class="text-[10px] text-cyan-400 font-bold mb-1">04</span>
                     <div class="text-xs font-bold text-white">URGENCY</div>
                     <span class="text-[9px] text-slate-500 mt-1">Prioritization</span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col items-center text-center">
                     <span class="text-[10px] text-cyan-400 font-bold mb-1">05</span>
                     <div class="text-xs font-bold text-white">SAFE SITES</div>
                     <span class="text-[9px] text-slate-500 mt-1">5km Rings</span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col items-center text-center">
                     <span class="text-[10px] text-blue-400 font-bold mb-1">06</span>
                     <div class="text-xs font-bold text-white">CAPACITY</div>
                     <span class="text-[9px] text-slate-500 mt-1">Sphere 3.5m²</span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col items-center text-center">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col items-center text-center">
                     <span class="text-[10px] text-emerald-400 font-bold mb-1">07</span>
                     <div class="text-xs font-bold text-white">RANKING</div>
                     <span class="text-[9px] text-slate-500 mt-1">100-Pt MCDA</span>
                 </div>
 
-                <div class="p-4 rounded-xl bg-[#080e1c] border border-emerald-500/40 flex flex-col items-center text-center shadow-lg shadow-emerald-500/10">
+                <div class="p-4 rounded-xl bg-[#17222D] border border-emerald-500/40 flex flex-col items-center text-center shadow-lg shadow-emerald-500/10">
                     <span class="text-[10px] text-emerald-400 font-bold mb-1">08</span>
                     <div class="text-xs font-bold text-emerald-300">PLAN</div>
                     <span class="text-[9px] text-emerald-400 mt-1">DDMA Directive</span>
@@ -347,7 +427,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
                 
                 <!-- Implemented: SRTM DEM -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">DEM / TERRAIN</span>
@@ -358,7 +438,7 @@
                 </div>
 
                 <!-- Implemented: Open-Meteo -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">WEATHER / RAIN</span>
@@ -369,7 +449,7 @@
                 </div>
 
                 <!-- Implemented: OSM Infrastructure -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">OSM / INFRA</span>
@@ -380,7 +460,7 @@
                 </div>
 
                 <!-- Implemented: Dynamic AOI -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-900/50 flex flex-col justify-between">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-blue-900/50 flex flex-col justify-between">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">DYNAMIC AOI</span>
@@ -391,7 +471,7 @@
                 </div>
 
                 <!-- Architecture: Sentinel-1 SAR -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-950 flex flex-col justify-between opacity-85">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-blue-950 flex flex-col justify-between opacity-85">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">SENTINEL-1 SAR</span>
@@ -402,7 +482,7 @@
                 </div>
 
                 <!-- Architecture: Sentinel-2 Optical -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-blue-950 flex flex-col justify-between opacity-85">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-blue-950 flex flex-col justify-between opacity-85">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">SENTINEL-2 L2A</span>
@@ -413,7 +493,7 @@
                 </div>
 
                 <!-- Architecture: ISRO Cartosat-3 -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-amber-900/30 flex flex-col justify-between opacity-85">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-amber-900/30 flex flex-col justify-between opacity-85">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">CARTOSAT-3</span>
@@ -424,7 +504,7 @@
                 </div>
 
                 <!-- Architecture: ISRO Bhuvan -->
-                <div class="p-5 rounded-xl bg-[#080e1c] border border-amber-900/30 flex flex-col justify-between opacity-85">
+                <div class="p-5 rounded-xl bg-[#17222D] border border-amber-900/30 flex flex-col justify-between opacity-85">
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <span class="font-bold text-white">ISRO BHUVAN</span>
@@ -439,7 +519,7 @@
     </section>
 
     <!-- ================= SECTION 5: PLATFORM MODULES ================= -->
-    <section id="platform-modules" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#040711]">
+    <section id="platform-modules" class="relative z-10 py-20 px-6 border-t border-blue-900/30 bg-[#0B0F12]">
         <div class="max-w-6xl mx-auto">
             <div class="text-center max-w-xl mx-auto mb-14">
                 <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">CANONICAL WORKSPACES</span>
@@ -449,7 +529,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 font-mono text-xs">
                 
-                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                <div class="p-6 rounded-2xl bg-[#17222D] border border-blue-900/50 hover:border-cyan-500/40 transition">
                     <div class="flex items-center gap-2.5 text-cyan-400 font-bold mb-2">
                         <i data-lucide="satellite" class="w-4 h-4"></i>
                         <span class="text-sm text-white">EO Studio</span>
@@ -459,7 +539,7 @@
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                <div class="p-6 rounded-2xl bg-[#17222D] border border-blue-900/50 hover:border-cyan-500/40 transition">
                     <div class="flex items-center gap-2.5 text-amber-400 font-bold mb-2">
                         <i data-lucide="flame" class="w-4 h-4"></i>
                         <span class="text-sm text-white">Hazard Lab</span>
@@ -469,7 +549,7 @@
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                <div class="p-6 rounded-2xl bg-[#17222D] border border-blue-900/50 hover:border-cyan-500/40 transition">
                     <div class="flex items-center gap-2.5 text-emerald-400 font-bold mb-2">
                         <i data-lucide="compass" class="w-4 h-4"></i>
                         <span class="text-sm text-white">Relocation Dashboard</span>
@@ -479,7 +559,7 @@
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                <div class="p-6 rounded-2xl bg-[#17222D] border border-blue-900/50 hover:border-cyan-500/40 transition">
                     <div class="flex items-center gap-2.5 text-blue-400 font-bold mb-2">
                         <i data-lucide="git-pull-request" class="w-4 h-4"></i>
                         <span class="text-sm text-white">Workflow Studio</span>
@@ -489,7 +569,7 @@
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                <div class="p-6 rounded-2xl bg-[#17222D] border border-blue-900/50 hover:border-cyan-500/40 transition">
                     <div class="flex items-center gap-2.5 text-purple-400 font-bold mb-2">
                         <i data-lucide="truck" class="w-4 h-4"></i>
                         <span class="text-sm text-white">Fleet Commander</span>
@@ -499,7 +579,7 @@
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-[#080e1c] border border-blue-900/50 hover:border-cyan-500/40 transition">
+                <div class="p-6 rounded-2xl bg-[#17222D] border border-blue-900/50 hover:border-cyan-500/40 transition">
                     <div class="flex items-center gap-2.5 text-emerald-400 font-bold mb-2">
                         <i data-lucide="file-check" class="w-4 h-4"></i>
                         <span class="text-sm text-white">DDMA Dossier</span>
@@ -550,8 +630,8 @@
     </footer>
 
     <!-- ================= INITIALIZATION BOOT OVERLAY ================= -->
-    <div id="bootOverlay" class="fixed inset-0 z-50 bg-[#040711]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="max-w-md w-full bg-[#080e1c] border border-blue-900/60 rounded-2xl p-8 shadow-2xl font-mono text-xs text-slate-300 flex flex-col gap-4">
+    <div id="bootOverlay" class="fixed inset-0 z-50 bg-[#0B0F12]/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="max-w-md w-full bg-[#17222D] border border-blue-900/60 rounded-2xl p-8 shadow-2xl font-mono text-xs text-slate-300 flex flex-col gap-4">
             
             <div class="flex items-center gap-3 border-b border-blue-900/50 pb-4">
                 <img src="/assets/raksha_emblem_transparent.png" alt="Emblem" class="h-8 w-auto object-contain animate-pulse">
