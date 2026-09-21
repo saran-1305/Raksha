@@ -189,6 +189,33 @@ def get_cartosat_validation(lat: float, lon: float, site_name: Optional[str] = N
     }
     return sat_service.validate_cartosat3_site(mock_site)
 
+@app.get("/api/terrain/transect")
+def get_terrain_transect(
+    origin_lat: float,
+    origin_lon: float,
+    dest_lat: float,
+    dest_lon: float,
+    samples: int = 12,
+    dest_name: Optional[str] = "Relocation Target Site"
+):
+    """
+    Computes real SRTM DEM elevation transect along the vector from origin hazard to destination site.
+    Returns vector distance, min/max elevations, net elevation delta, maximum gradient, and profile points.
+    """
+    try:
+        transect = sat_service.fetch_elevation_transect(
+            start_lat=origin_lat,
+            start_lon=origin_lon,
+            end_lat=dest_lat,
+            end_lon=dest_lon,
+            samples=samples
+        )
+        transect["origin"] = {"lat": origin_lat, "lon": origin_lon}
+        transect["destination"] = {"lat": dest_lat, "lon": dest_lon, "name": dest_name}
+        return transect
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/", response_class=HTMLResponse)
 @app.get("/landing", response_class=HTMLResponse)
 def serve_landing():
@@ -199,22 +226,25 @@ def serve_landing():
     return "<h1>RAKSHA Landing template not found</h1>"
 
 @app.get("/overview", response_class=HTMLResponse)
-@app.get("/simulation", response_class=HTMLResponse)
-def serve_overview():
-    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
-    if os.path.exists(template_path):
-        with open(template_path, "r", encoding="utf-8") as f:
-            return f.read()
-    return "<h1>RAKSHA Dashboard template not found</h1>"
-
 @app.get("/executive-summary", response_class=HTMLResponse)
 @app.get("/summary", response_class=HTMLResponse)
-def serve_summary():
+def serve_overview():
     template_path = os.path.join(os.path.dirname(__file__), "templates", "overview.html")
     if os.path.exists(template_path):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
-    return "<h1>RAKSHA Executive Summary template not found</h1>"
+    return "<h1>RAKSHA Executive Overview template not found</h1>"
+
+@app.get("/simulation", response_class=HTMLResponse)
+@app.get("/dashboard", response_class=HTMLResponse)
+@app.get("/workbench", response_class=HTMLResponse)
+def serve_simulation():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Simulation template not found</h1>"
+
 
 @app.get("/eo-studio", response_class=HTMLResponse)
 @app.get("/earth-observation", response_class=HTMLResponse)

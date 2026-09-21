@@ -64,10 +64,10 @@
                             <span id="dotS2" class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> S2-L2A: <b id="lblS2" class="text-emerald-400">LIVE</b>
                         </span>
                         <span id="provCarto" class="px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700 text-slate-300 flex items-center gap-1">
-                            <span id="dotCarto" class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Cartosat-3: <b id="lblCarto" class="text-amber-300">0.28m VALID</b>
+                            <span id="dotCarto" class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Cartosat-3: <b id="lblCarto" class="text-amber-300">ARCHITECTURE</b>
                         </span>
                         <span id="provBhuvan" class="px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700 text-slate-300 flex items-center gap-1">
-                            <span id="dotBhuvan" class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span> Bhuvan: <b id="lblBhuvan" class="text-purple-300">WMS 1:50k</b>
+                            <span id="dotBhuvan" class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Bhuvan: <b id="lblBhuvan" class="text-purple-300">ARCHITECTURE</b>
                         </span>
                         <span id="provWeather" class="px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700 text-slate-300 flex items-center gap-1">
                             <span id="dotWeather" class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Wx: <b id="lblWeather" class="text-emerald-400">LIVE</b>
@@ -382,8 +382,8 @@
                             <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 text-xs font-mono font-semibold border border-amber-500/30">CARTOSAT-3 VALIDATOR</span>
                             <span class="text-xs text-slate-400">ISRO 0.28m Sub-Meter Ground Audit</span>
                         </div>
-                        <span id="cartoVerdictBadge" class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-emerald-950 border border-emerald-800 text-emerald-300">
-                            CLEARED (96.8%)
+                        <span id="cartoVerdictBadge" class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-amber-950/80 border border-amber-800 text-amber-300">
+                            ARCHITECTURE / TARGETED VALIDATION
                         </span>
                     </div>
 
@@ -435,8 +435,8 @@
                             <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 text-xs font-mono font-semibold border border-purple-500/30">ISRO BHUVAN ANCHOR</span>
                             <span class="text-xs text-slate-400">NRSC 1:50k LULC & Hazard Archive</span>
                         </div>
-                        <span id="bhuvanStatusBadge" class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-purple-950 border border-purple-800 text-purple-300 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span> WMS CONNECTED
+                        <span id="bhuvanStatusBadge" class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-purple-950/80 border border-purple-800 text-purple-300 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> ARCHITECTURE / PRODUCTION INTEGRATION
                         </span>
                     </div>
 
@@ -707,7 +707,7 @@
                     <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
                         <div class="flex items-center gap-1.5 text-slate-400 truncate text-[10px]">
                             <i data-lucide="satellite" class="w-3 h-3 text-cyan-400 shrink-0"></i>
-                            <span id="hero_cartoValidation" class="truncate text-slate-300">Cartosat-3 sub-meter panchromatic verified (96.8%)</span>
+                            <span id="hero_cartoValidation" class="truncate text-slate-300">Cartosat-3 sub-meter panchromatic (Targeted Architecture)</span>
                         </div>
                         <div class="flex items-center gap-2 shrink-0">
                             <button onclick="zoomToPrimarySite()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10.5px] font-mono font-semibold transition flex items-center gap-1 cursor-pointer border border-slate-700">
@@ -1595,7 +1595,7 @@
 
             const cartoVal = data.relocation_decision.cartosat3_validation || {};
             if (document.getElementById('wf_cartoStatus')) {
-                document.getElementById('wf_cartoStatus').innerText = cartoVal.clearance_status ? `0.28m GSD Panchromatic Validated (${cartoVal.clearance_status})` : '0.28m GSD Panchromatic Validated (96.8%)';
+                document.getElementById('wf_cartoStatus').innerText = cartoVal.clearance_status ? `0.28m GSD Panchromatic (${cartoVal.clearance_status})` : '0.28m GSD Panchromatic (Targeted Architecture)';
             }
 
             // -------------------------------------------------------------
@@ -1637,7 +1637,7 @@
 
                 const cartoEl = document.getElementById('hero_cartoValidation');
                 if (cartoEl) {
-                    cartoEl.innerText = `Cartosat-3 sub-meter panchromatic verified (96.8%) • 45m Helipad Ring`;
+                    cartoEl.innerText = `Cartosat-3 sub-meter panchromatic (Targeted Architecture) • 45m Helipad Ring`;
                 }
             }
 

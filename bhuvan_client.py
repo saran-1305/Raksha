@@ -110,12 +110,14 @@ class BhuvanClient:
         ]
 
         return {
-            "status": "VERIFIED_BHUVAN_ANCHOR",
+            "status": "ARCHITECTURE / PRODUCTION INTEGRATION",
+            "integration_mode": "ARCHITECTURE",
             "agency": "ISRO / National Remote Sensing Centre (NRSC)",
             "geoportal": "Bhuvan Thematic Geospatial Services",
             "portal_url": self.portal_url,
-            "target_site": site_name or "Candidate Relocation Sanctuary",
+            "target_site": site_name or "Candidate Relocation Site",
             "target_coordinates": {"lat": round(lat, 5), "lon": round(lon, 5)},
+            "architecture_note": "Bhuvan WMS integration is targeted for production deployment. Current indicators represent architecture baseline reference.",
             "lulc_50k": {
                 "classification": lulc_class,
                 "code": lulc_code,
@@ -125,11 +127,11 @@ class BhuvanClient:
                 "vegetation_cover": vegetation_cover
             },
             "historical_disaster_screening": {
-                "bhuvan_flood_recurrence_10yr": flood_recurrence_10yr,
-                "flood_risk_level": "VERY_LOW",
+                "bhuvan_flood_recurrence_10yr": "Estimated Zero Inundation (50-Yr Floodway Buffer)",
+                "flood_risk_level": "LOW_EXPOSURE",
                 "landslide_hazard_zonation": lhz_zone,
                 "lhz_code": lhz_code,
-                "drainage_buffer_compliance": "Compliant (> 50m stream buffer confirmed)",
+                "drainage_buffer_compliance": "Compliant (> 50m stream buffer)",
                 "geomorphology": "Stable Alluvial / Colluvial Relief Fan"
             },
             "wms_layers": {
@@ -138,7 +140,7 @@ class BhuvanClient:
                 "district_cadastre": "https://bhuvan-vec2.nrsc.gov.in/bhuvan/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=vector:district_boundary"
             },
             "thematic_bbox": thematic_bbox,
-            "provenance": "ISRO Bhuvan Thematic Disaster Services WMS (NRSC Hyderabad)"
+            "provenance": "ISRO Bhuvan / NRSC Thematic Architecture Schema"
         }
 
 bhuvan_service = BhuvanClient()

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAKSHA | Executive Overview Command Center</title>
+    <title>RAKSHA | Level 1 Executive Overview Command Center</title>
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,20 +15,33 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
         
+        :root {
+            --bg-main: #0B0F12;
+            --bg-secondary: #111A24;
+            --panel: #17222D;
+            --border: #2A3742;
+            --text-primary: #E8ECE9;
+            --text-secondary: #9AA7AE;
+            --accent-blue: #4B8FB8;
+            --accent-green: #4F9D78;
+            --accent-ochre: #C79A45;
+            --accent-red: #C95C55;
+        }
+
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #040711; 
-            color: #f1f5f9; 
+            background-color: var(--bg-main); 
+            color: var(--text-primary); 
         }
 
         .font-mono { font-family: 'JetBrains Mono', monospace; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #03050a; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #0B0F12; }
+        ::-webkit-scrollbar-thumb { background: #2A3742; border-radius: 3px; }
 
         .space-grid-bg {
-            background-image: radial-gradient(rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(75, 143, 184, 0.08) 1px, transparent 1px);
             background-size: 28px 28px;
         }
 
@@ -40,71 +53,77 @@
             50% { transform: scale(1.6); opacity: 0.2; }
             100% { transform: scale(0.8); opacity: 0.9; }
         }
+
+        .panel-box {
+            background-color: var(--panel);
+            border: 1px solid var(--border);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased space-grid-bg">
 
     <!-- ================= GLOBAL CANONICAL TOP NAVIGATION ================= -->
-    <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
+    <header class="border-b border-[#2A3742] bg-[#0B0F12]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-xl">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
             <!-- Left: RAKSHA Brand Logo & Title -->
             <div class="flex items-center gap-3">
-                <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
+                <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform hover:scale-105 shrink-0" title="RAKSHA Home">
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(75,143,184,0.5)]" />
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-extrabold text-lg text-white font-mono tracking-tight">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/15 text-cyan-400 border border-blue-500/30 font-semibold">OVERVIEW</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#4B8FB8]/20 text-[#4B8FB8] border border-[#4B8FB8]/40 font-bold">LEVEL 1 • OVERVIEW</span>
                     </div>
-                    <p class="text-[11px] text-slate-400 hidden sm:block">AI-Driven Multi-Hazard Relocation Intelligence</p>
+                    <p class="text-[11px] text-[#9AA7AE] hidden sm:block">Explainable Geospatial Decision Intelligence for Disaster Relocation Planning</p>
                 </div>
             </div>
 
-            <!-- Center: PRIMARY CANONICAL NAVIGATION (Single Canonical Entry Point) -->
-            <nav class="flex items-center gap-1 bg-[#091122] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
-                <a href="/overview" class="px-3 py-1.5 rounded-lg bg-blue-950 text-cyan-300 border border-cyan-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(0,229,255,0.2)]">
-                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <!-- Center: PRIMARY CANONICAL NAVIGATION -->
+            <nav class="flex items-center gap-1 bg-[#111A24] p-1 rounded-xl border border-[#2A3742] text-xs font-mono">
+                <a href="/overview" class="px-3 py-1.5 rounded-lg bg-[#17222D] text-[#E8ECE9] border border-[#4B8FB8]/60 font-bold transition flex items-center gap-1.5 shadow-sm">
+                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-[#4B8FB8]"></i>
                     <span>Overview</span>
                 </a>
-                <a href="/eo-studio" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                <a href="/eo-studio" class="px-3 py-1.5 rounded-lg text-[#9AA7AE] hover:text-white hover:bg-[#17222D] transition flex items-center gap-1.5">
                     <i data-lucide="satellite" class="w-3.5 h-3.5"></i>
                     <span>EO Studio</span>
                 </a>
-                <a href="/hazard-lab" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                <a href="/hazard-lab" class="px-3 py-1.5 rounded-lg text-[#9AA7AE] hover:text-white hover:bg-[#17222D] transition flex items-center gap-1.5">
                     <i data-lucide="flame" class="w-3.5 h-3.5"></i>
                     <span>Hazard Lab</span>
                 </a>
-                <a href="/relocation" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                <a href="/relocation" class="px-3 py-1.5 rounded-lg text-[#9AA7AE] hover:text-white hover:bg-[#17222D] transition flex items-center gap-1.5">
                     <i data-lucide="compass" class="w-3.5 h-3.5"></i>
                     <span>Relocation</span>
                 </a>
-                <a href="/workflow" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                <a href="/workflow" class="px-3 py-1.5 rounded-lg text-[#9AA7AE] hover:text-white hover:bg-[#17222D] transition flex items-center gap-1.5">
                     <i data-lucide="git-pull-request" class="w-3.5 h-3.5"></i>
                     <span>Workflow</span>
                 </a>
-                <a href="/fleet" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                <a href="/fleet" class="px-3 py-1.5 rounded-lg text-[#9AA7AE] hover:text-white hover:bg-[#17222D] transition flex items-center gap-1.5">
                     <i data-lucide="truck" class="w-3.5 h-3.5"></i>
                     <span>Fleet</span>
                 </a>
-                <a href="/ddma" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
-                    <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <a href="/ddma" class="px-3 py-1.5 rounded-lg text-[#9AA7AE] hover:text-white hover:bg-[#17222D] transition flex items-center gap-1.5">
+                    <i data-lucide="file-check" class="w-3.5 h-3.5 text-[#4F9D78]"></i>
                     <span>DDMA</span>
                 </a>
             </nav>
 
-            <!-- Right: System Status & Hotspots -->
+            <!-- Right: Hotspots Selector & Live Status -->
             <div class="flex items-center gap-2.5">
-                <span class="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold tracking-wider flex items-center gap-1.5 bg-emerald-500/15 border border-emerald-500/40 text-emerald-300">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold tracking-wider flex items-center gap-1.5 bg-[#4F9D78]/20 border border-[#4F9D78]/40 text-[#4F9D78]">
+                    <span class="w-2 h-2 rounded-full bg-[#4F9D78] animate-pulse"></span>
                     SYSTEM READY
                 </span>
                 
                 <div class="hidden xl:flex items-center gap-1.5 text-xs font-mono">
-                    <button onclick="switchHotspot('devgram')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-cyan-300 text-xs transition border border-blue-800/60">Devgram</button>
-                    <button onclick="switchHotspot('wayanad')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-red-300 text-xs transition border border-blue-800/60">Wayanad</button>
-                    <button onclick="switchHotspot('silchar')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-blue-300 text-xs transition border border-blue-800/60">Silchar</button>
+                    <button onclick="switchHotspot('devgram')" class="px-2.5 py-1 rounded bg-[#17222D] hover:bg-[#111A24] text-[#4B8FB8] text-xs transition border border-[#2A3742] cursor-pointer">Devgram</button>
+                    <button onclick="switchHotspot('wayanad')" class="px-2.5 py-1 rounded bg-[#17222D] hover:bg-[#111A24] text-[#C95C55] text-xs transition border border-[#2A3742] cursor-pointer">Wayanad</button>
+                    <button onclick="switchHotspot('silchar')" class="px-2.5 py-1 rounded bg-[#17222D] hover:bg-[#111A24] text-[#4B8FB8] text-xs transition border border-[#2A3742] cursor-pointer">Silchar</button>
+                    <button onclick="switchHotspot('chamoli')" class="px-2.5 py-1 rounded bg-[#17222D] hover:bg-[#111A24] text-[#C79A45] text-xs transition border border-[#2A3742] cursor-pointer">Joshimath</button>
                 </div>
             </div>
 
@@ -114,143 +133,277 @@
     <!-- ================= MAIN OVERVIEW CONTAINER ================= -->
     <main class="flex-1 max-w-[1850px] w-full mx-auto p-4 md:p-6 lg:p-8 flex flex-col gap-6">
 
-        <!-- Executive Scenario Context Bar -->
-        <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 sm:p-5 shadow-xl flex flex-wrap items-center justify-between gap-4 font-mono">
-            <div class="flex items-center gap-4 flex-wrap">
-                <div>
-                    <span class="text-[10px] text-slate-400 uppercase block">Current Incident Scenario</span>
-                    <span id="scenName" class="text-sm sm:text-base font-bold text-white">Devgram Habitation (Chamoli, Uttarakhand)</span>
+        <!-- ================= TOP SCENARIO CONTEXT RIBBON ================= -->
+        <div class="bg-[#111A24] border border-[#2A3742] rounded-2xl p-4 sm:p-5 shadow-xl flex flex-wrap items-center justify-between gap-4 font-mono">
+            <div class="flex items-center gap-5 flex-wrap">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-[#C95C55]/20 border border-[#C95C55]/40 flex items-center justify-center text-[#C95C55] shrink-0">
+                        <i data-lucide="alert-octagon" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-[#9AA7AE] uppercase tracking-wider block">DISASTER SCENARIO</span>
+                        <span id="scenName" class="text-sm sm:text-base font-extrabold text-[#E8ECE9]">Devgram Habitation (Chamoli District, Uttarakhand)</span>
+                    </div>
                 </div>
-                <div class="border-l border-blue-900/60 pl-4 hidden sm:block">
-                    <span class="text-[10px] text-slate-400 uppercase block">Affected Settlement</span>
-                    <span id="scenCoords" class="text-xs text-cyan-300 font-bold">30.3207° N, 79.2163° E</span>
+                <div class="border-l border-[#2A3742] pl-4 hidden sm:block">
+                    <span class="text-[10px] text-[#9AA7AE] uppercase tracking-wider block">EPICENTER COORDINATES</span>
+                    <span id="scenCoords" class="text-xs text-[#4B8FB8] font-bold">30.3207° N, 79.2163° E</span>
                 </div>
-                <div class="border-l border-blue-900/60 pl-4 hidden md:block">
-                    <span class="text-[10px] text-slate-400 uppercase block">Disaster Category</span>
-                    <span id="scenType" class="text-xs text-red-400 font-bold">Glacial Inundation &amp; Landslide Runoff</span>
+                <div class="border-l border-[#2A3742] pl-4 hidden md:block">
+                    <span class="text-[10px] text-[#9AA7AE] uppercase tracking-wider block">HAZARD CLASSIFICATION</span>
+                    <span id="scenType" class="text-xs text-[#C95C55] font-bold">Glacial Inundation & Landslide Runoff</span>
                 </div>
             </div>
 
-            <div class="flex items-center gap-3">
-                <a href="/relocation" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-500 to-cyan-400 hover:from-blue-500 hover:to-cyan-300 text-slate-950 font-extrabold text-xs transition shadow-lg shadow-cyan-500/25 flex items-center gap-2 cursor-pointer">
-                    <span>OPEN RELOCATION DASHBOARD</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            <!-- 3 Prominent Dispatch Action Buttons -->
+            <div class="flex items-center gap-2.5 flex-wrap">
+                <a href="/relocation" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#4F9D78] to-[#3d8363] hover:from-[#458f6c] hover:to-[#347355] text-[#0B0F12] font-black text-xs transition shadow-lg flex items-center gap-2 cursor-pointer">
+                    <i data-lucide="compass" class="w-4 h-4"></i>
+                    <span>OPEN RELOCATION DASHBOARD →</span>
+                </a>
+                <a href="/eo-studio" class="px-4 py-2.5 rounded-xl bg-[#17222D] hover:bg-[#111A24] text-[#4B8FB8] border border-[#4B8FB8]/60 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow">
+                    <i data-lucide="satellite" class="w-4 h-4"></i>
+                    <span>OPEN EO STUDIO →</span>
+                </a>
+                <a href="/workflow" class="px-3.5 py-2.5 rounded-xl bg-[#17222D] hover:bg-[#111A24] text-[#E8ECE9] border border-[#2A3742] font-semibold text-xs transition flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="git-pull-request" class="w-4 h-4 text-[#C79A45]"></i>
+                    <span>VIEW WORKFLOW →</span>
                 </a>
             </div>
         </div>
 
-        <!-- ================= 6 CONCISE EXECUTIVE SUMMARY CARDS ================= -->
-        <!-- Approximately 20% Technical Detail, 80% High-Level Decision Summary -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 font-mono text-xs">
+        <!-- ================= THE 5 HERO LEVEL-1 DECISION METRICS ================= -->
+        <!-- Fast, clean, executive decision view. Zero clutter. -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 font-mono">
             
-            <!-- Card 1: HAZARD (Informational) -->
-            <div class="p-4 rounded-xl bg-[#080e1c] border border-red-900/40 flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 uppercase font-bold">HAZARD LEVEL</span>
-                <div class="my-1.5">
-                    <span class="text-lg font-black text-red-400">CRITICAL</span>
-                    <span class="text-[10px] text-slate-400 block truncate">Flood / Landslide</span>
+            <!-- Metric 1: HAZARD -->
+            <div class="p-4 rounded-xl bg-[#17222D] border border-[#C95C55]/50 flex flex-col justify-between shadow-lg relative overflow-hidden">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-[#9AA7AE] uppercase font-bold tracking-wider">1. HAZARD TIER</span>
+                    <span class="w-2 h-2 rounded-full bg-[#C95C55] animate-ping"></span>
                 </div>
-                <div class="text-[10px] text-red-300 flex items-center gap-1">
-                    <i data-lucide="alert-triangle" class="w-3 h-3 text-red-400"></i>
-                    <span>High Runoff Risk</span>
+                <div class="my-2">
+                    <span id="heroHazard" class="text-xl sm:text-2xl font-black text-[#C95C55] block">Critical Red Zone</span>
+                    <span id="heroHazardDetail" class="text-[10.5px] text-[#9AA7AE] block mt-0.5">Active Runoff & Slope Dilation</span>
+                </div>
+                <div class="text-[10px] text-[#C95C55] flex items-center gap-1 border-t border-[#2A3742] pt-2">
+                    <i data-lucide="alert-triangle" class="w-3 h-3 text-[#C95C55] shrink-0"></i>
+                    <span>Unsafe for In-Situ Habitation</span>
                 </div>
             </div>
 
-            <!-- Card 2: EXPOSURE (Informational) -->
-            <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/40 flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 uppercase font-bold">EXPOSURE</span>
-                <div class="my-1.5">
-                    <span id="cardPop" class="text-lg font-black text-amber-400">6,840</span>
-                    <span class="text-[10px] text-slate-400 block">Population at Risk</span>
+            <!-- Metric 2: EXPOSURE -->
+            <div class="p-4 rounded-xl bg-[#17222D] border border-[#C79A45]/50 flex flex-col justify-between shadow-lg">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-[#9AA7AE] uppercase font-bold tracking-wider">2. POPULATION EXPOSURE</span>
+                    <i data-lucide="users" class="w-3.5 h-3.5 text-[#C79A45]"></i>
                 </div>
-                <span class="text-[10px] text-amber-300">Requires Evacuation</span>
+                <div class="my-2">
+                    <span id="heroExposure" class="text-xl sm:text-2xl font-black text-[#C79A45] block">6,840 Citizens</span>
+                    <span class="text-[10.5px] text-[#9AA7AE] block mt-0.5">Affected Habitation Census</span>
+                </div>
+                <div class="text-[10px] text-[#C79A45] flex items-center gap-1 border-t border-[#2A3742] pt-2">
+                    <i data-lucide="shield-alert" class="w-3 h-3 text-[#C79A45] shrink-0"></i>
+                    <span>100% Evacuation Target</span>
+                </div>
             </div>
 
-            <!-- Card 3: AOI (Informational) -->
-            <div class="p-4 rounded-xl bg-[#080e1c] border border-blue-900/40 flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 uppercase font-bold">AOI FOOTPRINT</span>
-                <div class="my-1.5">
-                    <span class="text-lg font-black text-white">18.4 km²</span>
-                    <span class="text-[10px] text-slate-400 block">Dynamic Envelope</span>
+            <!-- Metric 3: RELOCATION URGENCY -->
+            <div class="p-4 rounded-xl bg-[#17222D] border border-[#C95C55]/50 flex flex-col justify-between shadow-lg">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-[#9AA7AE] uppercase font-bold tracking-wider">3. RELOCATION URGENCY</span>
+                    <i data-lucide="clock" class="w-3.5 h-3.5 text-[#C95C55]"></i>
                 </div>
-                <span class="text-[10px] text-cyan-400">Derived from Slope</span>
+                <div class="my-2">
+                    <span id="heroUrgency" class="text-xl sm:text-2xl font-black text-[#C95C55] block">Immediate Triage</span>
+                    <span class="text-[10.5px] text-[#9AA7AE] block mt-0.5">Phase-1 Directive Triggered</span>
+                </div>
+                <div class="text-[10px] text-[#C95C55] flex items-center gap-1 border-t border-[#2A3742] pt-2">
+                    <i data-lucide="fast-forward" class="w-3 h-3 text-[#C95C55] shrink-0"></i>
+                    <span>Target Transit &lt; 35 min</span>
+                </div>
             </div>
 
-            <!-- Card 4: SAFE CAPACITY (Informational) -->
-            <div class="p-4 rounded-xl bg-[#080e1c] border border-emerald-900/40 flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 uppercase font-bold">SAFE CAPACITY</span>
-                <div class="my-1.5">
-                    <span class="text-lg font-black text-emerald-400">6,999</span>
-                    <span class="text-[10px] text-slate-400 block">Available Headroom</span>
+            <!-- Metric 4: SAFE SITES -->
+            <div class="p-4 rounded-xl bg-[#17222D] border border-[#4B8FB8]/50 flex flex-col justify-between shadow-lg">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-[#9AA7AE] uppercase font-bold tracking-wider">4. SAFE SITES</span>
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-[#4B8FB8]"></i>
                 </div>
-                <span class="text-[10px] text-emerald-300">Deficit: ZERO</span>
+                <div class="my-2">
+                    <span id="heroSafeSites" class="text-xl sm:text-2xl font-black text-[#4B8FB8] block">4 Eligible Sites</span>
+                    <span id="heroVetoedSites" class="text-[10.5px] text-[#9AA7AE] block mt-0.5">2 Sites Hard-Vetoed</span>
+                </div>
+                <div class="text-[10px] text-[#4B8FB8] flex items-center gap-1 border-t border-[#2A3742] pt-2">
+                    <i data-lucide="shield" class="w-3 h-3 text-[#4B8FB8] shrink-0"></i>
+                    <span>Zero-Tolerance Safety Veto</span>
+                </div>
             </div>
 
-            <!-- Card 5: SAFE SITES (Navigates to Relocation) -->
-            <div class="p-4 rounded-xl bg-[#080e1c] border border-cyan-900/40 flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 uppercase font-bold">SAFE SITES</span>
-                <div class="my-1.5">
-                    <span class="text-lg font-black text-cyan-300">4 Approved</span>
-                    <span class="text-[10px] text-slate-400 block">Outside Hazard Cone</span>
+            <!-- Metric 5: SAFE CAPACITY -->
+            <div class="p-4 rounded-xl bg-[#17222D] border border-[#4F9D78]/50 flex flex-col justify-between shadow-lg">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-[#9AA7AE] uppercase font-bold tracking-wider">5. SAFE CAPACITY</span>
+                    <i data-lucide="check-check" class="w-3.5 h-3.5 text-[#4F9D78]"></i>
                 </div>
-                <span class="text-[10px] text-cyan-300">Vetoed Sites: 2</span>
-            </div>
-
-            <!-- Card 6: URGENCY (Informational) -->
-            <div class="p-4 rounded-xl bg-[#080e1c] border border-red-900/40 flex flex-col justify-between">
-                <span class="text-[10px] text-slate-400 uppercase font-bold">RELOCATION URGENCY</span>
-                <div class="my-1.5">
-                    <span class="text-lg font-black text-red-400">IMMEDIATE</span>
-                    <span class="text-[10px] text-slate-400 block">Phase-1 Directive</span>
+                <div class="my-2">
+                    <span id="heroCapacity" class="text-xl sm:text-2xl font-black text-[#4F9D78] block">6,999 Persons</span>
+                    <span class="text-[10.5px] text-[#4F9D78] block mt-0.5 font-bold">Sphere Standard Compliant</span>
                 </div>
-                <span class="text-[10px] text-red-300">Transit &lt; 35 min</span>
+                <div class="text-[10px] text-[#4F9D78] flex items-center gap-1 border-t border-[#2A3742] pt-2">
+                    <i data-lucide="trending-up" class="w-3 h-3 text-[#4F9D78] shrink-0"></i>
+                    <span>Zero Capacity Deficit (+159)</span>
+                </div>
             </div>
 
         </div>
 
-        <!-- ================= LARGE VISUAL CENTERPIECE: MAP ================= -->
-        <div class="bg-[#080e1c]/90 border border-blue-900/50 rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col gap-3">
+        <!-- ================= LARGE VISUAL CENTERPIECE: OPERATIONAL MAP ================= -->
+        <div class="bg-[#111A24] border border-[#2A3742] rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col gap-3">
             
-            <!-- Minimal Map Controls Header -->
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-blue-900/40 pb-3">
+            <!-- Map Header with Minimal Essential Layer Toggles -->
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#2A3742] pb-3">
                 <div class="flex items-center gap-2">
-                    <i data-lucide="map" class="w-4 h-4 text-cyan-400"></i>
-                    <span class="font-bold text-white text-xs font-mono uppercase tracking-wider">Geospatial Summary Overview</span>
+                    <i data-lucide="map" class="w-4 h-4 text-[#4B8FB8]"></i>
+                    <span class="font-bold text-[#E8ECE9] text-xs font-mono uppercase tracking-wider">Executive Geospatial Operations Picture</span>
                 </div>
 
-                <!-- Minimal Essential Map Layer Toggles Only -->
-                <div class="flex items-center gap-1.5 text-xs font-mono">
-                    <span class="text-slate-500 text-[10px] uppercase mr-1 hidden sm:inline">LAYERS:</span>
-                    <button id="togHazard" onclick="toggleMapLayer('hazard')" class="px-2.5 py-1 rounded-lg bg-red-950/60 text-red-300 border border-red-800/60 text-[11px] transition flex items-center gap-1 cursor-pointer">
-                        <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span> Hazard
+                <!-- Layer Toggles -->
+                <div class="flex items-center gap-1.5 text-xs font-mono flex-wrap">
+                    <span class="text-[#9AA7AE] text-[10px] uppercase mr-1 hidden sm:inline">LAYERS:</span>
+                    <button id="togHazard" onclick="toggleMapLayer('hazard')" class="px-2.5 py-1 rounded-lg bg-[#C95C55]/20 text-[#C95C55] border border-[#C95C55]/40 text-[11px] transition flex items-center gap-1 cursor-pointer">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#C95C55]"></span> Hazard AOI
                     </button>
-                    <button id="togAOI" onclick="toggleMapLayer('aoi')" class="px-2.5 py-1 rounded-lg bg-cyan-950/60 text-cyan-300 border border-cyan-800/60 text-[11px] transition flex items-center gap-1 cursor-pointer">
-                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> AOI
+                    <button id="togRings" onclick="toggleMapLayer('rings')" class="px-2.5 py-1 rounded-lg bg-[#4B8FB8]/20 text-[#4B8FB8] border border-[#4B8FB8]/40 text-[11px] transition flex items-center gap-1 cursor-pointer">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#4B8FB8]"></span> Search Rings (5/10/15 km)
                     </button>
-                    <button id="togSites" onclick="toggleMapLayer('sites')" class="px-2.5 py-1 rounded-lg bg-emerald-950/60 text-emerald-300 border border-emerald-800/60 text-[11px] transition flex items-center gap-1 cursor-pointer">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Safe Sites
+                    <button id="togSafe" onclick="toggleMapLayer('safe')" class="px-2.5 py-1 rounded-lg bg-[#4F9D78]/20 text-[#4F9D78] border border-[#4F9D78]/40 text-[11px] transition flex items-center gap-1 cursor-pointer">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#4F9D78]"></span> Safe Sites (4)
                     </button>
-                    <button id="togRoads" onclick="toggleMapLayer('roads')" class="px-2.5 py-1 rounded-lg bg-blue-950/60 text-blue-300 border border-blue-800/60 text-[11px] transition flex items-center gap-1 cursor-pointer">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> Roads
+                    <button id="togVeto" onclick="toggleMapLayer('veto')" class="px-2.5 py-1 rounded-lg bg-[#17222D] text-[#9AA7AE] border border-[#2A3742] text-[11px] transition flex items-center gap-1 cursor-pointer">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#C95C55]"></span> Vetoed Sites
                     </button>
                 </div>
             </div>
 
-            <!-- Leaflet Map Container -->
-            <div id="overviewMap" class="w-full h-[520px] rounded-xl border border-blue-900/40 bg-[#040711] relative"></div>
+            <!-- Leaflet Map Viewport -->
+            <div id="overviewMap" class="w-full h-[520px] rounded-xl border border-[#2A3742] bg-[#0B0F12] relative z-10"></div>
 
-            <!-- Bottom Map Status Bar -->
-            <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-400 pt-1">
-                <div class="flex items-center gap-4">
-                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Epicenter</span>
-                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Approved Site</span>
-                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border border-cyan-400 border-dashed"></span> 5km Search Ring</span>
+            <!-- Bottom Map Legend & Quick Dispatch Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#9AA7AE] pt-1">
+                <div class="flex items-center gap-4 flex-wrap">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#C95C55]"></span> Epicenter</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#4F9D78]"></span> Safe Candidate</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#C95C55]"></span> Vetoed Candidate</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border border-[#4B8FB8] border-dashed"></span> Search Rings</span>
+                    <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-[#4F9D78] border-dashed"></span> Transect Vector</span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-slate-500">Want full geospatial analysis?</span>
-                    <a href="/relocation" class="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
-                        <span>Open Relocation Dashboard</span>
+                <div class="flex items-center gap-3">
+                    <a href="/relocation" class="text-[#4F9D78] hover:text-white font-bold flex items-center gap-1 transition">
+                        <span>Open Relocation Dashboard & Dossier</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= DEEP WORKSPACE ROUTING ARCHITECTURE ================= -->
+        <!-- Clear modular hierarchy: OVERVIEW -> MODULE -> WORKSPACE -> EVIDENCE -> DECISION -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Card 1: EO STUDIO -->
+            <div class="p-5 rounded-2xl bg-[#17222D] border border-[#2A3742] hover:border-[#4B8FB8]/60 transition shadow-lg flex flex-col justify-between group">
+                <div class="space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 h-8 rounded-lg bg-[#4B8FB8]/20 border border-[#4B8FB8]/40 flex items-center justify-center text-[#4B8FB8]">
+                            <i data-lucide="satellite" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-[#4B8FB8] px-2 py-0.5 rounded bg-[#4B8FB8]/10 border border-[#4B8FB8]/30">3-ZONE WORKSTATION</span>
+                    </div>
+                    <h3 class="text-sm font-extrabold text-[#E8ECE9] font-mono group-hover:text-[#4B8FB8] transition">
+                        Earth Observation Studio
+                    </h3>
+                    <p class="text-xs text-[#9AA7AE] leading-relaxed">
+                        Multi-sensor radar backscatter (Sentinel-1 SAR), optical passes (Sentinel-2 L2A), SRTM DEM continuous transect profiles, and Cartosat-3 sub-meter validation architecture.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#2A3742] mt-4">
+                    <a href="/eo-studio" class="text-xs font-mono font-bold text-[#4B8FB8] hover:text-white flex items-center gap-1.5 transition">
+                        <span>Launch EO Studio</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: RELOCATION DASHBOARD -->
+            <div class="p-5 rounded-2xl bg-[#17222D] border border-[#2A3742] hover:border-[#4F9D78]/60 transition shadow-lg flex flex-col justify-between group">
+                <div class="space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 h-8 rounded-lg bg-[#4F9D78]/20 border border-[#4F9D78]/40 flex items-center justify-center text-[#4F9D78]">
+                            <i data-lucide="compass" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-[#4F9D78] px-2 py-0.5 rounded bg-[#4F9D78]/10 border border-[#4F9D78]/30">60/40 DECISION DOSSIER</span>
+                    </div>
+                    <h3 class="text-sm font-extrabold text-[#E8ECE9] font-mono group-hover:text-[#4F9D78] transition">
+                        Relocation Dashboard
+                    </h3>
+                    <p class="text-xs text-[#9AA7AE] leading-relaxed">
+                        6-stage decision pipeline (01 Discover to 06 Plan), interactive Site Dossier with reasons for selection, Sphere life-support quotas, and bottom 5-card evidence strip.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#2A3742] mt-4">
+                    <a href="/relocation" class="text-xs font-mono font-bold text-[#4F9D78] hover:text-white flex items-center gap-1.5 transition">
+                        <span>Launch Relocation Dashboard</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: HAZARD LAB -->
+            <div class="p-5 rounded-2xl bg-[#17222D] border border-[#2A3742] hover:border-[#C79A45]/60 transition shadow-lg flex flex-col justify-between group">
+                <div class="space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 h-8 rounded-lg bg-[#C79A45]/20 border border-[#C79A45]/40 flex items-center justify-center text-[#C79A45]">
+                            <i data-lucide="flame" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-[#C79A45] px-2 py-0.5 rounded bg-[#C79A45]/10 border border-[#C79A45]/30">5×5 RUNOFF SIMULATION</span>
+                    </div>
+                    <h3 class="text-sm font-extrabold text-[#E8ECE9] font-mono group-hover:text-[#C79A45] transition">
+                        Hazard Intelligence Lab
+                    </h3>
+                    <p class="text-xs text-[#9AA7AE] leading-relaxed">
+                        Canonical home for 5×5 spatial hazard grid (25 cells at 1.0 km), slope-directed anisotropic AOI, hydro-debris velocity vectors, and runoff flowpath modeling.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#2A3742] mt-4">
+                    <a href="/hazard-lab" class="text-xs font-mono font-bold text-[#C79A45] hover:text-white flex items-center gap-1.5 transition">
+                        <span>Launch Hazard Lab</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 4: DECISION WORKFLOW -->
+            <div class="p-5 rounded-2xl bg-[#17222D] border border-[#2A3742] hover:border-[#4B8FB8]/60 transition shadow-lg flex flex-col justify-between group">
+                <div class="space-y-2.5">
+                    <div class="flex items-center justify-between">
+                        <div class="w-8 h-8 rounded-lg bg-[#4B8FB8]/20 border border-[#4B8FB8]/40 flex items-center justify-center text-[#4B8FB8]">
+                            <i data-lucide="git-pull-request" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-[#4B8FB8] px-2 py-0.5 rounded bg-[#4B8FB8]/10 border border-[#4B8FB8]/30">STEP-BY-STEP AUDIT</span>
+                    </div>
+                    <h3 class="text-sm font-extrabold text-[#E8ECE9] font-mono group-hover:text-[#4B8FB8] transition">
+                        Decision Workflow & DDMA
+                    </h3>
+                    <p class="text-xs text-[#9AA7AE] leading-relaxed">
+                        Step-by-step audit trail, multi-criteria weight scoring matrix, legal cadastre land-tenure verification, and statutory DDMA executive directive PDF generation.
+                    </p>
+                </div>
+                <div class="pt-4 border-t border-[#2A3742] mt-4">
+                    <a href="/workflow" class="text-xs font-mono font-bold text-[#4B8FB8] hover:text-white flex items-center gap-1.5 transition">
+                        <span>View Decision Workflow</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
             </div>
@@ -259,44 +412,91 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-blue-950 bg-[#03060c] text-slate-500 text-xs py-5 px-6 font-mono mt-8">
+    <!-- ================= FOOTER ================= -->
+    <footer class="border-t border-[#2A3742] bg-[#0B0F12] text-[#9AA7AE] text-xs py-5 px-6 font-mono mt-8">
         <div class="max-w-[1850px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <img src="/assets/raksha_emblem_transparent.png" alt="Logo" class="h-6 w-auto object-contain">
                 <span>RAKSHA 2.0 &bull; Executive Command Center</span>
             </div>
-            <div class="text-slate-500 text-[11px]">
+            <div class="text-[#9AA7AE] text-[11px]">
                 Detect Risk &bull; Prioritize People &bull; Find Safer Ground
             </div>
         </div>
     </footer>
 
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
         lucide.createIcons();
 
         let map = null;
         let layerGroups = {
             hazard: null,
-            aoi: null,
-            sites: null,
-            roads: null
+            rings: null,
+            safe: null,
+            veto: null
         };
 
-        const currentPreset = {
-            name: "Devgram Habitation (Chamoli, Uttarakhand)",
-            lat: 30.3207,
-            lon: 79.2163,
-            pop: 6840,
-            type: "Glacial Inundation & Landslide Runoff"
+        const PRESETS = {
+            devgram: { 
+                name: "Devgram (Chamoli, Uttarakhand)", 
+                lat: 30.3207, 
+                lon: 79.2163, 
+                pop: 6840, 
+                type: "Glacial Inundation & Landslide Runoff",
+                hazardLevel: "Critical Red Zone",
+                urgency: "Immediate Triage",
+                safeSites: 4,
+                vetoedSites: 2,
+                safeCapacity: 6999
+            },
+            wayanad: { 
+                name: "Meppadi / Chooralmala (Wayanad, Kerala)", 
+                lat: 11.5126, 
+                lon: 76.1287, 
+                pop: 4200, 
+                type: "Torrential Landslide & Debris Flow",
+                hazardLevel: "Critical Red Zone",
+                urgency: "Immediate Triage",
+                safeSites: 3,
+                vetoedSites: 3,
+                safeCapacity: 5200
+            },
+            silchar: { 
+                name: "Silchar (Barak Valley, Assam)", 
+                lat: 24.8333, 
+                lon: 92.7789, 
+                pop: 12500, 
+                type: "Riverine Flood & Embankment Breach",
+                hazardLevel: "High Risk Amber Zone",
+                urgency: "Urgent Relocation",
+                safeSites: 5,
+                vetoedSites: 2,
+                safeCapacity: 14200
+            },
+            chamoli: { 
+                name: "Joshimath Slope Subsidence (Uttarakhand)", 
+                lat: 30.5574, 
+                lon: 79.5670, 
+                pop: 2800, 
+                type: "Geotechnical Creep & Structural Subsidence",
+                hazardLevel: "Critical Red Zone",
+                urgency: "Immediate Triage",
+                safeSites: 3,
+                vetoedSites: 1,
+                safeCapacity: 3600
+            }
         };
+
+        let currentKey = 'devgram';
 
         function initOverviewMap() {
-            map = L.map('overviewMap', { zoomControl: true }).setView([currentPreset.lat, currentPreset.lon], 12);
+            const p = PRESETS[currentKey];
+            map = L.map('overviewMap', { zoomControl: true }).setView([p.lat, p.lon], 12);
 
             // Clean Esri Dark Canvas basemap (Zero Watermarks)
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &bull; USGS &bull; ISRO Bhuvan',
+                attribution: 'Tiles &copy; Esri &bull; USGS',
                 maxZoom: 17
             }).addTo(map);
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
@@ -304,75 +504,157 @@
                 maxZoom: 17
             }).addTo(map);
 
+            // Layer Groups
+            layerGroups.hazard = L.layerGroup().addTo(map);
+            layerGroups.rings = L.layerGroup().addTo(map);
+            layerGroups.safe = L.layerGroup().addTo(map);
+            layerGroups.veto = L.layerGroup().addTo(map);
+
+            renderScenarioMap(p);
+        }
+
+        function renderScenarioMap(p) {
+            // Clear existing layers
+            layerGroups.hazard.clearLayers();
+            layerGroups.rings.clearLayers();
+            layerGroups.safe.clearLayers();
+            layerGroups.veto.clearLayers();
+
+            map.flyTo([p.lat, p.lon], 12, { duration: 1.0 });
+
             // 1. Epicenter Beacon
             const beaconIcon = L.divIcon({
                 className: 'custom-beacon',
                 html: `<div class="relative flex items-center justify-center">
-                    <span class="absolute w-8 h-8 rounded-full bg-red-500 pulse-beacon"></span>
-                    <span class="w-4 h-4 rounded-full bg-red-600 border-2 border-white shadow-lg"></span>
+                    <span class="absolute w-8 h-8 rounded-full bg-[#C95C55] pulse-beacon"></span>
+                    <span class="w-4 h-4 rounded-full bg-[#C95C55] border-2 border-white shadow-lg"></span>
                 </div>`,
                 iconSize: [24, 24],
                 iconAnchor: [12, 12]
             });
-            L.marker([currentPreset.lat, currentPreset.lon], { icon: beaconIcon })
-                .bindPopup("<b>Disaster Epicenter:</b><br>Devgram Core Habitation<br><b>Exposed Population:</b> 6,840")
-                .addTo(map);
+            const epicenterMarker = L.marker([p.lat, p.lon], { icon: beaconIcon })
+                .bindPopup(`<b>Disaster Epicenter:</b><br>${p.name}<br><b>Exposed Population:</b> ${p.pop.toLocaleString()} citizens`);
+            layerGroups.hazard.addLayer(epicenterMarker);
 
-            // 2. Hazard Layer
-            layerGroups.hazard = L.layerGroup([
-                L.circle([currentPreset.lat, currentPreset.lon], {
-                    radius: 2500,
-                    color: '#ef4444',
-                    fillColor: '#ef4444',
-                    fillOpacity: 0.25,
-                    weight: 2
-                })
-            ]).addTo(map);
+            // 2. Dynamic AOI Polygon
+            const aoiCircle = L.circle([p.lat, p.lon], {
+                radius: 3500,
+                color: '#C95C55',
+                fillColor: '#C95C55',
+                fillOpacity: 0.22,
+                weight: 2,
+                dashArray: '6, 6'
+            }).bindPopup(`<b>Dynamic Hazard AOI Envelope</b><br>Hazard Level: Critical<br>All in-situ structures inside this buffer require relocation.`);
+            layerGroups.hazard.addLayer(aoiCircle);
 
-            // 3. AOI Layer
-            layerGroups.aoi = L.layerGroup([
-                L.circle([currentPreset.lat, currentPreset.lon], {
-                    radius: 5000,
-                    color: '#00e5ff',
-                    fill: false,
+            // 3. Search Rings (5 km, 10 km, 15 km)
+            const ringColors = ['#4B8FB8', '#C79A45', '#9AA7AE'];
+            for (let r = 1; r <= 3; r++) {
+                const ring = L.circle([p.lat, p.lon], {
+                    radius: r * 5000,
+                    color: ringColors[r - 1],
                     weight: 1.5,
-                    dashArray: '4, 4'
-                })
-            ]).addTo(map);
+                    dashArray: '4, 8',
+                    fill: false,
+                    opacity: 0.75
+                }).bindTooltip(`Search Ring ${r}: ${r * 5} km Buffer`, { permanent: false });
+                layerGroups.rings.addLayer(ring);
+            }
 
-            // 4. Safe Sites Layer
-            const safeSites = [
-                { name: "Taluk Stadium & Sports Ground", lat: currentPreset.lat + 0.0214, lon: currentPreset.lon + 0.0148, cap: 1600 },
-                { name: "Government Polytechnic College", lat: currentPreset.lat - 0.0093, lon: currentPreset.lon + 0.0578, cap: 2000 },
-                { name: "Pipalkoti Intermediate College", lat: currentPreset.lat + 0.0341, lon: currentPreset.lon + 0.0211, cap: 1800 },
-                { name: "Birahi Mandir Ground", lat: currentPreset.lat - 0.0182, lon: currentPreset.lon - 0.0241, cap: 1599 }
-            ];
+            // 4. Safe Sites & Vetoed Sites
+            let safeSites = [];
+            let vetoSites = [];
 
-            const siteMarkers = safeSites.map(s => {
-                return L.circleMarker([s.lat, s.lon], {
-                    radius: 7,
-                    color: '#10b981',
-                    fillColor: '#10b981',
-                    fillOpacity: 0.9,
-                    weight: 2
-                }).bindPopup(`<b>${s.name}</b><br>Safe Capacity: ${s.cap.toLocaleString()} citizens<br><a href="/relocation" class="text-cyan-400 font-bold">Inspect in Relocation Dashboard ➔</a>`);
+            if (currentKey === 'devgram') {
+                safeSites = [
+                    { name: "Chamoli Sports Stadium Complex", lat: 30.3421, lon: 79.2311, cap: 2400, rank: 1, dist: 4.8 },
+                    { name: "Government Polytechnic College Ground", lat: 30.3114, lon: 79.2741, cap: 2000, rank: 2, dist: 6.2 },
+                    { name: "Pipalkoti Intermediate School", lat: 30.3548, lon: 79.2374, cap: 1800, rank: 3, dist: 7.1 },
+                    { name: "Birahi Public Helipad Ground", lat: 30.3025, lon: 79.1922, cap: 799, rank: 4, dist: 3.5 }
+                ];
+                vetoSites = [
+                    { name: "Upper Alaknanda Riverbed Flat", lat: 30.3190, lon: 79.2195, reason: "Active fluvial flood corridor & steep gradient (>14°)" },
+                    { name: "Birahi North Unconsolidated Slope", lat: 30.3295, lon: 79.2085, reason: "High landslide susceptibility & geotechnical shear failure" }
+                ];
+            } else if (currentKey === 'wayanad') {
+                safeSites = [
+                    { name: "Meppadi Higher Secondary School Grounds", lat: 11.5520, lon: 76.1280, cap: 2200, rank: 1, dist: 4.5 },
+                    { name: "Government College Ground Meppadi", lat: 11.5640, lon: 76.1340, cap: 1800, rank: 2, dist: 5.8 },
+                    { name: "Vellarmala Relief Center", lat: 11.5380, lon: 76.1420, cap: 1200, rank: 3, dist: 3.2 }
+                ];
+                vetoSites = [
+                    { name: "Chooralmala Riverbank Terraces", lat: 11.5180, lon: 76.1310, reason: "Direct debris flow deposition cone" },
+                    { name: "Mundakkai Lower Tea Estate", lat: 11.5090, lon: 76.1250, reason: "Slope failure debris path (>22°)" },
+                    { name: "Attamala Gorge Floor", lat: 11.5010, lon: 76.1180, reason: "Flash flood catchment bottleneck" }
+                ];
+            } else {
+                safeSites = [
+                    { name: "District Sports Association Stadium", lat: p.lat + 0.02, lon: p.lon + 0.02, cap: Math.round(p.pop * 0.45), rank: 1, dist: 3.2 },
+                    { name: "Government Model Higher Secondary Ground", lat: p.lat - 0.02, lon: p.lon + 0.04, cap: Math.round(p.pop * 0.35), rank: 2, dist: 5.1 },
+                    { name: "Zilla Parishad High Ground Facility", lat: p.lat + 0.03, lon: p.lon - 0.02, cap: Math.round(p.pop * 0.30), rank: 3, dist: 6.4 }
+                ];
+                vetoSites = [
+                    { name: "River Flood Basin Lowlands", lat: p.lat + 0.005, lon: p.lon + 0.005, reason: "10-Year Inundation Zone" }
+                ];
+            }
+
+            // Render Safe Markers
+            safeSites.forEach(s => {
+                const safeIcon = L.divIcon({
+                    className: 'site-icon-safe',
+                    html: `<div class="w-6 h-6 rounded-full bg-[#4F9D78] border-2 border-white text-[#0B0F12] text-[10px] font-mono font-bold flex items-center justify-center shadow-lg">
+                        ${s.rank}
+                    </div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+                const marker = L.marker([s.lat, s.lon], { icon: safeIcon })
+                    .bindPopup(`
+                        <div class="p-1 font-mono text-xs text-[#0B0F12]">
+                            <b class="text-[#4F9D78] text-sm">${s.name}</b><br>
+                            <b>Rank:</b> #${s.rank} Safe Candidate<br>
+                            <b>Safe Capacity:</b> ${s.cap.toLocaleString()} citizens<br>
+                            <b>Distance:</b> ~${s.dist} km from Epicenter<br>
+                            <div class="mt-1 pt-1 border-t border-slate-300">
+                                <a href="/relocation" class="text-blue-600 font-bold hover:underline">Inspect Full Dossier in Relocation ➔</a>
+                            </div>
+                        </div>
+                    `);
+                layerGroups.safe.addLayer(marker);
             });
-            layerGroups.sites = L.layerGroup(siteMarkers).addTo(map);
 
-            // 5. Roads Layer (Simulated Arterial Lifeline)
-            const roadPoints = [
-                [currentPreset.lat, currentPreset.lon],
-                [currentPreset.lat + 0.01, currentPreset.lon + 0.01],
-                [currentPreset.lat + 0.0214, currentPreset.lon + 0.0148],
-                [currentPreset.lat + 0.03, currentPreset.lon + 0.03]
-            ];
-            layerGroups.roads = L.layerGroup([
-                L.polyline(roadPoints, {
-                    color: '#3b82f6',
+            // Origin to Rank #1 Safe Transect Corridor
+            if (safeSites.length > 0) {
+                const topSite = safeSites[0];
+                const vectorLine = L.polyline([[p.lat, p.lon], [topSite.lat, topSite.lon]], {
+                    color: '#4F9D78',
                     weight: 3,
-                    opacity: 0.8
-                })
-            ]).addTo(map);
+                    dashArray: '8, 8',
+                    opacity: 0.95
+                }).bindPopup(`<b>Origin-to-Site Evacuation Vector</b><br>Target: ${topSite.name}<br>Distance: ~${topSite.dist} km (Geodesic)`);
+                layerGroups.safe.addLayer(vectorLine);
+            }
+
+            // Render Vetoed Markers
+            vetoSites.forEach(s => {
+                const vetoIcon = L.divIcon({
+                    className: 'site-icon-veto',
+                    html: `<div class="w-6 h-6 rounded-full bg-[#C95C55] border-2 border-white text-white text-[10px] font-mono font-bold flex items-center justify-center shadow-lg">
+                        ✕
+                    </div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+                const marker = L.marker([s.lat, s.lon], { icon: vetoIcon })
+                    .bindPopup(`
+                        <div class="p-1 font-mono text-xs text-[#0B0F12]">
+                            <b class="text-[#C95C55] text-sm">${s.name}</b><br>
+                            <span class="text-red-700 font-bold">[HARD VETO TRIGGERED]</span><br>
+                            <b>Reason:</b> ${s.reason}
+                        </div>
+                    `);
+                layerGroups.veto.addLayer(marker);
+            });
         }
 
         function toggleMapLayer(type) {
@@ -382,30 +664,31 @@
 
             if (map.hasLayer(layer)) {
                 map.removeLayer(layer);
-                btn.classList.add('opacity-50');
+                if (btn) btn.classList.add('opacity-40');
             } else {
                 map.addLayer(layer);
-                btn.classList.remove('opacity-50');
+                if (btn) btn.classList.remove('opacity-40');
             }
         }
 
         function switchHotspot(key) {
-            const presets = {
-                devgram: { name: "Devgram (Chamoli, Uttarakhand)", lat: 30.3207, lon: 79.2163, pop: 6840, type: "Glacial Inundation & Landslide Runoff" },
-                wayanad: { name: "Meppadi / Chooralmala (Wayanad, Kerala)", lat: 11.5204, lon: 76.1583, pop: 4200, type: "Torrential Landslide & Debris Flow" },
-                silchar: { name: "Silchar (Barak Valley, Assam)", lat: 24.8333, lon: 92.7789, pop: 12500, type: "Riverine Flood & Embankment Breach" }
-            };
-            const p = presets[key];
+            currentKey = key;
+            const p = PRESETS[key];
             if (!p) return;
 
             document.getElementById('scenName').textContent = p.name;
             document.getElementById('scenCoords').textContent = `${p.lat.toFixed(4)}° N, ${p.lon.toFixed(4)}° E`;
             document.getElementById('scenType').textContent = p.type;
-            document.getElementById('cardPop').textContent = p.pop.toLocaleString();
+            
+            // 5 Hero numbers
+            document.getElementById('heroHazard').textContent = p.hazardLevel;
+            document.getElementById('heroExposure').textContent = `${p.pop.toLocaleString()} Citizens`;
+            document.getElementById('heroUrgency').textContent = p.urgency;
+            document.getElementById('heroSafeSites').textContent = `${p.safeSites} Eligible Sites`;
+            document.getElementById('heroVetoedSites').textContent = `${p.vetoedSites} Sites Hard-Vetoed`;
+            document.getElementById('heroCapacity').textContent = `${p.safeCapacity.toLocaleString()} Persons`;
 
-            if (map) {
-                map.flyTo([p.lat, p.lon], 12);
-            }
+            renderScenarioMap(p);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -414,4 +697,3 @@
     </script>
 </body>
 </html>
-

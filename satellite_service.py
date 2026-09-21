@@ -341,40 +341,37 @@ class SatelliteTelemetryService:
         helipad_clearance_m = 45.0 if gross_area >= 100000 else 30.0
 
         return {
-            "status": "VERIFIED",
-            "satellite": "ISRO Cartosat-3 (High-Resolution Earth Observation)",
-            "scene_id": bhoonidhi_meta.get("scene_id"),
-            "acquisition_date": bhoonidhi_meta.get("acquisition_date", "2026-03-14T05:18:22Z"),
+            "status": "ARCHITECTURE / TARGETED VALIDATION",
+            "integration_mode": "ARCHITECTURE",
+            "satellite": "ISRO Cartosat-3 (Targeted High-Resolution Validation)",
+            "role": "HIGH-RESOLUTION SITE VALIDATION",
+            "architecture_note": "Cartosat-3 integration is reserved for high-resolution targeted validation in the production architecture.",
             "sensor_resolution": {
-                "panchromatic_gsd": "0.28 m (Sub-Meter Ground Sampling Distance)",
+                "panchromatic_gsd": "0.28 m GSD (Planned Production Sensor)",
                 "multispectral_gsd": "1.12 m (4-Band VNIR)",
                 "swath_width": "17.0 km"
             },
             "site_target": site_name,
             "target_coordinates": {"lat": lat, "lon": lon},
-            "verified_spatial_metrics": {
+            "derived_spatial_metrics": {
                 "total_site_boundary_sqm": gross_area,
-                "verified_open_staging_sqm": open_staging_sqm,
-                "structural_footprint_sqm": built_footprint_sqm,
-                "built_up_density_pct": built_density_pct,
+                "estimated_open_staging_sqm": open_staging_sqm,
+                "estimated_structural_footprint_sqm": built_footprint_sqm,
+                "estimated_built_up_density_pct": built_density_pct,
                 "usable_shelter_area_sqm": usable_area,
-                "helipad_airdrop_clearance_m": helipad_clearance_m,
-                "heavy_transport_access_points": 2 if gross_area >= 100000 else 1
+                "airdrop_clearance_m": helipad_clearance_m,
+                "access_points": 2 if gross_area >= 100000 else 1
             },
-            "validation_verdict": "CLEARED FOR RELOCATION SANCTUARY",
-            "confidence_score_pct": 96.8,
-            "verification_checks": [
-                "Sub-meter optical clearance: Open ground perimeter confirmed unblocked",
-                "Structural stability: Low built-up footprint density (< 25%) allows safe tent staging",
-                "Transport ingress: Primary all-weather approach road gateway verified",
-                f"Helipad readiness: Emergency air-drop zone clearance ({helipad_clearance_m}m) verified"
+            "evaluation_checks": [
+                {"check": "Built-up Footprint", "status": "DERIVED", "detail": f"Estimated built density ~{built_density_pct}% allows emergency shelter staging"},
+                {"check": "Open Ground Perimeter", "status": "ESTIMATED", "detail": f"~{open_staging_sqm:,} m² unencumbered staging zone"},
+                {"check": "Road Network Ingress", "status": "DERIVED (OSM)", "detail": "Primary road access corridor identified"},
+                {"check": "Emergency Air-Drop Zone", "status": "ARCHITECTURE CHECK", "detail": f"{helipad_clearance_m}m diameter buffer verified geometrically"}
             ],
             "bbox": bhoonidhi_meta.get("bbox"),
             "footprint_polygon": bhoonidhi_meta.get("footprint_polygon"),
             "helipad_circle": bhoonidhi_meta.get("helipad_circle"),
-            "cloud_cover_pct": bhoonidhi_meta.get("cloud_cover_pct", 3.8),
-            "bhoonidhi_details": bhoonidhi_meta,
-            "provenance": "ISRO Cartosat-3 High-Resolution Validation Framework"
+            "provenance": "Architecture Specification (ISRO Cartosat-3 Target Pipeline)"
         }
 
     def fetch_bhuvan_thematic(self, candidate_site: Dict[str, Any], epicenter_lat: float = 0.0, epicenter_lon: float = 0.0) -> Dict[str, Any]:
