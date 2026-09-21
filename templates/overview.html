@@ -136,14 +136,10 @@
             <!-- Leaflet Map Container -->
             <div id="cleanMap" class="w-full h-full z-0"></div>
 
-            <!-- FLOATING MAP CONTROLS (Top-Left) -->
-            <div class="absolute top-4 left-4 z-10 flex items-center gap-2">
+            <!-- FLOATING LAYER SWITCHER BUTTON (Top-Left matching Image 1) -->
+            <div class="absolute top-4 left-4 z-10">
                 <button onclick="cycleBaseMap()" class="w-10 h-10 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-blue-800/80 shadow-2xl flex items-center justify-center text-slate-200 hover:text-cyan-300 transition" title="Toggle Satellite / Dark Basemap">
                     <i data-lucide="layers" class="w-5 h-5"></i>
-                </button>
-                <button id="btnToggleOverviewGrid" onclick="toggle5x5Grid()" class="px-3 py-2 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-amber-500/80 shadow-2xl flex items-center gap-1.5 text-amber-300 font-mono text-xs transition cursor-pointer" title="Toggle 5×5 Spatial Hazard Runoff Grid Overlay">
-                    <i data-lucide="grid" class="w-4 h-4 text-amber-400"></i>
-                    <span id="lblToggleOverviewGrid">5×5 Grid: ON</span>
                 </button>
             </div>
 
@@ -450,30 +446,6 @@
         let baseLayers = {}, currentBase = 'satellite';
         let isGridVisible = true;
         let gridLayerGroup = L.layerGroup();
-
-        function toggle5x5Grid() {
-            isGridVisible = !isGridVisible;
-            const btnLabel = document.getElementById('lblToggleOverviewGrid');
-            const btn = document.getElementById('btnToggleOverviewGrid');
-            
-            if (isGridVisible) {
-                if (map && !map.hasLayer(gridLayerGroup)) {
-                    gridLayerGroup.addTo(map);
-                }
-                if (btnLabel) btnLabel.innerText = '5×5 Grid: ON';
-                if (btn) {
-                    btn.className = 'px-3 py-2 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-amber-500/80 shadow-2xl flex items-center gap-1.5 text-amber-300 font-mono text-xs transition cursor-pointer';
-                }
-            } else {
-                if (map && map.hasLayer(gridLayerGroup)) {
-                    map.removeLayer(gridLayerGroup);
-                }
-                if (btnLabel) btnLabel.innerText = '5×5 Grid: OFF';
-                if (btn) {
-                    btn.className = 'px-3 py-2 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-slate-700/80 shadow-2xl flex items-center gap-1.5 text-slate-400 font-mono text-xs transition cursor-pointer';
-                }
-            }
-        }
 
         function initMap() {
             const data = SCENARIOS[currentScenario];
