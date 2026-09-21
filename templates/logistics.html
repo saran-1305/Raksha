@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAKSHA | Evacuation Fleet Logistics</title>
+    <title>RAKSHA | Mobility & Relocation Logistics</title>
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -14,419 +17,504 @@
         body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #060a14; }
+        ::-webkit-scrollbar-track { background: #03050a; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased bg-[#040711]">
 
-    <!-- Unified Global Header -->
-    <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
+    <!-- ================= CANONICAL 5-ITEM TOP NAVIGATION ================= -->
+    <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-6 py-2.5 shadow-2xl">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
+            <!-- Left: Brand Logo & Title -->
             <div class="flex items-center gap-3">
-                <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
+                <a href="/" class="h-9 w-9 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-extrabold text-lg text-white font-mono tracking-tight">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 font-semibold">FLEET LOGISTICS</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 font-semibold">MOBILITY &amp; LOGISTICS</span>
                     </div>
-                    <p class="text-[11px] text-slate-400 hidden sm:block">State Transport Fleet Sizing &amp; Humanitarian Lifelines</p>
+                    <div class="text-[10px] text-slate-400 font-mono flex items-center gap-2">
+                        <span>DATA STATUS:</span>
+                        <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>LIVE</span>
+                        <span class="text-slate-600">|</span>
+                        <span class="text-cyan-400 font-bold">DERIVED</span>
+                        <span class="text-slate-600">|</span>
+                        <span class="text-purple-400 font-bold">SCENARIO ESTIMATE</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- PRIMARY CANONICAL NAVIGATION (Single Canonical Entry Point) -->
+            <!-- Center: Canonical 5-Step Navigation -->
             <nav class="flex items-center gap-1 bg-[#091122] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
                 <a href="/overview" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
-                    <span>Overview</span>
-                </a>
-                <a href="/eo-studio" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
-                    <i data-lucide="satellite" class="w-3.5 h-3.5"></i>
-                    <span>EO Studio</span>
+                    <span>OVERVIEW</span>
                 </a>
                 <a href="/hazard-lab" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="flame" class="w-3.5 h-3.5"></i>
-                    <span>Hazard Lab</span>
+                    <span>HAZARD LAB</span>
                 </a>
                 <a href="/relocation" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="compass" class="w-3.5 h-3.5"></i>
-                    <span>Relocation</span>
+                    <span>RELOCATION</span>
                 </a>
-                <a href="/workflow" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
-                    <i data-lucide="git-pull-request" class="w-3.5 h-3.5"></i>
-                    <span>Workflow</span>
-                </a>
-                <a href="/fleet" class="px-3 py-1.5 rounded-lg bg-blue-950 text-purple-300 border border-purple-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(168,85,247,0.2)]">
+                <a href="/logistics" class="px-3 py-1.5 rounded-lg bg-blue-950 text-purple-300 border border-purple-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(168,85,247,0.2)]">
                     <i data-lucide="truck" class="w-3.5 h-3.5 text-purple-400"></i>
-                    <span>Fleet</span>
+                    <span>LOGISTICS</span>
                 </a>
-                <a href="/ddma" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
-                    <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                    <span>DDMA</span>
+                <a href="/dossier" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                    <span>REPORT</span>
                 </a>
             </nav>
 
-            <!-- Presets -->
-            <div class="flex items-center gap-2">
-                <div class="hidden xl:flex items-center gap-1.5 text-xs font-mono">
-                    <span class="text-slate-500 text-[11px] uppercase mr-1">Hotspot:</span>
-                    <button onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-cyan-300 text-xs transition border border-blue-800/60">Devgram</button>
-                    <button onclick="selectPreset('wayanad')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-red-300 text-xs transition border border-blue-800/60">Wayanad</button>
-                    <button onclick="selectPreset('silchar')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-blue-300 text-xs transition border border-blue-800/60">Silchar</button>
-                    <button onclick="selectPreset('chamoli')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-amber-300 text-xs transition border border-blue-800/60">Joshimath</button>
+            <!-- Right: Incident Context -->
+            <div class="flex items-center gap-3 font-mono text-xs text-right">
+                <div>
+                    <div class="text-white font-bold">INCIDENT: DEVGRAM</div>
+                    <div class="text-cyan-400 text-[10px]">ROUTE TO PRIMARY SANCTUARY</div>
                 </div>
-                <button onclick="refreshAnalysis()" class="p-2 rounded-lg bg-blue-950/60 hover:bg-blue-900/70 text-purple-400 border border-blue-800/60 transition" title="Recompute Fleet">
-                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-                </button>
             </div>
         </div>
     </header>
 
-    <!-- Contextual Breadcrumb Ribbon -->
-    <div class="border-b border-blue-900/30 bg-[#070e1c] px-6 py-2.5">
-        <div class="max-w-[1850px] mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
-                <a href="/overview" class="text-cyan-400 hover:underline">RAKSHA</a>
-                <span>/</span>
-                <span class="text-slate-200 font-semibold uppercase tracking-wider">EVACUATION FLEET LOGISTICS</span>
-                <span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-purple-500/10 text-purple-300 border border-purple-500/30 hidden sm:inline-block">
-                    SIMULATED / ESTIMATED EVACUATION DISPATCH
-                </span>
-            </div>
-            <a href="/overview" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition flex items-center gap-1.5 group">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
-                <span>BACK TO OVERVIEW</span>
-            </a>
-        </div>
-    </div>
-
-    <!-- Sub-header Ribbon -->
+    <!-- Context Ribbon -->
     <div class="bg-slate-950/90 border-b border-slate-800/80 px-6 py-2">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
             <div class="flex items-center gap-2">
-                <span class="text-slate-400">EVACUATION CORRIDOR:</span>
-                <span id="activeSectorName" class="text-white font-bold bg-slate-800 px-2.5 py-0.5 rounded border border-slate-700">Devgram Habitation ➔ Pipalkoti Campus</span>
-                <span>POPULATION TO TRANSPORT: <b id="lblPopToMove" class="text-purple-400">6,840 Citizens</b></span>
+                <span class="text-slate-400">TRANSIT CORRIDOR:</span>
+                <span class="text-white font-bold bg-slate-800 px-2.5 py-0.5 rounded border border-slate-700">Devgram Habitation ➔ NH-58 ➔ Taluk Stadium</span>
+                <span class="text-cyan-400 font-bold">5.84 km</span>
             </div>
             <div class="flex items-center gap-4">
-                <span>ESTIMATED TRANSIT: <b id="lblTransitEst" class="text-cyan-400 font-bold">~25 mins (4.8 km)</b></span>
-                <span>CONVOY ROUNDTRIPS: <b id="lblRounds" class="text-emerald-400 font-bold">2 Cycles</b></span>
+                <span>PEOPLE TO RELOCATE: <b class="text-amber-400">6,840</b></span>
+                <span>SANCTUARIES: <b class="text-emerald-400">4 SITES</b></span>
+                <span>ESTIMATED SAFE CAPACITY: <b class="text-emerald-400">7,182</b></span>
             </div>
         </div>
     </div>
 
-    <!-- Main Content Grid -->
+    <!-- ================= MAIN CONTAINER ================= -->
     <main class="flex-1 max-w-[1850px] mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-        <!-- Left 6 Columns: Fleet Mobilization & Dispatch Calculator -->
-        <div class="lg:col-span-6 flex flex-col gap-6">
-
-            <!-- 1. State Transport Fleet Allocation Cards -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                            <i data-lucide="truck" class="w-4 h-4"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-extrabold text-base text-white">Emergency Evacuation Fleet Mobilization</h2>
-                            <p class="text-xs text-slate-400 font-mono">State Transport Corporation &amp; District Health Fleet Sizing</p>
-                        </div>
+        <!-- ================= LEFT: ROUTE MAP (~55% / 7 COLS) ================= -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="navigation" class="w-4 h-4 text-purple-400"></i>
+                        <h2 class="font-extrabold text-sm sm:text-base text-white font-mono">
+                            OPERATIONAL RELOCATION ROUTE MAP
+                        </h2>
                     </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <!-- Buses -->
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
-                        <div>
-                            <span class="text-slate-500 text-[10px] font-mono uppercase block">50-SEATER BUSES</span>
-                            <span id="fleetBuses" class="text-3xl font-extrabold text-cyan-400 font-mono block mt-1">84</span>
-                            <span class="text-slate-400 text-xs mt-1 block">State Roadways Fleet</span>
-                        </div>
-                        <div class="mt-3 pt-2 border-t border-slate-800/80 text-[10.5px] font-mono text-slate-500">
-                            Standard: 50 seats / bus at 80% occupancy buffer
-                        </div>
-                    </div>
-
-                    <!-- Ambulances -->
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
-                        <div>
-                            <span class="text-slate-500 text-[10px] font-mono uppercase block">AMBULANCES</span>
-                            <span id="fleetAmbulances" class="text-3xl font-extrabold text-amber-400 font-mono block mt-1">53</span>
-                            <span class="text-slate-400 text-xs mt-1 block">ALS/BLS Priority Triage</span>
-                        </div>
-                        <div class="mt-3 pt-2 border-t border-slate-800/80 text-[10.5px] font-mono text-slate-500">
-                            WHO Ratio: 1 ambulance per 130 vulnerable citizens
-                        </div>
-                    </div>
-
-                    <!-- Freight Trucks -->
-                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
-                        <div>
-                            <span class="text-slate-500 text-[10px] font-mono uppercase block">SUPPLY TRUCKS</span>
-                            <span id="fleetTrucks" class="text-3xl font-extrabold text-emerald-400 font-mono block mt-1">6</span>
-                            <span class="text-slate-400 text-xs mt-1 block">Food &amp; Dry Rations</span>
-                        </div>
-                        <div class="mt-3 pt-2 border-t border-slate-800/80 text-[10.5px] font-mono text-slate-500">
-                            5-Ton trucks carrying 72-hour survival rations
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Convoy Ingress & Air-Drop Gateways -->
-                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 font-mono text-xs space-y-2">
-                    <div class="text-amber-400 font-bold flex items-center gap-2">
-                        <i data-lucide="shield-alert" class="w-4 h-4"></i>
-                        <span>EMERGENCY ACCESS ASSESSMENT [ARCHITECTURE]</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 text-[11px] pt-1">
-                        <div class="p-2 rounded bg-slate-900 border border-slate-800">
-                            <span class="text-slate-500 block text-[9px]">ROAD ACCESS CORRIDOR</span>
-                            <span class="text-emerald-400 font-bold">Available <span class="text-[9px] text-slate-400 font-normal">[ESTIMATED]</span></span>
-                        </div>
-                        <div class="p-2 rounded bg-slate-900 border border-slate-800">
-                            <span class="text-slate-500 block text-[9px]">EMERGENCY ACCESS SITE</span>
-                            <span class="text-amber-300 font-bold">Assessed <span class="text-[9px] text-slate-400 font-normal">[ARCHITECTURE]</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Interactive Fleet Dispatch Simulator -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                            <i data-lucide="sliders" class="w-4 h-4"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-extrabold text-base text-white">Real-Time Dispatch Simulator</h2>
-                            <p class="text-xs text-slate-400 font-mono">Dynamic Scenario Population Slider</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-3 font-mono text-xs">
-                    <div>
-                        <div class="flex justify-between text-slate-300 mb-1">
-                            <span>Adjust Displaced Population:</span>
-                            <span id="sliderValDisplay" class="font-bold text-cyan-400 text-sm">6,840 People</span>
-                        </div>
-                        <input id="popSlider" type="range" min="500" max="25000" step="100" value="6840" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400" oninput="simUpdate(this.value)">
-                    </div>
-
-                    <div class="grid grid-cols-4 gap-2 pt-2 text-center text-xs">
-                        <div class="p-2 rounded bg-slate-950 border border-slate-800">
-                            <span class="text-slate-500 text-[9px] block">BUSES</span>
-                            <span id="simBuses" class="text-cyan-400 font-bold">84</span>
-                        </div>
-                        <div class="p-2 rounded bg-slate-950 border border-slate-800">
-                            <span class="text-slate-500 text-[9px] block">AMBULANCES</span>
-                            <span id="simAmbs" class="text-amber-400 font-bold">53</span>
-                        </div>
-                        <div class="p-2 rounded bg-slate-950 border border-slate-800">
-                            <span class="text-slate-500 text-[9px] block">WATER / DAY</span>
-                            <span id="simWater" class="text-emerald-400 font-bold">102.6k L</span>
-                        </div>
-                        <div class="p-2 rounded bg-slate-950 border border-slate-800">
-                            <span class="text-slate-500 text-[9px] block">LATRINES</span>
-                            <span id="simLatrines" class="text-purple-400 font-bold">342</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Right 6 Columns: Sphere Humanitarian Relief Quotas -->
-        <div class="lg:col-span-6 flex flex-col gap-6">
-
-            <!-- 3. Sphere Humanitarian Relief Quota Matrix -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                            <i data-lucide="droplet" class="w-4 h-4"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-extrabold text-base text-white">Sphere Standards Life-Support Quotas</h2>
-                            <p class="text-xs text-slate-400 font-mono">Minimum Humanitarian Relief Standards per 24-Hour Cycle</p>
-                        </div>
-                    </div>
-                    <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-800">
-                        SPHERE 2018
+                    <span class="text-xs font-mono text-cyan-300 bg-blue-950 px-2.5 py-1 rounded border border-blue-800">
+                        Primary Corridor: NH-58 (Paved 2-Lane)
                     </span>
                 </div>
 
-                <div class="space-y-3 font-mono text-xs">
-                    <!-- Potable Water -->
-                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                                <i data-lucide="droplet" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-white text-sm block">Potable Water Requirement</span>
-                                <span class="text-slate-400 text-[11px]">15.0 Liters / Capita / Day Standard</span>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span id="quotaWater" class="text-lg font-extrabold text-blue-400 block">102,600 L</span>
-                            <span class="text-slate-500 text-[10px]">Daily Tanker Fleet Needed</span>
-                        </div>
-                    </div>
+                <!-- Leaflet Route Map -->
+                <div id="routeMap" class="w-full h-[520px] rounded-xl border border-slate-800 bg-[#02050d] relative z-0"></div>
 
-                    <!-- Sanitation Latrines -->
-                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                                <i data-lucide="toilet" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-white text-sm block">Emergency Latrine Units</span>
-                                <span class="text-slate-400 text-[11px]">1 Unit per 20 Displaced Citizens (Separated)</span>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span id="quotaLatrines" class="text-lg font-extrabold text-purple-400 block">342 Units</span>
-                            <span class="text-slate-500 text-[10px]">Sanitation Standard</span>
-                        </div>
+                <!-- Route Topology Summary -->
+                <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                        <span class="text-slate-500 text-[10px] block">ORIGIN 🔴</span>
+                        <span class="text-white font-bold">Devgram Cluster</span>
                     </div>
-
-                    <!-- Family Shelters -->
-                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                                <i data-lucide="home" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <span class="font-bold text-white text-sm block">Winterized Family Tents</span>
-                                <span class="text-slate-400 text-[11px]">5-Person Household Allocation</span>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span id="quotaTents" class="text-lg font-extrabold text-emerald-400 block">1,368 Tents</span>
-                            <span class="text-slate-500 text-[10px]">Emergency Modular Kits</span>
-                        </div>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                        <span class="text-slate-500 text-[10px] block">DISTANCE</span>
+                        <span class="text-cyan-300 font-bold">5.84 km</span>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                        <span class="text-slate-500 text-[10px] block">DESTINATION 🟢</span>
+                        <span class="text-emerald-400 font-bold">Taluk Stadium (Site A)</span>
                     </div>
                 </div>
 
-                <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 font-mono text-[11px] text-slate-400 space-y-1">
-                    <b>Incident Command Note:</b> Road transit times are computed as geodesic approximations with mountain gradient adjustments. Live OSRM road-network graph routing is scheduled for production.
+                <!-- Multi-Site Branching Scheme -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-slate-300 flex items-center justify-between flex-wrap gap-2">
+                    <span class="text-slate-400">Multi-Site Route Network:</span>
+                    <span class="text-emerald-400">🔴 Origin ──→ Site A (5.84km, 1,600 cap)</span>
+                    <span class="text-cyan-300">├──→ Site B (8.12km, 1,866 cap)</span>
+                    <span class="text-amber-400">├──→ Site C (11.4km, 1,133 cap)</span>
+                    <span class="text-purple-300">└──→ Site D (13.9km, 2,241 cap)</span>
                 </div>
             </div>
 
+            <!-- 3-Phase Operational Action Plan -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3 font-mono">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                        <h3 class="font-extrabold text-sm text-white">3-PHASE OPERATIONAL RELOCATION PLAN</h3>
+                    </div>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                        DECISION SUPPORT DIRECTIVE
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                    <!-- Phase 1 -->
+                    <div class="p-3 rounded-xl bg-slate-950 border border-blue-900/40 space-y-1.5">
+                        <div class="flex justify-between font-bold text-cyan-400">
+                            <span>PHASE 1: PREPARE</span>
+                            <span>0 – 20 min</span>
+                        </div>
+                        <ul class="text-[11px] text-slate-300 space-y-1 pl-4 list-disc">
+                            <li>Alert DDMA emergency desk &amp; police</li>
+                            <li>Assemble transport fleet at staging node</li>
+                            <li>Open receiving sites &amp; deploy personnel</li>
+                            <li>Establish assembly points at Devgram</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="p-3 rounded-xl bg-slate-950 border border-amber-900/40 space-y-1.5">
+                        <div class="flex justify-between font-bold text-amber-400">
+                            <span>PHASE 2: MOVE</span>
+                            <span>20 – 95 min</span>
+                        </div>
+                        <ul class="text-[11px] text-slate-300 space-y-1 pl-4 list-disc">
+                            <li>Move population in sequenced batches</li>
+                            <li>Prioritize infants, elderly &amp; vulnerable</li>
+                            <li>Follow designated NH-58 corridor</li>
+                            <li>Maintain continuous transit headcount</li>
+                        </ul>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="p-3 rounded-xl bg-slate-950 border border-emerald-900/40 space-y-1.5">
+                        <div class="flex justify-between font-bold text-emerald-400">
+                            <span>PHASE 3: RECEIVE</span>
+                            <span>95 – 120 min</span>
+                        </div>
+                        <ul class="text-[11px] text-slate-300 space-y-1 pl-4 list-disc">
+                            <li>Register arrivals at Taluk &amp; Polytechnic</li>
+                            <li>Allocate shelter sectors &amp; family pods</li>
+                            <li>Distribute water (15 L/day) &amp; medical aid</li>
+                            <li>Reassess capacity &amp; weather status</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <!-- ================= RIGHT: LOGISTICS CALCULATOR (~45% / 5 COLS) ================= -->
+        <div class="lg:col-span-5 flex flex-col gap-4 font-mono text-xs">
+
+            <!-- 1. Parameterized Transport Calculator (Configurable) -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="sliders" class="w-4 h-4 text-purple-400"></i>
+                        <h3 class="font-extrabold text-sm text-white">CONFIGURABLE TRANSPORT SCENARIO</h3>
+                    </div>
+                    <span class="text-[10px] text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
+                        INTERACTIVE PLANNER
+                    </span>
+                </div>
+
+                <!-- Input Controls -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Vehicle Type</label>
+                        <select id="cfgVehicleType" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs focus:border-cyan-400">
+                            <option value="bus" selected>Standard Bus (60 Seat)</option>
+                            <option value="minibus">Mini Bus (30 Seat)</option>
+                            <option value="truck">Utility Truck (40 Capacity)</option>
+                            <option value="van">Emergency Van (15 Capacity)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Seating Capacity</label>
+                        <input id="cfgSeatCap" type="number" value="60" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Available Fleet Units</label>
+                        <input id="cfgAvailableVehicles" type="number" value="80" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Avg Speed (km/h)</label>
+                        <input id="cfgSpeed" type="number" value="30" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Loading Time (min)</label>
+                        <input id="cfgLoadTime" type="number" value="20" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
+                    </div>
+                    <div>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Unloading Time (min)</label>
+                        <input id="cfgUnloadTime" type="number" value="15" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
+                    </div>
+                </div>
+
+                <!-- Live Calculated Metrics -->
+                <div class="grid grid-cols-3 gap-2 text-center pt-2 border-t border-slate-800">
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-purple-900/40">
+                        <span class="text-slate-500 text-[9px] block">VEHICLES REQ</span>
+                        <span id="calcVehiclesReq" class="text-base font-black text-purple-300">114</span>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-cyan-900/40">
+                        <span class="text-slate-500 text-[9px] block">TRIPS REQUIRED</span>
+                        <span id="calcTripsReq" class="text-base font-black text-cyan-300">2 Trips</span>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40">
+                        <span class="text-slate-500 text-[9px] block">TOTAL VEHICLE HRS</span>
+                        <span id="calcTotalVehHrs" class="text-base font-black text-emerald-400">148 hrs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Transport Mode Comparison -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
+                <span class="text-[10px] text-slate-400 uppercase font-bold">MODE OPTIONS COMPARISON</span>
+                <div class="border border-slate-800 rounded-xl overflow-hidden">
+                    <table class="w-full text-[11px] text-left">
+                        <thead class="bg-slate-950 text-slate-400 border-b border-slate-800">
+                            <tr>
+                                <th class="p-2">Mode</th>
+                                <th class="p-2">Total Time</th>
+                                <th class="p-2">Cost Index</th>
+                                <th class="p-2">Capacity</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 bg-slate-900/50">
+                            <tr class="bg-emerald-950/20 text-emerald-300 font-bold">
+                                <td class="p-2">Standard Bus (Recommended)</td>
+                                <td class="p-2">3.2 h</td>
+                                <td class="p-2">₹₹ (Moderate)</td>
+                                <td class="p-2">HIGH</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 text-slate-300">Mini Bus</td>
+                                <td class="p-2 text-slate-400">4.1 h</td>
+                                <td class="p-2 text-slate-400">₹₹₹</td>
+                                <td class="p-2 text-slate-400">MEDIUM</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 text-slate-300">Utility Truck</td>
+                                <td class="p-2 text-slate-400">4.8 h</td>
+                                <td class="p-2 text-slate-400">₹₹</td>
+                                <td class="p-2 text-slate-400">MED-LOW</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 text-slate-300">Private Fleet</td>
+                                <td class="p-2 text-slate-400">2.9 h</td>
+                                <td class="p-2 text-slate-400">₹₹₹₹</td>
+                                <td class="p-2 text-slate-400">LOW</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300">
+                    <b class="text-white">Recommendation Rationale:</b> Standard Bus is optimal because NH-58 provides two-lane paved clearance, absorbing 6,840 evacuees within 2 fleet rotations while minimizing fuel overhead.
+                </div>
+            </div>
+
+            <!-- 3. Scenario Transport Cost Estimate -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col gap-2.5">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <span class="text-xs font-bold text-white uppercase">TRANSPORT COST ESTIMATE</span>
+                    <span class="text-[10px] text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">SCENARIO ESTIMATE</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
+                        <span class="text-slate-400">Vehicles:</span>
+                        <span id="costVehicles" class="text-white font-bold">114</span>
+                    </div>
+                    <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
+                        <span class="text-slate-400">Distance:</span>
+                        <span class="text-cyan-300 font-bold">5.84 km</span>
+                    </div>
+                    <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
+                        <span class="text-slate-400">Fuel &amp; Operating:</span>
+                        <span id="costFuel" class="text-white font-bold">₹ 48,000</span>
+                    </div>
+                    <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
+                        <span class="text-slate-400">Driver &amp; Crew:</span>
+                        <span id="costCrew" class="text-white font-bold">₹ 22,800</span>
+                    </div>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-purple-950/20 border border-purple-800/40 flex justify-between items-center">
+                    <span class="text-slate-200 font-bold">TOTAL ESTIMATED COST:</span>
+                    <span id="costTotal" class="text-base font-black text-purple-300">₹ 70,800</span>
+                </div>
+
+                <p class="text-[10px] text-slate-500 italic">
+                    ● Scenario estimate — actual cost depends on local rates, vehicle type, fuel prices, and district administration requisition scales.
+                </p>
+            </div>
+
+            <!-- 4. Time to Action / Estimated Planning Window -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <span class="text-xs font-bold text-white uppercase">TIME TO ACTION COMPARISON</span>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">SCENARIO WINDOW</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                        <span class="text-slate-500 text-[9px] block">EST. PLANNING WINDOW</span>
+                        <span class="text-sm font-black text-cyan-400">02h 40m</span>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                        <span class="text-slate-500 text-[9px] block">EST. RELOCATION TIME</span>
+                        <span id="timeReloc" class="text-sm font-black text-amber-400">01h 35m</span>
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40">
+                        <span class="text-slate-500 text-[9px] block">ESTIMATED BUFFER</span>
+                        <span id="timeBuffer" class="text-sm font-black text-emerald-400">+01h 05m</span>
+                    </div>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 flex items-center justify-between text-xs">
+                    <span class="text-slate-200">Execution Feasibility:</span>
+                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                        <i data-lucide="check" class="w-4 h-4"></i>
+                        <span>WITHIN PLANNING WINDOW</span>
+                    </span>
+                </div>
+
+                <p class="text-[10px] text-slate-500 italic">
+                    * Presented as a scenario planning estimate for incident commanders, not a deterministic disaster arrival forecast.
+                </p>
+            </div>
+
+            <!-- Final CTA: Generate Report -->
+            <div class="pt-2">
+                <a href="/dossier" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-sm tracking-wide transition shadow-xl shadow-teal-500/30 flex items-center justify-center gap-2 cursor-pointer transform hover:scale-[1.02]">
+                    <i data-lucide="file-check" class="w-4 h-4"></i>
+                    <span>GENERATE RAKSHA DECISION DOSSIER</span>
+                </a>
+            </div>
+
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-800/80 bg-slate-950/80 px-6 py-4 text-xs font-mono text-slate-500 flex flex-wrap items-center justify-between gap-4">
-        <div>
-            <span>RAKSHA Engine 2.0 • Evacuation Fleet Commander &amp; Logistics Dispatch</span>
-        </div>
-        <div class="flex items-center gap-3">
-            <a href="/simulation" class="text-cyan-400 hover:underline flex items-center gap-1">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Return to Mission Command Hub
-            </a>
-        </div>
-    </footer>
-
+    <!-- Scripts -->
     <script>
-        function simUpdate(pop) {
-            pop = parseInt(pop);
-            document.getElementById('sliderValDisplay').innerText = `${pop.toLocaleString()} People`;
-            const buses = Math.ceil(pop / 50 * 1.22);
-            const ambs = Math.ceil(pop / 130);
-            const water = Math.round(pop * 15);
-            const latrines = Math.ceil(pop / 20);
+        lucide.createIcons();
 
-            document.getElementById('simBuses').innerText = buses;
-            document.getElementById('simAmbs').innerText = ambs;
-            document.getElementById('simWater').innerText = `${(water/1000).toFixed(1)}k L`;
-            document.getElementById('simLatrines').innerText = latrines;
+        let routeMap;
+
+        function initRouteMap() {
+            routeMap = L.map('routeMap', {
+                center: [30.3400, 79.2380],
+                zoom: 13,
+                zoomControl: false
+            });
+
+            L.control.zoom({ position: 'bottomright' }).addTo(routeMap);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; CartoDB &copy; OpenStreetMap',
+                maxZoom: 19
+            }).addTo(routeMap);
+
+            // Origin
+            L.circleMarker([30.3207, 79.2163], {
+                radius: 10,
+                fillColor: '#ef4444',
+                color: '#ffffff',
+                weight: 2.5,
+                fillOpacity: 1
+            }).addTo(routeMap).bindPopup("<b>🔴 Origin: Devgram Cluster</b><br>6,840 Citizens");
+
+            // Destination Site A
+            L.circleMarker([30.3540, 79.2560], {
+                radius: 10,
+                fillColor: '#10b981',
+                color: '#00e5ff',
+                weight: 3,
+                fillOpacity: 1
+            }).addTo(routeMap).bindPopup("<b>🟢 Primary Sanctuary: Taluk Stadium</b><br>1,600 Capacity [ESTIMATED]");
+
+            // Branch Sites
+            L.circleMarker([30.3680, 79.2780], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site B: Polytechnic Campus</b><br>1,866 Capacity");
+            L.circleMarker([30.3850, 79.2990], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site C: Higher Sec School</b><br>1,133 Capacity");
+            L.circleMarker([30.4010, 79.3150], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site D: Agri Research Farm</b><br>2,400 Capacity");
+
+            // Primary Route along NH-58
+            const routeCoords = [
+                [30.3207, 79.2163],
+                [30.3250, 79.2220],
+                [30.3320, 79.2310],
+                [30.3410, 79.2430],
+                [30.3500, 79.2510],
+                [30.3540, 79.2560]
+            ];
+            L.polyline(routeCoords, {
+                color: '#00e5ff',
+                weight: 5,
+                opacity: 0.9,
+                dashArray: '8, 8'
+            }).addTo(routeMap).bindTooltip("NH-58 Primary Transit Route (5.84 km)");
+
+            // Secondary branches
+            L.polyline([[30.3540, 79.2560], [30.3680, 79.2780]], { color: '#38bdf8', weight: 3, opacity: 0.7, dashArray: '4, 4' }).addTo(routeMap);
+            L.polyline([[30.3680, 79.2780], [30.3850, 79.2990]], { color: '#38bdf8', weight: 3, opacity: 0.7, dashArray: '4, 4' }).addTo(routeMap);
         }
 
-        function syncData(input) {
-            if (!input) return;
-            const data = (input && input.full_data) ? input.full_data : input;
+        function recalcLogistics() {
+            const pop = 6840;
+            const seatCap = Math.max(5, parseInt(document.getElementById('cfgSeatCap').value) || 60);
+            const availVeh = Math.max(1, parseInt(document.getElementById('cfgAvailableVehicles').value) || 80);
+            const speed = Math.max(5, parseFloat(document.getElementById('cfgSpeed').value) || 30);
+            const loadM = parseFloat(document.getElementById('cfgLoadTime').value) || 20;
+            const unloadM = parseFloat(document.getElementById('cfgUnloadTime').value) || 15;
 
-            if (data.location_name) document.getElementById('activeSectorName').innerText = `${data.location_name} ➔ Top Sanctuary`;
-            else if (input.name) document.getElementById('activeSectorName').innerText = `${input.name} ➔ Top Sanctuary`;
+            const vehiclesReq = Math.ceil(pop / seatCap);
+            const tripsReq = Math.ceil(vehiclesReq / availVeh);
 
-            if (data.query_parameters) {
-                const pop = data.query_parameters.displaced_population || 6840;
-                document.getElementById('lblPopToMove').innerText = `${pop.toLocaleString()} Citizens`;
-                document.getElementById('popSlider').value = pop;
-                simUpdate(pop);
-            } else if (input.population_at_risk) {
-                const pop = input.population_at_risk;
-                document.getElementById('lblPopToMove').innerText = `${pop.toLocaleString()} Citizens`;
-                document.getElementById('popSlider').value = pop;
-                simUpdate(pop);
-            }
+            // Travel time per roundtrip: distance = 5.84 km
+            // One-way travel mins = (5.84 / speed) * 60
+            const oneWayM = (5.84 / speed) * 60;
+            const tripMins = (oneWayM * 2) + loadM + unloadM;
+            const totalMins = tripMins * tripsReq;
 
-            const logis = (data.relocation_decision && data.relocation_decision.evacuation_logistics) || {};
-            const fleet = logis.transport_fleet || {};
-            const quota = logis.humanitarian_relief_quota || {};
+            const totalHours = (totalMins / 60).toFixed(1);
+            const totalVehHrs = Math.round(vehiclesReq * (totalMins / 60));
 
-            if (fleet.buses_50_seater) document.getElementById('fleetBuses').innerText = fleet.buses_50_seater;
-            if (fleet.ambulances_als_bls) document.getElementById('fleetAmbulances').innerText = fleet.ambulances_als_bls;
-            if (fleet.cargo_trucks) document.getElementById('fleetTrucks').innerText = fleet.cargo_trucks;
+            document.getElementById('calcVehiclesReq').innerText = vehiclesReq;
+            document.getElementById('calcTripsReq').innerText = `${tripsReq} Trip${tripsReq > 1 ? 's' : ''}`;
+            document.getElementById('calcTotalVehHrs').innerText = `${totalVehHrs} hrs`;
 
-            if (quota.drinking_water_liters_day) document.getElementById('quotaWater').innerText = `${quota.drinking_water_liters_day.toLocaleString()} L`;
-            if (quota.sanitation_units) document.getElementById('quotaLatrines').innerText = `${quota.sanitation_units.toLocaleString()} Units`;
-            if (quota.family_shelter_units) document.getElementById('quotaTents').innerText = `${quota.family_shelter_units.toLocaleString()} Tents`;
+            // Costs
+            const fuelPerKm = 35; // Rs 35 / km
+            const kmTotal = vehiclesReq * 5.84 * 2;
+            const fuelCost = Math.round(kmTotal * fuelPerKm);
+            const crewCost = Math.round(vehiclesReq * tripsReq * 100);
+            const totalCost = fuelCost + crewCost;
+
+            document.getElementById('costVehicles').innerText = vehiclesReq;
+            document.getElementById('costFuel').innerText = `₹ ${fuelCost.toLocaleString()}`;
+            document.getElementById('costCrew').innerText = `₹ ${crewCost.toLocaleString()}`;
+            document.getElementById('costTotal').innerText = `₹ ${totalCost.toLocaleString()}`;
+
+            // Time comparison
+            const h = Math.floor(totalMins / 60);
+            const m = Math.round(totalMins % 60);
+            document.getElementById('timeReloc').innerText = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m`;
+
+            // Buffer against 2h 40m (160 mins)
+            const planWindowMins = 160;
+            const diff = planWindowMins - totalMins;
+            const bSign = diff >= 0 ? '+' : '-';
+            const bH = Math.floor(Math.abs(diff) / 60);
+            const bM = Math.round(Math.abs(diff) % 60);
+            document.getElementById('timeBuffer').innerText = `${bSign}${String(bH).padStart(2, '0')}h ${String(bM).padStart(2, '0')}m`;
         }
 
-        async function selectPreset(id) {
-            try {
-                const presets = {
-                    devgram: { lat: 30.3207, lon: 79.2163, pop: 6840 },
-                    wayanad: { lat: 11.5126, lon: 76.1287, pop: 4200 },
-                    silchar: { lat: 24.8333, lon: 92.7789, pop: 12500 },
-                    chamoli: { lat: 30.5574, lon: 79.5670, pop: 2800 }
-                };
-                const p = presets[id] || presets.devgram;
-                const resp = await fetch('/api/analyze', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        lat: p.lat,
-                        lon: p.lon,
-                        displaced_population: p.pop || 6840
-                    })
-                });
-                const data = await resp.json();
-                localStorage.setItem('raksha_last_analysis', JSON.stringify(data));
-                syncData(data);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        function refreshAnalysis() {
-            selectPreset('devgram');
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            const cached = localStorage.getItem('raksha_last_analysis');
-            if (cached) {
-                try {
-                    const parsed = JSON.parse(cached);
-                    syncData(parsed);
-                } catch(e) {
-                    selectPreset('devgram');
-                }
-            } else {
-                selectPreset('devgram');
-            }
-        });
+        window.onload = () => {
+            initRouteMap();
+            recalcLogistics();
+        };
     </script>
 </body>
 </html>
-

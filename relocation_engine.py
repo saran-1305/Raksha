@@ -220,8 +220,8 @@ class RelocationEngine:
             pct_of_displaced = round((allocated / max(1, displaced_population)) * 100.0, 1)
 
             why_this_site = [
-                "Passed all zero-tolerance terrain and drainage safety vetoes",
-                f"{site_cap:,} estimated safe capacity (Sphere-aligned planning guidance)",
+                "Passed all zero-tolerance terrain and drainage safety filters",
+                f"{site_cap:,} Persons — Estimated Safe Capacity [ESTIMATED]",
                 f"{site['distance_km']} km evacuation distance estimate ({site.get('ring_label', 'Safe Zone')})",
                 f"Suitable terrain stability ({slope_val}° slope gradient)",
                 f"MCDA Suitability Score: {score_val}/100",

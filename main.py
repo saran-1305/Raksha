@@ -241,22 +241,23 @@ def serve_landing():
     return "<h1>RAKSHA Landing template not found</h1>"
 
 @app.get("/overview", response_class=HTMLResponse)
-@app.get("/simulation", response_class=HTMLResponse)
-def serve_overview():
-    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
-    if os.path.exists(template_path):
-        with open(template_path, "r", encoding="utf-8") as f:
-            return f.read()
-    return "<h1>RAKSHA Dashboard template not found</h1>"
-
 @app.get("/executive-summary", response_class=HTMLResponse)
 @app.get("/summary", response_class=HTMLResponse)
-def serve_summary():
+def serve_overview():
     template_path = os.path.join(os.path.dirname(__file__), "templates", "overview.html")
     if os.path.exists(template_path):
         with open(template_path, "r", encoding="utf-8") as f:
             return f.read()
-    return "<h1>RAKSHA Executive Summary template not found</h1>"
+    return "<h1>RAKSHA Overview template not found</h1>"
+
+@app.get("/simulation", response_class=HTMLResponse)
+@app.get("/deep-diagnostic", response_class=HTMLResponse)
+def serve_simulation():
+    template_path = os.path.join(os.path.dirname(__file__), "templates", "index.html")
+    if os.path.exists(template_path):
+        with open(template_path, "r", encoding="utf-8") as f:
+            return f.read()
+    return "<h1>RAKSHA Deep Diagnostic template not found</h1>"
 
 @app.get("/eo-studio", response_class=HTMLResponse)
 @app.get("/earth-observation", response_class=HTMLResponse)
@@ -297,6 +298,8 @@ def serve_workflow(step: str = "1"):
     return "<h1>RAKSHA Relocation Workflow template not found</h1>"
 
 @app.get("/fleet", response_class=HTMLResponse)
+@app.get("/mobility", response_class=HTMLResponse)
+@app.get("/plan", response_class=HTMLResponse)
 @app.get("/logistics-dispatch", response_class=HTMLResponse)
 @app.get("/logistics", response_class=HTMLResponse)
 def serve_fleet():
