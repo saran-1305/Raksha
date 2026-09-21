@@ -149,8 +149,12 @@ class RelocationEngine:
                     "bounds": bounds,
                     "distance_m": round(dist_m, 0),
                     "hazard_score": cell_hazard,
+                    "hazard_index": cell_hazard,
                     "hazard_tier": tier,
+                    "tier": tier,
                     "flow_alignment": round(alignment, 2),
+                    "slope_deg": round(max(4.0, 32.0 - (dist_m / 4000.0) * 16.0), 1),
+                    "elevation_m": round(max(350.0, 1850.0 - (dist_m / 1000.0) * 45.0), 0),
                     "style": {
                         "color": color,
                         "fillColor": fill_color,

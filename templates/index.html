@@ -1251,13 +1251,17 @@
             if (data.relocation_decision && data.relocation_decision.spatial_hazard_grid) {
                 const grid = data.relocation_decision.spatial_hazard_grid;
                 grid.cells.forEach(cell => {
+                    const tier = cell.hazard_tier || cell.tier || 'Low';
+                    const score = cell.hazard_score !== undefined ? cell.hazard_score : (cell.hazard_index !== undefined ? cell.hazard_index : 0.15);
+                    const cellId = cell.cell_id || `R${(cell.row || 0) + 1}C${(cell.col || 0) + 1}`;
+                    const dot = tier === 'Critical' ? '🔴' : tier === 'High' ? '🟠' : tier === 'Moderate' ? '🟡' : '🟢';
                     const rect = L.rectangle(cell.bounds, {
-                        color: cell.style.color,
-                        weight: cell.style.weight,
-                        fillColor: cell.style.fillColor,
-                        fillOpacity: cell.style.fillOpacity
+                        color: (cell.style && cell.style.color) || '#ca8a04',
+                        weight: (cell.style && cell.style.weight) || 1.2,
+                        fillColor: (cell.style && cell.style.fillColor) || '#eab308',
+                        fillOpacity: (cell.style && cell.style.fillOpacity) || 0.25
                     }).bindTooltip(
-                        `<div class="font-mono text-xs"><b>Cell ${cell.cell_id}</b> (${cell.hazard_tier})<br>Hazard Score: <b>${cell.hazard_score}</b><br>Distance: ${cell.distance_m} m</div>`,
+                        `<div class="font-mono text-xs"><b>${dot} Cell ${cellId}</b> (${tier})<br>Hazard Score: <b>${score}</b><br>Distance: ${cell.distance_m || 0} m</div>`,
                         { sticky: true }
                     );
                     hazardGridLayers.push(rect);

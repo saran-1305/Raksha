@@ -314,6 +314,7 @@
 
         function render5x5Grid(gridData) {
             const container = document.getElementById('spatialGridMatrix');
+            if (!container) return;
             container.innerHTML = '';
             const cells = (gridData && gridData.cells) || [];
 
@@ -323,19 +324,23 @@
                     for (let c = 0; c < 5; c++) {
                         const dist = Math.sqrt((r-2)*(r-2) + (c-2)*(c-2));
                         let tier = 'Low';
+                        let dot = '🟢';
                         let bg = 'bg-emerald-950/40 border-emerald-800/50 text-emerald-300';
                         let idx = (0.9 - dist * 0.22).toFixed(2);
-                        if (dist <= 0.8) { tier = 'Critical'; bg = 'bg-red-950/50 border-red-700 text-red-300'; }
-                        else if (dist <= 1.5) { tier = 'High'; bg = 'bg-orange-950/40 border-orange-700 text-orange-300'; }
-                        else if (dist <= 2.2) { tier = 'Moderate'; bg = 'bg-amber-950/40 border-amber-700 text-amber-300'; }
+                        if (dist <= 0.8) { tier = 'Critical'; dot = '🔴'; bg = 'bg-red-950/50 border-red-700 text-red-300'; }
+                        else if (dist <= 1.5) { tier = 'High'; dot = '🟠'; bg = 'bg-orange-950/40 border-orange-700 text-orange-300'; }
+                        else if (dist <= 2.2) { tier = 'Moderate'; dot = '🟡'; bg = 'bg-amber-950/40 border-amber-700 text-amber-300'; }
                         
                         container.innerHTML += `
-                            <div class="p-2 rounded-lg border flex flex-col justify-between font-mono text-[10px] ${bg}">
+                            <div class="p-2 rounded-lg border flex flex-col justify-between font-mono text-[10px] ${bg} hover:scale-105 transition-transform cursor-pointer" title="Row ${r}, Col ${c} | ${tier} | Distance: ~${Math.round(dist * 1000)}m">
                                 <div class="flex justify-between font-bold">
                                     <span>[${r},${c}]</span>
                                     <span>${idx}</span>
                                 </div>
-                                <div class="text-[9px] font-bold text-center mt-1 uppercase">${tier}</div>
+                                <div class="text-[9px] font-bold text-center mt-1 uppercase flex items-center justify-center gap-1">
+                                    <span>${dot}</span>
+                                    <span>${tier}</span>
+                                </div>
                             </div>
                         `;
                     }
@@ -344,18 +349,39 @@
             }
 
             cells.forEach(cell => {
+                const tier = cell.hazard_tier || cell.tier || (cell.hazard_score >= 0.70 ? 'Critical' : cell.hazard_score >= 0.45 ? 'High' : cell.hazard_score >= 0.25 ? 'Moderate' : 'Low');
+                const rawScore = cell.hazard_score !== undefined ? cell.hazard_score : (cell.hazard_index !== undefined ? cell.hazard_index : 0.15);
+                const score = typeof rawScore === 'number' ? rawScore.toFixed(2) : rawScore;
+                const r = cell.row !== undefined ? cell.row : 0;
+                const c = cell.col !== undefined ? cell.col : 0;
+                const cellId = cell.cell_id || `R${r+1}C${c+1}`;
+                const slope = cell.slope_deg !== undefined ? `${cell.slope_deg}°` : 'Analyzed [DERIVED]';
+                const elev = cell.elevation_m !== undefined ? `${cell.elevation_m}m` : 'SRTM DEM';
+                const dist = cell.distance_m !== undefined ? `${cell.distance_m}m` : '';
+
                 let bg = 'bg-emerald-950/40 border-emerald-800/50 text-emerald-300';
-                if (cell.tier === 'Critical') bg = 'bg-red-950/50 border-red-700 text-red-300';
-                else if (cell.tier === 'High') bg = 'bg-orange-950/40 border-orange-700 text-orange-300';
-                else if (cell.tier === 'Moderate') bg = 'bg-amber-950/40 border-amber-700 text-amber-300';
+                let dot = '🟢';
+                if (tier === 'Critical') {
+                    bg = 'bg-red-950/50 border-red-700 text-red-300';
+                    dot = '🔴';
+                } else if (tier === 'High') {
+                    bg = 'bg-orange-950/40 border-orange-700 text-orange-300';
+                    dot = '🟠';
+                } else if (tier === 'Moderate') {
+                    bg = 'bg-amber-950/40 border-amber-700 text-amber-300';
+                    dot = '🟡';
+                }
 
                 container.innerHTML += `
-                    <div class="p-2 rounded-lg border flex flex-col justify-between font-mono text-[10px] ${bg} hover:scale-105 transition-transform cursor-pointer" title="Slope: ${cell.slope_deg}° | Elev: ${cell.elevation_m}m">
+                    <div class="p-2 rounded-lg border flex flex-col justify-between font-mono text-[10px] ${bg} hover:scale-105 transition-transform cursor-pointer shadow" title="Cell ${cellId} | ${tier} | Score: ${score} | Slope: ${slope} | Elev: ${elev} ${dist ? '| Dist: ' + dist : ''}">
                         <div class="flex justify-between font-bold">
-                            <span>[${cell.row},${cell.col}]</span>
-                            <span>${cell.hazard_index}</span>
+                            <span>[${r},${c}]</span>
+                            <span>${score}</span>
                         </div>
-                        <div class="text-[9px] font-bold text-center mt-1 uppercase">${cell.tier}</div>
+                        <div class="text-[9px] font-bold text-center mt-1 uppercase flex items-center justify-center gap-1">
+                            <span>${dot}</span>
+                            <span>${tier}</span>
+                        </div>
                     </div>
                 `;
             });
