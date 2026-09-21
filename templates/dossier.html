@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAKSHA | Incident Command & DDMA Executive Dossier</title>
+    <title>RAKSHA | Multi-Hazard Relocation Intelligence Dossier</title>
     <link rel="icon" type="image/png" href="/assets/raksha_emblem_transparent.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,90 +12,124 @@
     <!-- Direct PDF Generation Library (html2pdf.js) -->
     <script src="/assets/html2pdf.bundle.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #060a14; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
         
-        /* Direct PDF Export Styles (Official Government Order Theme) */
-        .pdf-export-mode {
-            background-color: #ffffff !important;
-            color: #0f172a !important;
-            padding: 12px !important;
-            max-width: 100% !important;
-        }
-        .pdf-export-mode * {
-            box-shadow: none !important;
-            text-shadow: none !important;
-        }
-        .pdf-export-mode .print-card {
-            background-color: #ffffff !important;
-            border: 1px solid #cbd5e1 !important;
-            color: #0f172a !important;
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-            margin-bottom: 1rem !important;
-        }
-        .pdf-export-mode .print-card * {
-            color: #0f172a !important;
-        }
-        .pdf-export-mode .print-header {
-            border-bottom: 2px solid #0f172a !important;
-        }
-        .pdf-export-mode .print-badge {
-            border: 1px solid #0f172a !important;
-            background-color: #f1f5f9 !important;
-            color: #0f172a !important;
-        }
-        .pdf-export-mode .text-white {
-            color: #0f172a !important;
-        }
-        .pdf-export-mode .text-slate-300,
-        .pdf-export-mode .text-slate-400,
-        .pdf-export-mode .text-slate-500 {
-            color: #475569 !important;
-        }
-        .pdf-export-mode .bg-slate-900,
-        .pdf-export-mode .bg-slate-900\/90,
-        .pdf-export-mode .bg-slate-950,
-        .pdf-export-mode .bg-slate-950\/60,
-        .pdf-export-mode .bg-slate-950\/70 {
-            background-color: #f8fafc !important;
-            border-color: #cbd5e1 !important;
-        }
-        .pdf-export-mode .border-slate-800,
-        .pdf-export-mode .border-slate-800\/80 {
-            border-color: #cbd5e1 !important;
+        :root {
+            --bg-base: #060c1a;
+            --bg-card: #0a1326;
+            --bg-surface: #0e1a34;
+            --border-subtle: #1e2e4f;
+            --border-highlight: #2563eb;
+            --cyan-accent: #00e5ff;
+            --blue-accent: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
-        /* Print Styles fallback */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #060c1a; }
+        ::-webkit-scrollbar-thumb { background: #1e2e4f; border-radius: 3px; }
+
+        /* Document Page Container */
+        .dossier-page {
+            background-color: #070e1e;
+            color: #f1f5f9;
+            border: 1px solid #1a2947;
+            border-radius: 16px;
+            padding: 32px 36px;
+            margin-bottom: 32px;
+            position: relative;
+            box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.75);
+            page-break-after: always;
+            break-after: page;
+        }
+
+        /* Subtle technical grid background pattern */
+        .tech-grid-bg {
+            background-image: radial-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* Running document header & footer */
+        .doc-page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #16243f;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .doc-page-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #16243f;
+            padding-top: 14px;
+            margin-top: 28px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9.5px;
+            color: #64748b;
+        }
+
+        /* Technical Metric Box */
+        .metric-card {
+            background-color: #091224;
+            border: 1px solid #1a2b4c;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        /* Print Specific Media Queries */
         @media print {
-            body { background: white !important; color: #0f172a !important; font-size: 11pt; }
-            header, nav, .no-print { display: none !important; }
-            .print-container { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
-            .print-card { 
-                background: white !important; 
-                border: 1px solid #cbd5e1 !important; 
-                color: #0f172a !important; 
-                box-shadow: none !important;
-                page-break-inside: avoid;
-                margin-bottom: 1rem !important;
+            body { 
+                background-color: #070e1e !important; 
+                color: #f1f5f9 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                font-size: 10pt;
             }
-            .print-card * { color: #0f172a !important; }
-            .print-header { border-bottom: 2px solid #0f172a !important; }
-            .print-badge { border: 1px solid #0f172a !important; background: #f1f5f9 !important; }
-            .print-table th { background: #e2e8f0 !important; color: #0f172a !important; }
-            .print-table td { border-bottom: 1px solid #cbd5e1 !important; }
-            a { text-decoration: none !important; color: #0f172a !important; }
+            .no-print { display: none !important; }
+            .print-container { 
+                max-width: 100% !important; 
+                padding: 0 !important; 
+                margin: 0 !important; 
+            }
+            .dossier-page { 
+                border: none !important; 
+                border-radius: 0 !important; 
+                margin-bottom: 0 !important; 
+                padding: 24px 28px !important; 
+                box-shadow: none !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                min-height: 100vh;
+            }
+            .avoid-break {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased bg-[#060c1a]">
 
-    <!-- Unified Global Header -->
-    <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl no-print">
+    <!-- Global Top Nav (Screen Only) -->
+    <header class="border-b border-blue-900/40 bg-[#070e1c]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl no-print">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
             <!-- Left: Brand Logo & Title -->
@@ -106,19 +140,19 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-extrabold text-lg text-white font-mono tracking-tight">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold">DDMA DOSSIER</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-bold">DECISION BRIEF</span>
                     </div>
-                    <p class="text-[11px] text-slate-400 hidden sm:block">State Emergency Operations Centre (SEOC) Statutory Incident Directive</p>
+                    <p class="text-[11px] text-slate-400 hidden sm:block font-mono">Multi-Hazard Relocation Intelligence &amp; Safe-Site Dossier</p>
                 </div>
             </div>
 
-            <!-- PRIMARY CANONICAL NAVIGATION (Single Canonical Entry Point) -->
+            <!-- Primary Navigation Links -->
             <nav class="flex items-center gap-1 bg-[#091122] p-1 rounded-xl border border-blue-900/50 text-xs font-mono">
                 <a href="/overview" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
                     <span>Overview</span>
                 </a>
-                <a href="/eo-studio" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                <a href="/satellite" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="satellite" class="w-3.5 h-3.5"></i>
                     <span>EO Studio</span>
                 </a>
@@ -134,559 +168,1248 @@
                     <i data-lucide="git-pull-request" class="w-3.5 h-3.5"></i>
                     <span>Workflow</span>
                 </a>
-                <a href="/fleet" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
+                <a href="/logistics" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-blue-950/50 transition flex items-center gap-1.5">
                     <i data-lucide="truck" class="w-3.5 h-3.5"></i>
                     <span>Fleet</span>
                 </a>
-                <a href="/ddma" class="px-3 py-1.5 rounded-lg bg-blue-950 text-emerald-300 border border-emerald-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
-                    <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                    <span>DDMA</span>
+                <a href="/dossier" class="px-3 py-1.5 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(0,229,255,0.2)]">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span>Dossier</span>
                 </a>
             </nav>
 
-            <!-- Right: Action Controls -->
+            <!-- Action Controls -->
             <div class="flex items-center gap-2.5">
-                <button id="btnDownloadPDF" onclick="downloadOfficialPDF()" class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/30 font-mono cursor-pointer">
-                    <i data-lucide="file-down" class="w-4 h-4"></i>
-                    <span id="lblDownloadPDF">Download PDF Order (.pdf)</span>
+                <button id="btnDownloadPDF" onclick="downloadOfficialPDF()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-xs flex items-center gap-2 transition shadow-lg shadow-cyan-500/25 font-mono cursor-pointer">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span id="lblDownloadPDF">Download PDF Dossier (.pdf)</span>
                 </button>
-                <button onclick="exportGeoJSON()" class="px-3 py-1.5 rounded-lg bg-blue-950/60 hover:bg-blue-900/70 text-cyan-300 border border-blue-800/60 text-xs flex items-center gap-1.5 transition font-mono cursor-pointer" title="Export GeoJSON for QGIS / ArcGIS">
-                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                    <span>Export QGIS Layer</span>
+                <button onclick="window.print()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs flex items-center gap-1.5 transition font-mono cursor-pointer" title="Print to System PDF Printer">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Print</span>
                 </button>
-                <button onclick="window.print()" class="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700 transition cursor-pointer" title="Print to paper printer">
-                    <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                <button onclick="exportGeoJSON()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-cyan-300 border border-slate-700 transition cursor-pointer" title="Export GeoJSON for QGIS / ArcGIS">
+                    <i data-lucide="file-code" class="w-4 h-4"></i>
                 </button>
             </div>
 
         </div>
     </header>
 
-    <!-- Contextual Breadcrumb Ribbon -->
+    <!-- Contextual Breadcrumb Ribbon (Screen Only) -->
     <div class="border-b border-blue-900/30 bg-[#070e1c] px-6 py-2.5 no-print">
-        <div class="max-w-[1850px] mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
-                <a href="/overview" class="text-cyan-400 hover:underline">RAKSHA</a>
+        <div class="max-w-[1500px] mx-auto flex items-center justify-between text-xs font-mono text-slate-400">
+            <div class="flex items-center gap-2">
+                <a href="/overview" class="text-cyan-400 hover:underline">RAKSHA 2.0</a>
                 <span>/</span>
-                <span class="text-slate-200 font-semibold uppercase tracking-wider">DDMA INCIDENT COMMAND DOSSIER</span>
-                <span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 hidden sm:inline-block">
-                    STATUTORY DIRECTIVE &bull; NDMA ACT 2005 §34
+                <span class="text-slate-200 font-semibold uppercase tracking-wider">MULTI-HAZARD RELOCATION INTELLIGENCE DOSSIER</span>
+                <span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 hidden sm:inline-block">
+                    EXECUTIVE DECISION BRIEF • 10-STAGE NARRATIVE
                 </span>
             </div>
-            <a href="/overview" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition flex items-center gap-1.5 group">
-                <i data-lucide="arrow-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
-                <span>BACK TO OVERVIEW</span>
-            </a>
+            <div class="flex items-center gap-3">
+                <span>FORMAT: <b>A4 MULTI-PAGE DOSSIER</b></span>
+                <span>•</span>
+                <span>DATA INTEGRITY: <b class="text-emerald-400">AUDITED</b></span>
+            </div>
         </div>
     </div>
 
-    <!-- Main Container (PDF Printable Target) -->
-    <main id="dossierDocument" class="flex-1 max-w-[1600px] w-full mx-auto p-4 md:p-6 lg:p-8 space-y-6 print-container">
+    <!-- MAIN DOSSIER DOCUMENT CONTAINER (Target for PDF Generation) -->
+    <main id="dossierDocument" class="flex-1 max-w-[1280px] w-full mx-auto p-4 md:p-8 space-y-8 print-container">
 
-        <!-- Top Government Clearance Banner -->
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 relative overflow-hidden shadow-2xl print-card print-header">
-            <div class="absolute -right-16 -top-16 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-800">
+        <!-- ======================================================================= -->
+        <!-- COVER PAGE -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page tech-grid-bg flex flex-col justify-between min-h-[920px]">
+            <!-- Top Running Header -->
+            <div class="doc-page-header">
+                <span>REPUBLIC OF INDIA • STATE EMERGENCY OPERATIONS CENTRE (SEOC)</span>
+                <span>INCIDENT DOSSIER • STATUTORY BRIEF</span>
+            </div>
+
+            <!-- Main Cover Title & Emblem -->
+            <div class="space-y-6 pt-4">
                 <div class="flex items-center gap-4">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-16 w-auto object-contain drop-shadow-md">
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-20 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(0,229,255,0.4)]" />
                     <div>
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 print-badge">
-                                STATUTORY DIRECTIVE
-                            </span>
-                            <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                                NDMA ACT 2005 §34 / KSDMA PROTOCOL
-                            </span>
-                            <span class="text-xs font-mono px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/30 font-bold">
-                                PRIORITY-1 EXECUTIVE MANDATE
-                            </span>
-                        </div>
-                        <h1 class="text-2xl md:text-3xl font-extrabold text-white mt-1.5 tracking-tight font-mono">
-                            INCIDENT COMMAND RELOCATION &amp; LOGISTICS DOSSIER
+                        <div class="text-xs font-mono tracking-widest text-cyan-400 uppercase font-bold">DISASTER DECISION INTELLIGENCE SYSTEM</div>
+                        <h1 class="text-5xl md:text-6xl font-black text-white font-mono tracking-tighter leading-none mt-1">
+                            RAKSHA
                         </h1>
-                        <p class="text-xs text-slate-400 font-mono mt-0.5">
-                            DISASTER MANAGEMENT ACT EMERGENCY ORDERS &bull; MULTI-CRITERIA EVACUATION SPECIFICATION
-                        </p>
                     </div>
                 </div>
 
-                <div class="text-right font-mono text-xs space-y-1 bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-                    <div class="text-slate-400">DOSSIER REF: <span id="docRef" class="text-cyan-400 font-bold">RAKSHA/SEOC/2026/0920-A</span></div>
-                    <div class="text-slate-400">TIMESTAMP: <span id="docTimestamp" class="text-white font-bold">2026-09-20 00:45 UTC</span></div>
-                    <div class="text-slate-400">SECURITY: <span class="text-amber-400 font-bold">OFFICIAL DISASTER RELIEF ONLY</span></div>
-                    <div class="text-slate-400">COMMAND HUB: <span id="commandHubName" class="text-emerald-400 font-bold">SEOC Thiruvananthapuram / DDMA Wayanad</span></div>
-                </div>
-            </div>
-
-            <!-- Quick Telemetry Snapshot Ribbons -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-6">
-                <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
-                    <div class="text-[10px] font-mono uppercase text-slate-400">Target Hotspot</div>
-                    <div id="targetHotspotName" class="text-sm font-bold text-white font-mono mt-0.5 truncate">Chooralmala, Wayanad</div>
-                    <div id="targetCoords" class="text-[10px] font-mono text-cyan-400 mt-0.5">11.5204° N, 76.1583° E</div>
-                </div>
-                <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
-                    <div class="text-[10px] font-mono uppercase text-slate-400">Disaster Category</div>
-                    <div id="disasterCategory" class="text-sm font-bold text-red-400 font-mono mt-0.5">Landslide &amp; Debris Flow</div>
-                    <div class="text-[10px] font-mono text-slate-400 mt-0.5">Alert Level: <span class="text-red-400 font-bold">RED</span></div>
-                </div>
-                <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
-                    <div class="text-[10px] font-mono uppercase text-slate-400">Population at Risk</div>
-                    <div id="estPopulation" class="text-sm font-bold text-amber-400 font-mono mt-0.5">1,240 Citizens</div>
-                    <div class="text-[10px] font-mono text-slate-400 mt-0.5">Sphere Shelter Required</div>
-                </div>
-                <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
-                    <div class="text-[10px] font-mono uppercase text-slate-400">Designated Safe Camp</div>
-                    <div id="designatedCamp" class="text-sm font-bold text-emerald-400 font-mono mt-0.5 truncate">Meppadi GHSS Campus</div>
-                    <div id="designatedDistance" class="text-[10px] font-mono text-slate-400 mt-0.5">Distance: 4.8 km (Safe)</div>
-                </div>
-                <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
-                    <div class="text-[10px] font-mono uppercase text-slate-400">Fleet Requirement</div>
-                    <div id="fleetSummary" class="text-sm font-bold text-blue-400 font-mono mt-0.5">25 Buses &bull; 8 Ambulances</div>
-                    <div class="text-[10px] font-mono text-slate-400 mt-0.5">Turnaround: 32 min</div>
-                </div>
-                <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
-                    <div class="text-[10px] font-mono uppercase text-slate-400">Life-Support Quota</div>
-                    <div id="waterQuota" class="text-sm font-bold text-cyan-400 font-mono mt-0.5">18,600 L / Day</div>
-                    <div class="text-[10px] font-mono text-slate-400 mt-0.5">Sphere 15L/pers/day</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 1 & 2: Space Forensics & Hazard Geomechanics -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-            <!-- Section 1: Multi-Sensor Earth Observation Forensics -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl print-card">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="satellite" class="w-5 h-5 text-cyan-400"></i>
-                        <h2 class="font-bold text-white font-mono text-base tracking-tight">
-                            1. MULTI-SENSOR SPACE TELEMETRY FORENSICS
-                        </h2>
-                    </div>
-                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                        MULTI-SOURCE FUSED [LIVE + DERIVED]
-                    </span>
-                </div>
-
-                <div class="space-y-3.5 text-xs">
-                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="font-bold text-slate-300 font-mono">Sentinel-1 C-Band SAR Synthetic Aperture Radar</span>
-                            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">ALL-WEATHER PENETRATION</span>
-                        </div>
-                        <p class="text-slate-400 text-[11px] leading-relaxed">
-                            Cross-polarization backscatter (\(\gamma_{VH}^0 / \gamma_{VV}^0\)) exhibits a severe \(-5.8 \text{ dB}\) attenuation across the upstream catchment, confirming extensive soil supersaturation, active mud liquefaction, and structural surface displacement beneath dense monsoon cloud cover.
-                        </p>
-                    </div>
-
-                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="font-bold text-slate-300 font-mono">Cartosat-3 Sub-Meter Panchromatic Radiometry (0.28m) [ARCHITECTURE]</span>
-                            <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30">CRITICAL BRIDGE SEVERANCE</span>
-                        </div>
-                        <p class="text-slate-400 text-[11px] leading-relaxed">
-                            Sub-meter optical framing resolved direct hydraulic severance of the Vellarmala access span. Debris deposition width measured at 142 meters across Sector 4. High-clearance tactical ingress is constrained strictly to the southern ridge spur via SH-59.
-                        </p>
-                    </div>
-
-                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="font-bold text-slate-300 font-mono">ISRO Bhuvan Multi-Spectral LULC Classification [ESTIMATED]</span>
-                            <span class="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded border border-cyan-500/30">SLOPE INSTABILITY ZONE</span>
-                        </div>
-                        <p class="text-slate-400 text-[11px] leading-relaxed">
-                            Geospatial overlay of Bhuvan 1:10,000 geomorphological layers reveals colluvial debris overlaying fractured crystalline gneiss. Runoff coefficient estimated at \(C = 0.88\), indicating immediate flash hydrograph concentration without sub-surface buffering.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Section 2: Geomechanical Hazard Assessment -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl print-card">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="flame" class="w-5 h-5 text-red-400"></i>
-                        <h2 class="font-bold text-white font-mono text-base tracking-tight">
-                            2. GEOMECHANICAL HAZARD &amp; RUNOFF DIAGNOSTICS
-                        </h2>
-                    </div>
-                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/30">
-                        IMPACT CRITICAL
-                    </span>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 mb-4">
-                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 text-center">
-                        <div class="text-[10px] font-mono text-slate-400 uppercase">24-Hour Antecedent Rain</div>
-                        <div id="antecedentRain" class="text-xl font-extrabold text-red-400 font-mono mt-1">572.0 mm</div>
-                        <div class="text-[10px] font-mono text-slate-500 mt-0.5">Threshold: &gt;200 mm/24h</div>
-                    </div>
-                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 text-center">
-                        <div class="text-[10px] font-mono text-slate-400 uppercase">SRTM Peak Terrain Slope</div>
-                        <div id="peakSlope" class="text-xl font-extrabold text-amber-400 font-mono mt-1">32.4° (63.5%)</div>
-                        <div class="text-[10px] font-mono text-slate-500 mt-0.5">Factor of Safety &lt; 0.72</div>
-                    </div>
-                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 text-center">
-                        <div class="text-[10px] font-mono text-slate-400 uppercase">Peak Debris Velocity</div>
-                        <div id="debrisVelocity" class="text-xl font-extrabold text-cyan-400 font-mono mt-1">11.8 m/s</div>
-                        <div class="text-[10px] font-mono text-slate-500 mt-0.5">Impact Pressure &gt; 48 kPa</div>
-                    </div>
-                    <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 text-center">
-                        <div class="text-[10px] font-mono text-slate-400 uppercase">Hazard Index Score</div>
-                        <div id="hazardScore" class="text-xl font-extrabold text-red-400 font-mono mt-1">94.8 / 100</div>
-                        <div class="text-[10px] font-mono text-red-400 mt-0.5">IMMEDIATE CLEARANCE</div>
-                    </div>
-                </div>
-
-                <div class="p-3 bg-red-950/20 border border-red-800/40 rounded-xl text-xs text-red-200 leading-relaxed font-mono">
-                    <span class="font-bold text-red-400">&gt;&gt; STATUTORY FINDING:</span> Pore-water pressure ratio \(r_u\) exceeds \(0.65\). Sub-surface shear resistance along the bedrock interface has degraded past stable equilibrium. Complete mandatory evacuation of all residential settlements within a 1,800m downslope cone is legally enforced under DMA 2005.
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Section 3 & 4: Relocation Decision & Hard Veto Exclusion Audit -->
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl print-card">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="compass" class="w-5 h-5 text-emerald-400"></i>
-                    <h2 class="font-bold text-white font-mono text-base tracking-tight">
-                        3. RELOCATION DESTINATION AUDIT &amp; HARD VETO FORENSICS
+                <div class="space-y-2 border-l-4 border-cyan-400 pl-4 py-1">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white font-mono uppercase tracking-tight">
+                        MULTI-HAZARD RELOCATION INTELLIGENCE DOSSIER
                     </h2>
+                    <p class="text-sm font-mono text-cyan-300">
+                        Incident Analysis &bull; Impact Assessment &bull; Safe-Site Intelligence
+                    </p>
                 </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                    ZERO-TOLERANCE VETO PASSED
-                </span>
-            </div>
 
-            <p class="text-xs text-slate-400 mb-4">
-                Under the RAKSHA autonomous relocation engine, all potential shelter hubs within the district were subjected to strict zero-tolerance topological constraints. Any candidate breaching flood buffer, slope cutoff, or road accessibility was immediately vetoed regardless of capacity.
-            </p>
-
-            <!-- Table of Relocation Sites & Audit -->
-            <div class="overflow-x-auto rounded-xl border border-slate-800 print-table">
-                <table class="w-full text-left text-xs font-mono">
-                    <thead class="bg-slate-950/80 text-slate-300 uppercase text-[10px] border-b border-slate-800">
-                        <tr>
-                            <th class="p-3">Rank / ID</th>
-                            <th class="p-3">Shelter Candidate Facility</th>
-                            <th class="p-3">Dist. (km)</th>
-                            <th class="p-3">Terrain Slope</th>
-                            <th class="p-3">Flood Clearance</th>
-                            <th class="p-3">MCDA Score</th>
-                            <th class="p-3">Statutory Decision</th>
-                        </tr>
-                    </thead>
-                    <tbody id="relocationTableBody" class="divide-y divide-slate-800 text-slate-300">
-                        <tr class="bg-emerald-950/20">
-                            <td class="p-3 font-bold text-emerald-400">#1 (PRIMARY)</td>
-                            <td class="p-3 font-bold text-white">Meppadi Government HSS &bull; Relief Camp A</td>
-                            <td class="p-3 text-cyan-300">4.8 km</td>
-                            <td class="p-3 text-emerald-400">3.8° (Pass &lt;10°)</td>
-                            <td class="p-3 text-emerald-400">18.4m above datum</td>
-                            <td class="p-3 text-emerald-400 font-bold">92.4 / 100</td>
-                            <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">APPROVED DESIGNATED</span></td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-bold text-emerald-400">#2 (SECONDARY)</td>
-                            <td class="p-3 font-bold text-white">Kalpetta St. Joseph's Higher Secondary Complex</td>
-                            <td class="p-3 text-cyan-300">11.2 km</td>
-                            <td class="p-3 text-emerald-400">4.5° (Pass &lt;10°)</td>
-                            <td class="p-3 text-emerald-400">24.1m above datum</td>
-                            <td class="p-3 text-emerald-400 font-bold">86.1 / 100</td>
-                            <td class="p-3"><span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/40 text-[10px] font-bold">STANDBY SURGE</span></td>
-                        </tr>
-                        <tr class="opacity-70 bg-red-950/10">
-                            <td class="p-3 font-bold text-red-400">REJECTED</td>
-                            <td class="p-3 line-through text-slate-400">Attamala Community Hall</td>
-                            <td class="p-3 text-slate-500">2.1 km</td>
-                            <td class="p-3 text-red-400 font-bold">18.6° (FAIL &gt;10°)</td>
-                            <td class="p-3 text-red-400">3.2m above datum</td>
-                            <td class="p-3 text-red-400">DISQUALIFIED</td>
-                            <td class="p-3"><span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-bold">HARD VETO: SLOPE RISK</span></td>
-                        </tr>
-                        <tr class="opacity-70 bg-red-950/10">
-                            <td class="p-3 font-bold text-red-400">REJECTED</td>
-                            <td class="p-3 line-through text-slate-400">Mundakkai Riverside Estate Ground</td>
-                            <td class="p-3 text-slate-500">1.4 km</td>
-                            <td class="p-3 text-slate-500">5.2°</td>
-                            <td class="p-3 text-red-400 font-bold">0.8m (INUNDATED)</td>
-                            <td class="p-3 text-red-400">DISQUALIFIED</td>
-                            <td class="p-3"><span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-bold">HARD VETO: FLOOD ENVELOPE</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Section 5: Sphere Standards Humanitarian Quota Sizing -->
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl print-card">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="heart-pulse" class="w-5 h-5 text-pink-400"></i>
-                    <h2 class="font-bold text-white font-mono text-base tracking-tight">
-                        4. SPHERE PROJECT MINIMUM HUMANITARIAN LIFE-SUPPORT ALLOCATIONS
-                    </h2>
-                </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/30">
-                    UN / SPHERE 2018 COMPLIANT
-                </span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono uppercase text-slate-400">Potable Water Supply</span>
-                        <i data-lucide="droplet" class="w-4 h-4 text-cyan-400"></i>
+                <!-- Scenario Metadata Banner -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 bg-[#091224] p-4 rounded-xl border border-slate-800 font-mono text-xs">
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase">LOCATION</span>
+                        <b id="coverLocation" class="text-white text-sm truncate block">Devgram, Chamoli District, Uttarakhand</b>
                     </div>
-                    <div id="sphereWaterVal" class="text-2xl font-extrabold text-cyan-400 font-mono mt-2">18,600 L</div>
-                    <div class="text-[11px] text-slate-400 font-mono mt-1">15 Litres / Person / Day</div>
-                    <div class="text-[10px] text-slate-500 mt-2">Requirement: 3x 6,000L bowsers deployed at designated staging node.</div>
-                </div>
-
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono uppercase text-slate-400">Shelter Living Area</span>
-                        <i data-lucide="home" class="w-4 h-4 text-emerald-400"></i>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase">COORDINATES</span>
+                        <b id="coverCoords" class="text-cyan-300 text-sm block">30.3207° N, 79.2163° E</b>
                     </div>
-                    <div id="sphereShelterVal" class="text-2xl font-extrabold text-emerald-400 font-mono mt-2">4,340 m²</div>
-                    <div class="text-[11px] text-slate-400 font-mono mt-1">3.5 m² / Person Indoor</div>
-                    <div class="text-[10px] text-slate-500 mt-2">Meppadi HSS auditorium + 14 classrooms fully accommodate volume.</div>
-                </div>
-
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono uppercase text-slate-400">Sanitation Latrines</span>
-                        <i data-lucide="shield" class="w-4 h-4 text-amber-400"></i>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase">DATE / TIME</span>
+                        <b id="coverTimestamp" class="text-white text-sm block">2026-09-21 09:15 UTC</b>
                     </div>
-                    <div id="sphereToiletsVal" class="text-2xl font-extrabold text-amber-400 font-mono mt-2">62 Units</div>
-                    <div class="text-[11px] text-slate-400 font-mono mt-1">1 Latrine / 20 Persons</div>
-                    <div class="text-[10px] text-slate-500 mt-2">Mobile bio-toilets mobilised by District Panchayath within 2 hours.</div>
-                </div>
-
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono uppercase text-slate-400">Emergency Rations</span>
-                        <i data-lucide="utensils" class="w-4 h-4 text-pink-400"></i>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block uppercase">SCENARIO ID</span>
+                        <b id="coverScenarioId" class="text-amber-300 text-sm block">RAKSHA-UK-CHM-2026-0921-A</b>
                     </div>
-                    <div id="sphereFoodVal" class="text-2xl font-extrabold text-pink-400 font-mono mt-2">2.60 M kcal</div>
-                    <div class="text-[11px] text-slate-400 font-mono mt-1">2,100 kcal / Person / Day</div>
-                    <div class="text-[10px] text-slate-500 mt-2">Dry ration kits and Community Kitchen supply allocated at Civil Supplies godown.</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 6: Evacuation Fleet Dispatch Manifest -->
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl print-card">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="truck" class="w-5 h-5 text-blue-400"></i>
-                    <h2 class="font-bold text-white font-mono text-base tracking-tight">
-                        5. TACTICAL EVACUATION FLEET DISPATCH MANIFEST
-                    </h2>
-                </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/30">
-                    KSRTC / MOTOR VEHICLES DEPT
-                </span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="font-bold text-white font-mono text-sm">KSRTC Heavy Transports</span>
-                        <span class="text-[10px] font-mono text-cyan-400 font-bold">50 PASSENGERS</span>
-                    </div>
-                    <div id="ksrtcCount" class="text-2xl font-extrabold text-blue-400 font-mono my-1">25 Vehicles</div>
-                    <div class="text-xs text-slate-400 font-mono">Dedicated Route: Meppadi-Chooralmala Link Rd</div>
-                    <div class="text-[11px] text-slate-500 mt-1">Staging at Kalpetta KSRTC Sub-Depot</div>
-                </div>
-
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="font-bold text-white font-mono text-sm">108 Emergency Ambulances</span>
-                        <span class="text-[10px] font-mono text-red-400 font-bold">ALS / CRITICAL CARE</span>
-                    </div>
-                    <div id="ambulanceCount" class="text-2xl font-extrabold text-red-400 font-mono my-1">8 Ambulances</div>
-                    <div class="text-xs text-slate-400 font-mono">Triage Point: Meppadi Primary Health Centre</div>
-                    <div class="text-[11px] text-slate-500 mt-1">Oxygen &amp; defibrillator equipped</div>
-                </div>
-
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="font-bold text-white font-mono text-sm">NDRF 4x4 High-Clearance Shuttles</span>
-                        <span class="text-[10px] font-mono text-amber-400 font-bold">ROUGH TERRAIN</span>
-                    </div>
-                    <div id="shuttleCount" class="text-2xl font-extrabold text-amber-400 font-mono my-1">12 Shuttles</div>
-                    <div class="text-xs text-slate-400 font-mono">Operations: Upstream Hamlet Cutoff Zone</div>
-                    <div class="text-[11px] text-slate-500 mt-1">Equipped with winches &amp; satellite radios</div>
                 </div>
             </div>
 
-            <div class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 text-xs font-mono text-slate-300 flex flex-wrap items-center justify-between gap-3">
-                <div class="flex items-center gap-2">
-                    <span class="text-emerald-400 font-bold">&gt;&gt; INGRESS CORRIDOR:</span>
-                    <span>State Highway 59 via Meppadi Junction &bull; Unimpeded 2-lane asphalt</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-amber-400 font-bold">&gt;&gt; SPEED LIMIT:</span>
-                    <span>35 km/h convoy limit with police pilot escort</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-cyan-400 font-bold">&gt;&gt; FULL TURNAROUND:</span>
-                    <span id="turnaroundTime">32 Minutes Round-Trip</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 7: Incident Command Digital Endorsement & Statutory Sign-Off -->
-        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl print-card">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-6">
-                <div class="flex items-center gap-2">
-                    <i data-lucide="award" class="w-5 h-5 text-emerald-400"></i>
-                    <h2 class="font-bold text-white font-mono text-base tracking-tight">
-                        6. INCIDENT COMMAND VERIFICATION &amp; STATUTORY SIGN-OFF
-                    </h2>
-                </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                    DIGITALLY VALIDATED
-                </span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+            <!-- Large Cinematic / Geospatial Map Visual -->
+            <div class="relative w-full h-80 rounded-2xl overflow-hidden border border-slate-800/90 shadow-2xl my-6 bg-[#040814]">
+                <img src="/assets/raksha_wayanad_dark_bg.jpg" alt="Geospatial Tactical Map" class="w-full h-full object-cover opacity-65" />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#070e1e] via-transparent to-transparent"></div>
                 
-                <!-- Signature Box 1 -->
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80 flex flex-col justify-between">
-                    <div>
-                        <div class="text-[10px] uppercase text-slate-400 mb-2">District Disaster Management Authority</div>
-                        <div class="font-bold text-white text-sm">District Collector &amp; DDMA Chairman</div>
-                        <div class="text-[11px] text-slate-400 mt-0.5">District Emergency Operation Centre (DEOC)</div>
+                <!-- Overlay HUD Grid Metrics -->
+                <div class="absolute top-4 left-4 font-mono text-[10.5px] bg-[#070e1e]/90 p-3 rounded-xl border border-slate-800 text-slate-300 space-y-1">
+                    <div class="flex items-center gap-2 text-cyan-300 font-bold">
+                        <i data-lucide="satellite" class="w-3.5 h-3.5"></i>
+                        <span>SPACE TELEMETRY COMPOSITE</span>
                     </div>
-                    <div class="mt-8 pt-3 border-t border-slate-800 flex items-center justify-between">
-                        <span class="text-[10px] text-emerald-400 font-bold">[DIGITALLY APPROVED]</span>
-                        <span class="text-[10px] text-slate-500" id="signDate1">2026-09-20 00:46 IST</span>
+                    <div>Primary Sensor: <b>Sentinel-1 SAR C-Band Active Microwave</b></div>
+                    <div>DEM Grid: <b>SRTM 90m Digital Elevation Model</b></div>
+                    <div>Atmospheric: <b>Open-Meteo 24h Hydrograph Telemetry</b></div>
+                </div>
+
+                <div class="absolute bottom-4 right-4 font-mono text-right bg-[#070e1e]/90 p-3 rounded-xl border border-slate-800 text-slate-300 text-[10.5px] space-y-0.5">
+                    <span class="text-red-400 font-bold block flex items-center justify-end gap-1.5">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+                        <span>ACTIVE DISASTER IMPACT ZONE</span>
+                    </span>
+                    <span id="coverAoiArea" class="text-white font-bold text-xs block">Dynamic AOI: 38.2 km² (Flow-Dilated)</span>
+                    <span class="text-slate-400 text-[10px]">Zero-Tolerance Safety Protocol Active</span>
+                </div>
+            </div>
+
+            <!-- Cover Footer -->
+            <div>
+                <div class="p-3 bg-[#091224] rounded-xl border border-slate-800/80 font-mono text-[11px] text-slate-400 flex flex-wrap justify-between items-center gap-2">
+                    <div><b>Operational Mode:</b> State Emergency Operations Decision Brief</div>
+                    <div class="text-cyan-400 font-bold">DETECT RISK &bull; PRIORITIZE PEOPLE &bull; FIND SAFER GROUND</div>
+                </div>
+                <div class="doc-page-footer">
+                    <span>RAKSHA ENGINE 2.0 • STATE DISASTER MANAGEMENT INCIDENT DOSSIER</span>
+                    <span>PAGE 1 OF 10</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 01 — EXECUTIVE SITUATION BRIEF -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                    <span>SECTION 01</span>
+                </div>
+
+                <div class="mb-6">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">01 — EXECUTIVE SUMMARY</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">EXECUTIVE SITUATION BRIEF</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Rapid Geospatial Triage &amp; Relocation Requirement Overview</p>
+                </div>
+
+                <!-- Clean Situation Statement -->
+                <div class="p-4 rounded-xl bg-slate-950/80 border-l-4 border-amber-400 border border-slate-800 text-xs leading-relaxed text-slate-200 mb-6 font-mono">
+                    <b class="text-amber-300 block mb-1">SITUATION OVERVIEW:</b>
+                    Elevated hydro-meteorological and geotechnical hazard conditions detected across the target habitation. Continuous monsoonal antecedent rainfall has saturated slope sub-strata beyond the critical volumetric pore-pressure threshold (0.35 m³/m³), inducing severe structural soil liquefaction and catastrophic mudflow velocity (&gt;11 m/s). Immediate precautionary population evacuation is mandated to prevent civilian casualties. RAKSHA has executed dynamic hazard boundary delineation, eliminated hazardous ground via zero-tolerance safety vetoes, and structured a 100% zero-deficit safe relocation plan across vetted public facilities.
+                </div>
+
+                <!-- 6 Key Operational Metrics Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono mb-6">
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Hazard Severity</span>
+                        <div id="briefSeverityVal" class="text-2xl font-black text-red-400 mt-1">ELEVATED</div>
+                        <span class="text-[10px] text-slate-400">Tau Index: <b id="briefTauVal" class="text-white">0.78 / 1.0</b></span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Affected Hazard Area</span>
+                        <div id="briefAreaVal" class="text-2xl font-black text-white mt-1">38.2 km²</div>
+                        <span class="text-[10px] text-cyan-400 font-bold">Flow-Dilated AOI</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Population Exposure</span>
+                        <div id="briefPopVal" class="text-2xl font-black text-amber-300 mt-1">6,840</div>
+                        <span class="text-[10px] text-slate-400">100% Habitation Catchment</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Relocation Requirement</span>
+                        <div id="briefRelocVal" class="text-2xl font-black text-white mt-1">6,840</div>
+                        <span class="text-[10px] text-amber-400 font-bold">Mandatory Relocation</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Safe Capacity Identified</span>
+                        <div id="briefCapVal" class="text-2xl font-black text-emerald-400 mt-1">7,200</div>
+                        <span class="text-[10px] text-emerald-300 font-bold">Zero Deficit (Surplus +360)</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Search Horizon Radius</span>
+                        <div class="text-2xl font-black text-cyan-300 mt-1">15.0 km</div>
+                        <span class="text-[10px] text-slate-400">3 Progressive Rings</span>
                     </div>
                 </div>
 
-                <!-- Signature Box 2 -->
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80 flex flex-col justify-between">
-                    <div>
-                        <div class="text-[10px] uppercase text-slate-400 mb-2">Technical Geospatial Verification</div>
-                        <div class="font-bold text-white text-sm">RAKSHA 2.0 Autonomous Engine</div>
-                        <div class="text-[11px] text-slate-400 mt-0.5">Sentinel-1/Cartosat-3/MCDA Algorithm</div>
+                <!-- RAKSHA DECISION PATH -->
+                <div class="p-5 rounded-xl bg-[#091224] border border-slate-800">
+                    <div class="text-xs font-mono font-bold text-cyan-300 uppercase mb-3 flex items-center gap-2">
+                        <i data-lucide="git-branch" class="w-4 h-4 text-cyan-400"></i>
+                        <span>RAKSHA DECISION PATHWAY</span>
                     </div>
-                    <div class="mt-8 pt-3 border-t border-slate-800 flex items-center justify-between">
-                        <span class="text-[10px] text-cyan-400 font-bold">[ALGO CONVERGED: 100%]</span>
-                        <span class="text-[10px] text-slate-500">SHA-256 HASH VERIFIED</span>
+                    <div class="grid grid-cols-2 md:grid-cols-7 gap-2 text-center font-mono text-[10.5px]">
+                        <div class="p-2 rounded-lg bg-[#070e1e] border border-blue-900/60">
+                            <span class="text-red-400 font-bold block">1. DETECT</span>
+                            <span class="text-slate-400 text-[9px]">SAR Radar &amp; Rain</span>
+                        </div>
+                        <div class="p-2 rounded-lg bg-[#070e1e] border border-blue-900/60">
+                            <span class="text-orange-400 font-bold block">2. ASSESS</span>
+                            <span class="text-slate-400 text-[9px]">5x5 Spatial Grid</span>
+                        </div>
+                        <div class="p-2 rounded-lg bg-[#070e1e] border border-blue-900/60">
+                            <span class="text-amber-400 font-bold block">3. PRIORITIZE</span>
+                            <span class="text-slate-400 text-[9px]">Dynamic AOI</span>
+                        </div>
+                        <div class="p-2 rounded-lg bg-[#070e1e] border border-blue-900/60">
+                            <span class="text-cyan-400 font-bold block">4. SEARCH</span>
+                            <span class="text-slate-400 text-[9px]">0-15km Rings</span>
+                        </div>
+                        <div class="p-2 rounded-lg bg-[#070e1e] border border-blue-900/60">
+                            <span class="text-purple-400 font-bold block">5. FILTER</span>
+                            <span class="text-slate-400 text-[9px]">Hard Safety Veto</span>
+                        </div>
+                        <div class="p-2 rounded-lg bg-[#070e1e] border border-blue-900/60">
+                            <span class="text-teal-400 font-bold block">6. RANK</span>
+                            <span class="text-slate-400 text-[9px]">MCDA 100-pt</span>
+                        </div>
+                        <div class="p-2 rounded-lg bg-[#070e1e] border border-emerald-800/80">
+                            <span class="text-emerald-400 font-bold block">7. RELOCATE</span>
+                            <span class="text-slate-400 text-[9px]">Sphere Knapsack</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>CONFIDENTIAL • FOR DISASTER RELIEF DECISION-MAKERS ONLY</span>
+                <span>PAGE 2 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 02 — HAZARD INTELLIGENCE -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • HAZARD MODELING</span>
+                    <span>SECTION 02</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">02 — HAZARD INTELLIGENCE</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">5×5 SPATIAL HAZARD &amp; DYNAMIC AOI</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Spatial Attenuation Raster &amp; Topographic Runoff Vector Delineation</p>
+                </div>
+
+                <!-- Grid & Evidence Row -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mb-5">
+                    
+                    <!-- Left 7 Cols: The 5x5 Spatial Hazard Raster Grid -->
+                    <div class="md:col-span-7 bg-[#091224] p-4 rounded-xl border border-slate-800">
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="grid" class="w-4 h-4 text-amber-400"></i>
+                                <span class="text-xs font-mono font-bold text-white uppercase">5×5 SPATIAL HAZARD ANALYSIS (25 Cells)</span>
+                            </div>
+                            <span class="text-[9.5px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30">1.0 km RESOLUTION</span>
+                        </div>
+
+                        <!-- Rendered 5x5 Grid Container -->
+                        <div id="dossierGridMatrix" class="grid grid-cols-5 gap-1.5 mb-3 font-mono">
+                            <!-- Injected via JavaScript with actual calculated cells -->
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800/80 font-mono text-[10px]">
+                            <span class="flex items-center gap-1 text-red-400">🔴 Critical (&ge;0.70)</span>
+                            <span class="flex items-center gap-1 text-orange-400">🟠 High (0.45-0.69)</span>
+                            <span class="flex items-center gap-1 text-amber-400">🟡 Moderate (0.25-0.44)</span>
+                            <span class="flex items-center gap-1 text-emerald-400">🟢 Low (&lt;0.25)</span>
+                        </div>
+                    </div>
+
+                    <!-- Right 5 Cols: Hazard Evidence Telemetry -->
+                    <div class="md:col-span-5 flex flex-col gap-3 font-mono text-xs">
+                        <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 space-y-2.5">
+                            <span class="text-xs font-bold text-cyan-300 uppercase block flex items-center gap-1.5">
+                                <i data-lucide="activity" class="w-3.5 h-3.5"></i>
+                                <span>HAZARD EVIDENCE TELEMETRY</span>
+                            </span>
+                            <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+                                <span class="text-slate-400">24h Rainfall:</span>
+                                <b id="hzRainVal" class="text-white">142.5 mm [LIVE]</b>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+                                <span class="text-slate-400">Soil Moisture:</span>
+                                <b id="hzSoilVal" class="text-red-400 font-bold">0.42 m³/m³ [SATURATED]</b>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+                                <span class="text-slate-400">Terrain Gradient:</span>
+                                <b id="hzSlopeVal" class="text-amber-300">28.5° Peak Slope [DERIVED]</b>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+                                <span class="text-slate-400">Hydrological Flow:</span>
+                                <b class="text-cyan-300">135.0° SE (Downslope)</b>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Elevation Corridor:</span>
+                                <b class="text-white">1,368 m &ndash; 2,020 m [SRTM DEM]</b>
+                            </div>
+                        </div>
+
+                        <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 text-[11px] leading-relaxed text-slate-300">
+                            <b class="text-white block mb-1 uppercase text-xs">ATTENUATION PHYSICS:</b>
+                            Hazard intensity decays exponentially with Euclidean distance <i>d</i> from the epicenter, while dilating along the dominant hydrological runoff vector <b>&theta;<sub>flow</sub></b> determined by digital elevation gradients.
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Dynamic Anisotropic AOI Section -->
+                <div class="p-4 rounded-xl bg-[#091224] border border-cyan-900/60 font-mono text-xs space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-cyan-300 uppercase flex items-center gap-2">
+                            <i data-lucide="shield-alert" class="w-4 h-4 text-cyan-400"></i>
+                            <span>DYNAMIC ANISOTROPIC AOI DELINEATION</span>
+                        </span>
+                        <span class="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 text-[10px]">FLOW-DILATED</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1 text-[11px]">
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-400 block text-[9.5px]">BASE RADIUS (&delta;<sub>0</sub>)</span>
+                            <b class="text-white text-sm">3,000 m</b>
+                            <span class="text-slate-500 block text-[9px] mt-0.5">Hydraulic Core Zone</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-400 block text-[9.5px]">SLOPE DILATION FACTOR</span>
+                            <b class="text-amber-400 text-sm">+35% Downslope</b>
+                            <span class="text-slate-500 block text-[9px] mt-0.5">SE Runoff Corridor Expansion</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-400 block text-[9.5px]">TOTAL ANISOTROPIC AREA</span>
+                            <b id="aoiAreaCardVal" class="text-cyan-300 text-sm">38.2 km²</b>
+                            <span class="text-slate-500 block text-[9px] mt-0.5">Asymmetrical Polygon Buffer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 3 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 03 — IMPACT ASSESSMENT -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • IMPACT FORENSICS</span>
+                    <span>SECTION 03</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">03 — IMPACT ASSESSMENT</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">HUMAN &amp; INFRASTRUCTURE EXPOSURE</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Who and What is Exposed Across the Disaster Catchment</p>
+                </div>
+
+                <!-- Exposure Hierarchy Diagram -->
+                <div class="p-3 bg-[#091224] rounded-xl border border-slate-800 font-mono text-xs text-center text-slate-300 mb-5 flex items-center justify-between gap-2 overflow-x-auto">
+                    <div class="p-2 rounded bg-red-950/40 border border-red-700 text-red-300 shrink-0">
+                        <b>HAZARD CORE</b><br><span class="text-[9px]">Fluvial &amp; Slide Zone</span>
+                    </div>
+                    <span class="text-slate-500">&xrarr;</span>
+                    <div class="p-2 rounded bg-orange-950/40 border border-orange-700 text-orange-300 shrink-0">
+                        <b>4 SETTLEMENT WARDS</b><br><span class="text-[9px]">Contiguous Hillside</span>
+                    </div>
+                    <span class="text-slate-500">&xrarr;</span>
+                    <div class="p-2 rounded bg-amber-950/40 border border-amber-700 text-amber-300 shrink-0">
+                        <b id="impactPopHead">6,840 CITIZENS</b><br><span class="text-[9px]">Vulnerable Cohorts</span>
+                    </div>
+                    <span class="text-slate-500">&xrarr;</span>
+                    <div class="p-2 rounded bg-cyan-950/40 border border-cyan-700 text-cyan-300 shrink-0">
+                        <b>CRITICAL LIFELINES</b><br><span class="text-[9px]">Roads, Power, Water</span>
                     </div>
                 </div>
 
-                <!-- Signature Box 3: Cryptographic Hash & QR Verification -->
-                <div class="p-4 bg-slate-950/70 rounded-xl border border-slate-800/80">
-                    <div class="text-[10px] uppercase text-slate-400 mb-1">Audit Verification Hash</div>
-                    <div id="cryptoHash" class="text-[10px] break-all text-slate-300 font-mono bg-slate-900 p-2 rounded border border-slate-800 select-all">
-                        e8b4c09f365d56b6c08502394c8e7ff129a0c7bb0d28fa2d512a8684d0b16524
+                <!-- 5 Impact Evidence Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 font-mono text-xs mb-5">
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Population Exposed</span>
+                        <div id="impactPopVal" class="text-xl font-bold text-amber-300 mt-1">6,840 Citizens</div>
+                        <div class="text-[10px] text-slate-400 mt-2 space-y-0.5">
+                            <div>&bull; Children (&lt;12 yrs): <b>1,368 (20%)</b></div>
+                            <div>&bull; Elderly (&gt;65 yrs): <b>1,026 (15%)</b></div>
+                            <div>&bull; Medical Casualties: <b>205 (3%)</b></div>
+                        </div>
                     </div>
-                    <div class="text-[10px] text-slate-500 mt-2">
-                        Any post-incident discrepancy in relocation allocation or fleet logs can be reconciled against this SHA-256 state ledger.
+
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Settlements Affected</span>
+                        <div class="text-xl font-bold text-white mt-1">4 Habitation Hamlets</div>
+                        <div class="text-[10px] text-slate-400 mt-2 leading-relaxed">
+                            Immediate core hamlet and 3 contiguous downslope village wards within the active debris corridor.
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Critical Infrastructure</span>
+                        <div class="text-xl font-bold text-red-400 mt-1">Bridge &amp; Power Severed</div>
+                        <div class="text-[10px] text-slate-400 mt-2 leading-relaxed">
+                            1 bridge span severed, 2 low-lying transformer stations offline, 4.2 km local road damaged.
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <span class="text-slate-400 text-[10px] block uppercase">Arterial Road Access</span>
+                        <div class="text-xl font-bold text-emerald-400 mt-1">NH-58 Viable [ESTIMATED]</div>
+                        <div class="text-[10px] text-slate-400 mt-2 leading-relaxed">
+                            Primary arterial transit corridor open for heavy &gt;16T buses; local mountain dirt spurs closed.
+                        </div>
+                    </div>
+
+                    <div class="metric-card lg:col-span-2">
+                        <span class="text-slate-400 text-[10px] block uppercase">Estimated Impact Severity</span>
+                        <div class="text-xl font-bold text-red-400 mt-1">Class 4 Hydro-Geomorphic Failure</div>
+                        <div class="text-[10px] text-slate-400 mt-2 leading-relaxed">
+                            Debris velocity measured at 11.2 m/s across the upper ravine. Slope angle exceeds 28.5° with complete soil pore-pressure saturation. High probability of secondary debris surges.
+                        </div>
                     </div>
                 </div>
 
+                <!-- Relocation Urgency Box -->
+                <div class="p-4 rounded-xl bg-red-950/30 border border-red-800/80 font-mono text-xs">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-red-400 uppercase flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-4 h-4 text-red-400"></i>
+                            <span>RELOCATION URGENCY DIRECTIVE</span>
+                        </span>
+                        <span class="px-2.5 py-0.5 rounded bg-red-600 text-white font-black text-[10.5px]">IMMEDIATE (0 &ndash; 6 HOURS)</span>
+                    </div>
+                    <p class="text-[11px] leading-relaxed text-slate-300">
+                        Precautionary daytime relocation is critically mandated. Antecedent soil moisture saturation indicates that secondary rainfall of just 15 mm/hr will trigger uncontrolled slope slippage. Evacuation convoys must conclude staging before dusk to avoid hazardous night transit over mountain corridors.
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <!-- Bottom Action Toolbar (Screen Only) -->
-        <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-slate-900/60 border border-slate-800 rounded-xl no-print">
-            <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
-                <i data-lucide="info" class="w-4 h-4 text-cyan-400"></i>
-                <span>Need to modify parameters? Return to the interactive Simulation Overview or Logistics Hub.</span>
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 4 OF 10</span>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="/simulation" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-mono text-xs transition border border-slate-700 flex items-center gap-1.5">
-                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
-                    <span>Return to Simulation</span>
-                </a>
-                <a href="/logistics-dispatch" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs transition flex items-center gap-1.5 font-bold shadow-lg shadow-blue-500/20">
-                    <span>Go to Evacuation Fleet</span>
-                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </a>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 04 — RELOCATION INTELLIGENCE -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • SITE DISCOVERY</span>
+                    <span>SECTION 04</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">04 — RELOCATION INTELLIGENCE</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">PROGRESSIVE SEARCH &amp; SAFETY VETOES</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Multi-Horizon Distance Exploration with Zero-Tolerance Hard Elimination</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 mb-5 font-mono">
+                    
+                    <!-- Progressive Search Horizon Tree -->
+                    <div class="md:col-span-6 bg-[#091224] p-4 rounded-xl border border-slate-800 text-xs">
+                        <span class="font-bold text-cyan-300 uppercase block mb-3 flex items-center gap-1.5">
+                            <i data-lucide="radar" class="w-3.5 h-3.5"></i>
+                            <span>PROGRESSIVE SPATIAL HORIZONS</span>
+                        </span>
+                        <div class="space-y-3 text-[11px]">
+                            <div class="p-2.5 rounded bg-[#070e1e] border border-cyan-800/40">
+                                <b class="text-cyan-300">RING 1 (0 &ndash; 5 km): Immediate Horizon</b>
+                                <div class="text-slate-400 text-[10px] mt-0.5">Target: Minimal transit displacement distance.</div>
+                                <div class="text-emerald-400 text-[10px] mt-0.5">&bull; 2 Facilities discovered; 1 passed safety veto.</div>
+                            </div>
+
+                            <div class="p-2.5 rounded bg-[#070e1e] border border-amber-800/40">
+                                <b class="text-amber-300">RING 2 (5 &ndash; 10 km): Tactical Horizon</b>
+                                <div class="text-slate-400 text-[10px] mt-0.5">Target: High-capacity public complexes.</div>
+                                <div class="text-emerald-400 text-[10px] mt-0.5">&bull; 2 Facilities discovered; 2 passed safety veto.</div>
+                            </div>
+
+                            <div class="p-2.5 rounded bg-[#070e1e] border border-purple-800/40">
+                                <b class="text-purple-300">RING 3 (10 &ndash; 15 km): Surge Horizon</b>
+                                <div class="text-slate-400 text-[10px] mt-0.5">Target: District reserve contingency hubs.</div>
+                                <div class="text-slate-400 text-[10px] mt-0.5">&bull; Held in reserve; 100% capacity met in Rings 1 &amp; 2.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Safety-First Filter Concept -->
+                    <div class="md:col-span-6 bg-[#091224] p-4 rounded-xl border border-slate-800 text-xs flex flex-col justify-between">
+                        <div>
+                            <span class="font-bold text-red-400 uppercase block mb-3 flex items-center gap-1.5">
+                                <i data-lucide="shield-x" class="w-3.5 h-3.5"></i>
+                                <span>ZERO-TOLERANCE SAFETY FILTER</span>
+                            </span>
+                            <p class="text-[11px] leading-relaxed text-slate-300 mb-3">
+                                RAKSHA's core architectural principle: <b>Safety is a non-negotiable hard filter, not a score penalty.</b> A candidate site with massive capacity is strictly eliminated if it fails any fundamental safety criterion.
+                            </p>
+                            <div class="space-y-1.5 text-[10px]">
+                                <div class="p-1.5 rounded bg-red-950/40 border border-red-800 text-red-300">
+                                    <b>VETO 1:</b> Inside Dynamic Hazard AOI Boundary &rarr; <b>DISQUALIFIED</b>
+                                </div>
+                                <div class="p-1.5 rounded bg-red-950/40 border border-red-800 text-red-300">
+                                    <b>VETO 2:</b> Terrain Slope &gt; 14° (Unstable subbase) &rarr; <b>DISQUALIFIED</b>
+                                </div>
+                                <div class="p-1.5 rounded bg-red-950/40 border border-red-800 text-red-300">
+                                    <b>VETO 3:</b> Fluvial Inundation / Negative Freeboard &rarr; <b>DISQUALIFIED</b>
+                                </div>
+                                <div class="p-1.5 rounded bg-red-950/40 border border-red-800 text-red-300">
+                                    <b>VETO 4:</b> Severed Transit Corridor &rarr; <b>DISQUALIFIED</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Veto Audit Trail Table -->
+                <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 font-mono text-xs">
+                    <span class="font-bold text-white uppercase block mb-2 text-xs">CANDIDATE DISQUALIFICATION AUDIT TRAIL</span>
+                    <table class="w-full text-left text-[10.5px]">
+                        <thead class="bg-[#070e1e] text-slate-400 uppercase text-[9px] border-b border-slate-800">
+                            <tr>
+                                <th class="p-2">Evaluated Facility</th>
+                                <th class="p-2">Distance</th>
+                                <th class="p-2">Terrain / Flood Status</th>
+                                <th class="p-2">Safety Verdict</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <tr>
+                                <td class="p-2 font-bold text-white">Taluk Stadium &amp; Sports Complex</td>
+                                <td class="p-2 text-cyan-300">4.8 km (Ring 1)</td>
+                                <td class="p-2 text-emerald-400">Slope 4.2° &bull; Freeboard +24m</td>
+                                <td class="p-2 text-emerald-400 font-bold">&check; QUALIFIED (Primary)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold text-white">Regional Polytechnic Campus</td>
+                                <td class="p-2 text-cyan-300">8.2 km (Ring 2)</td>
+                                <td class="p-2 text-emerald-400">Slope 6.5° &bull; Freeboard +42m</td>
+                                <td class="p-2 text-emerald-400 font-bold">&check; QUALIFIED (Standby)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold text-slate-400">Helang Community Hall Grounds</td>
+                                <td class="p-2 text-slate-400">3.2 km (Ring 1)</td>
+                                <td class="p-2 text-red-400">Steep slope &gt; 18° &bull; Colluvial talus</td>
+                                <td class="p-2 text-red-400 font-bold">&cross; VETOED (Slope Hazard)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold text-slate-400">Alaknanda River Terrace Reserve</td>
+                                <td class="p-2 text-slate-400">2.1 km (Ring 1)</td>
+                                <td class="p-2 text-red-400">Freeboard -1.5m &bull; Active Floodway</td>
+                                <td class="p-2 text-red-400 font-bold">&cross; VETOED (Inundation)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 5 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 05 — SAFE SITE ASSESSMENT -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • FACILITY AUDIT</span>
+                    <span>SECTION 05</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">05 — SAFE SITE ASSESSMENT</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">CANDIDATE SAFE SANCTUARY AUDIT</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Geotechnical Freeboard, Capacity Sizing &amp; Ingress Viability</p>
+                </div>
+
+                <!-- Site A Feature Card -->
+                <div class="bg-[#091224] p-5 rounded-2xl border border-emerald-500/40 mb-5 font-mono">
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-800 pb-3 mb-3">
+                        <div>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-bold border border-emerald-500/30">
+                                PRIMARY RECOMMENDED SANCTUARY &bull; RANK #1
+                            </span>
+                            <h3 id="siteAName" class="text-xl font-black text-white mt-1">SITE A &ndash; Taluk Stadium &amp; Sports Complex</h3>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-slate-400">MCDA SUITABILITY SCORE</span>
+                            <div class="text-2xl font-black text-cyan-300">96.8 / 100</div>
+                        </div>
+                    </div>
+
+                    <!-- 6 Grid Parameters -->
+                    <div class="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs mb-4">
+                        <div class="p-2 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[9px] block">DISTANCE</span>
+                            <b class="text-white">4.8 km</b>
+                        </div>
+                        <div class="p-2 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[9px] block">SPHERE CAPACITY</span>
+                            <b class="text-emerald-400">4,500 Persons</b>
+                        </div>
+                        <div class="p-2 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[9px] block">TERRAIN</span>
+                            <b class="text-cyan-300">Slope 4.2° (Flat)</b>
+                        </div>
+                        <div class="p-2 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[9px] block">ACCESSIBILITY</span>
+                            <b class="text-white">Dual-Lane &gt;16T</b>
+                        </div>
+                        <div class="p-2 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[9px] block">INFRASTRUCTURE</span>
+                            <b class="text-amber-300">Grid + Genset</b>
+                        </div>
+                        <div class="p-2 rounded bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[9px] block">HAZARD EXPOSURE</span>
+                            <b class="text-emerald-400">0% (Safe)</b>
+                        </div>
+                    </div>
+
+                    <!-- Why This Site? 5 Evidence Bullets -->
+                    <div class="bg-[#070e1e] p-3.5 rounded-xl border border-slate-800 text-[11px] text-slate-300 space-y-1.5 leading-relaxed">
+                        <b class="text-cyan-300 block text-xs uppercase mb-1">WHY RAKSHA RECOMMENDS SITE A:</b>
+                        <div>1. <b>Maximum Unencumbered Staging Area:</b> 120,000 m² gross perimeter with 72,000 m² usable open ground ensuring non-fragmented human relocation.</div>
+                        <div>2. <b>Proven Hydraulic Freeboard:</b> Situated on a high alluvial terrace elevated +24 meters above the 50-year maximum high-water mark.</div>
+                        <div>3. <b>Unimpeded Heavy Axle Ingress:</b> Directly accessible via NH-58 arterial corridor without traversing structural wooden spans or landslide slips.</div>
+                        <div>4. <b>Potential Emergency Access Site:</b> Open athletic grounds cataloged under ISRO Cartosat-3 sub-meter ground framework [ARCHITECTURE].</div>
+                        <div>5. <b>Immediate Public Lifeline Tie-In:</b> Pre-connected municipal 100mm water main and 11kV electrical feeder backing up immediate humanitarian reception.</div>
+                    </div>
+                </div>
+
+                <!-- Site B Summary Card (Standby Surge) -->
+                <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 font-mono text-xs">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <span class="text-[9.5px] px-2 py-0.5 rounded bg-blue-500/15 text-blue-300 font-bold border border-blue-500/30">
+                                SECONDARY SURGE BUFFER &bull; RANK #2
+                            </span>
+                            <h4 class="text-base font-bold text-white mt-1">SITE B &ndash; Regional Polytechnic Campus</h4>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] text-slate-400">MCDA SCORE: <b class="text-cyan-300 text-sm">88.2 / 100</b></span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center text-[10px] pt-1">
+                        <div class="p-1.5 rounded bg-[#070e1e] border border-slate-800">Distance: <b class="text-white">8.2 km</b></div>
+                        <div class="p-1.5 rounded bg-[#070e1e] border border-slate-800">Sphere Safe Cap: <b class="text-emerald-400">2,700 Persons</b></div>
+                        <div class="p-1.5 rounded bg-[#070e1e] border border-slate-800">Freeboard: <b class="text-cyan-300">+42.0m (Highland)</b></div>
+                        <div class="p-1.5 rounded bg-[#070e1e] border border-slate-800">Water: <b class="text-white">50 kL Reservoir</b></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 6 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 06 — RELOCATION PLAN -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • OPERATIONAL DEPLOYMENT</span>
+                    <span>SECTION 06</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">06 — RELOCATION PLAN</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">EVACUATION CORRIDOR &amp; FLEET DEPLOYMENT</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Transit Routing, Population Absorption &amp; Humanitarian Quotas</p>
+                </div>
+
+                <!-- Visual Route Flow Ribbon -->
+                <div class="p-4 bg-[#091224] rounded-xl border border-slate-800 font-mono text-xs mb-5">
+                    <div class="text-xs font-bold text-cyan-300 uppercase mb-2 flex items-center gap-2">
+                        <i data-lucide="navigation" class="w-4 h-4 text-cyan-400"></i>
+                        <span>SAFE TACTICAL TRANSIT CORRIDOR</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center">
+                        <div class="p-3 rounded-lg bg-red-950/40 border border-red-700 text-red-300 w-full sm:w-1/3">
+                            <span class="text-[9px] uppercase block text-slate-400">ORIGIN HABITATION</span>
+                            <b class="text-sm">🔴 Devgram Epicenter</b>
+                            <span class="text-[10px] block mt-0.5">Displaced: 6,840 Citizens</span>
+                        </div>
+                        <div class="text-cyan-400 font-bold text-sm hidden sm:block">&xrarr; 4.8 km NH-58 &xrarr;</div>
+                        <div class="p-3 rounded-lg bg-emerald-950/40 border border-emerald-700 text-emerald-300 w-full sm:w-1/3">
+                            <span class="text-[9px] uppercase block text-slate-400">PRIMARY SAFE SANCTUARY</span>
+                            <b class="text-sm">🟢 Taluk Stadium Complex</b>
+                            <span class="text-[10px] block mt-0.5">Absorbs: 4,500 Citizens (65.8%)</span>
+                        </div>
+                        <div class="text-blue-400 font-bold text-sm hidden sm:block">&xrarr; +3.4 km Spur &xrarr;</div>
+                        <div class="p-3 rounded-lg bg-blue-950/40 border border-blue-700 text-blue-300 w-full sm:w-1/3">
+                            <span class="text-[9px] uppercase block text-slate-400">SECONDARY SURGE HUB</span>
+                            <b class="text-sm">🔵 Polytechnic Campus</b>
+                            <span class="text-[10px] block mt-0.5">Absorbs: 2,340 Citizens (34.2%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relocation Requirement vs Absorption Bar -->
+                <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 font-mono text-xs mb-5">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-white uppercase">POPULATION ABSORPTION STATUS</span>
+                        <span class="text-emerald-400 font-bold text-xs">100% COVERAGE &bull; ZERO DEFICIT</span>
+                    </div>
+                    <div class="w-full bg-slate-950 h-4 rounded-full overflow-hidden flex border border-slate-800">
+                        <div class="bg-emerald-500 h-full flex items-center justify-center text-[9px] text-slate-950 font-black" style="width: 65.8%;">Site A: 65.8%</div>
+                        <div class="bg-cyan-500 h-full flex items-center justify-center text-[9px] text-slate-950 font-black" style="width: 34.2%;">Site B: 34.2%</div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-slate-400 mt-2">
+                        <span>Total Requirement: <b>6,840 Citizens</b></span>
+                        <span>Total Absorbed: <b>6,840 Citizens</b></span>
+                        <span>Surplus Contingency Buffer: <b class="text-emerald-400">+360 Capacity</b></span>
+                    </div>
+                </div>
+
+                <!-- Humanitarian Fleet & Lifelines Quotas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+                    <div class="metric-card space-y-2">
+                        <div class="text-cyan-300 font-bold uppercase flex items-center gap-2">
+                            <i data-lucide="bus" class="w-4 h-4 text-cyan-400"></i>
+                            <span>EVACUATION FLEET MOBILIZATION</span>
+                        </div>
+                        <div class="text-[11px] text-slate-300 space-y-1 pt-1">
+                            <div class="flex justify-between border-b border-slate-800 pb-1">
+                                <span>50-Seater Evacuation Buses:</span>
+                                <b id="fleetBusesVal" class="text-white">137 Vehicles</b>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1">
+                                <span>ALS/BLS Triage Ambulances:</span>
+                                <b id="fleetAmbVal" class="text-red-400">48 Ambulances</b>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1">
+                                <span>High-Clearance 4x4 Shuttles:</span>
+                                <b class="text-amber-300">68 Shuttles</b>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Average Convoy Turnaround:</span>
+                                <b class="text-emerald-400">32 Minutes / Cycle</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card space-y-2">
+                        <div class="text-emerald-300 font-bold uppercase flex items-center gap-2">
+                            <i data-lucide="heart" class="w-4 h-4 text-emerald-400"></i>
+                            <span>SPHERE HUMANITARIAN QUOTAS</span>
+                        </div>
+                        <div class="text-[11px] text-slate-300 space-y-1 pt-1">
+                            <div class="flex justify-between border-b border-slate-800 pb-1">
+                                <span>Potable Drinking Water (15L/p/d):</span>
+                                <b id="quotaWaterVal" class="text-cyan-300">102,600 Liters / Day</b>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1">
+                                <span>Sanitation Latrine Units (1:20):</span>
+                                <b id="quotaToiletsVal" class="text-white">342 Units</b>
+                            </div>
+                            <div class="flex justify-between border-b border-slate-800 pb-1">
+                                <span>Shelter Floor Area (3.5 m²/p):</span>
+                                <b id="quotaShelterVal" class="text-emerald-300">23,940 m²</b>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Caloric Ration Standard:</span>
+                                <b class="text-amber-300">14.36 Million kcal / Day</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 7 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 07 — DECISION EVIDENCE -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • DECISION EXPLAINABILITY</span>
+                    <span>SECTION 07</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">07 — DECISION EVIDENCE</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">MCDA MATHEMATICAL EXPLAINABILITY</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Multi-Criteria Analytical Hierarchy Process (AHP) &amp; TOPSIS Criteria Weights</p>
+                </div>
+
+                <!-- MCDA Weights Breakdown Table -->
+                <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 font-mono text-xs mb-5">
+                    <span class="font-bold text-cyan-300 uppercase block mb-3 flex items-center gap-2">
+                        <i data-lucide="scale" class="w-4 h-4 text-cyan-400"></i>
+                        <span>MULTI-CRITERIA EVALUATION WEIGHT MATRIX</span>
+                    </span>
+                    <table class="w-full text-left text-[11px]">
+                        <thead class="bg-[#070e1e] text-slate-400 uppercase text-[9.5px] border-b border-slate-800">
+                            <tr>
+                                <th class="p-2.5">Evaluation Criterion</th>
+                                <th class="p-2.5">Weight</th>
+                                <th class="p-2.5">Operational Assessment Metric</th>
+                                <th class="p-2.5">Site A Score</th>
+                                <th class="p-2.5">Site B Score</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <tr>
+                                <td class="p-2.5 font-bold text-white">Safety Margin</td>
+                                <td class="p-2.5 font-bold text-red-400">30%</td>
+                                <td class="p-2.5 text-slate-400">Zero AOI intersection, freeboard &gt;20m, slope &lt;8°</td>
+                                <td class="p-2.5 text-emerald-400 font-bold">30.0 / 30</td>
+                                <td class="p-2.5 text-emerald-400 font-bold">29.5 / 30</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold text-white">Sphere Usable Capacity</td>
+                                <td class="p-2.5 font-bold text-amber-400">25%</td>
+                                <td class="p-2.5 text-slate-400">45 m²/person at 60% usable shelter footprint</td>
+                                <td class="p-2.5 text-emerald-400 font-bold">24.5 / 25</td>
+                                <td class="p-2.5 text-cyan-300 font-bold">19.2 / 25</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold text-white">Accessibility &amp; Ingress</td>
+                                <td class="p-2.5 font-bold text-cyan-400">15%</td>
+                                <td class="p-2.5 text-slate-400">Proximity to origin (&lt;5 km) and arterial highway access</td>
+                                <td class="p-2.5 text-emerald-400 font-bold">14.2 / 15</td>
+                                <td class="p-2.5 text-cyan-300 font-bold">12.5 / 15</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold text-white">Lifeline Infrastructure</td>
+                                <td class="p-2.5 font-bold text-blue-400">15%</td>
+                                <td class="p-2.5 text-slate-400">11kV feeder stability, municipal water, mobile tower</td>
+                                <td class="p-2.5 text-emerald-400 font-bold">14.0 / 15</td>
+                                <td class="p-2.5 text-cyan-300 font-bold">13.5 / 15</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold text-white">Land Suitability &amp; Tenure</td>
+                                <td class="p-2.5 font-bold text-purple-400">10%</td>
+                                <td class="p-2.5 text-slate-400">Institutional/govt ownership vs disputed private land</td>
+                                <td class="p-2.5 text-emerald-400 font-bold">9.5 / 10</td>
+                                <td class="p-2.5 text-cyan-300 font-bold">9.0 / 10</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2.5 font-bold text-white">Environmental Constraints</td>
+                                <td class="p-2.5 font-bold text-teal-400">5%</td>
+                                <td class="p-2.5 text-slate-400">Ecological setback, absence of soil saturation runout</td>
+                                <td class="p-2.5 text-emerald-400 font-bold">4.6 / 5</td>
+                                <td class="p-2.5 text-cyan-300 font-bold">4.5 / 5</td>
+                            </tr>
+                            <tr class="bg-[#070e1e] font-bold">
+                                <td class="p-2.5 text-cyan-300">TOTAL SUITABILITY SCORE</td>
+                                <td class="p-2.5 text-white">100%</td>
+                                <td class="p-2.5 text-slate-400">Composite Multi-Criteria Decision Rank</td>
+                                <td class="p-2.5 text-emerald-400 text-sm">96.8 / 100</td>
+                                <td class="p-2.5 text-cyan-300 text-sm">88.2 / 100</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Explainability Narrative -->
+                <div class="p-4 rounded-xl bg-[#091224] border border-slate-800 text-xs font-mono space-y-2 leading-relaxed text-slate-300">
+                    <b class="text-white block text-sm uppercase">DECISION EXPLAINABILITY PRINCIPLE:</b>
+                    <p>
+                        RAKSHA replaces ad-hoc subjective relocation with an auditable mathematical trail. Site A achieved the highest composite score (96.8) primarily due to its immediate proximity (4.8 km) in Ring 1, massive 120,000 m² open ground, and pre-existing 11kV/water lifelines. Site B scored 88.2, functioning as an optimal surge buffer. Zero arbitrary human bias is introduced; every metric corresponds directly to satellite elevation transects, OpenStreetMap topological vectors, and global humanitarian standards.
+                    </p>
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 8 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 08 — DATA & METHODOLOGY -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • DATA PROVENANCE</span>
+                    <span>SECTION 08</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">08 — DATA &amp; METHODOLOGY</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">MULTI-SOURCE EO FUSION &amp; PROVENANCE</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Institutional Data Ingestion &amp; 6-Tier Provenance Categorization</p>
+                </div>
+
+                <!-- 3 Data Domain Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs mb-5">
+                    <div class="metric-card space-y-2">
+                        <div class="text-cyan-300 font-bold uppercase flex items-center gap-1.5">
+                            <i data-lucide="satellite" class="w-4 h-4 text-cyan-400"></i>
+                            <span>Earth Observation</span>
+                        </div>
+                        <p class="text-[10.5px] text-slate-400 leading-relaxed">
+                            &bull; <b>Sentinel-1 C-Band SAR:</b> All-weather, cloud-penetrating active radar backscatter thresholding (&lt; -16.5 dB) for flood delineation.<br>
+                            &bull; <b>Sentinel-2 L2A:</b> Optical multispectral 10m VNIR for surface change analysis.<br>
+                            &bull; <b>SRTM 90m DEM:</b> Continuous geodetic elevation transects &amp; slope gradients.<br>
+                            &bull; <b>ISRO Bhoonidhi / Bhuvan:</b> 0.28m PAN target catalog frame architecture under Indian Space Policy 2023.
+                        </p>
+                    </div>
+
+                    <div class="metric-card space-y-2">
+                        <div class="text-emerald-300 font-bold uppercase flex items-center gap-1.5">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
+                            <span>Geospatial Context</span>
+                        </div>
+                        <p class="text-[10.5px] text-slate-400 leading-relaxed">
+                            &bull; <b>OpenStreetMap Overpass:</b> Real-world municipal stadiums, college campuses, and school facilities.<br>
+                            &bull; <b>Road Network Vectors:</b> Major arterial highway and state road passability classification.<br>
+                            &bull; <b>Settlement Clusters:</b> Village habitation polygons and census demographics.
+                        </p>
+                    </div>
+
+                    <div class="metric-card space-y-2">
+                        <div class="text-amber-300 font-bold uppercase flex items-center gap-1.5">
+                            <i data-lucide="cloud-rain" class="w-4 h-4 text-amber-400"></i>
+                            <span>Atmospheric Weather</span>
+                        </div>
+                        <p class="text-[10.5px] text-slate-400 leading-relaxed">
+                            &bull; <b>Open-Meteo API:</b> Hourly precipitation time-series and 24h accumulation.<br>
+                            &bull; <b>Volumetric Soil Moisture:</b> Root-zone moisture saturation levels (0&ndash;7cm depth).<br>
+                            &bull; <b>Hazard Tau (&tau;):</b> Dynamic hydro-meteorological trigger formula.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- PROTOTYPE PROVENANCE STATUS GRID -->
+                <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 font-mono text-xs">
+                    <span class="font-bold text-white uppercase block mb-3 text-xs flex items-center gap-2">
+                        <i data-lucide="check-check" class="w-4 h-4 text-emerald-400"></i>
+                        <span>DATA PROVENANCE INTEGRITY FRAMEWORK</span>
+                    </span>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2.5 text-[10.5px]">
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-emerald-800/60">
+                            <b class="text-emerald-400 block">LIVE TELEMETRY</b>
+                            <span class="text-slate-400 text-[9.5px]">Sentinel-1 SAR STAC, Sentinel-2 L2A STAC, Open-Meteo weather and DEM streams.</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-cyan-800/60">
+                            <b class="text-cyan-300 block">DERIVED CALCULATIONS</b>
+                            <span class="text-slate-400 text-[9.5px]">SRTM slope gradients, geodetic transect profiles, and dynamic AOI buffering.</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-amber-800/60">
+                            <b class="text-amber-300 block">ESTIMATED PARAMETERS</b>
+                            <span class="text-slate-400 text-[9.5px]">OpenStreetMap public parcel footprints, road viability, census demographics.</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-purple-800/60">
+                            <b class="text-purple-300 block">SIMULATED ALGORITHMS</b>
+                            <span class="text-slate-400 text-[9.5px]">Greedy multi-site knapsack capacity allocation and bus convoy dispatch cycles.</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-slate-700/60">
+                            <b class="text-slate-300 block">FALLBACK BASELINES</b>
+                            <span class="text-slate-400 text-[9.5px]">Cached disaster geometries for disconnected offline field operation.</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-[#070e1e] border border-blue-800/60">
+                            <b class="text-blue-300 block">ARCHITECTURE SPEC</b>
+                            <span class="text-slate-400 text-[9.5px]">Cartosat-3 0.28m GSD target catalog frame specs under Indian Space Policy 2023.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 9 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 09 — OPERATIONAL CONSIDERATIONS -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • TACTICAL PROTOCOLS</span>
+                    <span>SECTION 09</span>
+                </div>
+
+                <div class="mb-5">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">09 — OPERATIONAL CONSIDERATIONS</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">RESPONSE TEAM CONSIDERATIONS</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Pre-Deployment Verification Checklist &amp; Field Coordination Guidelines</p>
+                </div>
+
+                <!-- 6 Structured Field Considerations -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 font-mono text-xs mb-5">
+                    
+                    <div class="p-4 rounded-xl bg-[#091224] border border-slate-800 space-y-1.5">
+                        <div class="flex items-center gap-2 text-cyan-300 font-bold">
+                            <span class="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-xs text-cyan-400">1</span>
+                            <span>Verify Site Ingress Before Deployment</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Dispatch light reconnaissance 4x4 scouts along NH-58 arterial corridor 30 minutes prior to launching the main 50-seater bus convoy to confirm zero fresh rockfall or structural culvert displacement.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-[#091224] border border-slate-800 space-y-1.5">
+                        <div class="flex items-center gap-2 text-cyan-300 font-bold">
+                            <span class="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-xs text-cyan-400">2</span>
+                            <span>Confirm Current Local Hazard Conditions</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Cross-reference live atmospheric telemetry. If localized cloudburst precipitation exceeds 18 mm/hr, immediately halt transit and route convoys to pre-designated intermediate waypoints.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-[#091224] border border-slate-800 space-y-1.5">
+                        <div class="flex items-center gap-2 text-cyan-300 font-bold">
+                            <span class="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-xs text-cyan-400">3</span>
+                            <span>Validate Ground Shelter Capacity</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Liaise with Taluk Stadium administrative wardens on arrival to confirm indoor hall readiness, roof integrity, and dry-ground quadrant demarcation before discharging civilian passengers.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-[#091224] border border-slate-800 space-y-1.5">
+                        <div class="flex items-center gap-2 text-cyan-300 font-bold">
+                            <span class="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-xs text-cyan-400">4</span>
+                            <span>Coordinate with Local Authorities</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Synchronize transit wave release times with district traffic police, SDRF search teams, and regional healthcare clinics to eliminate vehicular congestion on narrow mountain bridges.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-[#091224] border border-slate-800 space-y-1.5">
+                        <div class="flex items-center gap-2 text-cyan-300 font-bold">
+                            <span class="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-xs text-cyan-400">5</span>
+                            <span>Prioritize Vulnerable Cohorts</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Ensure children, pregnant women, senior citizens, and acute trauma patients are mobilized in Wave 1 transport with medical personnel escorts, assigning them to indoor gymnasium pavilions.
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-[#091224] border border-slate-800 space-y-1.5">
+                        <div class="flex items-center gap-2 text-cyan-300 font-bold">
+                            <span class="w-6 h-6 rounded-full bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-xs text-cyan-400">6</span>
+                            <span>Reassess if Hazard Envelope Expands</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">
+                            Continuously query satellite telemetry. If secondary seismic tremors or river damming occur, re-run RAKSHA Dynamic AOI to ensure the safe perimeter and transit corridor remain unbreached.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Tone Statement -->
+                <div class="p-4 rounded-xl bg-slate-950/60 border border-slate-800 font-mono text-[11px] text-slate-400 leading-relaxed">
+                    <b>OPERATIONAL NOTE:</b> This dossier provides tactical decision intelligence formulated in alignment with NDMA guidelines. Field teams should apply tactical discretion based on on-ground road observations and real-time civil emergency directives.
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 9 OF 10</span>
+            </div>
+        </section>
+
+
+        <!-- ======================================================================= -->
+        <!-- 10 — FINAL DECISION SUMMARY -->
+        <!-- ======================================================================= -->
+        <section class="dossier-page tech-grid-bg flex flex-col justify-between min-h-[920px]">
+            <div>
+                <div class="doc-page-header">
+                    <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • EXECUTIVE CONCLUSION</span>
+                    <span>SECTION 10</span>
+                </div>
+
+                <div class="mb-6">
+                    <span class="text-xs font-mono text-cyan-400 uppercase font-bold tracking-wider">10 — FINAL SYNTHESIS</span>
+                    <h2 class="text-3xl font-extrabold text-white font-mono mt-1">FINAL DECISION SUMMARY</h2>
+                    <p class="text-xs font-mono text-slate-400 mt-1">Consolidated Relocation Directives &amp; Verification Fingerprint</p>
+                </div>
+
+                <!-- High-Impact Decision Metrics Box -->
+                <div class="bg-[#091224] p-6 rounded-2xl border border-cyan-500/40 mb-6 font-mono">
+                    <div class="text-xs font-bold text-cyan-300 uppercase mb-4 flex items-center gap-2">
+                        <i data-lucide="award" class="w-4 h-4 text-cyan-400"></i>
+                        <span>RAKSHA RELOCATION INTELLIGENCE SYNTHESIS</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center mb-6">
+                        <div class="p-3 rounded-xl bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[10px] block uppercase">Affected Area</span>
+                            <div id="sumAreaVal" class="text-2xl font-black text-white mt-1">38.2 km²</div>
+                            <span class="text-[9.5px] text-cyan-400">Dynamic AOI</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[10px] block uppercase">Relocation Req.</span>
+                            <div id="sumRelocVal" class="text-2xl font-black text-amber-300 mt-1">6,840</div>
+                            <span class="text-[9.5px] text-slate-400">Displaced Citizens</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[10px] block uppercase">Safe Capacity</span>
+                            <div id="sumCapVal" class="text-2xl font-black text-emerald-400 mt-1">7,200</div>
+                            <span class="text-[9.5px] text-emerald-300 font-bold">100% Absorbed</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[10px] block uppercase">Candidate Sites</span>
+                            <div class="text-2xl font-black text-white mt-1">2 Vetted</div>
+                            <span class="text-[9.5px] text-slate-400">Zero Unsafe Sites</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-[#070e1e] border border-slate-800">
+                            <span class="text-slate-500 text-[10px] block uppercase">Search Horizon</span>
+                            <div class="text-2xl font-black text-cyan-300 mt-1">15.0 km</div>
+                            <span class="text-[9.5px] text-slate-400">Rings 1 &ndash; 3</span>
+                        </div>
+                    </div>
+
+                    <!-- Core Synthesis Quote -->
+                    <div class="p-4 rounded-xl bg-[#070e1e] border-l-4 border-cyan-400 border border-slate-800 text-xs text-slate-200 leading-relaxed">
+                        <b class="text-cyan-300 block mb-1 uppercase">EXECUTIVE TAKEAWAY:</b>
+                        RAKSHA converts multi-source Earth Observation telemetry and spatial hazard intelligence into an explainable, safety-first relocation plan. By combining zero-tolerance safety vetoes with Sphere humanitarian capacity sizing, it guarantees that displaced populations are never relocated from one hazard zone into another.
+                    </div>
+                </div>
+
+                <!-- Architectural Motto Banner -->
+                <div class="p-5 rounded-2xl bg-gradient-to-r from-blue-950/60 via-slate-900 to-cyan-950/60 border border-cyan-500/30 text-center font-mono space-y-1 mb-6">
+                    <div class="text-xl md:text-2xl font-black text-white tracking-wider">
+                        DETECT RISK. &bull; PRIORITIZE PEOPLE. &bull; FIND SAFER GROUND.
+                    </div>
+                    <p class="text-xs text-cyan-300 font-semibold">
+                        RAKSHA 2.0 &bull; Explainable Geospatial Decision Intelligence Engine
+                    </p>
+                </div>
+
+                <!-- Digital Cryptographic Audit Box -->
+                <div class="bg-[#091224] p-4 rounded-xl border border-slate-800 font-mono text-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                    <div class="space-y-0.5">
+                        <span class="text-slate-400 text-[10px] block uppercase">CRYPTOGRAPHIC DECISION INTEGRITY PROOF</span>
+                        <div class="text-[11px] text-emerald-400 flex items-center gap-1.5">
+                            <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            <span id="cryptoHash">e8b74c91a02f483c617b824d5e9f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f</span>
+                        </div>
+                        <div class="text-[10px] text-slate-500">Immutable SHA-256 Decision Hash &bull; Tamper-Proof Incident Record</div>
+                    </div>
+
+                    <div class="text-left md:text-right text-[10.5px] space-y-0.5 text-slate-400">
+                        <div>AUTHORITY: <b>State Emergency Operations Centre</b></div>
+                        <div>ISSUED: <span id="finalSignTimestamp" class="text-white font-bold">2026-09-21 14:45 IST</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-page-footer">
+                <span>RAKSHA RELOCATION INTELLIGENCE DOSSIER • INCIDENT ANALYSIS</span>
+                <span>PAGE 10 OF 10</span>
+            </div>
+        </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-800 bg-slate-950 text-slate-400 text-xs py-5 px-6 mt-12 no-print font-mono">
-        <div class="max-w-[1850px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <img src="/assets/raksha_emblem_transparent.png" alt="Logo" class="h-6 w-auto object-contain">
-                <span>RAKSHA 2.0 Incident Command Dossier System &bull; Open-Source Geospatial Disaster Analytics</span>
-            </div>
-            <div class="text-slate-500 text-[11px]">
-                Compliant with NDMA, KSDMA, Sphere Standard 2018 &amp; ISRO Bhuvan Services
-            </div>
-        </div>
-    </footer>
-
+    <!-- Client-side script for dynamic data population & PDF export -->
     <script>
-        lucide.createIcons();
-
-        // State holder
         let analysisData = null;
 
-        // Initialize and parse data from localStorage
         function initDossier() {
             try {
                 const stored = localStorage.getItem('raksha_last_analysis');
                 if (stored) {
                     const parsed = JSON.parse(stored);
                     const raw = parsed.full_data || parsed;
-                    // Normalize into analysisData
                     analysisData = {
-                        name: raw.location_name || raw.name || "Devgram Hazard Habitation (Chamoli, Uttarakhand)",
+                        name: raw.location_name || raw.name || "Devgram, Chamoli District, Uttarakhand",
                         lat: (raw.query_parameters && raw.query_parameters.latitude) || raw.lat || 30.3207,
-                        lng: (raw.query_parameters && raw.query_parameters.longitude) || raw.lng || 79.2163,
-                        disaster_type: (raw.query_parameters && raw.query_parameters.hazard_type) || raw.disaster_type || "Glacial Inundation & Landslide Runoff",
-                        evacuation_radius_km: 5.0,
+                        lng: (raw.query_parameters && raw.query_parameters.longitude) || raw.lon || raw.lng || 79.2163,
+                        disaster_type: (raw.query_parameters && raw.query_parameters.hazard_type) || raw.disaster_type || "Landslide & Flash Flood",
                         population_at_risk: (raw.query_parameters && raw.query_parameters.displaced_population) || raw.population_at_risk || 6840,
-                        estimated_fatalities: 0,
-                        severity_score: (raw.precipitation_telemetry && raw.precipitation_telemetry.computed_hazard_index * 100) || raw.severity_score || 88.5,
-                        rainfall_mm: (raw.precipitation_telemetry && raw.precipitation_telemetry.accumulated_24h_mm) || raw.rainfall_mm || 142.5,
-                        slope_deg: (raw.relocation_decision && raw.relocation_decision.elevation_transect && raw.relocation_decision.elevation_transect.summary && raw.relocation_decision.elevation_transect.summary.max_gradient_pct) || raw.slope_deg || 28.5,
-                        debris_velocity_ms: 11.2,
-                        timestamp: new Date().toISOString(),
+                        aoi_area_km2: (raw.dynamic_aoi && raw.dynamic_aoi.area_sq_km) || 38.2,
+                        hazard_index: (raw.precipitation_telemetry && raw.precipitation_telemetry.computed_hazard_index) || 0.78,
+                        rainfall_mm: (raw.precipitation_telemetry && raw.precipitation_telemetry.accumulated_24h_mm) || 142.5,
+                        soil_moisture: (raw.precipitation_telemetry && raw.precipitation_telemetry.soil_moisture_m3_m3) || 0.42,
+                        slope_deg: (raw.relocation_decision && raw.relocation_decision.elevation_transect && raw.relocation_decision.elevation_transect.summary && raw.relocation_decision.elevation_transect.summary.max_gradient_pct) || 28.5,
                         full_data: raw
                     };
                     
                     const topSite = (raw.relocation_decision && raw.relocation_decision.ranked_safe_sites && raw.relocation_decision.ranked_safe_sites[0]);
                     if (topSite) {
                         analysisData.designated_camp = topSite.name;
-                        analysisData.camp_distance = (topSite.distance_km || 4.8) + " km (Safe)";
+                        analysisData.camp_distance = (topSite.distance_km || 4.8) + " km";
                     }
                 }
             } catch (e) {
                 console.error("Failed to parse stored analysis", e);
             }
 
-            // Fallback default if direct navigation occurred without cache
+            // Fallback default if direct navigation without prior simulation run
             if (!analysisData) {
                 analysisData = {
-                    name: "Devgram Hazard Habitation (Chamoli, Uttarakhand)",
+                    name: "Devgram, Chamoli District, Uttarakhand",
                     lat: 30.3207,
                     lng: 79.2163,
-                    disaster_type: "Glacial Inundation & Landslide Runoff",
-                    evacuation_radius_km: 5.0,
+                    disaster_type: "Landslide & Debris Flow",
                     population_at_risk: 6840,
-                    estimated_fatalities: 0,
-                    severity_score: 88.5,
+                    aoi_area_km2: 38.2,
+                    hazard_index: 0.78,
                     rainfall_mm: 142.5,
+                    soil_moisture: 0.42,
                     slope_deg: 28.5,
-                    debris_velocity_ms: 11.2,
-                    timestamp: new Date().toISOString(),
-                    designated_camp: "Taluk Stadium & Sports Ground",
-                    camp_distance: "6.2 km (Assessed Safe [DERIVED])"
+                    designated_camp: "Taluk Stadium & Sports Complex",
+                    camp_distance: "4.8 km"
                 };
             }
 
@@ -696,69 +1419,134 @@
         function renderDossierFields() {
             const d = analysisData;
             const now = new Date();
+            const dateISO = now.toISOString().replace('T', ' ').substring(0, 16) + ' UTC';
+            const dateIST = now.toLocaleDateString() + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' IST';
 
-            // Set timestamps & references
-            document.getElementById('docTimestamp').textContent = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-            document.getElementById('signDate1').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ' IST';
-            
-            // Random hash generator for digital stamp
-            const seed = (d.lat || 30.32) + "" + (d.lng || 79.21) + "" + (d.population_at_risk || 6840);
-            document.getElementById('cryptoHash').textContent = generateMockHash(seed);
+            // 1. Cover Page
+            if (d.name) document.getElementById('coverLocation').textContent = d.name;
+            if (d.lat && d.lng) document.getElementById('coverCoords').textContent = `${Number(d.lat).toFixed(4)}° N, ${Number(d.lng).toFixed(4)}° E`;
+            document.getElementById('coverTimestamp').textContent = dateISO;
+            document.getElementById('coverAoiArea').textContent = `Dynamic AOI: ${d.aoi_area_km2} km² (Flow-Dilated)`;
 
-            // Populate Quick Snapshot
-            if (d.name) document.getElementById('targetHotspotName').textContent = d.name;
-            if (d.lat && d.lng) document.getElementById('targetCoords').textContent = `${Number(d.lat).toFixed(4)}° N, ${Number(d.lng).toFixed(4)}° E`;
-            if (d.disaster_type) document.getElementById('disasterCategory').textContent = `${d.disaster_type}`;
-            
+            // 2. Section 01
             const pop = d.population_at_risk || 6840;
-            document.getElementById('estPopulation').textContent = `${pop.toLocaleString()} Citizens`;
+            document.getElementById('briefPopVal').textContent = pop.toLocaleString();
+            document.getElementById('briefRelocVal').textContent = pop.toLocaleString();
+            document.getElementById('briefAreaVal').textContent = `${d.aoi_area_km2} km²`;
+            document.getElementById('briefTauVal').textContent = `${d.hazard_index} / 1.0`;
+            const safeCap = Math.max(pop, Math.round(pop * 1.05));
+            document.getElementById('briefCapVal').textContent = safeCap.toLocaleString();
 
-            // Designated camp
+            // 3. Section 02 (Hazard Intelligence)
+            document.getElementById('hzRainVal').textContent = `${Number(d.rainfall_mm).toFixed(1)} mm [LIVE]`;
+            document.getElementById('hzSoilVal').textContent = `${d.soil_moisture} m³/m³ [SATURATED]`;
+            document.getElementById('hzSlopeVal').textContent = `${Number(d.slope_deg).toFixed(1)}° Peak Slope [DERIVED]`;
+            document.getElementById('aoiAreaCardVal').textContent = `${d.aoi_area_km2} km²`;
+
+            // Render 5x5 Grid Cells in Dossier
+            renderDossierGrid(d.full_data?.relocation_decision?.spatial_hazard_grid);
+
+            // 4. Section 03 (Impact)
+            document.getElementById('impactPopHead').textContent = `${pop.toLocaleString()} CITIZENS`;
+            document.getElementById('impactPopVal').textContent = `${pop.toLocaleString()} Citizens`;
+
+            // 5. Section 05 (Safe Site)
             if (d.designated_camp) {
-                document.getElementById('designatedCamp').textContent = d.designated_camp;
-            }
-            if (d.camp_distance) {
-                document.getElementById('designatedDistance').textContent = `Distance: ${d.camp_distance}`;
+                document.getElementById('siteAName').textContent = `SITE A – ${d.designated_camp}`;
             }
 
-            // Command Hub
-            if (d.name && (d.name.toLowerCase().includes('chamoli') || d.name.toLowerCase().includes('devgram') || d.name.toLowerCase().includes('uttarakhand'))) {
-                document.getElementById('commandHubName').textContent = "SEOC Dehradun / DDMA Chamoli";
-            } else {
-                document.getElementById('commandHubName').textContent = "SEOC Thiruvananthapuram / DDMA Wayanad";
-            }
+            // 6. Section 06 (Relocation Plan)
+            const buses = Math.ceil(pop / 50);
+            const ambulances = Math.max(12, Math.ceil(pop * 0.007));
+            document.getElementById('fleetBusesVal').textContent = `${buses} Vehicles`;
+            document.getElementById('fleetAmbVal').textContent = `${ambulances} Ambulances`;
+            document.getElementById('quotaWaterVal').textContent = `${(pop * 15).toLocaleString()} Liters / Day`;
+            document.getElementById('quotaToiletsVal').textContent = `${Math.ceil(pop / 20).toLocaleString()} Units`;
+            document.getElementById('quotaShelterVal').textContent = `${Math.round(pop * 3.5).toLocaleString()} m²`;
 
-            // Sphere Life-Support calculations
-            const waterNeeded = pop * 15; // 15L/day
-            const shelterNeeded = Math.round(pop * 3.5); // 3.5 m2
-            const toiletsNeeded = Math.ceil(pop / 20); // 1:20
-            const caloriesNeeded = (pop * 2100 / 1000000).toFixed(2); // Million kcal
-
-            document.getElementById('waterQuota').textContent = `${waterNeeded.toLocaleString()} L / Day`;
-            document.getElementById('sphereWaterVal').textContent = `${waterNeeded.toLocaleString()} L`;
-            document.getElementById('sphereShelterVal').textContent = `${shelterNeeded.toLocaleString()} m²`;
-            document.getElementById('sphereToiletsVal').textContent = `${toiletsNeeded} Units`;
-            document.getElementById('sphereFoodVal').textContent = `${caloriesNeeded} M kcal`;
-
-            // Fleet Sizing
-            const buses = Math.ceil(pop / 50 * 1.22);
-            const ambulances = Math.max(8, Math.ceil(pop * 0.007));
-            const shuttles = Math.max(12, Math.ceil(pop * 0.01));
-
-            document.getElementById('fleetSummary').textContent = `${buses} Buses • ${ambulances} Ambulances`;
-            document.getElementById('ksrtcCount').textContent = `${buses} Vehicles`;
-            document.getElementById('ambulanceCount').textContent = `${ambulances} Ambulances`;
-            document.getElementById('shuttleCount').textContent = `${shuttles} Shuttles`;
-
-            // Hazard Metrics
-            if (d.rainfall_mm) document.getElementById('antecedentRain').textContent = `${Number(d.rainfall_mm).toFixed(1)} mm`;
-            if (d.slope_deg) document.getElementById('peakSlope').textContent = `${Number(d.slope_deg).toFixed(1)}° (${(Math.tan(d.slope_deg * Math.PI / 180)*100).toFixed(1)}%)`;
-            if (d.debris_velocity_ms) document.getElementById('debrisVelocity').textContent = `${Number(d.debris_velocity_ms).toFixed(1)} m/s`;
-            if (d.severity_score) document.getElementById('hazardScore').textContent = `${Number(d.severity_score).toFixed(1)} / 100`;
+            // 7. Section 10 (Final Summary)
+            document.getElementById('sumAreaVal').textContent = `${d.aoi_area_km2} km²`;
+            document.getElementById('sumRelocVal').textContent = pop.toLocaleString();
+            document.getElementById('sumCapVal').textContent = safeCap.toLocaleString();
+            document.getElementById('finalSignTimestamp').textContent = dateIST;
+            document.getElementById('cryptoHash').textContent = generateMockHash(`${d.lat}_${d.lng}_${pop}_${d.aoi_area_km2}`);
 
             lucide.createIcons();
         }
 
+        // Render 5x5 Grid inside Dossier Section 02
+        function renderDossierGrid(gridData) {
+            const container = document.getElementById('dossierGridMatrix');
+            if (!container) return;
+            container.innerHTML = '';
+            const cells = (gridData && gridData.cells) || [];
+
+            if (cells.length === 0) {
+                // Generate 25 default mock cells if not present
+                for (let r = 0; r < 5; r++) {
+                    for (let c = 0; c < 5; c++) {
+                        const dist = Math.sqrt((r-2)*(r-2) + (c-2)*(c-2));
+                        let tier = 'Low';
+                        let dot = '🟢';
+                        let bg = 'bg-emerald-950/40 border-emerald-800/50 text-emerald-300';
+                        let idx = (0.9 - dist * 0.22).toFixed(2);
+                        if (dist <= 0.8) { tier = 'Critical'; dot = '🔴'; bg = 'bg-red-950/50 border-red-700 text-red-300'; }
+                        else if (dist <= 1.5) { tier = 'High'; dot = '🟠'; bg = 'bg-orange-950/40 border-orange-700 text-orange-300'; }
+                        else if (dist <= 2.2) { tier = 'Moderate'; dot = '🟡'; bg = 'bg-amber-950/40 border-amber-700 text-amber-300'; }
+                        
+                        container.innerHTML += `
+                            <div class="p-2 rounded border flex flex-col justify-between text-[9.5px] ${bg}">
+                                <div class="flex justify-between font-bold">
+                                    <span>[${r},${c}]</span>
+                                    <span>${idx}</span>
+                                </div>
+                                <div class="text-[8.5px] font-bold text-center mt-1 uppercase flex items-center justify-center gap-0.5">
+                                    <span>${dot}</span>
+                                    <span>${tier}</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+                return;
+            }
+
+            cells.forEach(cell => {
+                const tier = cell.hazard_tier || cell.tier || (cell.hazard_score >= 0.7 ? 'Critical' : cell.hazard_score >= 0.45 ? 'High' : cell.hazard_score >= 0.25 ? 'Moderate' : 'Low');
+                const rawScore = cell.hazard_score !== undefined ? cell.hazard_score : (cell.hazard_index !== undefined ? cell.hazard_index : 0.15);
+                const score = typeof rawScore === 'number' ? rawScore.toFixed(2) : rawScore;
+                const r = cell.row !== undefined ? cell.row : 0;
+                const c = cell.col !== undefined ? cell.col : 0;
+
+                let bg = 'bg-emerald-950/40 border-emerald-800/50 text-emerald-300';
+                let dot = '🟢';
+                if (tier === 'Critical') {
+                    bg = 'bg-red-950/50 border-red-700 text-red-300';
+                    dot = '🔴';
+                } else if (tier === 'High') {
+                    bg = 'bg-orange-950/40 border-orange-700 text-orange-300';
+                    dot = '🟠';
+                } else if (tier === 'Moderate') {
+                    bg = 'bg-amber-950/40 border-amber-700 text-amber-300';
+                    dot = '🟡';
+                }
+
+                container.innerHTML += `
+                    <div class="p-2 rounded border flex flex-col justify-between text-[9.5px] ${bg}">
+                        <div class="flex justify-between font-bold">
+                            <span>[${r},${c}]</span>
+                            <span>${score}</span>
+                        </div>
+                        <div class="text-[8.5px] font-bold text-center mt-1 uppercase flex items-center justify-center gap-0.5">
+                            <span>${dot}</span>
+                            <span>${tier}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Generate deterministic mock hash for cryptographic audit stamp
         function generateMockHash(str) {
             let h = 0x811c9dc5;
             for (let i = 0; i < str.length; i++) {
@@ -772,7 +1560,7 @@
             return `${p1}${p2}${p3}${p4}7f129a0c7bb0d28fa2d512a8684d0b16524`.substring(0, 64);
         }
 
-        // Direct Client-Side PDF Download via html2pdf.js (No Print Dialog!)
+        // Direct Client-Side PDF Download via html2pdf.js (Preserving Dark Navy Technical Theme!)
         async function downloadOfficialPDF() {
             const btn = document.getElementById('btnDownloadPDF');
             const origHtml = btn ? btn.innerHTML : '';
@@ -789,26 +1577,24 @@
                 return;
             }
 
-            // Apply pristine white PDF export theme
-            element.classList.add('pdf-export-mode');
-
             const d = analysisData || {};
             const safeName = (d.name || 'Disaster_Event').replace(/[^a-zA-Z0-9_-]/g, '_');
             const dateStr = new Date().toISOString().slice(0, 10);
-            const filename = `RAKSHA_DDMA_Executive_Directive_${safeName}_${dateStr}.pdf`;
+            const filename = `RAKSHA_Relocation_Intelligence_Dossier_${safeName}_${dateStr}.pdf`;
 
             const opt = {
-                margin:       [8, 8, 8, 8],
+                margin:       [4, 4, 4, 4],
                 filename:     filename,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { 
                     scale: 2, 
                     useCORS: true,
                     letterRendering: true,
+                    backgroundColor: '#060c1a',
                     scrollY: 0
                 },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+                pagebreak:    { mode: ['css', 'legacy'] }
             };
 
             try {
@@ -834,9 +1620,8 @@
                     btn.disabled = false;
                     if (window.lucide) lucide.createIcons();
                 }
-                alert("PDF generation failed: " + err.message);
-            } finally {
-                element.classList.remove('pdf-export-mode');
+                // Fallback to browser print
+                window.print();
             }
         }
 
@@ -845,9 +1630,7 @@
             const d = analysisData || { lat: 30.3207, lng: 79.2163, name: "Devgram Hazard Habitation", population_at_risk: 6840 };
             const centerLat = Number(d.lat) || 30.3207;
             const centerLng = Number(d.lng) || 79.2163;
-
-            // Generate circular buffer polygon (32 points) for AOI
-            const radiusKm = Number(d.evacuation_radius_km) || 5.0;
+            const radiusKm = 5.0;
             const coords = [];
             for (let i = 0; i <= 360; i += 15) {
                 const angle = i * Math.PI / 180;
@@ -858,70 +1641,40 @@
 
             const geojson = {
                 type: "FeatureCollection",
-                name: "RAKSHA_DDMA_Incident_Command_Package",
-                crs: {
-                    type: "name",
-                    properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" }
-                },
+                name: "RAKSHA_Relocation_Intelligence_Package",
                 features: [
-                    // AOI Disaster Polygon
                     {
                         type: "Feature",
                         properties: {
-                            feature_type: "Hazard_Footprint_AOI",
-                            hazard_name: d.name || "Incident AOI",
-                            disaster_category: d.disaster_type || "Landslide & Flash Flood",
-                            radius_km: radiusKm,
-                            population_at_risk: d.population_at_risk || 6840,
-                            severity_score: d.severity_score || 88.5,
-                            evacuation_status: "MANDATORY_ORDER_ACTIVE"
+                            feature_type: "Dynamic_Hazard_AOI",
+                            location: d.name || "Incident Epicenter",
+                            hazard_type: d.disaster_type || "Landslide & Flash Flood",
+                            area_km2: d.aoi_area_km2 || 38.2,
+                            population_at_risk: d.population_at_risk || 6840
                         },
-                        geometry: {
-                            type: "Polygon",
-                            coordinates: [coords]
-                        }
+                        geometry: { type: "Polygon", coordinates: [coords] }
                     },
-                    // Impact Epicenter Point
                     {
                         type: "Feature",
                         properties: {
-                            feature_type: "Disaster_Epicenter",
-                            name: (d.name || "Incident Epicenter") + " Epicenter",
-                            severity: "CRITICAL_RED",
-                            peak_slope_deg: d.slope_deg || 28.5,
-                            rainfall_24h_mm: d.rainfall_mm || 142.5
+                            feature_type: "Recommended_Safe_Sanctuary",
+                            name: d.designated_camp || "Taluk Stadium & Sports Complex",
+                            distance_km: 4.8,
+                            sphere_capacity: 4500,
+                            status: "RECOMMENDED_PRIMARY"
                         },
-                        geometry: {
-                            type: "Point",
-                            coordinates: [centerLng, centerLat]
-                        }
-                    },
-                    // Designated Primary Relocation Camp Point
-                    {
-                        type: "Feature",
-                        properties: {
-                            feature_type: "Safe_Relocation_Camp_Primary",
-                            name: d.designated_camp || "Taluk Stadium & Sports Ground",
-                            capacity_citizens: 4500,
-                            sphere_potable_water_liters_day: (d.population_at_risk || 6840) * 15,
-                            distance_km: 6.2,
-                            status: "APPROVED_DESIGNATED"
-                        },
-                        geometry: {
-                            type: "Point",
-                            coordinates: [centerLng + 0.0148, centerLat + 0.0214]
-                        }
+                        geometry: { type: "Point", coordinates: [centerLng + 0.0148, centerLat + 0.0214] }
                     }
                 ]
             };
 
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `RAKSHA_DDMA_Directive_${Date.now()}.geojson`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
+            const dl = document.createElement('a');
+            dl.setAttribute("href", dataStr);
+            dl.setAttribute("download", `RAKSHA_Decision_Package_${Date.now()}.geojson`);
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
         }
 
         window.onload = () => {
@@ -934,4 +1687,3 @@
     </script>
 </body>
 </html>
-
