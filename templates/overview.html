@@ -531,11 +531,11 @@
 
             const mPerDegLat = 111139.0;
             const mPerDegLon = 111139.0 * Math.cos(data.lat * Math.PI / 180.0);
-            const cellSizeM = 900.0; // 900m spatial resolution per cell (4.5 km total grid)
+            const cellSizeM = 750.0; // 750m spatial cell resolution (exact proportion from reference image)
             const halfStepLat = (cellSizeM / 2.0) / mPerDegLat;
             const halfStepLon = (cellSizeM / 2.0) / mPerDegLon;
 
-            // Generate full 25 cells (5 rows x 5 columns) around epicenter [2,2]
+            // Generate clean 25-cell geometric grid matching reference image
             for (let r = 0; r < 5; r++) {
                 const dy = (2 - r) * cellSizeM; // r=0 is North, r=4 is South
                 const cellLat = data.lat + (dy / mPerDegLat);
@@ -549,116 +549,37 @@
                         [cellLat + halfStepLat, cellLon + halfStepLon]
                     ];
 
-                    const dist = Math.sqrt((r - 2) * (r - 2) + (c - 2) * (c - 2));
+                    // Exact contiguous hazard runoff pattern matching reference image
+                    const isOrange = (
+                        (r === 2 && c >= 1 && c <= 4) ||
+                        (r === 3 && c >= 1 && c <= 4) ||
+                        (r === 4 && (c === 2 || c === 3))
+                    );
 
-                    let tier = 'Low';
-                    let iconEmoji = '';
-                    let score = (0.86 - dist * 0.22).toFixed(2);
-                    let strokeColor = '#10b981';
-                    let fillColor = '#10b981';
-                    let fillOpacity = 0.14;
-                    let action = 'Perimeter Buffer Zone &bull; Potential Ingress';
+                    const strokeColor = isOrange ? '#ff9100' : '#00e676';
+                    const fillColor = isOrange ? '#f59e0b' : '#00e676';
+                    const fillOpacity = isOrange ? 0.40 : 0.04;
+                    const strokeWidth = 1.8;
 
-                    // 1. Center Epicenter [2,2]: 🔥 (Ground Zero)
-                    if (r === 2 && c === 2) {
-                        tier = 'Epicenter';
-                        iconEmoji = '🔥';
-                        score = '0.94';
-                        strokeColor = '#dc2626';
-                        fillColor = '#ef4444';
-                        fillOpacity = 0.50;
-                        action = '🔴 GROUND ZERO: Immediate Total Evacuation (Mandatory Veto)';
-                    }
-                    // 2. Direct Orthogonal Neighbors [1,2], [2,1], [2,3], [3,2]: 🔴 Critical
-                    else if ((r === 1 && c === 2) || (r === 2 && c === 1) || (r === 2 && c === 3) || (r === 3 && c === 2)) {
-                        tier = 'Critical';
-                        iconEmoji = '🔴';
-                        score = (0.83 + ((r * 3 + c * 7) % 5) * 0.01).toFixed(2);
-                        strokeColor = '#dc2626';
-                        fillColor = '#ef4444';
-                        fillOpacity = 0.38;
-                        action = '🔴 CRITICAL HAZARD: Structural Collapse Risk (Zero Settlement)';
-                    }
-                    // 3. Safe Relocation Ingress Corridor Entry [4,4]: 🟢
-                    else if (r === 4 && c === 4) {
-                        tier = 'Safe Buffer';
-                        iconEmoji = '🟢';
-                        score = '0.14';
-                        strokeColor = '#10b981';
-                        fillColor = '#10b981';
-                        fillOpacity = 0.35;
-                        action = '🟢 SAFE CORRIDOR: Ingress to Ring 1 Safe Relocation Site';
-                    }
-                    // 4. Downstream Hydrological Runoff Corridors: High 🟠
-                    else if (dist <= 1.5) {
-                        tier = 'High';
-                        iconEmoji = '🟠';
-                        score = (0.60 + ((r * 2 + c * 5) % 7) * 0.01).toFixed(2);
-                        strokeColor = '#ea580c';
-                        fillColor = '#f97316';
-                        fillOpacity = 0.28;
-                        action = '🟠 HIGH RUNOFF: Debris Flow Path (Vetoed for Relocation)';
-                    }
-                    // 5. Intermediate Runoff Ring: Moderate 🟡
-                    else if (dist <= 2.3) {
-                        tier = 'Moderate';
-                        iconEmoji = '🟡';
-                        score = (0.35 + ((r * 4 + c * 3) % 6) * 0.01).toFixed(2);
-                        strokeColor = '#ca8a04';
-                        fillColor = '#eab308';
-                        fillOpacity = 0.18;
-                        action = '🟡 MODERATE RISK: Secondary Runoff Monitoring';
-                    } else {
-                        // 6. Perimeter: Low 🟢
-                        tier = 'Low';
-                        iconEmoji = '';
-                        score = (0.12 + ((r * 3 + c * 2) % 6) * 0.01).toFixed(2);
-                        strokeColor = '#059669';
-                        fillColor = '#10b981';
-                        fillOpacity = 0.10;
-                        action = '🟢 LOW HAZARD: Perimeter Buffer';
-                    }
-
-                    // 1. Cell Polygon (Interactive Rectangle)
                     const rect = L.rectangle(bounds, {
                         color: strokeColor,
-                        weight: (r === 2 && c === 2) || (r === 4 && c === 4) ? 2.0 : 1.2,
+                        weight: strokeWidth,
                         fillColor: fillColor,
                         fillOpacity: fillOpacity,
                         className: 'spatial-grid-cell'
                     });
 
+                    const tierName = isOrange ? 'Runoff Hazard Zone' : 'Perimeter Safe Zone';
+                    const score = isOrange ? (0.65 + ((r * 2 + c * 3) % 4) * 0.07).toFixed(2) : (0.12 + ((r + c) % 3) * 0.05).toFixed(2);
+
                     rect.bindTooltip(`
-                        <div style="font-family: monospace; font-size: 11px; padding: 2px; min-width: 170px;">
-                            <div style="display:flex; justify-content:space-between; align-items:center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 3px; margin-bottom: 4px;">
-                                <b style="color: #fff;">${iconEmoji || '▦'} Cell [R${r+1}, C${c+1}]</b>
-                                <span style="background:${strokeColor}; color:#fff; padding: 1px 5px; border-radius: 3px; font-weight: bold; font-size: 9px;">${tier.toUpperCase()}</span>
-                            </div>
-                            <div style="color: #cbd5e1;">Hazard Score: <b style="color: #fff;">${score}</b></div>
-                            <div style="color: #94a3b8; font-size: 10px; margin-top: 3px;">${action}</div>
+                        <div style="font-family: monospace; font-size: 11px; padding: 2px;">
+                            <b style="color: ${isOrange ? '#ff9100' : '#00e676'};">▦ Cell [R${r+1}, C${c+1}]</b> &bull; ${tierName}<br>
+                            Hazard Intensity: <b>${score}</b>
                         </div>
                     `, { sticky: true });
 
                     gridLayerGroup.addLayer(rect);
-
-                    // 2. Centroid Marker: Emojis + Badges (Matching User's 5x5 ASCII Diagram)
-                    const cellIcon = L.divIcon({
-                        className: 'grid-cell-icon',
-                        html: `
-                            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:36px; height:36px; transform:translate(-18px, -18px); pointer-events:none;">
-                                ${iconEmoji ? `
-                                    <span style="font-size:${r===2&&c===2 ? '20px':'15px'}; line-height:1; filter: drop-shadow(0 0 5px rgba(0,0,0,0.9));">${iconEmoji}</span>
-                                    ${r===2&&c===2 ? '<span style="font-size:7px; font-family:monospace; background:rgba(220,38,38,0.95); color:white; font-weight:900; padding:0 3px; border-radius:2px; margin-top:1px; border:0.5px solid #ffffff; box-shadow:0 0 6px rgba(255,0,0,0.8);">EPICENTER</span>' : ''}
-                                    ${r===4&&c===4 ? '<span style="font-size:7px; font-family:monospace; background:rgba(16,185,129,0.95); color:black; font-weight:900; padding:0 3px; border-radius:2px; margin-top:1px; border:0.5px solid #ffffff; box-shadow:0 0 6px rgba(16,185,129,0.8);">SAFE</span>' : ''}
-                                ` : `
-                                    <span style="font-size:8px; font-family:monospace; color:rgba(203,213,225,0.6); font-weight:bold; text-shadow:0 1px 2px black;">R${r+1}C${c+1}</span>
-                                `}
-                            </div>
-                        `,
-                        iconSize: [0, 0]
-                    });
-                    const marker = L.marker([cellLat, cellLon], { icon: cellIcon, interactive: false });
-                    gridLayerGroup.addLayer(marker);
                 }
             }
 
@@ -670,27 +591,87 @@
         function drawScenarioFeatures(data) {
             clearLayers();
 
-            // 1. Dynamic AOI Core Envelope (Red polygon)
-            const hazardPolygon = L.polygon([
-                [data.lat + 0.015, data.lon - 0.010],
-                [data.lat + 0.020, data.lon + 0.025],
-                [data.lat - 0.018, data.lon + 0.035],
-                [data.lat - 0.025, data.lon + 0.005],
-                [data.lat - 0.005, data.lon - 0.015]
-            ], {
-                color: '#ef4444',
-                weight: 2,
-                fillColor: '#ef4444',
-                fillOpacity: 0.12,
-                dashArray: '5, 5'
-            }).addTo(map);
-            hazardPolygon.bindTooltip("Dynamic AOI Core Envelope (8.18 km²)", { sticky: true });
-            layers.push(hazardPolygon);
+            const mPerDegLat = 111139.0;
+            const mPerDegLon = 111139.0 * Math.cos(data.lat * Math.PI / 180.0);
+            const cellSizeM = 750.0;
+            const halfStepLat = (cellSizeM / 2.0) / mPerDegLat;
+            const halfStepLon = (cellSizeM / 2.0) / mPerDegLon;
 
-            // 2. 5x5 Spatial Hazard Grid (25 Cells matching user diagram)
+            // 1. 5x5 Spatial Hazard Raster Grid (25 Cells: green perimeter + orange hazard cluster)
             draw5x5HazardGrid(data);
 
-            // 3. Search Rings (Ring 1: 0 - 5 km | Ring 2: 5 - 10 km)
+            // 2. Dashed Red Anisotropic Hazard Envelope (matching reference image oval contour)
+            const envelopePoints = [
+                [data.lat + halfStepLat * 1.55, data.lon - halfStepLon * 0.10], // Top apex
+                [data.lat + halfStepLat * 1.30, data.lon + halfStepLon * 1.15], // Top-Right shoulder
+                [data.lat + halfStepLat * 0.40, data.lon + halfStepLon * 2.10], // Upper-Right
+                [data.lat - halfStepLat * 0.70, data.lon + halfStepLon * 2.35], // Mid-Right (encloses row 3 col 4)
+                [data.lat - halfStepLat * 1.80, data.lon + halfStepLon * 1.60], // Lower-Right
+                [data.lat - halfStepLat * 2.55, data.lon + halfStepLon * 0.40], // Bottom apex (row 4 col 2,3)
+                [data.lat - halfStepLat * 2.30, data.lon - halfStepLon * 0.60], // Bottom-Left curve
+                [data.lat - halfStepLat * 1.40, data.lon - halfStepLon * 1.50], // Lower-Left (row 3 col 1)
+                [data.lat - halfStepLat * 0.20, data.lon - halfStepLon * 1.75], // Mid-Left (row 2 col 1)
+                [data.lat + halfStepLat * 1.10, data.lon - halfStepLon * 1.20]  // Top-Left shoulder
+            ];
+            const hazardEnvelope = L.polygon(envelopePoints, {
+                color: '#ff3366',
+                weight: 2.8,
+                dashArray: '6, 6',
+                fillColor: '#ef4444',
+                fillOpacity: 0.06
+            }).addTo(map);
+            hazardEnvelope.bindTooltip("Dynamic AOI Anisotropic Runoff Envelope", { sticky: true });
+            layers.push(hazardEnvelope);
+
+            // 3. Epicenter Soft Red Translucent Halo
+            const epicenterHalo = L.circle([data.lat, data.lon], {
+                radius: cellSizeM * 0.95,
+                color: '#ef4444',
+                weight: 1,
+                fillColor: '#ef4444',
+                fillOpacity: 0.52
+            }).addTo(map);
+            layers.push(epicenterHalo);
+
+            // 4. Central Solid Red Epicenter Core Marker
+            const epicenterMarker = L.circleMarker([data.lat, data.lon], {
+                radius: 8.5,
+                fillColor: '#ef4444',
+                color: '#ffffff',
+                weight: 2.5,
+                fillOpacity: 1
+            }).addTo(map);
+            epicenterMarker.bindPopup(`
+                <div style="color: #000; font-family: monospace; font-size: 12px;">
+                    <b style="color: #dc2626;">🔴 HAZARD GROUND ZERO</b><br>
+                    <b>${data.name}</b><br>
+                    Displaced Population: <b>${data.pop}</b>
+                </div>
+            `);
+            layers.push(epicenterMarker);
+
+            // 5. Vertical Cyan Dashed Search Axis & Node (matching top of reference image)
+            const transectVector = L.polyline([
+                [data.lat, data.lon],
+                [data.lat + halfStepLat * 4.4, data.lon]
+            ], {
+                color: '#00e5ff',
+                weight: 3.5,
+                dashArray: '8, 8',
+                opacity: 0.95
+            }).addTo(map);
+            layers.push(transectVector);
+
+            const transectNode = L.circleMarker([data.lat + halfStepLat * 4.4, data.lon], {
+                radius: 7,
+                color: '#00e5ff',
+                weight: 2.5,
+                fillColor: '#091326',
+                fillOpacity: 0.85
+            }).addTo(map).bindTooltip("Spatial Search Transect Axis (North)", { sticky: true });
+            layers.push(transectNode);
+
+            // 6. Search Rings (Ring 1: 0 - 5 km | Ring 2: 5 - 10 km)
             const ring5 = L.circle([data.lat, data.lon], {
                 radius: 5000,
                 color: '#00e5ff',
@@ -709,24 +690,7 @@
             }).addTo(map);
             layers.push(ring10);
 
-            // 4. Affected Habitation (Origin)
-            const epicenterMarker = L.circleMarker([data.lat, data.lon], {
-                radius: 10,
-                fillColor: '#ef4444',
-                color: '#ffffff',
-                weight: 2.5,
-                fillOpacity: 1
-            }).addTo(map);
-            epicenterMarker.bindPopup(`
-                <div style="color: #000; font-family: monospace; font-size: 12px;">
-                    <b style="color: #dc2626;">🔴 AFFECTED HABITATION</b><br>
-                    <b>${data.name}</b><br>
-                    Population: <b>${data.pop}</b>
-                </div>
-            `);
-            layers.push(epicenterMarker);
-
-            // 5. Origin-to-Site Terrain Transect (Green line) & Primary Route
+            // 7. Origin-to-Site Evacuation Route Corridor (Green Line)
             const routeLine = L.polyline(data.route, {
                 color: '#10b981',
                 weight: 4.5,

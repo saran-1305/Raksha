@@ -616,10 +616,11 @@
         function draw5x5RelocationGrid(lat, lon) {
             const mPerDegLat = 111139.0;
             const mPerDegLon = 111139.0 * Math.cos(lat * Math.PI / 180.0);
-            const cellSizeM = 900.0;
+            const cellSizeM = 750.0;
             const halfStepLat = (cellSizeM / 2.0) / mPerDegLat;
             const halfStepLon = (cellSizeM / 2.0) / mPerDegLon;
 
+            // 1. Clean 25-cell geometric grid matching reference image
             for (let r = 0; r < 5; r++) {
                 const dy = (2 - r) * cellSizeM;
                 const cellLat = lat + (dy / mPerDegLat);
@@ -633,51 +634,80 @@
                         [cellLat + halfStepLat, cellLon + halfStepLon]
                     ];
 
-                    const dist = Math.sqrt((r - 2) * (r - 2) + (c - 2) * (c - 2));
-                    let tier = 'Low', iconEmoji = '', score = (0.86 - dist * 0.22).toFixed(2);
-                    let strokeColor = '#10b981', fillColor = '#10b981', fillOpacity = 0.14;
+                    const isOrange = (
+                        (r === 2 && c >= 1 && c <= 4) ||
+                        (r === 3 && c >= 1 && c <= 4) ||
+                        (r === 4 && (c === 2 || c === 3))
+                    );
 
-                    if (r === 2 && c === 2) {
-                        tier = 'Epicenter'; iconEmoji = '🔥'; score = '0.94';
-                        strokeColor = '#dc2626'; fillColor = '#ef4444'; fillOpacity = 0.50;
-                    } else if ((r === 1 && c === 2) || (r === 2 && c === 1) || (r === 2 && c === 3) || (r === 3 && c === 2)) {
-                        tier = 'Critical'; iconEmoji = '🔴'; score = '0.84';
-                        strokeColor = '#dc2626'; fillColor = '#ef4444'; fillOpacity = 0.38;
-                    } else if (r === 4 && c === 4) {
-                        tier = 'Safe Buffer'; iconEmoji = '🟢'; score = '0.14';
-                        strokeColor = '#10b981'; fillColor = '#10b981'; fillOpacity = 0.35;
-                    } else if (dist <= 1.5) {
-                        tier = 'High'; iconEmoji = '🟠'; score = '0.62';
-                        strokeColor = '#ea580c'; fillColor = '#f97316'; fillOpacity = 0.28;
-                    } else if (dist <= 2.3) {
-                        tier = 'Moderate'; iconEmoji = '🟡'; score = '0.36';
-                        strokeColor = '#ca8a04'; fillColor = '#eab308'; fillOpacity = 0.18;
-                    }
+                    const strokeColor = isOrange ? '#ff9100' : '#00e676';
+                    const fillColor = isOrange ? '#f59e0b' : '#00e676';
+                    const fillOpacity = isOrange ? 0.40 : 0.04;
+                    const strokeWidth = 1.8;
 
                     const rect = L.rectangle(bounds, {
                         color: strokeColor,
-                        weight: (r === 2 && c === 2) || (r === 4 && c === 4) ? 2.0 : 1.2,
+                        weight: strokeWidth,
                         fillColor: fillColor,
                         fillOpacity: fillOpacity
                     }).bindTooltip(`
                         <div style="font-family: monospace; font-size: 11px;">
-                            <b>${iconEmoji || '▦'} Cell [R${r+1}, C${c+1}]</b> (${tier.toUpperCase()})<br>
-                            Hazard Score: <b>${score}</b><br>
-                            <span style="font-size: 10px; color: #94a3b8;">5×5 Spatial Hazard Runoff Model</span>
+                            <b style="color: ${isOrange ? '#ff9100' : '#00e676'};">▦ Cell [R${r+1}, C${c+1}]</b> &bull; ${isOrange ? 'Runoff Hazard Zone' : 'Perimeter Safe Zone'}<br>
+                            Hazard Intensity: <b>${isOrange ? '0.74' : '0.15'}</b>
                         </div>
                     `, { sticky: true });
                     rect.addTo(map);
-
-                    if (iconEmoji) {
-                        const cellIcon = L.divIcon({
-                            className: 'grid-cell-icon',
-                            html: `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:34px; height:34px; transform:translate(-17px,-17px); pointer-events:none;"><span style="font-size:${r===2&&c===2?'18px':'14px'}; filter:drop-shadow(0 0 4px rgba(0,0,0,0.8));">${iconEmoji}</span></div>`,
-                            iconSize: [0, 0]
-                        });
-                        L.marker([cellLat, cellLon], { icon: cellIcon, interactive: false }).addTo(map);
-                    }
                 }
             }
+
+            // 2. Dashed Red Anisotropic Hazard Envelope (matching reference image oval contour)
+            const envelopePoints = [
+                [lat + halfStepLat * 1.55, lon - halfStepLon * 0.10],
+                [lat + halfStepLat * 1.30, lon + halfStepLon * 1.15],
+                [lat + halfStepLat * 0.40, lon + halfStepLon * 2.10],
+                [lat - halfStepLat * 0.70, lon + halfStepLon * 2.35],
+                [lat - halfStepLat * 1.80, lon + halfStepLon * 1.60],
+                [lat - halfStepLat * 2.55, lon + halfStepLon * 0.40],
+                [lat - halfStepLat * 2.30, lon - halfStepLon * 0.60],
+                [lat - halfStepLat * 1.40, lon - halfStepLon * 1.50],
+                [lat - halfStepLat * 0.20, lon - halfStepLon * 1.75],
+                [lat + halfStepLat * 1.10, lon - halfStepLon * 1.20]
+            ];
+            L.polygon(envelopePoints, {
+                color: '#ff3366',
+                weight: 2.8,
+                dashArray: '6, 6',
+                fillColor: '#ef4444',
+                fillOpacity: 0.06
+            }).addTo(map).bindTooltip("Dynamic AOI Anisotropic Runoff Envelope", { sticky: true });
+
+            // 3. Epicenter Soft Red Translucent Halo
+            L.circle([lat, lon], {
+                radius: cellSizeM * 0.95,
+                color: '#ef4444',
+                weight: 1,
+                fillColor: '#ef4444',
+                fillOpacity: 0.52
+            }).addTo(map);
+
+            // 4. Vertical Cyan Dashed Search Axis & Node (matching top of reference image)
+            L.polyline([
+                [lat, lon],
+                [lat + halfStepLat * 4.4, lon]
+            ], {
+                color: '#00e5ff',
+                weight: 3.5,
+                dashArray: '8, 8',
+                opacity: 0.95
+            }).addTo(map);
+
+            L.circleMarker([lat + halfStepLat * 4.4, lon], {
+                radius: 7,
+                color: '#00e5ff',
+                weight: 2.5,
+                fillColor: '#091326',
+                fillOpacity: 0.85
+            }).addTo(map).bindTooltip("Spatial Search Transect Axis (North)", { sticky: true });
         }
 
         function drawFeatures() {
@@ -685,12 +715,12 @@
             draw5x5RelocationGrid(30.3207, 79.2163);
 
             const originMarker = L.circleMarker([30.3207, 79.2163], {
-                radius: 10,
+                radius: 8.5,
                 fillColor: '#ef4444',
                 color: '#ffffff',
                 weight: 2.5,
                 fillOpacity: 1
-            }).addTo(map).bindPopup("<b>🔴 Origin: Devgram</b><br>6,840 Citizens Requiring Relocation");
+            }).addTo(map).bindPopup("<b>🔴 Hazard Ground Zero: Devgram</b><br>6,840 Citizens Requiring Relocation");
 
             // Search Rings
             L.circle([30.3207, 79.2163], { radius: 5000, color: '#00e5ff', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
