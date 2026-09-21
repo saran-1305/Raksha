@@ -41,6 +41,15 @@
             50% { transform: scale(1.6); opacity: 0.2; }
             100% { transform: scale(0.8); opacity: 0.9; }
         }
+        .grid-cell-icon {
+            background: transparent !important;
+            border: none !important;
+        }
+        .spatial-grid-cell:hover {
+            stroke-width: 2.2px !important;
+            fill-opacity: 0.6 !important;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="h-screen w-screen flex flex-col overflow-hidden bg-[#040711]">
@@ -127,10 +136,14 @@
             <!-- Leaflet Map Container -->
             <div id="cleanMap" class="w-full h-full z-0"></div>
 
-            <!-- FLOATING LAYER SWITCHER BUTTON (Top-Left matching Image 1) -->
-            <div class="absolute top-4 left-4 z-10">
+            <!-- FLOATING MAP CONTROLS (Top-Left) -->
+            <div class="absolute top-4 left-4 z-10 flex items-center gap-2">
                 <button onclick="cycleBaseMap()" class="w-10 h-10 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-blue-800/80 shadow-2xl flex items-center justify-center text-slate-200 hover:text-cyan-300 transition" title="Toggle Satellite / Dark Basemap">
                     <i data-lucide="layers" class="w-5 h-5"></i>
+                </button>
+                <button id="btnToggleOverviewGrid" onclick="toggle5x5Grid()" class="px-3 py-2 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-amber-500/80 shadow-2xl flex items-center gap-1.5 text-amber-300 font-mono text-xs transition cursor-pointer" title="Toggle 5×5 Spatial Hazard Runoff Grid Overlay">
+                    <i data-lucide="grid" class="w-4 h-4 text-amber-400"></i>
+                    <span id="lblToggleOverviewGrid">5×5 Grid: ON</span>
                 </button>
             </div>
 
@@ -147,8 +160,13 @@
                         <span class="leading-tight">Dynamic AOI Core Envelope</span>
                     </div>
                     <div class="flex items-center gap-2.5">
-                        <span class="w-3.5 h-3.5 rounded-md bg-amber-500/40 border border-amber-500 shrink-0"></span>
-                        <span class="leading-tight">5×5 Spatial Hazard Grid (Runoff)</span>
+                        <span class="w-3.5 h-3.5 rounded-md bg-amber-500/40 border border-amber-500 flex items-center justify-center text-[9px] font-bold text-amber-300 shrink-0">▦</span>
+                        <span class="leading-tight font-bold text-amber-300">5×5 Spatial Hazard Grid (25 Cells)</span>
+                    </div>
+                    <div class="pl-6 text-[10px] flex items-center gap-2 text-slate-400">
+                        <span>🔥 Ground Zero</span>
+                        <span>🔴 Critical</span>
+                        <span>🟢 Safe</span>
                     </div>
                     <div class="flex items-center gap-2.5">
                         <span class="w-4 h-0.5 bg-emerald-400 shrink-0"></span>
@@ -430,6 +448,32 @@
         let currentScenario = 'devgram';
         let map, layers = [];
         let baseLayers = {}, currentBase = 'satellite';
+        let isGridVisible = true;
+        let gridLayerGroup = L.layerGroup();
+
+        function toggle5x5Grid() {
+            isGridVisible = !isGridVisible;
+            const btnLabel = document.getElementById('lblToggleOverviewGrid');
+            const btn = document.getElementById('btnToggleOverviewGrid');
+            
+            if (isGridVisible) {
+                if (map && !map.hasLayer(gridLayerGroup)) {
+                    gridLayerGroup.addTo(map);
+                }
+                if (btnLabel) btnLabel.innerText = '5×5 Grid: ON';
+                if (btn) {
+                    btn.className = 'px-3 py-2 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-amber-500/80 shadow-2xl flex items-center gap-1.5 text-amber-300 font-mono text-xs transition cursor-pointer';
+                }
+            } else {
+                if (map && map.hasLayer(gridLayerGroup)) {
+                    map.removeLayer(gridLayerGroup);
+                }
+                if (btnLabel) btnLabel.innerText = '5×5 Grid: OFF';
+                if (btn) {
+                    btn.className = 'px-3 py-2 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-slate-700/80 shadow-2xl flex items-center gap-1.5 text-slate-400 font-mono text-xs transition cursor-pointer';
+                }
+            }
+        }
 
         function initMap() {
             const data = SCENARIOS[currentScenario];
@@ -477,6 +521,150 @@
         function clearLayers() {
             layers.forEach(l => map.removeLayer(l));
             layers = [];
+            if (gridLayerGroup) {
+                gridLayerGroup.clearLayers();
+            }
+        }
+
+        function draw5x5HazardGrid(data) {
+            gridLayerGroup.clearLayers();
+
+            const mPerDegLat = 111139.0;
+            const mPerDegLon = 111139.0 * Math.cos(data.lat * Math.PI / 180.0);
+            const cellSizeM = 900.0; // 900m spatial resolution per cell (4.5 km total grid)
+            const halfStepLat = (cellSizeM / 2.0) / mPerDegLat;
+            const halfStepLon = (cellSizeM / 2.0) / mPerDegLon;
+
+            // Generate full 25 cells (5 rows x 5 columns) around epicenter [2,2]
+            for (let r = 0; r < 5; r++) {
+                const dy = (2 - r) * cellSizeM; // r=0 is North, r=4 is South
+                const cellLat = data.lat + (dy / mPerDegLat);
+
+                for (let c = 0; c < 5; c++) {
+                    const dx = (c - 2) * cellSizeM; // c=0 is West, c=4 is East
+                    const cellLon = data.lon + (dx / mPerDegLon);
+
+                    const bounds = [
+                        [cellLat - halfStepLat, cellLon - halfStepLon],
+                        [cellLat + halfStepLat, cellLon + halfStepLon]
+                    ];
+
+                    const dist = Math.sqrt((r - 2) * (r - 2) + (c - 2) * (c - 2));
+
+                    let tier = 'Low';
+                    let iconEmoji = '';
+                    let score = (0.86 - dist * 0.22).toFixed(2);
+                    let strokeColor = '#10b981';
+                    let fillColor = '#10b981';
+                    let fillOpacity = 0.14;
+                    let action = 'Perimeter Buffer Zone &bull; Potential Ingress';
+
+                    // 1. Center Epicenter [2,2]: 🔥 (Ground Zero)
+                    if (r === 2 && c === 2) {
+                        tier = 'Epicenter';
+                        iconEmoji = '🔥';
+                        score = '0.94';
+                        strokeColor = '#dc2626';
+                        fillColor = '#ef4444';
+                        fillOpacity = 0.50;
+                        action = '🔴 GROUND ZERO: Immediate Total Evacuation (Mandatory Veto)';
+                    }
+                    // 2. Direct Orthogonal Neighbors [1,2], [2,1], [2,3], [3,2]: 🔴 Critical
+                    else if ((r === 1 && c === 2) || (r === 2 && c === 1) || (r === 2 && c === 3) || (r === 3 && c === 2)) {
+                        tier = 'Critical';
+                        iconEmoji = '🔴';
+                        score = (0.83 + ((r * 3 + c * 7) % 5) * 0.01).toFixed(2);
+                        strokeColor = '#dc2626';
+                        fillColor = '#ef4444';
+                        fillOpacity = 0.38;
+                        action = '🔴 CRITICAL HAZARD: Structural Collapse Risk (Zero Settlement)';
+                    }
+                    // 3. Safe Relocation Ingress Corridor Entry [4,4]: 🟢
+                    else if (r === 4 && c === 4) {
+                        tier = 'Safe Buffer';
+                        iconEmoji = '🟢';
+                        score = '0.14';
+                        strokeColor = '#10b981';
+                        fillColor = '#10b981';
+                        fillOpacity = 0.35;
+                        action = '🟢 SAFE CORRIDOR: Ingress to Ring 1 Safe Relocation Site';
+                    }
+                    // 4. Downstream Hydrological Runoff Corridors: High 🟠
+                    else if (dist <= 1.5) {
+                        tier = 'High';
+                        iconEmoji = '🟠';
+                        score = (0.60 + ((r * 2 + c * 5) % 7) * 0.01).toFixed(2);
+                        strokeColor = '#ea580c';
+                        fillColor = '#f97316';
+                        fillOpacity = 0.28;
+                        action = '🟠 HIGH RUNOFF: Debris Flow Path (Vetoed for Relocation)';
+                    }
+                    // 5. Intermediate Runoff Ring: Moderate 🟡
+                    else if (dist <= 2.3) {
+                        tier = 'Moderate';
+                        iconEmoji = '🟡';
+                        score = (0.35 + ((r * 4 + c * 3) % 6) * 0.01).toFixed(2);
+                        strokeColor = '#ca8a04';
+                        fillColor = '#eab308';
+                        fillOpacity = 0.18;
+                        action = '🟡 MODERATE RISK: Secondary Runoff Monitoring';
+                    } else {
+                        // 6. Perimeter: Low 🟢
+                        tier = 'Low';
+                        iconEmoji = '';
+                        score = (0.12 + ((r * 3 + c * 2) % 6) * 0.01).toFixed(2);
+                        strokeColor = '#059669';
+                        fillColor = '#10b981';
+                        fillOpacity = 0.10;
+                        action = '🟢 LOW HAZARD: Perimeter Buffer';
+                    }
+
+                    // 1. Cell Polygon (Interactive Rectangle)
+                    const rect = L.rectangle(bounds, {
+                        color: strokeColor,
+                        weight: (r === 2 && c === 2) || (r === 4 && c === 4) ? 2.0 : 1.2,
+                        fillColor: fillColor,
+                        fillOpacity: fillOpacity,
+                        className: 'spatial-grid-cell'
+                    });
+
+                    rect.bindTooltip(`
+                        <div style="font-family: monospace; font-size: 11px; padding: 2px; min-width: 170px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 3px; margin-bottom: 4px;">
+                                <b style="color: #fff;">${iconEmoji || '▦'} Cell [R${r+1}, C${c+1}]</b>
+                                <span style="background:${strokeColor}; color:#fff; padding: 1px 5px; border-radius: 3px; font-weight: bold; font-size: 9px;">${tier.toUpperCase()}</span>
+                            </div>
+                            <div style="color: #cbd5e1;">Hazard Score: <b style="color: #fff;">${score}</b></div>
+                            <div style="color: #94a3b8; font-size: 10px; margin-top: 3px;">${action}</div>
+                        </div>
+                    `, { sticky: true });
+
+                    gridLayerGroup.addLayer(rect);
+
+                    // 2. Centroid Marker: Emojis + Badges (Matching User's 5x5 ASCII Diagram)
+                    const cellIcon = L.divIcon({
+                        className: 'grid-cell-icon',
+                        html: `
+                            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:36px; height:36px; transform:translate(-18px, -18px); pointer-events:none;">
+                                ${iconEmoji ? `
+                                    <span style="font-size:${r===2&&c===2 ? '20px':'15px'}; line-height:1; filter: drop-shadow(0 0 5px rgba(0,0,0,0.9));">${iconEmoji}</span>
+                                    ${r===2&&c===2 ? '<span style="font-size:7px; font-family:monospace; background:rgba(220,38,38,0.95); color:white; font-weight:900; padding:0 3px; border-radius:2px; margin-top:1px; border:0.5px solid #ffffff; box-shadow:0 0 6px rgba(255,0,0,0.8);">EPICENTER</span>' : ''}
+                                    ${r===4&&c===4 ? '<span style="font-size:7px; font-family:monospace; background:rgba(16,185,129,0.95); color:black; font-weight:900; padding:0 3px; border-radius:2px; margin-top:1px; border:0.5px solid #ffffff; box-shadow:0 0 6px rgba(16,185,129,0.8);">SAFE</span>' : ''}
+                                ` : `
+                                    <span style="font-size:8px; font-family:monospace; color:rgba(203,213,225,0.6); font-weight:bold; text-shadow:0 1px 2px black;">R${r+1}C${c+1}</span>
+                                `}
+                            </div>
+                        `,
+                        iconSize: [0, 0]
+                    });
+                    const marker = L.marker([cellLat, cellLon], { icon: cellIcon, interactive: false });
+                    gridLayerGroup.addLayer(marker);
+                }
+            }
+
+            if (isGridVisible && !map.hasLayer(gridLayerGroup)) {
+                gridLayerGroup.addTo(map);
+            }
         }
 
         function drawScenarioFeatures(data) {
@@ -493,32 +681,14 @@
                 color: '#ef4444',
                 weight: 2,
                 fillColor: '#ef4444',
-                fillOpacity: 0.28,
+                fillOpacity: 0.12,
                 dashArray: '5, 5'
             }).addTo(map);
             hazardPolygon.bindTooltip("Dynamic AOI Core Envelope (8.18 km²)", { sticky: true });
             layers.push(hazardPolygon);
 
-            // 2. 5x5 Spatial Hazard Grid (Runoff) - Orange cells
-            const gridCoords = [
-                [data.lat + 0.008, data.lon + 0.005],
-                [data.lat + 0.008, data.lon + 0.015],
-                [data.lat - 0.002, data.lon + 0.010],
-                [data.lat - 0.010, data.lon + 0.020]
-            ];
-            gridCoords.forEach((coord, idx) => {
-                const cell = L.rectangle([
-                    [coord[0] - 0.004, coord[1] - 0.004],
-                    [coord[0] + 0.004, coord[1] + 0.004]
-                ], {
-                    color: '#f59e0b',
-                    weight: 1.5,
-                    fillColor: '#f59e0b',
-                    fillOpacity: 0.2
-                }).addTo(map);
-                cell.bindTooltip(`5×5 Hazard Cell (Runoff Tier)`, { sticky: true });
-                layers.push(cell);
-            });
+            // 2. 5x5 Spatial Hazard Grid (25 Cells matching user diagram)
+            draw5x5HazardGrid(data);
 
             // 3. Search Rings (Ring 1: 0 - 5 km | Ring 2: 5 - 10 km)
             const ring5 = L.circle([data.lat, data.lon], {
