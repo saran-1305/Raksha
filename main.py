@@ -15,6 +15,7 @@ from satellite_service import SatelliteTelemetryService
 from relocation_engine import RelocationEngine
 from bhoonidhi_client import bhoonidhi_service
 from bhuvan_client import bhuvan_service
+from worldpop_client import worldpop_service
 
 app = FastAPI(
     title="RAKSHA Disaster Relocation Engine",
@@ -126,6 +127,12 @@ def run_analysis(req: AnalysisRequest):
             hazard_index=hazard_index
         )
 
+        # 4b. WorldPop 100m Gridded Population Exposure Query (Open Access CC BY 4.0)
+        worldpop_exposure = worldpop_service.estimate_aoi_exposure(
+            aoi_coords_lat_lon=aoi_data.get("polygon_coordinates", []),
+            census_scenario_pop=req.displaced_population
+        )
+
         # 5. Progressive 5 km Ring Evaluation & Multi-Criteria Ranking
         relocation_results = engine.evaluate_relocation_rings(
             centroid_lat=req.lat,
@@ -146,6 +153,9 @@ def run_analysis(req: AnalysisRequest):
         bhuvan_thematic = sat_service.fetch_bhuvan_thematic(top_site, req.lat, req.lon) if top_site else {}
         relocation_results["bhuvan_thematic"] = bhuvan_thematic
 
+        provenance = relocation_results.get("data_provenance", {})
+        provenance["worldpop"] = worldpop_exposure.get("status", "LIVE")
+
         return {
             "status": "success",
             "system_version": "RAKSHA Engine 2.0",
@@ -156,7 +166,8 @@ def run_analysis(req: AnalysisRequest):
                 "displaced_population": req.displaced_population,
                 "hazard_type": req.hazard_type
             },
-            "data_provenance": relocation_results.get("data_provenance", {}),
+            "data_provenance": provenance,
+            "worldpop_exposure": worldpop_exposure,
             "satellite_telemetry": sentinel_telemetry,
             "sentinel1_sar_telemetry": sentinel1_telemetry,
             "cartosat3_validation": cartosat_validation,
@@ -168,6 +179,37 @@ def run_analysis(req: AnalysisRequest):
     except Exception as e:
         import traceback
         traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/population/worldpop")
+def get_worldpop_stats(lat: float, lon: float, radius_km: float = 3.0):
+    """
+    Queries the live WorldPop 100m gridded population API for an area around (lat, lon).
+    Open Access under Creative Commons Attribution 4.0 (No API key required).
+    """
+    return worldpop_service.estimate_point_exposure(lat, lon, radius_km)
+
+@app.get("/api/terrain/transect")
+def get_terrain_transect(
+    origin_lat: float,
+    origin_lon: float,
+    dest_lat: float,
+    dest_lon: float,
+    samples: int = 14,
+    dest_name: Optional[str] = "Relocation Target Site"
+):
+    try:
+        transect = sat_service.fetch_elevation_transect(
+            start_lat=origin_lat,
+            start_lon=origin_lon,
+            end_lat=dest_lat,
+            end_lon=dest_lon,
+            samples=samples
+        )
+        transect["origin"] = {"lat": origin_lat, "lon": origin_lon}
+        transect["destination"] = {"lat": dest_lat, "lon": dest_lon, "name": dest_name}
+        return transect
+    except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/bhuvan/thematic")

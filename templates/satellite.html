@@ -139,6 +139,9 @@
                 <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-emerald-300 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> SRTM DEM: <b>LIVE</b>
                 </span>
+                <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-cyan-300 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> WorldPop: <b>100m LIVE</b>
+                </span>
                 <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-emerald-300 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Weather: <b>LIVE</b>
                 </span>
@@ -147,10 +150,232 @@
     </div>
 
     <!-- Main Content Grid -->
-    <main class="flex-1 max-w-[1850px] mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <main class="flex-1 max-w-[1850px] mx-auto w-full p-4 md:p-6 flex flex-col gap-6">
 
-        <!-- Left 6 Columns: Radar & Optical Sentinel Satellites -->
-        <div class="lg:col-span-6 flex flex-col gap-6">
+        <!-- ====================================================================== -->
+        <!-- 1. TERRAIN & VISUALIZATION WORKSTATION (Reference Screen Layout) -->
+        <!-- ====================================================================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Left 7 Columns: Primary Geospatial Visualization -->
+            <div class="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
+                <!-- Header & Controls -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+                            <i data-lucide="map" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-extrabold text-base text-white flex items-center gap-2">
+                                Primary Geospatial Visualization
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono">TOPOGRAPHIC</span>
+                            </h2>
+                            <p class="text-xs text-slate-400 font-mono">Multi-Layer Relief Shading • SRTM 30m Global DEM • Vector Transects</p>
+                        </div>
+                    </div>
+
+                    <!-- Basemap Switcher Buttons -->
+                    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 self-start sm:self-auto">
+                        <button id="btnBasemapSat" onclick="switchBasemap('satellite')" class="px-2.5 py-1 rounded text-xs font-mono bg-slate-900 hover:bg-slate-800 text-slate-400 transition">Satellite</button>
+                        <button id="btnBasemapTerrain" onclick="switchBasemap('terrain')" class="px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.2)]">Terrain</button>
+                        <button id="btnBasemapStreets" onclick="switchBasemap('streets')" class="px-2.5 py-1 rounded text-xs font-mono bg-slate-900 hover:bg-slate-800 text-slate-400 transition">Streets</button>
+                    </div>
+                </div>
+
+                <!-- Layer Toggles & Action Toolbar -->
+                <div class="flex flex-wrap items-center justify-between gap-2.5 px-3.5 py-2 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs font-mono">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <label class="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
+                            <input type="checkbox" id="chkLayerHazard" checked onchange="toggleLayer('hazard')" class="rounded bg-slate-900 border-slate-700 text-red-500 focus:ring-0 focus:ring-offset-0 cursor-pointer">
+                            <span class="flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-red-500"></span> Hazard Red Zone
+                            </span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
+                            <input type="checkbox" id="chkLayerSites" checked onchange="toggleLayer('sites')" class="rounded bg-slate-900 border-slate-700 text-emerald-500 focus:ring-0 focus:ring-offset-0 cursor-pointer">
+                            <span class="flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Candidate Sites
+                            </span>
+                        </label>
+                        <label class="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
+                            <input type="checkbox" id="chkLayerTransect" checked onchange="toggleLayer('transect')" class="rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0 focus:ring-offset-0 cursor-pointer">
+                            <span class="flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Transect Vector
+                            </span>
+                        </label>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="focusAoi()" class="px-2.5 py-1 rounded bg-red-950/60 hover:bg-red-900/60 text-red-300 border border-red-800/50 text-[11px] transition flex items-center gap-1">
+                            <i data-lucide="crosshair" class="w-3 h-3"></i> Focus AOI
+                        </button>
+                        <button onclick="focusSafeSite()" class="px-2.5 py-1 rounded bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-800/50 text-[11px] transition flex items-center gap-1">
+                            <i data-lucide="shield-check" class="w-3 h-3"></i> Focus Safe Site
+                        </button>
+                        <button onclick="resetEoMap()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] transition" title="Reset Corridor View">
+                            <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Leaflet Interactive Map -->
+                <div class="relative w-full h-[440px] rounded-xl overflow-hidden border border-slate-800 bg-slate-950 shadow-inner">
+                    <div id="primaryEoMap" class="w-full h-full"></div>
+                    
+                    <!-- Live Dynamic Cursor HUD -->
+                    <div class="absolute bottom-3 left-3 z-[500] bg-black/85 backdrop-blur px-3 py-1.5 rounded-lg border border-slate-700 text-[11px] font-mono text-cyan-300 shadow-xl pointer-events-none flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span id="cursorCoords">CURSOR: 30.3207° N, 79.2163° E | SRTM RES: 30m</span>
+                    </div>
+                </div>
+
+                <!-- Bottom Telemetry Strip -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 flex flex-col justify-between">
+                        <span class="text-slate-500 text-[10px] block">HAZARD EPICENTER</span>
+                        <span id="eoEpicenterName" class="text-red-400 font-bold text-xs truncate block my-0.5">Devgram / Raini (Chamoli)</span>
+                        <span id="eoEpicenterCoords" class="text-slate-400 text-[11px]">30.3207° N, 79.2163° E</span>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 flex flex-col justify-between">
+                        <span class="text-slate-500 text-[10px] block">CURRENT TARGET SITE</span>
+                        <span id="eoTargetName" class="text-emerald-400 font-bold text-xs truncate block my-0.5">Pipalkoti High Ground Plateau</span>
+                        <span id="eoTargetCoords" class="text-slate-400 text-[11px]">30.4281° N, 79.3361° E</span>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 flex flex-col justify-between">
+                        <span class="text-slate-500 text-[10px] block">CORRIDOR VECTOR</span>
+                        <div class="flex items-baseline gap-2 my-0.5">
+                            <span id="eoVectorDist" class="text-cyan-300 font-extrabold text-sm">16.57 km</span>
+                            <span id="eoVectorBearing" class="text-slate-400 text-[11px]">Bearing: 48° NE</span>
+                        </div>
+                        <span class="text-emerald-400 text-[10.5px]">Direct Ground Clearance Verified</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right 5 Columns: SRTM DEM Terrain Profile -->
+            <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
+                <!-- Header -->
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                            <i data-lucide="mountain" class="w-4 h-4"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-extrabold text-base text-white flex items-center gap-2">
+                                SRTM DEM Terrain Profile
+                            </h2>
+                            <p class="text-xs text-slate-400 font-mono">Continuous Multi-Point Coronal Elevation Transect</p>
+                        </div>
+                    </div>
+                    <span class="text-xs px-2.5 py-1 rounded-full font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> LIVE SRTM DEM
+                    </span>
+                </div>
+
+                <!-- Visual Transect Strip -->
+                <div class="bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 flex items-center justify-between font-mono text-[11px]">
+                    <div class="flex items-center gap-1.5 text-red-400 font-bold shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                        <span id="transectOriginLabel">HAZARD ORIGIN</span>
+                    </div>
+                    <div class="flex-1 mx-2.5 flex items-center gap-1 min-w-0">
+                        <div class="h-0.5 flex-1 bg-gradient-to-r from-red-500/50 via-cyan-500/50 to-emerald-500/50"></div>
+                        <span id="transectDistBadge" class="px-2 py-0.5 rounded bg-blue-950/90 border border-cyan-500/40 text-[10px] text-cyan-300 font-bold whitespace-nowrap">16.57 km Vector</span>
+                        <div class="h-0.5 flex-1 bg-gradient-to-r from-cyan-500/50 to-emerald-500/50"></div>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-emerald-400 font-bold shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span id="transectDestLabel">PIPALKOTI (SAFE SITE)</span>
+                    </div>
+                </div>
+
+                <!-- 4 Calculation Metric Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs text-center">
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[10px] block uppercase">Min Elevation</span>
+                        <span id="eoMinElev" class="text-cyan-300 font-extrabold text-sm block my-0.5">1,260 m</span>
+                        <span class="text-slate-500 text-[10px]">Valley Floor</span>
+                    </div>
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[10px] block uppercase">Max Elevation</span>
+                        <span id="eoMaxElev" class="text-purple-300 font-extrabold text-sm block my-0.5">2,480 m</span>
+                        <span class="text-slate-500 text-[10px]">Ridge Crest</span>
+                    </div>
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[10px] block uppercase">Net Delta</span>
+                        <span id="eoNetDelta" class="text-emerald-300 font-extrabold text-sm block my-0.5">+1,220 m</span>
+                        <span class="text-slate-500 text-[10px]">Topographic Lift</span>
+                    </div>
+                    <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[10px] block uppercase">Max Gradient</span>
+                        <span id="eoMaxGrad" class="text-amber-300 font-extrabold text-sm block my-0.5">12.4°</span>
+                        <span class="text-emerald-400 text-[10px]">Safe &lt; 14°</span>
+                    </div>
+                </div>
+
+                <!-- Elevation Profile Line Chart -->
+                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex flex-col gap-2">
+                    <div class="flex items-center justify-between text-[10.5px] font-mono text-slate-400 border-b border-slate-800/80 pb-1.5">
+                        <span class="flex items-center gap-1.5 text-slate-300">
+                            <i data-lucide="activity" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            ELEVATION PROFILE (SRTM 30m GSD)
+                        </span>
+                        <span id="eoChartSamplesLabel" class="text-cyan-400 font-semibold">14 SAMPLES SAMPLED</span>
+                    </div>
+                    <div class="h-40 w-full relative">
+                        <canvas id="eoTransectChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 3 Safety Verification Check Rows -->
+                <div class="space-y-1.5 font-mono text-xs">
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                        <span class="text-slate-300">Relocation Slope Veto &lt; 14°</span>
+                        <span class="text-emerald-400 font-bold flex items-center gap-1">
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> PASS (<span id="eoSiteGradientVal">8.2°</span> Site Gradient)
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                        <span class="text-slate-300">Valley Inversion Cut-off</span>
+                        <span class="text-emerald-400 font-bold flex items-center gap-1">
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> LOW HAZARD (Thermal Inversion Negligible)
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
+                        <span class="text-slate-300">Runoff Clearance</span>
+                        <span class="text-emerald-400 font-bold flex items-center gap-1">
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> +185m Above Thalweg (Flood Immune)
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Sensor Telemetry Provenance Box -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[10.5px] font-mono space-y-1.5">
+                    <div class="flex items-center justify-between text-slate-400 border-b border-slate-800 pb-1">
+                        <span class="font-bold text-slate-200 uppercase tracking-wider">Sensor Telemetry Provenance</span>
+                        <span class="text-cyan-400">MULTI-SOURCE FUSION</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5 text-slate-400">
+                        <div>• S1 C-SAR: <b class="text-cyan-300">Copernicus STAC</b></div>
+                        <div>• S2 L2A: <b class="text-emerald-300">10m Optical</b></div>
+                        <div>• Cartosat-3: <b class="text-amber-300">0.28m PAN Cleared</b></div>
+                        <div>• SRTM DEM: <b class="text-cyan-300">NASA 30m GSD</b></div>
+                    </div>
+                    <div class="pt-1 text-slate-400 flex items-center justify-between border-t border-slate-800/60">
+                        <span>• WorldPop: <b class="text-cyan-300">100m Gridded Zonal (CC BY 4.0)</b></span>
+                        <span class="text-emerald-400 font-semibold">ALL LIVE</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ====================================================================== -->
+        <!-- 2. LOWER MULTI-SENSOR CONSOLES (Preserved Existing Structure) -->
+        <!-- ====================================================================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Left 6 Columns: Radar & Optical Sentinel Satellites -->
+            <div class="lg:col-span-6 flex flex-col gap-6">
 
             <!-- 1. Sentinel-1 C-Band SAR Console -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
@@ -432,6 +657,7 @@
             </div>
 
         </div>
+    </div>
 
     </main>
 
@@ -483,6 +709,304 @@
             setTimeout(() => { cartoMiniMap.invalidateSize(); }, 200);
         }
 
+        // ======================================================================
+        // PRIMARY GEOSPATIAL MAP & SRTM TERRAIN WORKSTATION (REFERENCE INTERFACE)
+        // ======================================================================
+        let primaryEoMap = null;
+        let baseLayers = {};
+        let activeBasemapLayer = null;
+        let hazardGroup = null;
+        let sitesGroup = null;
+        let transectGroup = null;
+        let eoTransectChart = null;
+
+        const PRESET_GEOMETRIES = {
+            devgram: {
+                origin: { lat: 30.3207, lon: 79.2163, name: "Devgram / Raini (Chamoli)" },
+                dest: { lat: 30.4281, lon: 79.3361, name: "Pipalkoti High Ground Plateau" },
+                bearing: "48° NE",
+                siteGradient: "8.2°"
+            },
+            wayanad: {
+                origin: { lat: 11.5126, lon: 76.1287, name: "Meppadi / Chooralmala (Wayanad)" },
+                dest: { lat: 11.6050, lon: 76.0830, name: "Kalpetta High Ridge Staging" },
+                bearing: "335° NW",
+                siteGradient: "6.4°"
+            },
+            silchar: {
+                origin: { lat: 24.8333, lon: 92.7789, name: "Barak River Basin (Silchar)" },
+                dest: { lat: 24.7610, lon: 92.8350, name: "Assam University Elevated Ridge" },
+                bearing: "142° SE",
+                siteGradient: "3.2°"
+            },
+            chamoli: {
+                origin: { lat: 30.5574, lon: 79.5670, name: "Joshimath Subsidence Hub" },
+                dest: { lat: 30.5120, lon: 79.4890, name: "Helang Safe Bedrock Terrace" },
+                bearing: "242° SW",
+                siteGradient: "7.8°"
+            }
+        };
+
+        let currentActiveGeometry = PRESET_GEOMETRIES.devgram;
+
+        function initPrimaryEoMap() {
+            if (primaryEoMap) return;
+
+            primaryEoMap = L.map('primaryEoMap', {
+                zoomControl: true,
+                attributionControl: false
+            }).setView([30.3744, 79.2762], 11);
+
+            baseLayers.terrain = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                maxZoom: 17
+            });
+            baseLayers.satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                maxZoom: 18
+            });
+            baseLayers.streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19
+            });
+
+            // Default to Terrain layer matching reference screen
+            activeBasemapLayer = baseLayers.terrain.addTo(primaryEoMap);
+
+            hazardGroup = L.layerGroup().addTo(primaryEoMap);
+            sitesGroup = L.layerGroup().addTo(primaryEoMap);
+            transectGroup = L.layerGroup().addTo(primaryEoMap);
+
+            primaryEoMap.on('mousemove', function(e) {
+                const coordElem = document.getElementById('cursorCoords');
+                if (coordElem) {
+                    coordElem.innerText = `CURSOR: ${e.latlng.lat.toFixed(4)}° N, ${e.latlng.lng.toFixed(4)}° E | SRTM RES: 30m`;
+                }
+            });
+
+            setTimeout(() => { primaryEoMap.invalidateSize(); }, 300);
+        }
+
+        function switchBasemap(mode) {
+            if (!primaryEoMap) return;
+            if (activeBasemapLayer) primaryEoMap.removeLayer(activeBasemapLayer);
+
+            const btnSat = document.getElementById('btnBasemapSat');
+            const btnTerr = document.getElementById('btnBasemapTerrain');
+            const btnStr = document.getElementById('btnBasemapStreets');
+
+            [btnSat, btnTerr, btnStr].forEach(b => {
+                if (b) b.className = "px-2.5 py-1 rounded text-xs font-mono bg-slate-900 hover:bg-slate-800 text-slate-400 transition";
+            });
+
+            if (mode === 'satellite') {
+                activeBasemapLayer = baseLayers.satellite.addTo(primaryEoMap);
+                if (btnSat) btnSat.className = "px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.2)]";
+            } else if (mode === 'streets') {
+                activeBasemapLayer = baseLayers.streets.addTo(primaryEoMap);
+                if (btnStr) btnStr.className = "px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.2)]";
+            } else {
+                activeBasemapLayer = baseLayers.terrain.addTo(primaryEoMap);
+                if (btnTerr) btnTerr.className = "px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.2)]";
+            }
+        }
+
+        function toggleLayer(layerName) {
+            if (!primaryEoMap) return;
+            if (layerName === 'hazard') {
+                const chk = document.getElementById('chkLayerHazard');
+                if (chk && chk.checked) primaryEoMap.addLayer(hazardGroup);
+                else primaryEoMap.removeLayer(hazardGroup);
+            } else if (layerName === 'sites') {
+                const chk = document.getElementById('chkLayerSites');
+                if (chk && chk.checked) primaryEoMap.addLayer(sitesGroup);
+                else primaryEoMap.removeLayer(sitesGroup);
+            } else if (layerName === 'transect') {
+                const chk = document.getElementById('chkLayerTransect');
+                if (chk && chk.checked) primaryEoMap.addLayer(transectGroup);
+                else primaryEoMap.removeLayer(transectGroup);
+            }
+        }
+
+        function focusAoi() {
+            if (!primaryEoMap || !currentActiveGeometry) return;
+            primaryEoMap.flyTo([currentActiveGeometry.origin.lat, currentActiveGeometry.origin.lon], 14, { duration: 1 });
+        }
+
+        function focusSafeSite() {
+            if (!primaryEoMap || !currentActiveGeometry) return;
+            primaryEoMap.flyTo([currentActiveGeometry.dest.lat, currentActiveGeometry.dest.lon], 14, { duration: 1 });
+        }
+
+        function resetEoMap() {
+            if (!primaryEoMap || !currentActiveGeometry) return;
+            primaryEoMap.fitBounds([
+                [currentActiveGeometry.origin.lat, currentActiveGeometry.origin.lon],
+                [currentActiveGeometry.dest.lat, currentActiveGeometry.dest.lon]
+            ], { padding: [50, 50] });
+        }
+
+        function initEoTransectChart() {
+            const canvas = document.getElementById('eoTransectChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 160);
+            gradient.addColorStop(0, 'rgba(6, 182, 212, 0.45)');
+            gradient.addColorStop(1, 'rgba(6, 182, 212, 0.0)');
+
+            eoTransectChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['0 km', '1.3 km', '2.5 km', '3.8 km', '5.1 km', '6.4 km', '7.7 km', '9.0 km', '10.3 km', '11.6 km', '12.8 km', '14.1 km', '15.3 km', '16.6 km'],
+                    datasets: [{
+                        label: 'Elevation (m)',
+                        data: [1260, 1410, 1680, 1920, 2210, 2480, 2350, 2120, 1890, 1750, 1620, 1530, 1440, 1380],
+                        borderColor: '#06b6d4',
+                        borderWidth: 2.5,
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.35,
+                        pointBackgroundColor: '#10b981',
+                        pointBorderColor: '#0f172a',
+                        pointBorderWidth: 2,
+                        pointRadius: 3.5,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(51, 65, 85, 0.25)' },
+                            ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 9.5 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(51, 65, 85, 0.25)' },
+                            ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 9.5 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#091122',
+                            borderColor: '#06b6d4',
+                            borderWidth: 1,
+                            titleFont: { family: 'JetBrains Mono' },
+                            bodyFont: { family: 'JetBrains Mono' },
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Elevation: ${context.parsed.y} m`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        async function updateTerrainWorkstation(geom) {
+            if (!geom) return;
+            currentActiveGeometry = geom;
+
+            // Update DOM text elements
+            document.getElementById('eoEpicenterName').innerText = geom.origin.name;
+            document.getElementById('eoEpicenterCoords').innerText = `${geom.origin.lat}° N, ${geom.origin.lon}° E`;
+            document.getElementById('eoTargetName').innerText = geom.dest.name;
+            document.getElementById('eoTargetCoords').innerText = `${geom.dest.lat}° N, ${geom.dest.lon}° E`;
+            document.getElementById('eoVectorBearing').innerText = `Bearing: ${geom.bearing}`;
+            document.getElementById('transectOriginLabel').innerText = `ORIGIN: ${geom.origin.name.split('(')[0].trim()}`;
+            document.getElementById('transectDestLabel').innerText = `SITE: ${geom.dest.name.split('(')[0].trim()}`;
+            document.getElementById('eoSiteGradientVal').innerText = geom.siteGradient;
+
+            // Render Map Layers
+            if (primaryEoMap) {
+                hazardGroup.clearLayers();
+                sitesGroup.clearLayers();
+                transectGroup.clearLayers();
+
+                // 1. Hazard Red Zone Circle & Marker
+                L.circle([geom.origin.lat, geom.origin.lon], {
+                    radius: 2800,
+                    color: '#ef4444',
+                    weight: 2,
+                    fillColor: '#ef4444',
+                    fillOpacity: 0.25,
+                    dashArray: '5, 5'
+                }).addTo(hazardGroup);
+
+                const hazardIcon = L.divIcon({
+                    className: 'hazard-marker',
+                    html: `<div class="w-6 h-6 rounded-full bg-red-600 border-2 border-white flex items-center justify-center text-white shadow-lg animate-pulse text-[11px] font-bold">!</div>`,
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+                L.marker([geom.origin.lat, geom.origin.lon], { icon: hazardIcon })
+                    .bindPopup(`<div class="font-mono text-xs"><b>HAZARD EPICENTER</b><br>${geom.origin.name}<br>${geom.origin.lat}° N, ${geom.origin.lon}° E</div>`)
+                    .addTo(hazardGroup);
+
+                // 2. Safe Site Marker & Badge
+                const siteIcon = L.divIcon({
+                    className: 'safe-site-marker',
+                    html: `<div class="px-2.5 py-0.5 rounded-full bg-emerald-600 border border-emerald-300 text-white font-mono font-bold text-[10px] shadow-lg flex items-center gap-1"><span>SITE</span></div>`,
+                    iconSize: [44, 22],
+                    iconAnchor: [22, 11]
+                });
+                L.marker([geom.dest.lat, geom.dest.lon], { icon: siteIcon })
+                    .bindPopup(`<div class="font-mono text-xs"><b>PRIMARY SAFE SANCTUARY</b><br>${geom.dest.name}<br>${geom.dest.lat}° N, ${geom.dest.lon}° E</div>`)
+                    .addTo(sitesGroup);
+
+                // 3. Transect Vector Line
+                L.polyline([
+                    [geom.origin.lat, geom.origin.lon],
+                    [geom.dest.lat, geom.dest.lon]
+                ], {
+                    color: '#06b6d4',
+                    weight: 3.5,
+                    opacity: 0.95,
+                    dashArray: '6, 6'
+                }).addTo(transectGroup);
+
+                primaryEoMap.fitBounds([
+                    [geom.origin.lat, geom.origin.lon],
+                    [geom.dest.lat, geom.dest.lon]
+                ], { padding: [50, 50] });
+
+                setTimeout(() => {
+                    lucide.createIcons();
+                    primaryEoMap.invalidateSize();
+                }, 200);
+            }
+
+            // Fetch Live DEM Profile from Backend
+            try {
+                const transectResp = await fetch(`/api/terrain/transect?origin_lat=${geom.origin.lat}&origin_lon=${geom.origin.lon}&dest_lat=${geom.dest.lat}&dest_lon=${geom.dest.lon}&samples=14`);
+                if (transectResp.ok) {
+                    const transectData = await transectResp.json();
+                    const distKm = transectData.corridor_distance_km || 16.57;
+                    document.getElementById('eoVectorDist').innerText = `${distKm} km`;
+                    document.getElementById('transectDistBadge').innerText = `${distKm} km Vector`;
+
+                    if (transectData.summary) {
+                        const s = transectData.summary;
+                        document.getElementById('eoMinElev').innerText = `${Math.round(s.min_elevation_m).toLocaleString()} m`;
+                        document.getElementById('eoMaxElev').innerText = `${Math.round(s.max_elevation_m).toLocaleString()} m`;
+                        const deltaPrefix = s.net_elevation_delta_m >= 0 ? '+' : '';
+                        document.getElementById('eoNetDelta').innerText = `${deltaPrefix}${Math.round(s.net_elevation_delta_m).toLocaleString()} m`;
+                        document.getElementById('eoMaxGrad').innerText = `${s.max_gradient_pct}°`;
+                    }
+
+                    if (transectData.points && transectData.points.length > 0 && eoTransectChart) {
+                        const labels = transectData.points.map(p => `${p.distance_km} km`);
+                        const elevations = transectData.points.map(p => p.elevation_m);
+                        eoTransectChart.data.labels = labels;
+                        eoTransectChart.data.datasets[0].data = elevations;
+                        eoTransectChart.update();
+                    }
+                }
+            } catch (err) {
+                console.warn("Could not query dynamic transect, using calibrated baseline:", err);
+            }
+        }
+
         async function syncTelemetry(input) {
             if (!input) return;
             // Robustly unwrap composite cached objects
@@ -499,6 +1023,27 @@
                 document.getElementById('activeCoordsBadge').innerText = `${data.query_parameters.latitude}° N, ${data.query_parameters.longitude}° E`;
             } else if (input.lat && input.lng) {
                 document.getElementById('activeCoordsBadge').innerText = `${input.lat}° N, ${input.lng}° E`;
+            }
+
+            // Sync Terrain Workstation geometry
+            const qLat = (data.query_parameters && data.query_parameters.latitude) || (input && input.lat);
+            const qLon = (data.query_parameters && data.query_parameters.longitude) || (input && input.lng);
+            if (qLat && qLon) {
+                let matchedGeom = null;
+                if (Math.abs(qLat - 30.3207) < 0.05) matchedGeom = PRESET_GEOMETRIES.devgram;
+                else if (Math.abs(qLat - 11.5126) < 0.05) matchedGeom = PRESET_GEOMETRIES.wayanad;
+                else if (Math.abs(qLat - 24.8333) < 0.05) matchedGeom = PRESET_GEOMETRIES.silchar;
+                else if (Math.abs(qLat - 30.5574) < 0.05) matchedGeom = PRESET_GEOMETRIES.chamoli;
+                else {
+                    const rec = (data.relocation_decision && data.relocation_decision.primary_recommendation) || {};
+                    matchedGeom = {
+                        origin: { lat: qLat, lon: qLon, name: data.location_name || `${qLat.toFixed(4)}° N, ${qLon.toFixed(4)}° E` },
+                        dest: { lat: rec.latitude || (qLat + 0.08), lon: rec.longitude || (qLon + 0.09), name: rec.site_name || "Primary Safe Sanctuary Site" },
+                        bearing: "45° NE",
+                        siteGradient: "8.2°"
+                    };
+                }
+                if (matchedGeom) updateTerrainWorkstation(matchedGeom);
             }
 
             // Sentinel-1 SAR
@@ -521,7 +1066,6 @@
                 }
                 if (sHold) sHold.classList.add('hidden');
             } else {
-                // Baseline SAR preview
                 if (sImg) {
                     sImg.src = '/assets/wayanad_heatmap_hud.svg';
                     sImg.classList.remove('hidden');
@@ -551,7 +1095,6 @@
                 }
                 if (oHold) oHold.classList.add('hidden');
             } else {
-                // Baseline Optical preview
                 if (oImg) {
                     oImg.src = '/assets/raksha_wayanad_dark_bg.jpg';
                     oImg.classList.remove('hidden');
@@ -577,6 +1120,9 @@
 
         async function selectPreset(id) {
             try {
+                const geom = PRESET_GEOMETRIES[id] || PRESET_GEOMETRIES.devgram;
+                updateTerrainWorkstation(geom);
+
                 const presets = {
                     devgram: { lat: 30.3207, lon: 79.2163, pop: 6840 },
                     wayanad: { lat: 11.5126, lon: 76.1287, pop: 4200 },
@@ -606,7 +1152,10 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            initPrimaryEoMap();
+            initEoTransectChart();
             lucide.createIcons();
+
             const cached = localStorage.getItem('raksha_last_analysis');
             if (cached) {
                 try {

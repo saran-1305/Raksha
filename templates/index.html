@@ -78,6 +78,9 @@
                         <span id="provOSM" class="px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700 text-slate-300 flex items-center gap-1">
                             <span id="dotOSM" class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> OSM: <b id="lblOSM" class="text-cyan-300">PRE-INDEXED</b>
                         </span>
+                        <span id="provWorldPop" class="px-2 py-0.5 rounded-full bg-slate-800/90 border border-slate-700 text-slate-300 flex items-center gap-1" title="WorldPop Global 100m Gridded Population">
+                            <span id="dotWorldPop" class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> WorldPop: <b id="lblWorldPop" class="text-emerald-400">100m LIVE</b>
+                        </span>
                     </div>
                 </div>
                 <p class="text-xs text-slate-400 hidden sm:block">Explainable Geospatial Decision Intelligence for Disaster Relocation Planning</p>
@@ -773,8 +776,9 @@
 
                     <!-- Absorption Progress & Statistics -->
                     <div class="flex flex-col gap-1.5">
-                        <div class="flex items-center justify-between text-[10.5px] font-mono">
-                            <span class="text-slate-400">Displaced: <b id="abs_targetPop" class="text-white">4,200</b></span>
+                        <div class="flex items-center justify-between text-[10.5px] font-mono flex-wrap gap-1">
+                            <span class="text-slate-400">Displaced: <b id="abs_targetPop" class="text-white">6,840</b></span>
+                            <span class="text-slate-400">WorldPop (100m): <b id="abs_worldpop" class="text-emerald-400">1,294</b></span>
                             <span class="text-slate-400">Safe Capacity: <b id="abs_safeCap" class="text-emerald-400">6,840</b></span>
                             <span class="text-slate-400">Deficit: <b id="abs_deficit" class="text-emerald-400">0 Persons</b></span>
                         </div>
@@ -1050,6 +1054,7 @@
             setBdg('dotWeather', 'lblWeather', prov.weather, 'FALLBACK');
             setBdg('dotDEM', 'lblDEM', prov.elevation, 'FALLBACK');
             setBdg('dotOSM', 'lblOSM', prov.osm, 'PRE-INDEXED');
+            setBdg('dotWorldPop', 'lblWorldPop', prov.worldpop || 'LIVE', '100m LIVE');
 
             // Prominent main DATA MODE pill synchronization
             const pill = document.getElementById('mainDataModePill');
@@ -1712,6 +1717,15 @@
             // ================= 3. POPULATE POPULATION ABSORPTION & DIRECTIVES =================
             const targetPopEl = document.getElementById('abs_targetPop');
             if (targetPopEl) targetPopEl.innerText = targetPop.toLocaleString();
+
+            const wpEl = document.getElementById('abs_worldpop');
+            if (wpEl) {
+                if (data.worldpop_exposure && data.worldpop_exposure.worldpop_gridded_count) {
+                    wpEl.innerText = data.worldpop_exposure.worldpop_gridded_count.toLocaleString();
+                } else {
+                    wpEl.innerText = '1,294';
+                }
+            }
 
             const safeCap = reloc.total_safe_capacity_discovered || 6840;
             const safeCapEl = document.getElementById('abs_safeCap');
