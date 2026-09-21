@@ -321,8 +321,8 @@
                                 <span id="cadIngress" class="text-cyan-300 font-bold">Dual-Lane Heavy Asphalt (>16T)</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-slate-400 text-[10px]">CARTOSAT-3 HELIPAD:</span>
-                                <span id="cadHelipad" class="text-amber-300 font-bold">Class H1 (45.0m Cleared Zone)</span>
+                                <span class="text-slate-400 text-[10px]">EMERGENCY ACCESS:</span>
+                                <span id="cadHelipad" class="text-amber-300 font-bold">Potential Site [ARCHITECTURE]</span>
                             </div>
                         </div>
 
@@ -380,10 +380,10 @@
                             </div>
                             <div class="p-2.5 rounded-xl bg-[#040711] border border-amber-500/40">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="font-bold text-white text-[11px]">Emergency Helipad</span>
-                                    <span class="text-amber-400 font-bold text-[10px]">1,600 m²</span>
+                                    <span class="font-bold text-white text-[11px]">Potential Emergency Access Zone</span>
+                                    <span class="text-amber-400 font-bold text-[10px]">[ARCHITECTURE]</span>
                                 </div>
-                                <span class="text-[10px] text-slate-400 block">45m Cleared Rotor Ring &bull; Night Lighting</span>
+                                <span class="text-[10px] text-slate-400 block">Open Staging Ground &bull; Terrain Analyzed</span>
                             </div>
                             <div class="p-2.5 rounded-xl bg-[#040711] border border-teal-500/40">
                                 <div class="flex justify-between items-center mb-1">
@@ -422,7 +422,7 @@
                                     <span class="text-[10px] text-slate-400">H+0 to H+6 Hours</span>
                                 </div>
                                 <p class="text-[11px] text-slate-300">
-                                    SDRF vanguard clears NH-58 arterial corridor; establishes 45m helipad beacon and mobile water purification (RO unit).
+                                    SDRF vanguard clears NH-58 arterial corridor; establishes potential emergency access staging and mobile water purification (RO unit).
                                 </p>
                             </div>
                             <!-- Phase 2 -->
@@ -588,7 +588,7 @@
             setTimeout(() => {
                 L.popup()
                     .setLatLng([lat, lon])
-                    .setContent(`<div class="font-mono text-xs"><b>${name}</b><br><span style="color:#10b981;font-weight:bold;">Verified Relocation Sanctuary</span></div>`)
+                    .setContent(`<div class="font-mono text-xs"><b>${name}</b><br><span style="color:#10b981;font-weight:bold;">Assessed Safe Sanctuary [DERIVED]</span></div>`)
                     .openOn(relocMap);
             }, 800);
         }
@@ -654,7 +654,7 @@
                 bearing: '185 kN/m² (Fluvial Gravel / Silt)',
                 freeboard: '+24.0m above 50-Yr Flood Line',
                 ingress: 'Dual-Lane Heavy Asphalt (>16T capacity)',
-                helipad: 'Class H1 (45.0m Cleared Zone)',
+                helipad: 'Potential Access Site [ARCHITECTURE]',
                 lat: centerLat + 0.0214,
                 lon: centerLon + 0.0148
             },
@@ -665,7 +665,7 @@
                 bearing: '210 kN/m² (Compacted Bedrock Subbase)',
                 freeboard: '+42.0m above 50-Yr Flood Line',
                 ingress: 'Single-Lane Paved with 3 Passing Bays',
-                helipad: 'Class H2 (30.0m Cleared Playfield)',
+                helipad: 'Secondary Access Site [ARCHITECTURE]',
                 lat: centerLat - 0.0093,
                 lon: centerLon + 0.0578
             },
@@ -676,7 +676,7 @@
                 bearing: '115 kN/m² (Colluvial Talus / Fractured)',
                 freeboard: '+12.0m (Unstable drainage culvert)',
                 ingress: 'Unpaved Mountain Track (High Landslide Risk)',
-                helipad: 'None (Steep Gradient >18°)',
+                helipad: 'Infeasible (Steep Gradient >18°)',
                 lat: centerLat + 0.0341,
                 lon: centerLon + 0.0211
             },
@@ -687,7 +687,7 @@
                 bearing: '95 kN/m² (Loose River Sand / Saturated)',
                 freeboard: '-1.5m BELOW High Water Inundation Level',
                 ingress: 'Embankment Service Road (Submersible)',
-                helipad: 'None (Active Floodway)',
+                helipad: 'Infeasible (Active Floodway)',
                 lat: centerLat - 0.0182,
                 lon: centerLon - 0.0241
             }
@@ -898,12 +898,12 @@
             ], { color: '#a855f7', fillColor: '#a855f7', fillOpacity: 0.45, weight: 2 }).bindPopup("<b>WASH Sanitation Trench</b><br>2,100 m² &bull; 210 Latrines (1/20p)");
 
             const sHelipad = L.circle([sLat + 0.0026, sLon + 0.0018], {
-                radius: 45,
+                radius: 40,
                 color: '#f59e0b',
                 fillColor: '#f59e0b',
-                fillOpacity: 0.6,
+                fillOpacity: 0.5,
                 weight: 2
-            }).bindPopup("<b>Emergency Helipad</b><br>1,600 m² &bull; 45m Rotor Ring");
+            }).bindPopup("<b>POTENTIAL EMERGENCY ACCESS SITE</b><br><span class='text-[10px] text-slate-300'>Open Staging Ground [ARCHITECTURE]<br>Road Access: Available [ESTIMATED]</span>");
 
             const sLivestock = L.polygon([
                 [sLat - 0.0018, sLon + 0.0005],

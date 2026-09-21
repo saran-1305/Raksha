@@ -734,12 +734,12 @@
                         CRITICAL LIFELINES &amp; INGRESS AUDIT
                     </h1>
                     <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-3xl">
-                        Validating physical transit corridors, 45m Cartosat-3 aerial helipad clearance, electrical grid tie-in, and emergency medical triage radius.
+                        Analyzing physical transit corridors, potential emergency access site assessment [ARCHITECTURE], electrical grid proximity, and emergency medical triage radius.
                     </p>
                 </div>
                 <div>
                     <span class="inline-flex items-center px-3.5 py-1.5 rounded-lg font-mono font-bold text-xs bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 shadow-lg shadow-emerald-500/10">
-                        Corridors Verified
+                        Corridors Analyzed [DERIVED]
                     </span>
                 </div>
             </div>
@@ -749,23 +749,23 @@
                 
                 <div class="p-5 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
-                        <span class="text-[10px] text-slate-400 uppercase block">Road Surface &amp; Axle Load</span>
-                        <div class="text-xl font-bold text-white mt-1">2-Lane Asphalt</div>
-                        <span class="text-[11px] text-emerald-400 font-bold">PASS: &gt;16 Tonne Convoy</span>
+                        <span class="text-[10px] text-slate-400 uppercase block">Road Access &amp; Viability</span>
+                        <div class="text-xl font-bold text-white mt-1">Arterial Road</div>
+                        <span class="text-[11px] text-emerald-400 font-bold">Available [ESTIMATED]</span>
                     </div>
                     <div class="mt-4 pt-2 border-t border-blue-950 text-[10px] text-slate-400">
-                        Unimpeded bridge clearance on NH/SH link with zero recorded slope slips.
+                        Major transit link evaluated via OpenStreetMap network topology.
                     </div>
                 </div>
 
                 <div class="p-5 bg-[#0c1222] border border-blue-900/50 rounded-xl flex flex-col justify-between">
                     <div>
-                        <span class="text-[10px] text-slate-400 uppercase block">Cartosat-3 Aerial Helipad</span>
-                        <div class="text-xl font-bold text-cyan-300 mt-1">45 m Rotor Zone</div>
-                        <span class="text-[11px] text-cyan-400 font-bold">PASS: Sub-Meter Verified</span>
+                        <span class="text-[10px] text-slate-400 uppercase block">EMERGENCY ACCESS SITE</span>
+                        <div class="text-xl font-bold text-amber-300 mt-1">Staging Ground</div>
+                        <span class="text-[11px] text-amber-400 font-bold">ASSESSED [ARCHITECTURE]</span>
                     </div>
                     <div class="mt-4 pt-2 border-t border-blue-950 text-[10px] text-slate-400">
-                        Open football field footprint. Zero high-tension powerlines within 200m buffer.
+                        Open staging field footprint evaluated against Bhoonidhi 0.28m PAN architecture spec.
                     </div>
                 </div>
 
@@ -805,8 +805,8 @@
                         <thead class="bg-[#070a14] text-slate-400 uppercase text-[10px] border-b border-blue-900/40">
                             <tr>
                                 <th class="p-3">Candidate Facility</th>
-                                <th class="p-3">Ingress Road Quality</th>
-                                <th class="p-3">Helipad Clearance</th>
+                                <th class="p-3">Road Access [ESTIMATED]</th>
+                                <th class="p-3">Emergency Access [ARCHITECTURE]</th>
                                 <th class="p-3">Power Stability</th>
                                 <th class="p-3">Potable Main Tie-In</th>
                                 <th class="p-3">Infra Score</th>
@@ -815,16 +815,16 @@
                         <tbody class="divide-y divide-blue-950 text-slate-300">
                             <tr>
                                 <td class="p-3 font-bold text-white">SITE A - Pipalkoti Complex</td>
-                                <td class="p-3 text-emerald-400 font-bold">All-Weather 2-Lane (Excellent)</td>
-                                <td class="p-3 text-cyan-300">45m Diameter (Clear)</td>
+                                <td class="p-3 text-emerald-400 font-bold">Arterial Road: Available [ESTIMATED]</td>
+                                <td class="p-3 text-amber-300">Potential Access Site Assessed [ARCHITECTURE]</td>
                                 <td class="p-3 text-emerald-400">11kV Feeder + 62.5kVA Genset</td>
                                 <td class="p-3 text-emerald-400">Municipal Water Main (100mm)</td>
                                 <td class="p-3 font-extrabold text-cyan-300">96 / 100</td>
                             </tr>
                             <tr>
                                 <td class="p-3 font-bold text-white">SITE C - Polytechnic Campus</td>
-                                <td class="p-3 text-amber-400 font-bold">1.5-Lane Paved (Moderate Incline)</td>
-                                <td class="p-3 text-cyan-300">50m Quad Ground (Clear)</td>
+                                <td class="p-3 text-amber-400 font-bold">Connecting Paved Road: Available [ESTIMATED]</td>
+                                <td class="p-3 text-amber-300">Secondary Access Site Assessed [ARCHITECTURE]</td>
                                 <td class="p-3 text-emerald-400">11kV Feeder + 45kVA Genset</td>
                                 <td class="p-3 text-amber-400">Borewell + Overhead Tank (50kL)</td>
                                 <td class="p-3 font-extrabold text-cyan-300">89 / 100</td>
@@ -897,7 +897,7 @@
                         </div>
                         <div>
                             <div class="flex justify-between text-[11px] mb-1">
-                                <span class="text-slate-300">4. Critical Utilities &amp; Helipad</span>
+                                <span class="text-slate-300">4. Utilities &amp; Emergency Access</span>
                                 <span class="text-amber-400 font-bold">15 Pts</span>
                             </div>
                             <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
@@ -1004,7 +1004,7 @@
                     <div class="mt-4 pt-3 border-t border-blue-950 text-[11px] text-slate-400 space-y-1">
                         <div>&bull; Staging: Main auditorium + 14 halls</div>
                         <div>&bull; Water Supply: 18,600 L/day assigned</div>
-                        <div>&bull; Helipad: 45m zone designated for air-drop</div>
+                        <div>&bull; Emergency Access: Potential staging ground assessed [ARCHITECTURE]</div>
                     </div>
                 </div>
 

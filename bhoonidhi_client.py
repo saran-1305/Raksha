@@ -86,7 +86,8 @@ class BhoonidhiClient:
 
         return {
             "satellite": "ISRO Cartosat-3",
-            "scene_id": f"C3_PANMX_{lat:.4f}_{lon:.4f}_ORBIT_VALIDATED",
+            "source_status": "ARCHITECTURE",
+            "scene_id": f"C3_PANMX_{lat:.4f}_{lon:.4f}_CATALOG_FRAME",
             "acquisition_date": "2026-03-14T05:18:22Z",
             "resolution": {
                 "panchromatic_gsd_m": 0.28,
@@ -100,12 +101,12 @@ class BhoonidhiClient:
             "incidence_angle_deg": 6.4,
             "bbox": [round(lon - delta, 5), round(lat - delta, 5), round(lon + delta, 5), round(lat + delta, 5)],
             "footprint_polygon": footprint_poly,
-            "helipad_circle": {
+            "emergency_access_zone": {
                 "center": [round(lat, 5), round(lon, 5)],
-                "radius_m": 45.0,
-                "status": "CLEAR"
+                "status": "POTENTIAL_EMERGENCY_ACCESS",
+                "source_label": "ARCHITECTURE"
             },
-            "licensing": "Indian Space Policy 2023 (Disaster Nodal Access Cleared)",
+            "licensing": "Indian Space Policy 2023 (Bhoonidhi Catalog Framework)",
             "auth_status": self.get_auth_status()
         }
 

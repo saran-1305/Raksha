@@ -131,7 +131,7 @@
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> S2-L2A: <b id="statusS2">LIVE</b>
                 </span>
                 <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-amber-300 flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Cartosat-3: <b id="statusCarto">0.28m VALID</b>
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Cartosat-3: <b id="statusCarto">0.28m ARCHITECTURE</b>
                 </span>
                 <span class="px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-purple-300 flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span> Bhuvan: <b id="statusBhuvan">1:50k WMS</b>
@@ -246,7 +246,7 @@
                             <span id="eoVectorDist" class="text-cyan-300 font-extrabold text-sm">16.57 km</span>
                             <span id="eoVectorBearing" class="text-slate-400 text-[11px]">Bearing: 48° NE</span>
                         </div>
-                        <span class="text-emerald-400 text-[10.5px]">Direct Ground Clearance Verified</span>
+                        <span class="text-emerald-400 text-[10.5px]">Corridor Ground Clearance Analyzed [DERIVED]</span>
                     </div>
                 </div>
             </div>
@@ -357,7 +357,7 @@
                     <div class="grid grid-cols-2 gap-1.5 text-slate-400">
                         <div>• S1 C-SAR: <b class="text-cyan-300">Copernicus STAC</b></div>
                         <div>• S2 L2A: <b class="text-emerald-300">10m Optical</b></div>
-                        <div>• Cartosat-3: <b class="text-amber-300">0.28m PAN Cleared</b></div>
+                        <div>• Cartosat-3: <b class="text-amber-300">0.28m ARCHITECTURE</b></div>
                         <div>• SRTM DEM: <b class="text-cyan-300">NASA 30m GSD</b></div>
                     </div>
                     <div class="pt-1 text-slate-400 flex items-center justify-between border-t border-slate-800/60">
@@ -530,14 +530,14 @@
                         </div>
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
-                                ISRO Cartosat-3 Sub-Meter Validation Studio
+                                ISRO Cartosat-3 Architecture Specification Studio
                                 <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono">0.28m GSD</span>
                             </h2>
-                            <p class="text-xs text-slate-400 font-mono">Bhoonidhi Catalog Clearance • Indian Space Policy 2023 Regulatory Framework</p>
+                            <p class="text-xs text-slate-400 font-mono">Bhoonidhi Catalog Framework • Indian Space Policy 2023 Regulatory Spec</p>
                         </div>
                     </div>
-                    <span id="cartoVerdictBadge" class="text-xs px-2.5 py-1 rounded-full font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1">
-                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> CLEARED (96.8%)
+                    <span id="cartoVerdictBadge" class="text-xs px-2.5 py-1 rounded-full font-mono font-bold bg-slate-800 text-amber-300 border border-amber-500/40 flex items-center gap-1">
+                        <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i> ASSESSED [ARCHITECTURE]
                     </span>
                 </div>
 
@@ -545,7 +545,7 @@
                 <div class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[10.5px] font-mono text-amber-300 flex items-center justify-between">
                     <span class="flex items-center gap-1.5">
                         <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400"></i>
-                        <span>DATA PROVENANCE: <b>TARGETED PRODUCTION INTEGRATION / BHOONIDHI CLEARANCE SPECIFICATION</b></span>
+                        <span>DATA PROVENANCE: <b>BHOONIDHI CATALOG FRAMEWORK SPECIFICATION [ARCHITECTURE]</b></span>
                     </span>
                     <span class="text-slate-400 text-[10px]">Indian Space Policy 2023</span>
                 </div>
@@ -555,42 +555,50 @@
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
                         <span class="text-slate-500 text-[10px] block">PAN RESOLUTION</span>
                         <span class="text-amber-400 font-extrabold text-sm">0.28 m GSD</span>
+                        <span class="text-[9px] text-slate-500 block">[ARCHITECTURE]</span>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                        <span class="text-slate-500 text-[10px] block">OPEN GROUND AREA</span>
-                        <span id="cartoOpenGround" class="text-emerald-400 font-extrabold text-sm">244,125 m²</span>
+                        <span class="text-slate-500 text-[10px] block">ROAD ACCESS</span>
+                        <span id="cartoRoadAccessStatus" class="text-emerald-400 font-extrabold text-sm">Available</span>
+                        <span class="text-[9px] text-slate-500 block">[ESTIMATED]</span>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                        <span class="text-slate-500 text-[10px] block">BUILT FOOTPRINT</span>
-                        <span id="cartoBuiltDensity" class="text-cyan-400 font-extrabold text-sm">18.5% (&lt; 25%)</span>
+                        <span class="text-slate-500 text-[10px] block">OPEN AREA</span>
+                        <span id="cartoOpenGround" class="text-cyan-300 font-extrabold text-sm">Estimated</span>
+                        <span class="text-[9px] text-slate-500 block">[DERIVED]</span>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                        <span class="text-slate-500 text-[10px] block">HELIPAD AIR-DROP</span>
-                        <span class="text-emerald-400 font-extrabold text-sm">45.0 m CLEAR</span>
+                        <span class="text-slate-500 text-[10px] block">EMERGENCY ACCESS</span>
+                        <span class="text-emerald-400 font-extrabold text-sm">Potential Site</span>
+                        <span class="text-[9px] text-slate-500 block">[ARCHITECTURE]</span>
                     </div>
                 </div>
 
-                <!-- Interactive Mini-Map: Cartosat Footprint & Helipad Ring -->
+                <!-- Interactive Mini-Map: Cartosat Footprint & Access Site -->
                 <div class="relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800 h-52">
                     <div id="cartoMiniMap" class="h-full w-full"></div>
                     <div class="absolute top-2 left-2 z-[500] bg-slate-900/90 backdrop-blur px-2.5 py-1 rounded text-[10px] font-mono text-amber-300 border border-slate-700">
-                        🛰️ Cartosat-3 Sub-Meter Sanctuary Boundary &amp; 45m Helipad Circle
+                        🛰️ Potential Emergency Access Site Boundary [ARCHITECTURE]
                     </div>
                 </div>
 
-                <!-- Verification Checklist -->
+                <!-- Assessment Checklist -->
                 <div class="space-y-1 text-xs font-mono">
                     <div class="flex items-center gap-2 text-emerald-400">
                         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
-                        <span>Zero overhead power lines or heavy canopy obstruction within 45m radius</span>
+                        <span>Road Access: Available <span class="text-[9px] text-slate-400 font-normal">[ESTIMATED via OSM]</span></span>
                     </div>
                     <div class="flex items-center gap-2 text-emerald-400">
                         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
-                        <span>Structural density confirmed under 25% ensuring ample Sphere tent pitching space</span>
+                        <span>Open Area Footprint: Estimated from parcel boundary <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span></span>
                     </div>
                     <div class="flex items-center gap-2 text-emerald-400">
                         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
-                        <span>Primary all-weather dual-lane ingress road gateway verified</span>
+                        <span>Terrain Slope Profile: Analyzed via SRTM DEM <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span></span>
+                    </div>
+                    <div class="flex items-center gap-2 text-emerald-400">
+                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
+                        <span>High-Resolution Optical: Cartosat-3 Catalog Frame Indexed <span class="text-[9px] text-slate-400 font-normal">[ARCHITECTURE]</span></span>
                     </div>
                 </div>
             </div>
@@ -687,24 +695,31 @@
                 cartoMiniMap.setView([lat, lon], 15);
             }
 
-            // Add 45m helipad circle
-            L.circle([lat, lon], {
-                radius: 45,
-                color: '#10b981',
+            // Potential Emergency Access Zone Boundary
+            const delta = 0.0025;
+            L.polygon([
+                [lat - delta, lon - delta],
+                [lat + delta, lon - delta],
+                [lat + delta, lon + delta],
+                [lat - delta, lon + delta]
+            ], {
+                color: '#f59e0b',
                 weight: 2,
                 dashArray: '4, 4',
-                fillColor: '#10b981',
-                fillOpacity: 0.3
+                fillColor: '#f59e0b',
+                fillOpacity: 0.18
             }).addTo(cartoMiniMap);
 
-            // Helipad Marker
-            const heliIcon = L.divIcon({
-                className: 'helipad-icon',
-                html: `<div class="w-6 h-6 rounded-full bg-emerald-950 border-2 border-emerald-400 text-emerald-300 flex items-center justify-center font-mono font-bold text-[10px] shadow">H</div>`,
-                iconSize: [24, 24],
-                iconAnchor: [12, 12]
+            // Access Marker
+            const accessIcon = L.divIcon({
+                className: 'emergency-access-icon',
+                html: `<div class="px-2 py-0.5 rounded-lg bg-amber-950 border border-amber-400 text-amber-300 flex items-center justify-center font-mono font-bold text-[9px] shadow">ACCESS</div>`,
+                iconSize: [50, 20],
+                iconAnchor: [25, 10]
             });
-            L.marker([lat, lon], { icon: heliIcon }).addTo(cartoMiniMap);
+            L.marker([lat, lon], { icon: accessIcon })
+                .bindPopup(`<b>POTENTIAL EMERGENCY ACCESS SITE</b><br>Road Access: Available [ESTIMATED]<br>Open Area: Estimated [DERIVED]<br>Terrain: Analyzed [DERIVED]`)
+                .addTo(cartoMiniMap);
 
             setTimeout(() => { cartoMiniMap.invalidateSize(); }, 200);
         }
@@ -1106,10 +1121,10 @@
             const carto = data.cartosat3_validation || {};
             const cCoords = carto.target_coordinates || { lat: 30.3421, lon: 79.2311 };
             initCartoMiniMap(cCoords.lat || 30.3421, cCoords.lon || 79.2311);
-            if (carto.verified_spatial_metrics) {
-                document.getElementById('cartoOpenGround').innerText = `${(carto.verified_spatial_metrics.verified_open_staging_sqm || 244125).toLocaleString()} m²`;
-                document.getElementById('cartoBuiltDensity').innerText = `${carto.verified_spatial_metrics.built_up_density_pct || 18.5}% (< 25%)`;
-            }
+            const openGroundEl = document.getElementById('cartoOpenGround');
+            if (openGroundEl) openGroundEl.innerText = "Estimated";
+            const roadAccessEl = document.getElementById('cartoRoadAccessStatus');
+            if (roadAccessEl) roadAccessEl.innerText = (carto.road_access || "Available");
 
             // Bhuvan
             const bhuvan = data.bhuvan_thematic || {};

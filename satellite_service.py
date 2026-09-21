@@ -156,14 +156,13 @@ class SatelliteTelemetryService:
             "source": "Microsoft Planetary Computer STAC (Sentinel-1 SAR C-Band Radar)"
         }
 
-        # 5. Cartosat-3 High-Resolution Validation Framework
+        # 5. Cartosat-3 High-Resolution Architecture Framework
         carto_auth = bhoonidhi_service.get_auth_status()
-        carto_mode = self.component_status.get("cartosat3", "verified")
         components["cartosat3"] = {
-            "status": carto_mode,
-            "latency_ms": 45,
-            "source": "ISRO Cartosat-3 Sub-Meter (0.28m) Site Validation Framework",
-            "bhoonidhi_auth": carto_auth.get("status", "AUTHENTICATED"),
+            "status": "architecture",
+            "latency_ms": 25,
+            "source": "ISRO Cartosat-3 Sub-Meter (0.28m) Architecture Specification",
+            "bhoonidhi_auth": carto_auth.get("status", "CATALOG_FRAME"),
             "regulatory_framework": "Indian Space Policy 2023"
         }
 
@@ -338,43 +337,54 @@ class SatelliteTelemetryService:
         built_density_pct = 22.5 if any(k in site_name.lower() for k in ["campus", "college", "hospital"]) else 14.0
         built_footprint_sqm = int(gross_area * (built_density_pct / 100.0))
         open_staging_sqm = gross_area - built_footprint_sqm
-        helipad_clearance_m = 45.0 if gross_area >= 100000 else 30.0
 
         return {
-            "status": "VERIFIED",
-            "satellite": "ISRO Cartosat-3 (High-Resolution Earth Observation)",
-            "scene_id": bhoonidhi_meta.get("scene_id"),
+            "status": "ARCHITECTURE",
+            "source_status": "ARCHITECTURE",
+            "assessment_type": "EMERGENCY ACCESS ASSESSMENT",
+            "satellite": "ISRO Cartosat-3 (0.28m Architecture Specification)",
+            "scene_id": bhoonidhi_meta.get("scene_id", "C3_PANMX_CATALOG_FRAME"),
             "acquisition_date": bhoonidhi_meta.get("acquisition_date", "2026-03-14T05:18:22Z"),
             "sensor_resolution": {
-                "panchromatic_gsd": "0.28 m (Sub-Meter Ground Sampling Distance)",
-                "multispectral_gsd": "1.12 m (4-Band VNIR)",
+                "panchromatic_gsd": "0.28 m GSD (Architecture Spec)",
+                "multispectral_gsd": "1.12 m GSD (4-Band VNIR)",
                 "swath_width": "17.0 km"
             },
             "site_target": site_name,
             "target_coordinates": {"lat": lat, "lon": lon},
+            "road_access": "Available",
+            "road_access_source": "ESTIMATED",
+            "open_area": "Estimated",
+            "open_area_source": "DERIVED",
+            "terrain": "Analyzed",
+            "terrain_source": "DERIVED",
+            "emergency_access": "Potential Emergency Access Site",
+            "emergency_access_source": "ARCHITECTURE",
             "verified_spatial_metrics": {
                 "total_site_boundary_sqm": gross_area,
                 "verified_open_staging_sqm": open_staging_sqm,
                 "structural_footprint_sqm": built_footprint_sqm,
                 "built_up_density_pct": built_density_pct,
                 "usable_shelter_area_sqm": usable_area,
-                "helipad_airdrop_clearance_m": helipad_clearance_m,
+                "road_access": "Available",
+                "road_access_source": "ESTIMATED",
+                "open_area_source": "DERIVED",
+                "terrain_source": "DERIVED",
                 "heavy_transport_access_points": 2 if gross_area >= 100000 else 1
             },
-            "validation_verdict": "CLEARED FOR RELOCATION SANCTUARY",
-            "confidence_score_pct": 96.8,
+            "validation_verdict": "POTENTIAL EMERGENCY ACCESS SITE",
             "verification_checks": [
-                "Sub-meter optical clearance: Open ground perimeter confirmed unblocked",
-                "Structural stability: Low built-up footprint density (< 25%) allows safe tent staging",
-                "Transport ingress: Primary all-weather approach road gateway verified",
-                f"Helipad readiness: Emergency air-drop zone clearance ({helipad_clearance_m}m) verified"
+                "Road Access: Available [ESTIMATED via OSM]",
+                "Open Area: Estimated from spatial boundary [DERIVED]",
+                "Terrain: Analyzed via SRTM DEM slope profiles [DERIVED]",
+                "Cartosat-3 0.28m PAN: Catalog frame indexed for ground audit [ARCHITECTURE]"
             ],
             "bbox": bhoonidhi_meta.get("bbox"),
             "footprint_polygon": bhoonidhi_meta.get("footprint_polygon"),
-            "helipad_circle": bhoonidhi_meta.get("helipad_circle"),
+            "emergency_access_zone": bhoonidhi_meta.get("emergency_access_zone"),
             "cloud_cover_pct": bhoonidhi_meta.get("cloud_cover_pct", 3.8),
             "bhoonidhi_details": bhoonidhi_meta,
-            "provenance": "ISRO Cartosat-3 High-Resolution Validation Framework"
+            "provenance": "ISRO Bhoonidhi Metadata & Spatial Layout Assessment [ARCHITECTURE]"
         }
 
     def fetch_bhuvan_thematic(self, candidate_site: Dict[str, Any], epicenter_lat: float = 0.0, epicenter_lon: float = 0.0) -> Dict[str, Any]:

@@ -80,7 +80,7 @@
     <g transform="translate(8, 40)"><rect width="208" height="32" rx="5" fill="#0f172a" stroke="#1e293b"/><circle cx="15" cy="16" r="3.5" fill="#fbbf24"/><text x="26" y="20" class="item-txt">Leaflet GIS Map Layers</text></g>
     <g transform="translate(8, 79)"><rect width="208" height="32" rx="5" fill="#0f172a" stroke="#1e293b"/><circle cx="15" cy="16" r="3.5" fill="#fbbf24"/><text x="26" y="20" class="item-txt">12-pt DEM Transect Chart</text></g>
     <g transform="translate(8, 118)"><rect width="208" height="32" rx="5" fill="#0f172a" stroke="#1e293b"/><circle cx="15" cy="16" r="3.5" fill="#fbbf24"/><text x="26" y="20" class="item-txt">6-Stage Decision Stepper</text></g>
-    <g transform="translate(8, 157)"><rect width="208" height="32" rx="5" fill="#0f172a" stroke="#1e293b"/><circle cx="15" cy="16" r="3.5" fill="#fbbf24"/><text x="26" y="20" class="item-txt">45m Helipad Air-Drop Circle</text></g>
+    <g transform="translate(8, 157)"><rect width="208" height="32" rx="5" fill="#0f172a" stroke="#1e293b"/><circle cx="15" cy="16" r="3.5" fill="#fbbf24"/><text x="26" y="20" class="item-txt">Emergency Access Boundary [ARCH]</text></g>
     <g transform="translate(8, 196)"><rect width="208" height="32" rx="5" fill="#0f172a" stroke="#1e293b"/><circle cx="15" cy="16" r="3.5" fill="#fbbf24"/><text x="26" y="20" class="item-txt">Cinematic Landing Portal</text></g>
   </g>
 

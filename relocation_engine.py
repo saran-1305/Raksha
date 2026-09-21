@@ -594,7 +594,7 @@ class RelocationEngine:
         # Determine overall data mode
         p_s1 = self.sat_service.component_status.get("sentinel1", "live").upper()
         p_s2 = self.sat_service.component_status.get("sentinel2", "live").upper()
-        p_carto = self.sat_service.component_status.get("cartosat3", "verified").upper()
+        p_carto = self.sat_service.component_status.get("cartosat3", "architecture").upper()
         p_wx = self.sat_service.component_status.get("weather", "live").upper()
         p_dem = self.sat_service.component_status.get("elevation", "live").upper()
         p_osm = self.sat_service.component_status.get("osm", "live").upper()
