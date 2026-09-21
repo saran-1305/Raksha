@@ -34,8 +34,12 @@
     <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
-            <!-- Left: Brand Logo & Title -->
+            <!-- Left: Brand Logo, Back Button & Title -->
             <div class="flex items-center gap-3">
+                <a href="/overview" class="h-9 px-3.5 rounded-xl bg-blue-950/90 hover:bg-blue-900 border border-cyan-500/60 text-cyan-300 hover:text-white font-mono text-xs font-bold transition flex items-center gap-2 shadow-[0_0_14px_rgba(0,229,255,0.25)]" title="Return to Overview Dashboard">
+                    <i data-lucide="arrow-left" class="w-4 h-4 text-cyan-400"></i>
+                    <span>← BACK TO OVERVIEW</span>
+                </a>
                 <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
                     <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
                 </a>
@@ -91,14 +95,17 @@
     <div class="border-b border-blue-900/30 bg-[#070e1c] px-6 py-2.5">
         <div class="max-w-[1850px] mx-auto flex items-center justify-between">
             <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
-                <a href="/overview" class="text-cyan-400 hover:underline">RAKSHA</a>
+                <a href="/overview" class="text-cyan-400 hover:underline flex items-center gap-1 font-bold">
+                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                    <span>OVERVIEW</span>
+                </a>
                 <span>/</span>
                 <span class="text-slate-200 font-semibold uppercase tracking-wider">EARTH OBSERVATION STUDIO</span>
                 <span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 hidden sm:inline-block">
                     MULTISPECTRAL &amp; SYNTHETIC APERTURE RADAR
                 </span>
             </div>
-            <a href="/overview" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition flex items-center gap-1.5 group">
+            <a href="/overview" class="px-3 py-1 rounded-lg bg-blue-950/90 hover:bg-blue-900 border border-cyan-500/50 text-xs font-mono text-cyan-300 hover:text-white transition flex items-center gap-1.5 group shadow-[0_0_10px_rgba(0,229,255,0.2)]">
                 <i data-lucide="arrow-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
                 <span>BACK TO OVERVIEW</span>
             </a>
