@@ -97,14 +97,83 @@
     <div class="bg-slate-950/90 border-b border-slate-800/80 px-6 py-2">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
             <div class="flex items-center gap-2">
-                <span class="text-slate-400">TRANSIT CORRIDOR:</span>
+                <span class="text-slate-400">PRIMARY ROUTE:</span>
                 <span class="text-white font-bold bg-slate-800 px-2.5 py-0.5 rounded border border-slate-700">Devgram Habitation ➔ NH-58 ➔ Taluk Stadium</span>
-                <span class="text-cyan-400 font-bold">5.84 km</span>
+                <span class="text-[#7fffd4] font-bold">5.84 km</span>
             </div>
             <div class="flex items-center gap-4">
                 <span>PEOPLE TO RELOCATE: <b class="text-amber-400">6,840</b></span>
                 <span>SANCTUARIES: <b class="text-emerald-400">4 SITES</b></span>
                 <span>ESTIMATED SAFE CAPACITY: <b class="text-emerald-400">7,182</b></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= OPERATIONAL DECISION PIPELINE (5-STAGE JUDGE STORYLINE) ================= -->
+    <div class="bg-slate-900/90 border-b border-slate-800/80 px-6 py-3 shadow-lg">
+        <div class="max-w-[1850px] mx-auto">
+            <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-3">
+                <div class="flex items-center gap-2 font-mono">
+                    <span class="w-2 h-2 rounded-full bg-[#7fffd4] animate-pulse"></span>
+                    <span class="text-xs font-bold text-[#7fffd4] uppercase tracking-wider">OPERATIONAL DECISION PIPELINE</span>
+                    <span class="text-[10px] text-slate-500 hidden sm:inline">| END-TO-END EVIDENTIARY WORKFLOW</span>
+                </div>
+
+                <!-- 5 Pipeline Steps -->
+                <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap font-mono text-xs w-full xl:w-auto">
+                    <!-- Step 1 -->
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-[#7fffd4]/30 shadow-sm">
+                        <span class="w-5 h-5 rounded-full bg-cyan-950 text-[#7fffd4] border border-cyan-500/40 flex items-center justify-center text-[10px] font-bold">1</span>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-white text-[11px] leading-tight">REAL ROUTE DATA</span>
+                            <span class="text-[9px] text-[#7fffd4]">5.84 km NH-58 GIS</span>
+                        </div>
+                    </div>
+
+                    <span class="text-slate-600 font-bold hidden md:inline">➔</span>
+
+                    <!-- Step 2 -->
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-purple-500/30 shadow-sm">
+                        <span class="w-5 h-5 rounded-full bg-purple-950 text-purple-300 border border-purple-500/40 flex items-center justify-center text-[10px] font-bold">2</span>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-white text-[11px] leading-tight">USER-CONFIGURED TRANSPORT</span>
+                            <span class="text-[9px] text-purple-300">60-Seat Fleet Config</span>
+                        </div>
+                    </div>
+
+                    <span class="text-slate-600 font-bold hidden md:inline">➔</span>
+
+                    <!-- Step 3 -->
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-blue-500/30 shadow-sm">
+                        <span class="w-5 h-5 rounded-full bg-blue-950 text-blue-300 border border-blue-500/40 flex items-center justify-center text-[10px] font-bold">3</span>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-white text-[11px] leading-tight">DERIVED VEHICLE REQUIREMENT</span>
+                            <span class="text-[9px] text-blue-300">114 Vehicles Required</span>
+                        </div>
+                    </div>
+
+                    <span class="text-slate-600 font-bold hidden md:inline">➔</span>
+
+                    <!-- Step 4 -->
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-amber-500/30 shadow-sm">
+                        <span class="w-5 h-5 rounded-full bg-amber-950 text-amber-300 border border-amber-500/40 flex items-center justify-center text-[10px] font-bold">4</span>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-white text-[11px] leading-tight">TRIP ALLOCATION</span>
+                            <span class="text-[9px] text-amber-300">2 Rotations / Multi-Site</span>
+                        </div>
+                    </div>
+
+                    <span class="text-slate-600 font-bold hidden md:inline">➔</span>
+
+                    <!-- Step 5 -->
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 shadow-sm bg-emerald-950/20">
+                        <span class="w-5 h-5 rounded-full bg-emerald-900 text-emerald-300 border border-emerald-500/50 flex items-center justify-center text-[10px] font-bold">5</span>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-emerald-300 text-[11px] leading-tight">ESTIMATED RELOCATION TIME</span>
+                            <span class="text-[9px] text-emerald-400 font-bold">01h 35m (Buffer +01h 05m)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -117,13 +186,13 @@
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="navigation" class="w-4 h-4 text-purple-400"></i>
+                        <span class="w-5 h-5 rounded-full bg-cyan-950 text-[#7fffd4] border border-cyan-500/40 flex items-center justify-center text-[10px] font-bold">1</span>
                         <h2 class="font-extrabold text-sm sm:text-base text-white font-mono">
-                            OPERATIONAL RELOCATION ROUTE MAP
+                            STEP 1: REAL ROUTE DATA
                         </h2>
                     </div>
-                    <span class="text-xs font-mono text-cyan-300 bg-blue-950 px-2.5 py-1 rounded border border-blue-800">
-                        Primary Corridor: NH-58 (Paved 2-Lane)
+                    <span class="text-xs font-mono text-[#7fffd4] bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-800/60">
+                        Primary Route: NH-58 (Paved 2-Lane)
                     </span>
                 </div>
 
@@ -138,7 +207,7 @@
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                         <span class="text-slate-500 text-[10px] block">DISTANCE</span>
-                        <span class="text-cyan-300 font-bold">5.84 km</span>
+                        <span class="text-[#7fffd4] font-bold">5.84 km</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                         <span class="text-slate-500 text-[10px] block">DESTINATION 🟢</span>
@@ -148,11 +217,11 @@
 
                 <!-- Multi-Site Branching Scheme -->
                 <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-slate-300 flex items-center justify-between flex-wrap gap-2">
-                    <span class="text-slate-400">Multi-Site Route Network:</span>
-                    <span class="text-emerald-400">🔴 Origin ──→ Site A (5.84km, 1,600 cap)</span>
-                    <span class="text-cyan-300">├──→ Site B (8.12km, 1,866 cap)</span>
-                    <span class="text-amber-400">├──→ Site C (11.4km, 1,133 cap)</span>
-                    <span class="text-purple-300">└──→ Site D (13.9km, 2,241 cap)</span>
+                    <span class="text-slate-400 font-bold">Multi-Site Allocation Route:</span>
+                    <span class="text-emerald-400">🔴 Origin ──→ Site A (5.84km, Estimated Capacity: 1,600)</span>
+                    <span class="text-cyan-300">├──→ Site B (8.12km, Estimated Capacity: 1,866)</span>
+                    <span class="text-amber-400">├──→ Site C (11.4km, Estimated Capacity: 1,133)</span>
+                    <span class="text-purple-300">└──→ Site D (13.9km, Estimated Capacity: 2,241)</span>
                 </div>
             </div>
 
@@ -192,7 +261,7 @@
                         <ul class="text-[11px] text-slate-300 space-y-1 pl-4 list-disc">
                             <li>Move population in sequenced batches</li>
                             <li>Prioritize infants, elderly &amp; vulnerable</li>
-                            <li>Follow designated NH-58 corridor</li>
+                            <li>Follow designated NH-58 route</li>
                             <li>Maintain continuous transit headcount</li>
                         </ul>
                     </div>
@@ -217,12 +286,12 @@
         <!-- ================= RIGHT: LOGISTICS CALCULATOR (~45% / 5 COLS) ================= -->
         <div class="lg:col-span-5 flex flex-col gap-4 font-mono text-xs">
 
-            <!-- 1. Parameterized Transport Calculator (Configurable) -->
+            <!-- Step 2: Parameterized Transport Calculator (Configurable) -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="sliders" class="w-4 h-4 text-purple-400"></i>
-                        <h3 class="font-extrabold text-sm text-white">CONFIGURABLE TRANSPORT SCENARIO</h3>
+                        <span class="w-5 h-5 rounded-full bg-purple-950 text-purple-300 border border-purple-500/40 flex items-center justify-center text-[10px] font-bold">2</span>
+                        <h3 class="font-extrabold text-sm text-white">STEP 2: USER-CONFIGURED TRANSPORT</h3>
                     </div>
                     <span class="text-[10px] text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
                         INTERACTIVE PLANNER
@@ -233,7 +302,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-slate-400 uppercase block mb-1">Vehicle Type</label>
-                        <select id="cfgVehicleType" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs focus:border-cyan-400">
+                        <select id="cfgVehicleType" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs focus:border-[#7fffd4]">
                             <option value="bus" selected>Standard Bus (60 Seat)</option>
                             <option value="minibus">Mini Bus (30 Seat)</option>
                             <option value="truck">Utility Truck (40 Capacity)</option>
@@ -262,24 +331,27 @@
                     </div>
                 </div>
 
-                <!-- Live Calculated Metrics -->
+                <!-- Steps 3 & 4: Live Calculated Metrics -->
                 <div class="grid grid-cols-3 gap-2 text-center pt-2 border-t border-slate-800">
-                    <div class="p-2.5 rounded-xl bg-slate-950 border border-purple-900/40">
-                        <span class="text-slate-500 text-[9px] block">VEHICLES REQ</span>
-                        <span id="calcVehiclesReq" class="text-base font-black text-purple-300">114</span>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-blue-900/40">
+                        <span class="text-[8px] text-blue-400 font-bold block uppercase tracking-wider">STEP 3</span>
+                        <span class="text-slate-400 text-[9px] block font-bold">DERIVED VEHICLES REQ</span>
+                        <span id="calcVehiclesReq" class="text-base font-black text-blue-300">114</span>
                     </div>
-                    <div class="p-2.5 rounded-xl bg-slate-950 border border-cyan-900/40">
-                        <span class="text-slate-500 text-[9px] block">TRIPS REQUIRED</span>
-                        <span id="calcTripsReq" class="text-base font-black text-cyan-300">2 Trips</span>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-amber-900/40">
+                        <span class="text-[8px] text-amber-400 font-bold block uppercase tracking-wider">STEP 4</span>
+                        <span class="text-slate-400 text-[9px] block font-bold">TRIP ALLOCATION</span>
+                        <span id="calcTripsReq" class="text-base font-black text-amber-300">2 Trips</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40">
-                        <span class="text-slate-500 text-[9px] block">TOTAL VEHICLE HRS</span>
+                        <span class="text-[8px] text-emerald-400 font-bold block uppercase tracking-wider">OUTPUT</span>
+                        <span class="text-slate-400 text-[9px] block font-bold">ESTIMATED VEHICLE HOURS</span>
                         <span id="calcTotalVehHrs" class="text-base font-black text-emerald-400">148 hrs</span>
                     </div>
                 </div>
             </div>
 
-            <!-- 2. Transport Mode Comparison -->
+            <!-- Transport Mode Comparison with Selected Scenario -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
                 <span class="text-[10px] text-slate-400 uppercase font-bold">MODE OPTIONS COMPARISON</span>
                 <div class="border border-slate-800 rounded-xl overflow-hidden">
@@ -288,13 +360,13 @@
                             <tr>
                                 <th class="p-2">Mode</th>
                                 <th class="p-2">Total Time</th>
-                                <th class="p-2">Cost Index</th>
+                                <th class="p-2">Estimated Cost Index</th>
                                 <th class="p-2">Capacity</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-800 bg-slate-900/50">
                             <tr class="bg-emerald-950/20 text-emerald-300 font-bold">
-                                <td class="p-2">Standard Bus (Recommended)</td>
+                                <td class="p-2">Standard Bus (Selected Scenario)</td>
                                 <td class="p-2">3.2 h</td>
                                 <td class="p-2">₹₹ (Moderate)</td>
                                 <td class="p-2">HIGH</td>
@@ -322,7 +394,7 @@
                 </div>
 
                 <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300">
-                    <b class="text-white">Recommendation Rationale:</b> Standard Bus is optimal because NH-58 provides two-lane paved clearance, absorbing 6,840 evacuees within 2 fleet rotations while minimizing fuel overhead.
+                    <b class="text-white">Scenario Rationale:</b> Standard Bus scenario rationale: NH-58 provides two-lane paved clearance, absorbing 6,840 evacuees within 2 fleet rotations while minimizing fuel overhead.
                 </div>
             </div>
 
@@ -340,7 +412,7 @@
                     </div>
                     <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
                         <span class="text-slate-400">Distance:</span>
-                        <span class="text-cyan-300 font-bold">5.84 km</span>
+                        <span class="text-[#7fffd4] font-bold">5.84 km</span>
                     </div>
                     <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
                         <span class="text-slate-400">Fuel &amp; Operating:</span>
@@ -362,21 +434,24 @@
                 </p>
             </div>
 
-            <!-- 4. Time to Action / Estimated Planning Window -->
+            <!-- Step 5: Time to Action / Estimated Relocation Time -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <span class="text-xs font-bold text-white uppercase">TIME TO ACTION COMPARISON</span>
+                    <div class="flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 flex items-center justify-center text-[10px] font-bold">5</span>
+                        <span class="text-xs font-bold text-white uppercase">STEP 5: ESTIMATED RELOCATION TIME</span>
+                    </div>
                     <span class="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">SCENARIO WINDOW</span>
                 </div>
 
                 <div class="grid grid-cols-3 gap-2 text-center">
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                         <span class="text-slate-500 text-[9px] block">EST. PLANNING WINDOW</span>
-                        <span class="text-sm font-black text-cyan-400">02h 40m</span>
+                        <span class="text-sm font-black text-[#7fffd4]">02h 40m</span>
                     </div>
-                    <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                        <span class="text-slate-500 text-[9px] block">EST. RELOCATION TIME</span>
-                        <span id="timeReloc" class="text-sm font-black text-amber-400">01h 35m</span>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40 bg-emerald-950/20">
+                        <span class="text-slate-400 text-[9px] block font-bold">ESTIMATED RELOCATION TIME</span>
+                        <span id="timeReloc" class="text-sm font-black text-emerald-400">01h 35m</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40">
                         <span class="text-slate-500 text-[9px] block">ESTIMATED BUFFER</span>
@@ -447,12 +522,12 @@
                 color: '#7fffd4',
                 weight: 3,
                 fillOpacity: 1
-            }).addTo(routeMap).bindPopup("<b>🟢 Primary Sanctuary: Taluk Stadium</b><br>1,600 Capacity [ESTIMATED]");
+            }).addTo(routeMap).bindPopup("<b>🟢 Primary Sanctuary: Taluk Stadium</b><br>Estimated Capacity: 1,600");
 
             // Branch Sites
-            L.circleMarker([30.3680, 79.2780], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site B: Polytechnic Campus</b><br>1,866 Capacity");
-            L.circleMarker([30.3850, 79.2990], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site C: Higher Sec School</b><br>1,133 Capacity");
-            L.circleMarker([30.4010, 79.3150], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site D: Agri Research Farm</b><br>2,400 Capacity");
+            L.circleMarker([30.3680, 79.2780], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site B: Polytechnic Campus</b><br>Estimated Capacity: 1,866");
+            L.circleMarker([30.3850, 79.2990], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site C: Higher Sec School</b><br>Estimated Capacity: 1,133");
+            L.circleMarker([30.4010, 79.3150], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site D: Agri Research Farm</b><br>Estimated Capacity: 2,241");
 
             // Primary Route along NH-58
             const routeCoords = [
@@ -468,7 +543,7 @@
                 weight: 5,
                 opacity: 0.9,
                 dashArray: '8, 8'
-            }).addTo(routeMap).bindTooltip("NH-58 Primary Transit Route (5.84 km)");
+            }).addTo(routeMap).bindTooltip("NH-58 Primary Route (5.84 km)");
 
             // Secondary branches
             L.polyline([[30.3540, 79.2560], [30.3680, 79.2780]], { color: '#38bdf8', weight: 3, opacity: 0.7, dashArray: '4, 4' }).addTo(routeMap);
