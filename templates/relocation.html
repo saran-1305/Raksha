@@ -26,9 +26,9 @@
         }
         .nav-pill-active {
             background-color: #0e203f;
-            border: 1.5px solid #00e5ff;
-            color: #00e5ff;
-            box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
+            border: 1.5px solid #7fffd4;
+            color: #7fffd4;
+            box-shadow: 0 0 14px rgba(127, 255, 212, 0.35);
         }
         .grid-cell-icon {
             background: transparent !important;
@@ -45,7 +45,7 @@
             <!-- Left: Brand Logo & Title -->
             <div class="flex items-center gap-3">
                 <a href="/" class="h-9 w-9 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(127, 255, 212,0.6)]" />
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
@@ -141,7 +141,7 @@
                                 <i data-lucide="mountain" class="w-3.5 h-3.5 text-amber-400"></i>
                                 <span>Terrain</span>
                             </button>
-                            <button type="button" onclick="setBaseMap('street')" id="btnBaseStreet" class="px-2.5 py-1 rounded-lg bg-blue-900/80 text-cyan-300 font-bold border border-blue-700/70 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(0,229,255,0.2)]" title="Street Network &amp; Settlement Outlines">
+                            <button type="button" onclick="setBaseMap('street')" id="btnBaseStreet" class="px-2.5 py-1 rounded-lg bg-blue-900/80 text-cyan-300 font-bold border border-blue-700/70 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(127, 255, 212,0.2)]" title="Street Network &amp; Settlement Outlines">
                                 <i data-lucide="map" class="w-3.5 h-3.5 text-emerald-400"></i>
                                 <span>Street Map</span>
                             </button>
@@ -582,7 +582,7 @@
             for (const [key, btn] of Object.entries(btns)) {
                 if (!btn) continue;
                 if (key === type) {
-                    btn.className = 'px-2.5 py-1 rounded-lg bg-blue-900/80 text-cyan-300 font-bold border border-blue-700/70 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(0,229,255,0.2)]';
+                    btn.className = 'px-2.5 py-1 rounded-lg bg-blue-900/80 text-cyan-300 font-bold border border-blue-700/70 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(127, 255, 212,0.2)]';
                 } else {
                     btn.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition text-[11px] flex items-center gap-1';
                 }
@@ -695,7 +695,7 @@
                 [lat, lon],
                 [lat + halfStepLat * 4.4, lon]
             ], {
-                color: '#00e5ff',
+                color: '#7fffd4',
                 weight: 3.5,
                 dashArray: '8, 8',
                 opacity: 0.95
@@ -703,7 +703,7 @@
 
             L.circleMarker([lat + halfStepLat * 4.4, lon], {
                 radius: 7,
-                color: '#00e5ff',
+                color: '#7fffd4',
                 weight: 2.5,
                 fillColor: '#091326',
                 fillOpacity: 0.85
@@ -723,8 +723,8 @@
             }).addTo(map).bindPopup("<b>🔴 Hazard Ground Zero: Devgram</b><br>6,840 Citizens Requiring Relocation");
 
             // Search Rings
-            L.circle([30.3207, 79.2163], { radius: 5000, color: '#00e5ff', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
-            L.circle([30.3207, 79.2163], { radius: 10000, color: '#00e5ff', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
+            L.circle([30.3207, 79.2163], { radius: 5000, color: '#7fffd4', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
+            L.circle([30.3207, 79.2163], { radius: 10000, color: '#7fffd4', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
             L.circle([30.3207, 79.2163], { radius: 15000, color: '#10b981', weight: 1.5, fill: false }).addTo(map);
 
             // Candidate Sites
@@ -733,7 +733,7 @@
                 const marker = L.circleMarker([s.lat, s.lon], {
                     radius: s.primary ? 9 : 7,
                     fillColor: color,
-                    color: s.primary ? '#00e5ff' : '#ffffff',
+                    color: s.primary ? '#7fffd4' : '#ffffff',
                     weight: s.primary ? 3 : 1.5,
                     fillOpacity: 1
                 }).addTo(map);
@@ -750,7 +750,7 @@
                 [30.3410, 79.2430],
                 [30.3540, 79.2560]
             ], {
-                color: '#00e5ff',
+                color: '#7fffd4',
                 weight: 4,
                 opacity: 0.8,
                 dashArray: '6, 6'
@@ -790,7 +790,7 @@
             if (targetCard) targetCard.classList.remove('hidden');
 
             const activeTab = document.getElementById('stepTab-' + stepNum);
-            if (activeTab) activeTab.className = 'flex-1 py-1.5 px-2 rounded-xl bg-blue-950 text-cyan-300 border border-cyan-500/50 text-center transition font-bold shadow-[0_0_12px_rgba(0,229,255,0.2)]';
+            if (activeTab) activeTab.className = 'flex-1 py-1.5 px-2 rounded-xl bg-blue-950 text-cyan-300 border border-cyan-500/50 text-center transition font-bold shadow-[0_0_12px_rgba(127, 255, 212,0.2)]';
         }
 
         function triggerSearchAnimation() {

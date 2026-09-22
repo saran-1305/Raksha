@@ -21,10 +21,10 @@
             --bg-base: #070a13;
             --bg-card: #0c1222;
             --bg-card-hover: #111a30;
-            --accent-cyan: #00e5ff;
+            --accent-cyan: #7fffd4;
             --accent-blue: #2563eb;
             --border-blue: rgba(37, 99, 235, 0.25);
-            --border-glow: rgba(0, 229, 255, 0.4);
+            --border-glow: rgba(127, 255, 212, 0.4);
         }
 
         body { 
@@ -43,12 +43,12 @@
 
         /* Stepper Glowing Line */
         .glow-stepper-active {
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.6), inset 0 0 8px rgba(0, 229, 255, 0.3);
+            box-shadow: 0 0 15px rgba(127, 255, 212, 0.6), inset 0 0 8px rgba(127, 255, 212, 0.3);
         }
 
         .glow-card-active {
-            border-color: rgba(0, 229, 255, 0.5) !important;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+            border-color: rgba(127, 255, 212, 0.5) !important;
+            box-shadow: 0 0 20px rgba(127, 255, 212, 0.15);
         }
 
         .rejected-glow {
@@ -72,7 +72,7 @@
             <!-- Left: Brand Logo & Title -->
             <div class="flex items-center gap-3">
                 <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(127, 255, 212,0.6)]" />
                 </a>
                 <div>
                     <div class="flex items-center gap-2.5">
@@ -105,7 +105,7 @@
                     <i data-lucide="compass" class="w-3.5 h-3.5"></i>
                     <span>Relocation</span>
                 </a>
-                <a href="/workflow" class="px-3 py-1.5 rounded-lg bg-blue-950 text-cyan-300 border border-cyan-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(0,229,255,0.2)]">
+                <a href="/workflow" class="px-3 py-1.5 rounded-lg bg-blue-950 text-cyan-300 border border-cyan-500/50 font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(127, 255, 212,0.2)]">
                     <i data-lucide="git-pull-request" class="w-3.5 h-3.5 text-cyan-400"></i>
                     <span>Workflow</span>
                 </a>
@@ -1251,7 +1251,7 @@
                 .addTo(mapInstance);
 
             // Concentric 5km, 10km, 15km Circles (Electric Cyan & Blue)
-            L.circle([centerLat, centerLon], { radius: 5000, color: '#00e5ff', weight: 2, dashArray: '4, 4', fill: false }).addTo(mapInstance);
+            L.circle([centerLat, centerLon], { radius: 5000, color: '#7fffd4', weight: 2, dashArray: '4, 4', fill: false }).addTo(mapInstance);
             L.circle([centerLat, centerLon], { radius: 10000, color: '#2563eb', weight: 1.5, dashArray: '6, 6', fill: false }).addTo(mapInstance);
             L.circle([centerLat, centerLon], { radius: 15000, color: '#3b82f6', weight: 1, dashArray: '8, 8', fill: false }).addTo(mapInstance);
 

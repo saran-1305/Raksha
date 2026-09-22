@@ -16,7 +16,7 @@
             --bg-base: #040711;
             --bg-card: #080e1c;
             --border-blue: rgba(37, 99, 235, 0.2);
-            --accent-cyan: #00e5ff;
+            --accent-cyan: #7fffd4;
         }
 
         body { 
@@ -75,7 +75,7 @@
     <header class="relative z-30 border-b border-blue-900/30 bg-[#040711]/80 backdrop-blur-md px-6 py-4 sticky top-0">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="/" class="flex items-center gap-3 group">
-                <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_0_10px_rgba(0,229,255,0.4)]">
+                <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-9 w-auto object-contain transition-transform group-hover:scale-105 filter drop-shadow-[0_0_10px_rgba(127, 255, 212,0.4)]">
                 <div class="flex items-center gap-2">
                     <span class="font-extrabold text-lg text-white font-mono tracking-wider">RAKSHA</span>
                     <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-cyan-400 border border-cyan-500/30 font-semibold">GEOSPATIAL INTELLIGENCE</span>
@@ -110,7 +110,7 @@
                     <div class="flex flex-wrap items-center gap-3">
                         <div class="relative group">
                             <div class="absolute inset-0 rounded-full bg-cyan-500/20 blur-xl pulse-logo"></div>
-                            <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-12 sm:h-14 w-auto object-contain relative z-10 filter drop-shadow-[0_0_15px_rgba(0,229,255,0.4)]">
+                            <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-12 sm:h-14 w-auto object-contain relative z-10 filter drop-shadow-[0_0_15px_rgba(127, 255, 212,0.4)]">
                         </div>
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/70 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-semibold uppercase tracking-wider backdrop-blur-md shadow">
                             <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -121,7 +121,7 @@
                     <!-- Main Headline -->
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08]">
                         Detect Risk. Prioritize People.<br>
-                        <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(0,229,255,0.35)]">
+                        <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(127, 255, 212,0.35)]">
                             Find Safer Ground.
                         </span>
                     </h1>
@@ -629,7 +629,7 @@
                     if (p.x < 0) p.x = w;
                     if (p.x > w) p.x = 0;
 
-                    ctx.fillStyle = `rgba(0, 229, 255, ${p.alpha})`;
+                    ctx.fillStyle = `rgba(127, 255, 212, ${p.alpha})`;
                     ctx.beginPath();
                     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     ctx.fill();

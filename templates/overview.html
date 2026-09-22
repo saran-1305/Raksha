@@ -28,9 +28,9 @@
         }
         .nav-pill-active {
             background-color: #0e203f;
-            border: 1.5px solid #00e5ff;
-            color: #00e5ff;
-            box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
+            border: 1.5px solid #7fffd4;
+            color: #7fffd4;
+            box-shadow: 0 0 14px rgba(127, 255, 212, 0.35);
         }
 
         .pulse-beacon {
@@ -59,7 +59,7 @@
         <!-- Left: Brand & Motto -->
         <div class="flex items-center gap-3">
             <a href="/" class="h-9 w-9 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-9 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(0,229,255,0.6)]" />
+                <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Emblem" class="h-9 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(127, 255, 212,0.6)]" />
             </a>
             <div>
                 <div class="flex items-center gap-2">
@@ -107,7 +107,7 @@
         <a href="/eo-studio" id="leftSatelliteRail" class="group w-full lg:w-16 h-12 lg:h-full bg-[#050b18] hover:bg-[#0c1833] border-b lg:border-b-0 lg:border-r border-blue-900/60 flex flex-row lg:flex-col items-center justify-between px-4 lg:px-0 py-2 lg:py-6 transition-all duration-200 z-20 shrink-0 select-none shadow-2xl cursor-pointer hover:border-cyan-500/60" title="Open Satellite Imagery (Earth Observation Studio)">
             <!-- Top / Left Indicator Icon -->
             <div class="flex items-center lg:flex-col gap-1.5">
-                <div class="w-10 h-10 rounded-xl bg-blue-950/80 border border-cyan-500/40 group-hover:border-cyan-400 group-hover:bg-cyan-950/50 flex items-center justify-center text-cyan-400 shadow-[0_0_14px_rgba(0,229,255,0.25)] transition">
+                <div class="w-10 h-10 rounded-xl bg-blue-950/80 border border-cyan-500/40 group-hover:border-cyan-400 group-hover:bg-cyan-950/50 flex items-center justify-center text-cyan-400 shadow-[0_0_14px_rgba(127, 255, 212,0.25)] transition">
                     <i data-lucide="satellite" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
                 </div>
                 <div class="flex items-center gap-1">
@@ -169,7 +169,7 @@
                         <span class="leading-tight">Origin-to-Site Terrain Transect</span>
                     </div>
                     <div class="flex items-center gap-2.5">
-                        <span class="w-3.5 h-3.5 rounded-full border border-cyan-400 border-dashed shrink-0"></span>
+                        <span class="w-3.5 h-3.5 rounded-full border border-[#7fffd4] border-dashed shrink-0"></span>
                         <span class="leading-tight">Ring 1: 0 - 5 km | Ring 2: 5 - 10 km</span>
                     </div>
                     <div class="flex items-center gap-2.5">
@@ -627,7 +627,7 @@
                 [data.lat, data.lon],
                 [data.lat + halfStepLat * 4.4, data.lon]
             ], {
-                color: '#00e5ff',
+                color: '#7fffd4',
                 weight: 3.5,
                 dashArray: '8, 8',
                 opacity: 0.95
@@ -636,7 +636,7 @@
 
             const transectNode = L.circleMarker([data.lat + halfStepLat * 4.4, data.lon], {
                 radius: 7,
-                color: '#00e5ff',
+                color: '#7fffd4',
                 weight: 2.5,
                 fillColor: '#091326',
                 fillOpacity: 0.85
@@ -646,7 +646,7 @@
             // 6. Search Rings (Ring 1: 0 - 5 km | Ring 2: 5 - 10 km)
             const ring5 = L.circle([data.lat, data.lon], {
                 radius: 5000,
-                color: '#00e5ff',
+                color: '#7fffd4',
                 weight: 1.5,
                 dashArray: '6, 6',
                 fill: false
@@ -655,7 +655,7 @@
 
             const ring10 = L.circle([data.lat, data.lon], {
                 radius: 10000,
-                color: '#00e5ff',
+                color: '#7fffd4',
                 weight: 1.5,
                 dashArray: '6, 6',
                 fill: false
