@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@config "../tailwind.config.js";
+
+
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-raksha-900 text-raksha-text antialiased overflow-x-hidden;
+  }
+}
+
+/* Lenis smooth scroll recommended styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Utilities for cinematic layers */
+.hero-layer {
+  @apply absolute inset-0 w-full h-full object-cover origin-center will-change-transform;
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(255, 179, 0, 0.4), 0 0 20px rgba(255, 179, 0, 0.2);
+}
+
+.glow-hazard {
+  box-shadow: 0 0 15px rgba(255, 90, 54, 0.5), inset 0 0 15px rgba(255, 90, 54, 0.2);
+}
+
+.glow-safe {
+  box-shadow: 0 0 15px rgba(255, 201, 40, 0.5), inset 0 0 15px rgba(255, 201, 40, 0.2);
+}
+
+/* Scanning pulse animation */
+@keyframes scan-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.animate-scan-pulse {
+  animation: scan-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

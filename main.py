@@ -6,7 +6,7 @@ FastAPI Web Application & Live Geospatial API Server
 import os
 from typing import Optional, List, Dict, Any
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -315,6 +315,21 @@ def get_cartosat_validation(lat: float, lon: float, site_name: Optional[str] = N
         "gross_area_sqm": 125000
     }
     return sat_service.validate_cartosat3_site(mock_site)
+
+@app.get("/favicon.svg")
+@app.get("/favicon.ico")
+def serve_favicon():
+    fav_path = os.path.join(os.path.dirname(__file__), "favicon.svg")
+    if os.path.exists(fav_path):
+        return FileResponse(fav_path, media_type="image/svg+xml")
+    return HTMLResponse("", status_code=204)
+
+@app.get("/icons.svg")
+def serve_icons():
+    icons_path = os.path.join(os.path.dirname(__file__), "icons.svg")
+    if os.path.exists(icons_path):
+        return FileResponse(icons_path, media_type="image/svg+xml")
+    return HTMLResponse("", status_code=204)
 
 @app.get("/", response_class=HTMLResponse)
 @app.get("/landing", response_class=HTMLResponse)
