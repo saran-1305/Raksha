@@ -482,6 +482,8 @@
             map = L.map('cleanMap', {
                 center: [data.lat + 0.015, data.lon + 0.03],
                 zoom: data.zoom,
+                minZoom: 6,
+                maxZoom: 18,
                 zoomControl: false
             });
 
@@ -489,18 +491,27 @@
 
             baseLayers.satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                 attribution: '&copy; Esri &copy; Maxar',
+                maxNativeZoom: 18,
                 maxZoom: 19
             }).addTo(map);
 
             baseLayers.dark = L.layerGroup([
                 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
                     attribution: 'Tiles &copy; Esri',
-                    maxZoom: 16
+                    maxNativeZoom: 16,
+                    maxZoom: 19
                 }),
                 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-                    maxZoom: 16
+                    maxNativeZoom: 16,
+                    maxZoom: 19
                 })
             ]);
+
+            baseLayers.street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxNativeZoom: 19,
+                maxZoom: 19
+            });
 
             drawScenarioFeatures(data);
             renderCandidatesList(data);
@@ -512,8 +523,13 @@
                 baseLayers.dark.addTo(map);
                 currentBase = 'dark';
                 document.getElementById('baseMapLabel').innerText = "Dark Canvas Basemap";
-            } else {
+            } else if (currentBase === 'dark') {
                 map.removeLayer(baseLayers.dark);
+                baseLayers.street.addTo(map);
+                currentBase = 'street';
+                document.getElementById('baseMapLabel').innerText = "Street / OSM Basemap";
+            } else {
+                map.removeLayer(baseLayers.street);
                 baseLayers.satellite.addTo(map);
                 currentBase = 'satellite';
                 document.getElementById('baseMapLabel').innerText = "Satellite Basemap";

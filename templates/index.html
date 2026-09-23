@@ -885,6 +885,8 @@
         const map = L.map('map', {
             center: [30.3207, 79.2163],
             zoom: 12,
+            minZoom: 6,
+            maxZoom: 18,
             zoomControl: false
         });
         L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -892,6 +894,7 @@
         // ESRI Satellite Imagery Layer (Sub-Meter Optical Proxy)
         const esriSatellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri World Imagery (0.3m Cartosat-3 GSD Equivalent)',
+            maxNativeZoom: 18,
             maxZoom: 19
         }).addTo(map);
 
@@ -907,11 +910,13 @@
         // Esri Clean Dark Canvas (Zero Watermarks)
         const darkCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
             attribution: 'Tiles &copy; Esri &bull; USGS',
-            maxZoom: 17
+            maxNativeZoom: 16,
+            maxZoom: 19
         });
         const darkLabels = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
             attribution: '',
-            maxZoom: 17
+            maxNativeZoom: 16,
+            maxZoom: 19
         });
         const darkCanvasGroup = L.layerGroup([darkCanvas, darkLabels]);
 

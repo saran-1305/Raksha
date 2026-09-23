@@ -540,6 +540,8 @@
             routeMap = L.map('routeMap', {
                 center: SCENARIOS.devgram.mapCenter,
                 zoom: SCENARIOS.devgram.zoom,
+                minZoom: 6,
+                maxZoom: 18,
                 zoomControl: false
             });
 
@@ -547,10 +549,12 @@
 
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
                 attribution: 'Tiles &copy; Esri',
-                maxZoom: 16
+                maxNativeZoom: 16,
+                maxZoom: 19
             }).addTo(routeMap);
             L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-                maxZoom: 16
+                maxNativeZoom: 16,
+                maxZoom: 19
             }).addTo(routeMap);
 
             renderScenarioMap(SCENARIOS.devgram);
