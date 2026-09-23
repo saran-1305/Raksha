@@ -1260,10 +1260,10 @@
                 updateTerrainWorkstation(geom);
 
                 const presets = {
-                    devgram: { lat: 30.3207, lon: 79.2163, pop: 6840 },
-                    wayanad: { lat: 11.5126, lon: 76.1287, pop: 4200 },
-                    silchar: { lat: 24.8333, lon: 92.7789, pop: 12500 },
-                    chamoli: { lat: 30.5574, lon: 79.5670, pop: 2800 }
+                    devgram: { lat: 30.3207, lon: 79.2163, pop: 720 },
+                    wayanad: { lat: 11.5126, lon: 76.1287, pop: 2450 },
+                    silchar: { lat: 24.8333, lon: 92.7789, pop: 14800 },
+                    chamoli: { lat: 30.5574, lon: 79.5670, pop: 1800 }
                 };
                 const p = presets[id] || presets.devgram;
                 const resp = await fetch('/api/analyze', {
@@ -1272,7 +1272,7 @@
                     body: JSON.stringify({
                         lat: p.lat,
                         lon: p.lon,
-                        displaced_population: p.pop || 6840
+                        displaced_population: p.pop || 720
                     })
                 });
                 const data = await resp.json();

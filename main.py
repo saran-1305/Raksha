@@ -47,7 +47,7 @@ PRESET_HOTSPOTS = [
         "lat": 30.3207,
         "lon": 79.2163,
         "hazard_type": "Glacial Inundation & Landslide Runoff",
-        "default_population": 6840,
+        "default_population": 720,
         "description": "High-risk mountain settlement in Chamoli with multi-hazard flood and landslide exposure."
     },
     {
@@ -56,7 +56,7 @@ PRESET_HOTSPOTS = [
         "lat": 11.5126,
         "lon": 76.1287,
         "hazard_type": "Landslide & Torrential Inundation",
-        "default_population": 4200,
+        "default_population": 2450,
         "description": "High-gradient Western Ghats terrain impacted by intense cloudbursts and debris flows."
     },
     {
@@ -64,9 +64,9 @@ PRESET_HOTSPOTS = [
         "name": "Silchar / Barak Valley Inundation (Assam)",
         "lat": 24.8333,
         "lon": 92.7789,
-        "hazard_type": "Riverine Flood & Embankment Breach",
-        "default_population": 12500,
-        "description": "Low-lying floodplain with chronic backwater flooding and severe connectivity severance."
+        "hazard_type": "Riverine Inundation & Embankment Breach",
+        "default_population": 14800,
+        "description": "Extensive urban and rural lowlands flooded by Barak River overflow."
     },
     {
         "id": "chamoli",
@@ -107,36 +107,36 @@ def get_scenarios():
     return {
         "devgram": {
             "id": "devgram",
-            "name": "Devgram Hazard Habitation (Chamoli, Uttarakhand)",
+            "name": "Devgram Village (Urgam Valley, Chamoli, Uttarakhand)",
             "lat": 30.3207,
             "lon": 79.2163,
             "hazard_type": "Glacial Inundation & Mountain Flash Flood",
-            "displaced_population": 6840,
-            "planning_window_mins": 160,
-            "primary_route_name": "NH-58 Mountain Highway (Paved 2-Lane)",
-            "primary_distance_km": 5.84
+            "displaced_population": 720,
+            "planning_window_mins": 180,
+            "primary_route_name": "Urgam-Helang Road ➔ NH-58 Badrinath Corridor",
+            "primary_distance_km": 5.31
         },
         "wayanad": {
             "id": "wayanad",
-            "name": "Chooralmala / Meppadi (Wayanad, Kerala)",
+            "name": "Chooralmala / Mundakkai (Meppadi, Wayanad, Kerala)",
             "lat": 11.5126,
             "lon": 76.1287,
             "hazard_type": "Landslide Runoff & Torrential Debris Flow",
-            "displaced_population": 4200,
-            "planning_window_mins": 120,
-            "primary_route_name": "SH-59 / Meppadi Highway (Paved 2-Lane)",
-            "primary_distance_km": 4.54
+            "displaced_population": 2450,
+            "planning_window_mins": 180,
+            "primary_route_name": "SH-59 Meppadi-Chooralmala Hill Highway",
+            "primary_distance_km": 6.57
         },
         "silchar": {
             "id": "silchar",
-            "name": "Silchar Flood Plain / Barak River (Assam)",
+            "name": "Silchar Flood Plain / Bethukandi Breach (Cachar, Assam)",
             "lat": 24.8333,
             "lon": 92.7789,
             "hazard_type": "Riverine Flood & Embankment Breach",
-            "displaced_population": 12500,
-            "planning_window_mins": 240,
-            "primary_route_name": "Silchar-Hailakandi Elevated Corridor",
-            "primary_distance_km": 8.46
+            "displaced_population": 14800,
+            "planning_window_mins": 300,
+            "primary_route_name": "Silchar-Hailakandi Elevated Corridor / NH-37",
+            "primary_distance_km": 10.16
         }
     }
 
@@ -171,10 +171,9 @@ def calculate_logistics(req: LogisticsCalcRequest):
     if not allocs:
         # Default fallback to Devgram allocations if none provided
         allocs = [
-            {"site_id": "site-1", "site_name": "Taluk Stadium & Sports Complex", "allocated_population": 1600, "distance_km": 5.84, "capacity": 1600},
-            {"site_id": "site-2", "site_name": "Regional Polytechnic Campus", "allocated_population": 1866, "distance_km": 8.12, "capacity": 2100},
-            {"site_id": "site-3", "site_name": "Government Higher Secondary School Ground", "allocated_population": 1133, "distance_km": 11.40, "capacity": 1200},
-            {"site_id": "site-4", "site_name": "Agriculture Research Farm Complex", "allocated_population": 2241, "distance_km": 13.90, "capacity": 2400}
+            {"site_id": "site-1", "site_name": "Pipalkoti Institutional Complex", "allocated_population": 350, "distance_km": 5.31, "capacity": 350},
+            {"site_id": "site-2", "site_name": "Helang Community Campus", "allocated_population": 250, "distance_km": 7.82, "capacity": 250},
+            {"site_id": "site-3", "site_name": "GIC Joshimath Corridor Ground", "allocated_population": 120, "distance_km": 11.45, "capacity": 200}
         ]
 
     return engine.compute_detailed_logistics(

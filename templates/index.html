@@ -136,7 +136,7 @@
                     </div>
                     <div>
                         <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">SCENARIO DISPLACED POP</label>
-                        <input id="inputPop" type="number" step="100" value="6840" class="w-32 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-mono text-emerald-300 focus:outline-none focus:border-emerald-500">
+                        <input id="inputPop" type="number" step="10" value="720" class="w-32 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-mono text-emerald-300 focus:outline-none focus:border-emerald-500">
                     </div>
                 </div>
 
@@ -696,7 +696,7 @@
                         </div>
                         <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/90 text-center">
                             <span class="text-[8.5px] text-slate-400 uppercase block">CAPACITY</span>
-                            <span id="hero_siteCap" class="text-xs font-bold text-emerald-400 block">6,840</span>
+                            <span id="hero_siteCap" class="text-xs font-bold text-emerald-400 block">350</span>
                             <span class="text-[8px] text-slate-500">Displaced Persons</span>
                         </div>
                         <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/90 text-center">
@@ -782,9 +782,9 @@
                     <!-- Absorption Progress & Statistics -->
                     <div class="flex flex-col gap-1.5">
                         <div class="flex items-center justify-between text-[10.5px] font-mono flex-wrap gap-1">
-                            <span class="text-slate-400">Displaced: <b id="abs_targetPop" class="text-white">6,840</b></span>
-                            <span class="text-slate-400">WorldPop (100m): <b id="abs_worldpop" class="text-emerald-400">1,294</b></span>
-                            <span class="text-slate-400">Safe Capacity: <b id="abs_safeCap" class="text-emerald-400">6,840</b></span>
+                            <span class="text-slate-400">Displaced: <b id="abs_targetPop" class="text-white">720</b></span>
+                            <span class="text-slate-400">WorldPop (100m): <b id="abs_worldpop" class="text-emerald-400">720</b></span>
+                            <span class="text-slate-400">Safe Capacity: <b id="abs_safeCap" class="text-emerald-400">1,050</b></span>
                             <span class="text-slate-400">Deficit: <b id="abs_deficit" class="text-emerald-400">0 Persons</b></span>
                         </div>
                         <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
@@ -874,11 +874,11 @@
         lucide.createIcons();
 
         const PRESETS = {
-            devgram: { lat: 30.3207, lon: 79.2163, pop: 6840, name: "Devgram (Chamoli, Uttarakhand)" },
-            wayanad: { lat: 11.5126, lon: 76.1287, pop: 4200, name: "Meppadi/Chooralmala, Wayanad (Landslide)" },
-            silchar: { lat: 24.8333, lon: 92.7789, pop: 12500, name: "Silchar / Barak River Flood Zone (Assam)" },
-            chamoli: { lat: 30.5574, lon: 79.5670, pop: 2800, name: "Joshimath / Chamoli Slope Subsidence (Uttarakhand)" },
-            munambam: { lat: 10.1792, lon: 76.1738, pop: 3500, name: "Munambam Coastal Spit (Ernakulam, Kerala)" }
+            devgram: { lat: 30.3207, lon: 79.2163, pop: 720, name: "Devgram (Chamoli, Uttarakhand)" },
+            wayanad: { lat: 11.5126, lon: 76.1287, pop: 2450, name: "Meppadi/Chooralmala, Wayanad (Landslide)" },
+            silchar: { lat: 24.8333, lon: 92.7789, pop: 14800, name: "Silchar / Barak River Flood Zone (Assam)" },
+            chamoli: { lat: 30.5574, lon: 79.5670, pop: 1800, name: "Joshimath / Chamoli Slope Subsidence (Uttarakhand)" },
+            munambam: { lat: 10.1792, lon: 76.1738, pop: 2200, name: "Munambam Coastal Spit (Ernakulam, Kerala)" }
         };
 
         // Initialize Map
@@ -1645,7 +1645,7 @@
                 if (distEl) distEl.innerText = `${primary.distance_km} km`;
 
                 const capEl = document.getElementById('hero_siteCap');
-                if (capEl) capEl.innerText = (primary.shelter_capacity_persons || 6840).toLocaleString();
+                if (capEl) capEl.innerText = (primary.shelter_capacity_persons || 350).toLocaleString();
 
                 const slopeEl = document.getElementById('hero_siteSlope');
                 if (slopeEl) slopeEl.innerText = `${primary.slope_deg || 3.8}°`;
@@ -1743,7 +1743,7 @@
                 }
             }
 
-            const safeCap = reloc.total_safe_capacity_discovered || 6840;
+            const safeCap = reloc.total_safe_capacity_discovered || 1050;
             const safeCapEl = document.getElementById('abs_safeCap');
             if (safeCapEl) safeCapEl.innerText = safeCap.toLocaleString();
 

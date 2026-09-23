@@ -111,7 +111,7 @@ class WorldPopClient:
     def estimate_aoi_exposure(
         self, 
         aoi_coords_lat_lon: List[List[float]], 
-        census_scenario_pop: int = 6840
+        census_scenario_pop: int = 720
     ) -> Dict[str, Any]:
         """
         Converts a list of [lat, lon] coordinates into a valid GeoJSON polygon

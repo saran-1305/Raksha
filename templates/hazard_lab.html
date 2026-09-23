@@ -140,7 +140,7 @@
             </div>
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-red-900/40">
                 <span class="text-[10px] text-slate-500 uppercase block">Population Exposure</span>
-                <span id="statPop" class="text-sm font-black text-red-400 mt-1 block">6,840</span>
+                <span id="statPop" class="text-sm font-black text-red-400 mt-1 block">720</span>
                 <span class="text-[9px] text-red-300/80">Intersecting Cone</span>
             </div>
             <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
@@ -226,7 +226,7 @@
                     <div class="space-y-2 text-xs">
                         <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
                             <span class="text-slate-400">👥 Total Population</span>
-                            <span class="text-white font-bold">6,840 Citizens</span>
+                            <span class="text-white font-bold">720 Citizens</span>
                         </div>
                         <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
                             <span class="text-slate-400">🏘️ Affected Habitations</span>
@@ -445,7 +445,7 @@
                 color: '#ffffff',
                 weight: 2.5,
                 fillOpacity: 1
-            }).addTo(map).bindPopup("<b>🔴 Hazard Epicenter</b><br>Devgram (Chamoli)<br>6,840 Population");
+            }).addTo(map).bindPopup("<b>🔴 Hazard Epicenter</b><br>Devgram (Chamoli)<br>720 Population");
 
             // Hazard Runoff Zone (Dynamic AOI)
             L.polygon([
@@ -582,17 +582,17 @@
                 map.setView([30.3207, 79.2163], 12);
                 document.getElementById('activeLocationName').innerText = 'Devgram Habitation (Chamoli, Uttarakhand)';
                 document.getElementById('activeCoords').innerText = '30.3207° N, 79.2163° E';
-                document.getElementById('statPop').innerText = '6,840';
+                document.getElementById('statPop').innerText = '720';
             } else if (name === 'wayanad') {
                 map.setView([11.5126, 76.1287], 12);
                 document.getElementById('activeLocationName').innerText = 'Chooralmala / Meppadi (Wayanad, Kerala)';
                 document.getElementById('activeCoords').innerText = '11.5126° N, 76.1287° E';
-                document.getElementById('statPop').innerText = '4,200';
+                document.getElementById('statPop').innerText = '2,450';
             } else if (name === 'silchar') {
                 map.setView([24.8333, 92.7789], 12);
                 document.getElementById('activeLocationName').innerText = 'Silchar Flood Plain (Assam)';
                 document.getElementById('activeCoords').innerText = '24.8333° N, 92.7789° E';
-                document.getElementById('statPop').innerText = '12,500';
+                document.getElementById('statPop').innerText = '14,800';
             }
         }
 
