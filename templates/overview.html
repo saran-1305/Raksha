@@ -77,42 +77,8 @@
                     <span class="text-xs text-slate-500 hidden sm:inline">•</span>
                     <span class="text-xs text-[#7fffd4] font-medium hidden sm:inline">From Risk to Resilience</span>
                 </div>
-                <div class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5">
-                    <span>DATA STATUS:</span>
-                    <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>LIVE</span>
-                    <span class="text-slate-600">|</span>
-                    <span class="badge-data px-1.5 py-0.2 rounded text-[9px] font-bold">DATA</span>
-                    <span class="text-slate-600">|</span>
-                    <span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold">DERIVED</span>
-                    <span class="text-slate-600">|</span>
-                    <span class="badge-estimated px-1.5 py-0.2 rounded text-[9px] font-bold">ESTIMATED</span>
-                </div>
             </div>
         </div>
-
-        <!-- Center: EXACT PILL NAVIGATION -->
-        <nav class="hidden lg:flex items-center gap-1.5 nav-pill-container px-2 py-1.5 rounded-2xl text-xs font-mono">
-            <a href="/overview" class="nav-pill-active px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-2 transition">
-                <i data-lucide="layout-grid" class="w-4 h-4 text-[#7fffd4]"></i>
-                <span class="tracking-wider">OVERVIEW</span>
-            </a>
-            <a href="/hazard-lab" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
-                <i data-lucide="flame" class="w-4 h-4"></i>
-                <span class="tracking-wider">HAZARD LAB</span>
-            </a>
-            <a href="/relocation" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
-                <i data-lucide="compass" class="w-4 h-4"></i>
-                <span class="tracking-wider">RELOCATION</span>
-            </a>
-            <a href="/logistics" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
-                <i data-lucide="truck" class="w-4 h-4"></i>
-                <span class="tracking-wider">LOGISTICS</span>
-            </a>
-            <a href="/dossier" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
-                <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span class="tracking-wider">REPORT</span>
-            </a>
-        </nav>
 
         <!-- Right: Incident Selector & Status -->
         <div class="flex items-center gap-3 font-mono">
@@ -170,28 +136,6 @@
         <section class="w-full lg:flex-[6] h-[50vh] lg:h-full relative overflow-hidden bg-[#02050d] border-b lg:border-b-0 lg:border-r border-blue-900/50">
             <!-- Full Leaflet Map -->
             <div id="cleanMap" class="w-full h-full z-0"></div>
-
-            <!-- Floating Top Toolbar on Map: Grid Toggle & Base Controls -->
-            <div class="absolute top-4 left-4 z-10 flex flex-wrap items-center gap-2 bg-[#060b17]/90 backdrop-blur-md border border-blue-900/60 rounded-2xl p-1.5 shadow-2xl font-mono text-xs">
-                <!-- 5x5 Spatial Grid Toggle -->
-                <button type="button" onclick="toggle5x5Grid()" id="btnToggleGrid" class="px-3 py-1.5 rounded-xl bg-amber-950/80 text-amber-300 font-bold border border-amber-600/70 hover:bg-amber-900/80 transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.25)]" title="Toggle 5×5 Spatial Search & Hazard Grid">
-                    <i data-lucide="grid" class="w-3.5 h-3.5 text-amber-400"></i>
-                    <span>5×5 Hazard Grid</span>
-                    <span id="gridStatusIndicator" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                </button>
-
-                <!-- Basemap Switcher -->
-                <button type="button" onclick="cycleBaseMap()" id="btnBaseMap" class="px-3 py-1.5 rounded-xl bg-blue-950/70 hover:bg-blue-900/70 text-[#7fffd4] border border-blue-800/60 transition flex items-center gap-1.5" title="Switch Satellite / Dark Carto">
-                    <i data-lucide="layers" class="w-3.5 h-3.5 text-cyan-400"></i>
-                    <span id="baseMapLabel">Satellite Basemap</span>
-                </button>
-
-                <!-- Recenter -->
-                <button type="button" onclick="recenterIncident()" class="px-3 py-1.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-300 border border-slate-700 transition flex items-center gap-1.5" title="Reset View">
-                    <i data-lucide="locate-fixed" class="w-3.5 h-3.5"></i>
-                    <span class="hidden sm:inline">Recenter</span>
-                </button>
-            </div>
 
             <!-- Legend Overlay (Top-Right) -->
             <div class="absolute top-4 right-4 z-10 bg-[#060b17]/95 backdrop-blur-md border border-blue-900/60 rounded-2xl p-3 shadow-2xl font-mono text-[11px] max-w-[260px] hidden sm:flex flex-col gap-2">
@@ -518,21 +462,22 @@
         }
 
         function cycleBaseMap() {
+            const lbl = document.getElementById('baseMapLabel');
             if (currentBase === 'satellite') {
                 map.removeLayer(baseLayers.satellite);
                 baseLayers.dark.addTo(map);
                 currentBase = 'dark';
-                document.getElementById('baseMapLabel').innerText = "Dark Canvas Basemap";
+                if (lbl) lbl.innerText = "Dark Canvas Basemap";
             } else if (currentBase === 'dark') {
                 map.removeLayer(baseLayers.dark);
                 baseLayers.street.addTo(map);
                 currentBase = 'street';
-                document.getElementById('baseMapLabel').innerText = "Street / OSM Basemap";
+                if (lbl) lbl.innerText = "Street / OSM Basemap";
             } else {
                 map.removeLayer(baseLayers.street);
                 baseLayers.satellite.addTo(map);
                 currentBase = 'satellite';
-                document.getElementById('baseMapLabel').innerText = "Satellite Basemap";
+                if (lbl) lbl.innerText = "Satellite Basemap";
             }
         }
 
@@ -624,12 +569,12 @@
 
             if (isGridVisible) {
                 map.addLayer(gridLayerGroup);
-                ind.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
-                btn.className = "px-3 py-1.5 rounded-xl bg-amber-950/80 text-amber-300 font-bold border border-amber-600/70 hover:bg-amber-900/80 transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.25)]";
+                if (ind) ind.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+                if (btn) btn.className = "px-3 py-1.5 rounded-xl bg-amber-950/80 text-amber-300 font-bold border border-amber-600/70 hover:bg-amber-900/80 transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.25)]";
             } else {
                 map.removeLayer(gridLayerGroup);
-                ind.className = "w-2 h-2 rounded-full bg-slate-500";
-                btn.className = "px-3 py-1.5 rounded-xl bg-slate-900/80 text-slate-400 font-medium border border-slate-700 hover:bg-slate-800 transition flex items-center gap-1.5";
+                if (ind) ind.className = "w-2 h-2 rounded-full bg-slate-500";
+                if (btn) btn.className = "px-3 py-1.5 rounded-xl bg-slate-900/80 text-slate-400 font-medium border border-slate-700 hover:bg-slate-800 transition flex items-center gap-1.5";
             }
         }
 
