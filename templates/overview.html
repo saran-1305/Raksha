@@ -12,15 +12,22 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Royal & Professional Google Fonts: Cinzel (Majestic Command Headers) + Plus Jakarta Sans (Executive UI) + JetBrains Mono (Telemetry) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #040711; color: #f1f5f9; }
+        .font-royal { font-family: 'Cinzel', serif; letter-spacing: 0.04em; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #03050a; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
 
-        /* Custom nav pill styling matching uploaded reference */
+        /* Custom nav pill styling */
         .nav-pill-container {
             background-color: rgba(6, 14, 32, 0.95);
             border: 1px solid rgba(23, 37, 84, 0.85);
@@ -50,11 +57,14 @@
             fill-opacity: 0.6 !important;
             cursor: pointer;
         }
+        .badge-data { background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-derived { background: rgba(127, 255, 212, 0.12); color: #7fffd4; border: 1px solid rgba(127, 255, 212, 0.3); }
+        .badge-estimated { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
     </style>
 </head>
 <body class="h-screen w-screen flex flex-col overflow-hidden bg-[#040711]">
 
-    <!-- ================= HEADER WITH SECONDLY UPLOADED PILL NAV ================= -->
+    <!-- ================= HEADER WITH PILL NAV ================= -->
     <header class="border-b border-blue-900/40 bg-[#060b17]/95 px-6 py-2 flex items-center justify-between gap-4 z-30 shrink-0">
         <!-- Left: Brand & Motto -->
         <div class="flex items-center gap-3">
@@ -63,34 +73,59 @@
             </a>
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="font-extrabold text-xl text-white font-mono tracking-tight">RAKSHA</span>
+                    <span class="font-royal font-black text-xl text-white tracking-wider">RAKSHA</span>
                     <span class="text-xs text-slate-500 hidden sm:inline">•</span>
-                    <span class="text-xs text-cyan-300 font-medium hidden sm:inline">From Risk to Resilience</span>
+                    <span class="text-xs text-[#7fffd4] font-medium hidden sm:inline">From Risk to Resilience</span>
                 </div>
                 <div class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5">
                     <span>DATA STATUS:</span>
                     <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>LIVE</span>
                     <span class="text-slate-600">|</span>
-                    <span class="text-cyan-400 font-bold">DERIVED</span>
+                    <span class="badge-data px-1.5 py-0.2 rounded text-[9px] font-bold">DATA</span>
                     <span class="text-slate-600">|</span>
-                    <span class="text-amber-400 font-bold">ESTIMATED</span>
+                    <span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold">DERIVED</span>
+                    <span class="text-slate-600">|</span>
+                    <span class="badge-estimated px-1.5 py-0.2 rounded text-[9px] font-bold">ESTIMATED</span>
                 </div>
             </div>
         </div>
 
+        <!-- Center: EXACT PILL NAVIGATION -->
+        <nav class="hidden lg:flex items-center gap-1.5 nav-pill-container px-2 py-1.5 rounded-2xl text-xs font-mono">
+            <a href="/overview" class="nav-pill-active px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-2 transition">
+                <i data-lucide="layout-grid" class="w-4 h-4 text-[#7fffd4]"></i>
+                <span class="tracking-wider">OVERVIEW</span>
+            </a>
+            <a href="/hazard-lab" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
+                <i data-lucide="flame" class="w-4 h-4"></i>
+                <span class="tracking-wider">HAZARD LAB</span>
+            </a>
+            <a href="/relocation" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
+                <i data-lucide="compass" class="w-4 h-4"></i>
+                <span class="tracking-wider">RELOCATION</span>
+            </a>
+            <a href="/logistics" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
+                <i data-lucide="truck" class="w-4 h-4"></i>
+                <span class="tracking-wider">LOGISTICS</span>
+            </a>
+            <a href="/dossier" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span class="tracking-wider">REPORT</span>
+            </a>
+        </nav>
 
         <!-- Right: Incident Selector & Status -->
         <div class="flex items-center gap-3 font-mono">
             <div class="hidden sm:flex items-center gap-1 bg-[#091122] px-2.5 py-1 rounded-xl border border-blue-900/50 text-xs">
                 <span class="text-slate-500 text-[10px] uppercase mr-1">SCENARIO:</span>
-                <button onclick="setIncident('devgram')" id="btnDevgram" class="px-2 py-0.5 rounded bg-blue-900/60 text-cyan-300 font-bold transition text-[11px]">Devgram</button>
+                <button onclick="setIncident('devgram')" id="btnDevgram" class="px-2 py-0.5 rounded bg-blue-900/60 text-[#7fffd4] font-bold transition text-[11px]">Devgram</button>
                 <button onclick="setIncident('wayanad')" id="btnWayanad" class="px-2 py-0.5 rounded text-slate-400 hover:text-white transition text-[11px]">Wayanad</button>
                 <button onclick="setIncident('silchar')" id="btnSilchar" class="px-2 py-0.5 rounded text-slate-400 hover:text-white transition text-[11px]">Silchar</button>
             </div>
             <div class="text-right">
                 <div class="text-xs font-bold text-white tracking-wider flex items-center justify-end gap-1.5">
                     <span>INCIDENT:</span>
-                    <span id="headerIncidentName" class="text-cyan-400">DEVGRAM</span>
+                    <span id="headerIncidentName" class="text-[#7fffd4]">DEVGRAM</span>
                 </div>
                 <div class="text-[10px] text-emerald-400 font-semibold flex items-center justify-end gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
@@ -107,7 +142,7 @@
         <a href="/eo-studio" id="leftSatelliteRail" class="group w-full lg:w-16 h-12 lg:h-full bg-[#050b18] hover:bg-[#0c1833] border-b lg:border-b-0 lg:border-r border-blue-900/60 flex flex-row lg:flex-col items-center justify-between px-4 lg:px-0 py-2 lg:py-6 transition-all duration-200 z-20 shrink-0 select-none shadow-2xl cursor-pointer hover:border-cyan-500/60" title="Open Satellite Imagery (Earth Observation Studio)">
             <!-- Top / Left Indicator Icon -->
             <div class="flex items-center lg:flex-col gap-1.5">
-                <div class="w-10 h-10 rounded-xl bg-blue-950/80 border border-cyan-500/40 group-hover:border-cyan-400 group-hover:bg-cyan-950/50 flex items-center justify-center text-cyan-400 shadow-[0_0_14px_rgba(127, 255, 212,0.25)] transition">
+                <div class="w-10 h-10 rounded-xl bg-blue-950/80 border border-cyan-500/40 group-hover:border-cyan-400 group-hover:bg-cyan-950/50 flex items-center justify-center text-[#7fffd4] shadow-[0_0_14px_rgba(127, 255, 212,0.25)] transition">
                     <i data-lucide="satellite" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
                 </div>
                 <div class="flex items-center gap-1">
@@ -117,36 +152,51 @@
             </div>
 
             <!-- Center Vertical Label (Desktop) / Horizontal (Mobile) -->
-            <div class="flex items-center gap-2 text-slate-400 group-hover:text-cyan-300 font-mono font-bold transition">
+            <div class="flex items-center gap-2 text-slate-400 group-hover:text-[#7fffd4] font-mono font-bold transition">
                 <span class="text-xs lg:[writing-mode:vertical-rl] lg:rotate-180 tracking-widest uppercase">🛰️ SATELLITE IMAGERY</span>
-                <i data-lucide="arrow-up-right" class="w-4 h-4 text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#7fffd4] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
             </div>
 
             <!-- Bottom Subtitle / Tag -->
             <div class="flex items-center lg:flex-col gap-1 text-[9px] font-mono">
-                <span class="px-2 py-0.5 rounded bg-blue-900/50 text-cyan-300 border border-blue-700/60 font-bold group-hover:border-cyan-400">
+                <span class="px-2 py-0.5 rounded bg-blue-900/50 text-[#7fffd4] border border-blue-700/60 font-bold group-hover:border-cyan-400">
                     EO STUDIO
                 </span>
                 <span class="text-[8px] text-slate-500 hidden lg:block">SAR • 0.28m</span>
             </div>
         </a>
 
-        <!-- ================= LEFT COLUMN: ~60% SATELLITE GIS MAP ================= -->
-        <section class="w-full lg:flex-[6] h-[50vh] lg:h-full relative bg-[#02050d] overflow-hidden border-b lg:border-b-0 lg:border-r border-blue-900/40">
-            <!-- Leaflet Map Container -->
+        <!-- ================= LEFT COLUMN: ~60% MAP VIEW ================= -->
+        <section class="w-full lg:flex-[6] h-[50vh] lg:h-full relative overflow-hidden bg-[#02050d] border-b lg:border-b-0 lg:border-r border-blue-900/50">
+            <!-- Full Leaflet Map -->
             <div id="cleanMap" class="w-full h-full z-0"></div>
 
-            <!-- FLOATING LAYER SWITCHER BUTTON (Top-Left matching Image 1) -->
-            <div class="absolute top-4 left-4 z-10">
-                <button onclick="cycleBaseMap()" class="w-10 h-10 rounded-xl bg-[#091326]/90 hover:bg-[#0f2142] border border-blue-800/80 shadow-2xl flex items-center justify-center text-slate-200 hover:text-cyan-300 transition" title="Toggle Satellite / Dark Basemap">
-                    <i data-lucide="layers" class="w-5 h-5"></i>
+            <!-- Floating Top Toolbar on Map: Grid Toggle & Base Controls -->
+            <div class="absolute top-4 left-4 z-10 flex flex-wrap items-center gap-2 bg-[#060b17]/90 backdrop-blur-md border border-blue-900/60 rounded-2xl p-1.5 shadow-2xl font-mono text-xs">
+                <!-- 5x5 Spatial Grid Toggle -->
+                <button type="button" onclick="toggle5x5Grid()" id="btnToggleGrid" class="px-3 py-1.5 rounded-xl bg-amber-950/80 text-amber-300 font-bold border border-amber-600/70 hover:bg-amber-900/80 transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.25)]" title="Toggle 5×5 Spatial Search & Hazard Grid">
+                    <i data-lucide="grid" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <span>5×5 Hazard Grid</span>
+                    <span id="gridStatusIndicator" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                </button>
+
+                <!-- Basemap Switcher -->
+                <button type="button" onclick="cycleBaseMap()" id="btnBaseMap" class="px-3 py-1.5 rounded-xl bg-blue-950/70 hover:bg-blue-900/70 text-[#7fffd4] border border-blue-800/60 transition flex items-center gap-1.5" title="Switch Satellite / Dark Carto">
+                    <i data-lucide="layers" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <span id="baseMapLabel">Satellite Basemap</span>
+                </button>
+
+                <!-- Recenter -->
+                <button type="button" onclick="recenterIncident()" class="px-3 py-1.5 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-300 border border-slate-700 transition flex items-center gap-1.5" title="Reset View">
+                    <i data-lucide="locate-fixed" class="w-3.5 h-3.5"></i>
+                    <span class="hidden sm:inline">Recenter</span>
                 </button>
             </div>
 
-            <!-- FLOATING ACTIVE GEOSPATIAL LAYERS PANEL (Top-Right matching Image 1) -->
-            <div class="absolute top-4 right-4 z-10 bg-[#091326]/95 backdrop-blur-md border border-blue-900/70 rounded-2xl p-3.5 shadow-2xl font-mono text-[11px] max-w-xs pointer-events-auto">
-                <div class="flex items-center gap-2 border-b border-blue-900/50 pb-2 mb-2.5">
-                    <i data-lucide="layers" class="w-4 h-4 text-cyan-400"></i>
+            <!-- Legend Overlay (Top-Right) -->
+            <div class="absolute top-4 right-4 z-10 bg-[#060b17]/95 backdrop-blur-md border border-blue-900/60 rounded-2xl p-3 shadow-2xl font-mono text-[11px] max-w-[260px] hidden sm:flex flex-col gap-2">
+                <div class="flex items-center gap-1.5 border-b border-blue-900/40 pb-1.5">
+                    <i data-lucide="layers" class="w-3.5 h-3.5 text-[#7fffd4]"></i>
                     <span class="font-extrabold text-white text-xs tracking-wide">Active Geospatial Layers</span>
                 </div>
 
@@ -166,23 +216,15 @@
                     </div>
                     <div class="flex items-center gap-2.5">
                         <span class="w-4 h-0.5 bg-emerald-400 shrink-0"></span>
-                        <span class="leading-tight">Origin-to-Site Terrain Transect</span>
+                        <span class="leading-tight">Origin-to-Candidate Route</span>
                     </div>
                     <div class="flex items-center gap-2.5">
                         <span class="w-3.5 h-3.5 rounded-full border border-[#7fffd4] border-dashed shrink-0"></span>
-                        <span class="leading-tight">Ring 1: 0 - 5 km | Ring 2: 5 - 10 km</span>
-                    </div>
-                    <div class="flex items-center gap-2.5">
-                        <span class="w-3.5 h-3.5 rounded-md border border-dashed border-amber-400 flex items-center justify-center text-[9px] shrink-0">🛰</span>
-                        <span class="leading-tight">Cartosat-3 Sub-Meter (0.28m) Validation</span>
-                    </div>
-                    <div class="flex items-center gap-2.5">
-                        <span class="w-3.5 h-3.5 rounded-md bg-purple-500/30 border border-purple-500 flex items-center justify-center text-[9px] shrink-0">🌲</span>
-                        <span class="leading-tight">ISRO Bhuvan 1:50k LULC Thematic Anchor</span>
+                        <span class="leading-tight">Progressive Horizon (5/10/15km)</span>
                     </div>
                     <div class="flex items-center gap-2.5">
                         <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 text-slate-950 font-black flex items-center justify-center text-[9px] shrink-0">#</span>
-                        <span class="leading-tight text-emerald-300 font-bold">Real OSM Safe Sites</span>
+                        <span class="leading-tight text-emerald-300 font-bold">Potential Relocation Sites</span>
                     </div>
                     <div class="flex items-center gap-2.5">
                         <span class="w-3.5 h-3.5 rounded-full bg-red-600 text-white font-black flex items-center justify-center text-[9px] shrink-0">✕</span>
@@ -193,7 +235,7 @@
 
             <!-- Coordinates Callout (Bottom-Left) -->
             <div class="absolute bottom-4 left-4 z-10 bg-[#060b17]/90 backdrop-blur-md border border-blue-900/50 rounded-xl px-3 py-1.5 shadow-2xl font-mono text-xs flex items-center gap-2">
-                <i data-lucide="crosshair" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <i data-lucide="crosshair" class="w-3.5 h-3.5 text-[#7fffd4]"></i>
                 <span class="text-slate-400 text-[10px]">EPICENTER:</span>
                 <span id="mapCoordsBadge" class="text-white font-bold text-[11px]">30.3207° N, 79.2163° E</span>
             </div>
@@ -206,14 +248,14 @@
             <div class="border-b border-blue-900/40 pb-3 flex items-center justify-between">
                 <div>
                     <span class="text-[10px] text-cyan-400 uppercase font-bold tracking-wider block">Level-1 Executive Decision Console</span>
-                    <h2 id="rightIncidentTitle" class="text-lg font-extrabold text-white">Devgram Habitation (Chamoli, Uttarakhand)</h2>
+                    <h2 id="rightIncidentTitle" class="font-royal text-lg font-bold text-white">Devgram Habitation (Chamoli, Uttarakhand)</h2>
                 </div>
                 <span class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-bold">
                     ACTIVE SCENARIO
                 </span>
             </div>
 
-            <!-- 4 Key Decision Pillars (Previously in the bottom part, now stacked cleanly on the right) -->
+            <!-- 4 Key Decision Pillars -->
             <div class="grid grid-cols-2 gap-3">
                 <!-- 1. HAZARD -->
                 <div class="p-3.5 rounded-xl bg-[#091326] border border-amber-900/50 flex flex-col justify-between">
@@ -222,8 +264,8 @@
                         <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
                     </div>
                     <div>
-                        <span class="text-base font-black text-amber-400">ELEVATED</span>
-                        <span class="text-[10px] text-slate-400 block mt-0.5">0.36 Runoff Index [DERIVED]</span>
+                        <span id="barHazard" class="text-base font-black text-amber-400">ELEVATED</span>
+                        <span id="barHazardSub" class="text-[10px] text-slate-400 block mt-0.5">0.36 Runoff Index [DERIVED]</span>
                     </div>
                     <span class="text-[10px] text-amber-300/80 mt-1.5 block">Threshold Exceeded</span>
                 </div>
@@ -238,7 +280,7 @@
                         <span id="barPop" class="text-base font-black text-white">6,840</span>
                         <span class="text-[10px] text-slate-400 block mt-0.5">Exposed Population</span>
                     </div>
-                    <span class="text-[10px] text-red-300/80 mt-1.5 block">4 Mountain Hamlets</span>
+                    <span class="text-[10px] text-red-300/80 mt-1.5 block">Immediate Relocation</span>
                 </div>
 
                 <!-- 3. RELOCATION -->
@@ -254,17 +296,17 @@
                     <span class="text-[10px] text-red-300/80 mt-1.5 block">Phase-1 Directive</span>
                 </div>
 
-                <!-- 4. CAPACITY -->
+                <!-- 4. USABLE CAPACITY -->
                 <div class="p-3.5 rounded-xl bg-[#091326] border border-emerald-900/50 flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-1.5">
-                        <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">CAPACITY</span>
+                        <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">USABLE CAPACITY</span>
                         <i data-lucide="building" class="w-4 h-4 text-emerald-400"></i>
                     </div>
                     <div>
-                        <span id="barCap" class="text-base font-black text-emerald-400">7,182</span>
-                        <span class="text-[10px] text-slate-400 block mt-0.5">Persons — Safe Capacity</span>
+                        <span id="barCap" class="text-base font-black text-emerald-400">7,341</span>
+                        <span class="text-[10px] text-slate-400 block mt-0.5">Persons [ESTIMATED]</span>
                     </div>
-                    <span class="text-[10px] text-emerald-300/80 mt-1.5 block">+342 Net Headroom</span>
+                    <span id="barHeadroom" class="text-[10px] text-emerald-300/80 mt-1.5 block">+501 Net Headroom</span>
                 </div>
             </div>
 
@@ -272,8 +314,8 @@
             <div class="pt-1 flex flex-col gap-2">
                 <!-- Step Pipeline Indicator -->
                 <div class="bg-[#040814] p-2.5 rounded-xl border border-blue-900/50 flex items-center justify-between text-[10px] font-mono">
-                    <div class="flex items-center gap-1 text-cyan-400 font-bold">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    <div class="flex items-center gap-1 text-[#7fffd4] font-bold">
+                        <span class="w-2 h-2 rounded-full bg-[#7fffd4] animate-pulse"></span>
                         <span>01 OVERVIEW</span>
                     </div>
                     <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-600"></i>
@@ -292,7 +334,7 @@
                 <!-- Primary Flow Action Button directing to Hazard Lab -->
                 <a href="/hazard-lab" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-sm tracking-wide transition shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2 cursor-pointer transform hover:scale-[1.01]">
                     <i data-lucide="flame" class="w-4 h-4 text-slate-950"></i>
-                    <span>INVESTIGATE HAZARD &amp; IMPACT</span>
+                    <span class="font-royal">INVESTIGATE HAZARD &amp; IMPACT</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-slate-950"></i>
                 </a>
                 <div class="text-[10px] text-center text-slate-400">
@@ -300,55 +342,27 @@
                 </div>
             </div>
 
-            <!-- Multi-Site Safe Sanctuary Absorption Plan -->
+            <!-- Multi-Site Potential Relocation Sites Absorption Plan -->
             <div class="p-4 rounded-xl bg-[#091326] border border-blue-900/50 flex flex-col gap-2.5">
                 <div class="flex items-center justify-between border-b border-blue-900/40 pb-2">
-                    <span class="text-xs font-bold text-white uppercase flex items-center gap-1.5">
+                    <span class="font-royal text-xs font-bold text-white uppercase flex items-center gap-1.5">
                         <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-                        <span>Qualified Safe Sanctuaries</span>
+                        <span>Potential Relocation Sites</span>
                     </span>
-                    <span class="text-[10px] text-emerald-400 font-bold">4 SITES QUALIFIED</span>
+                    <span id="overviewSitesBadge" class="text-[10px] text-emerald-400 font-bold">4 SITES QUALIFIED</span>
                 </div>
 
-                <div class="space-y-2 text-xs">
-                    <div class="p-2 rounded-lg bg-slate-950/80 border border-emerald-800/40 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-cyan-300 block">Taluk Stadium (Site A)</span>
-                            <span class="text-[10px] text-slate-400">Primary Hub • 5.84 km via NH-58</span>
-                        </div>
-                        <span class="text-emerald-400 font-bold">1,600 Persons</span>
-                    </div>
-
-                    <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-200 block">Polytechnic Campus (Site B)</span>
-                            <span class="text-[10px] text-slate-400">Secondary Hub • 8.12 km Paved</span>
-                        </div>
-                        <span class="text-emerald-400 font-bold">1,866 Persons</span>
-                    </div>
-
-                    <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-200 block">Higher Secondary School (Site C)</span>
-                            <span class="text-[10px] text-slate-400">Secondary Hub • 11.4 km</span>
-                        </div>
-                        <span class="text-emerald-400 font-bold">1,133 Persons</span>
-                    </div>
-
-                    <div class="p-2 rounded-lg bg-slate-950/80 border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <span class="font-bold text-slate-200 block">Agricultural Farm (Site D)</span>
-                            <span class="text-[10px] text-slate-400">Reserve Grounds • 13.9 km</span>
-                        </div>
-                        <span class="text-emerald-400 font-bold">2,241 Persons</span>
-                    </div>
+                <div id="overviewCandidatesList" class="space-y-2 text-xs">
+                    <!-- Dynamically populated by JS -->
                 </div>
             </div>
 
             <!-- Decision Synthesis Note -->
             <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <b class="text-white block mb-1">Executive Decision Brief:</b>
-                Devgram mountain settlement is directly intersected by an active 8.18 km² runoff envelope. Due to steep slopes (>24°) and intense precipitation (142.5mm), the 0–5 km horizon provided insufficient capacity (1,950 persons). The progressive search expanded to 15 km, successfully securing 7,182 estimated safe capacity across 4 screened safe sites.
+                <span id="overviewDecisionBrief">
+                    Devgram mountain settlement is directly intersected by an active 8.18 km² runoff envelope. Due to steep slopes (>24°) and intense precipitation (142.5mm), the 0–5 km horizon provided insufficient capacity (1,600 persons). The progressive search expanded to 15 km, successfully securing 7,341 estimated safe capacity across 4 screened safe sites.
+                </span>
             </div>
 
             <!-- Sequential Decision Flow Footer Links -->
@@ -380,17 +394,21 @@
 
         const SCENARIOS = {
             devgram: {
-                name: "Devgram (Chamoli, Uttarakhand)",
+                name: "Devgram Habitation (Chamoli, Uttarakhand)",
                 lat: 30.3207,
                 lon: 79.2163,
                 pop: "6,840",
-                cap: "7,182",
+                cap: "7,341",
+                headroom: "+501 Net Headroom",
+                hazardText: "ELEVATED",
+                hazardSub: "0.36 Runoff Index [DERIVED]",
                 zoom: 12,
+                brief: "Devgram mountain settlement is directly intersected by an active 8.18 km² runoff envelope. Due to steep slopes (>24°) and intense precipitation (142.5mm), the 0–5 km horizon provided insufficient capacity (1,600 persons). The progressive search expanded to 15 km, successfully securing 7,341 estimated safe capacity across 4 screened safe sites.",
                 sites: [
-                    { name: "Taluk Stadium (Primary)", lat: 30.3540, lon: 79.2560, cap: 1600, dist: "5.84 km", isPrimary: true },
-                    { name: "Polytechnic Campus", lat: 30.3680, lon: 79.2780, cap: 1866, dist: "8.12 km" },
-                    { name: "Higher Secondary School", lat: 30.3850, lon: 79.2990, cap: 1133, dist: "11.4 km" },
-                    { name: "Agricultural Research Farm", lat: 30.4010, lon: 79.3150, cap: 2400, dist: "13.9 km" }
+                    { name: "Taluk Stadium & Sports Complex (Site A)", lat: 30.3540, lon: 79.2560, cap: 1600, dist: "5.84 km", access: "NH-58 Paved 2-Lane", isPrimary: true },
+                    { name: "Regional Polytechnic Campus (Site B)", lat: 30.3680, lon: 79.2780, cap: 2100, dist: "8.12 km", access: "Paved Approach Road" },
+                    { name: "Government Higher Secondary School Ground (Site C)", lat: 30.3850, lon: 79.2990, cap: 1200, dist: "11.4 km", access: "District Road Paved" },
+                    { name: "Agriculture Research Farm Complex (Site D)", lat: 30.4010, lon: 79.3150, cap: 2441, dist: "13.9 km", access: "State Highway Link" }
                 ],
                 route: [
                     [30.3207, 79.2163],
@@ -406,37 +424,48 @@
                 lat: 11.5126,
                 lon: 76.1287,
                 pop: "4,200",
-                cap: "5,100",
+                cap: "5,600",
+                headroom: "+1,400 Net Headroom",
+                hazardText: "CRITICAL",
+                hazardSub: "Debris Flow Slip [SAR-DERIVED]",
                 zoom: 12,
+                brief: "Chooralmala ground zero experienced catastrophic slope destabilization after 286mm rainfall. The 0–5 km zone had only 1,400 capacity on stable ridges. Expanding to 15 km northwest along SH-59 and NH-766 identified 4 qualified candidate sites outside landslide deposit fans.",
                 sites: [
-                    { name: "Meppadi Higher Secondary School", lat: 11.5510, lon: 76.1320, cap: 1500, dist: "4.8 km", isPrimary: true },
-                    { name: "Kalpetta Municipal Ground", lat: 11.6080, lon: 76.0820, cap: 2200, dist: "11.2 km" },
-                    { name: "Munderi Community Hall", lat: 11.5720, lon: 76.1550, cap: 1400, dist: "7.9 km" }
+                    { name: "St. Joseph's Higher Secondary School Ground", lat: 11.5510, lon: 76.1320, cap: 1400, dist: "4.20 km", access: "SH-59 Hill Highway", isPrimary: true },
+                    { name: "Meppadi Community Hall & Panchayat Ground", lat: 11.5580, lon: 76.1250, cap: 1300, dist: "6.80 km", access: "Town Road Paved" },
+                    { name: "Kalpetta Municipal Stadium & Indoor Complex", lat: 11.6080, lon: 76.0820, cap: 1800, dist: "12.4 km", access: "NH-766 Main Corridor" },
+                    { name: "SKMJ Higher Secondary School Campus", lat: 11.6140, lon: 76.0850, cap: 1100, dist: "14.1 km", access: "Municipal Arterial" }
                 ],
                 route: [
                     [11.5126, 76.1287],
                     [11.5280, 76.1295],
                     [11.5390, 76.1310],
+                    [11.5450, 76.1315],
                     [11.5510, 76.1320]
                 ]
             },
             silchar: {
-                name: "Silchar Flood Plain (Assam)",
+                name: "Silchar Flood Plain (Cachar, Assam)",
                 lat: 24.8333,
                 lon: 92.7789,
                 pop: "12,500",
-                cap: "14,200",
+                cap: "14,100",
+                headroom: "+1,600 Net Headroom",
+                hazardText: "EXTREME FLOOD",
+                hazardSub: "23.5m River Crest [SAR-DERIVED]",
                 zoom: 12,
+                brief: "Barak River breached Bethukandi dyke causing extensive inundation across Silchar town below 23.5m MSL. The search vetoed low-lying sites (<25m MSL), expanding south along elevated highways to secure 14,100 capacity at Assam University and NIT Silchar highland campuses.",
                 sites: [
-                    { name: "Assam University Campus", lat: 24.7450, lon: 92.7530, cap: 5000, dist: "10.4 km", isPrimary: true },
-                    { name: "NIT Silchar Highland Sports Arena", lat: 24.7570, lon: 92.7850, cap: 4800, dist: "8.6 km" },
-                    { name: "DSA Stadium Silchar", lat: 24.8250, lon: 92.7950, cap: 4400, dist: "3.2 km" }
+                    { name: "Assam University Durgakona Elevated Campus", lat: 24.7450, lon: 92.7530, cap: 4500, dist: "14.2 km", access: "Highland Ridge Highway", isPrimary: true },
+                    { name: "NIT Silchar Highland Sports Arena", lat: 24.7570, lon: 92.7850, cap: 3800, dist: "9.60 km", access: "Elevated Expressway" },
+                    { name: "Silchar District Sports Association (DSA) Stadium", lat: 24.8250, lon: 92.7950, cap: 3200, dist: "4.80 km", access: "Elevated Ring Embankment" },
+                    { name: "GC College Ground & Multi-Purpose Campus", lat: 24.8210, lon: 92.7980, cap: 2600, dist: "5.50 km", access: "College Road Paved" }
                 ],
                 route: [
                     [24.8333, 92.7789],
-                    [24.8050, 92.7710],
-                    [24.7780, 92.7620],
-                    [24.7450, 92.7530]
+                    [24.8300, 92.7840],
+                    [24.8270, 92.7910],
+                    [24.8250, 92.7950]
                 ]
             }
         };
@@ -458,13 +487,11 @@
 
             L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-            // Satellite Aerial Imagery Base Layer (matching Image 1)
             baseLayers.satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: '&copy; Esri &copy; Maxar, Earthstar Geographics',
+                attribution: '&copy; Esri &copy; Maxar',
                 maxZoom: 19
             }).addTo(map);
 
-            // Dark Basemap (for toggle)
             baseLayers.dark = L.layerGroup([
                 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
                     attribution: 'Tiles &copy; Esri',
@@ -476,6 +503,7 @@
             ]);
 
             drawScenarioFeatures(data);
+            renderCandidatesList(data);
         }
 
         function cycleBaseMap() {
@@ -483,10 +511,12 @@
                 map.removeLayer(baseLayers.satellite);
                 baseLayers.dark.addTo(map);
                 currentBase = 'dark';
+                document.getElementById('baseMapLabel').innerText = "Dark Canvas Basemap";
             } else {
                 map.removeLayer(baseLayers.dark);
                 baseLayers.satellite.addTo(map);
                 currentBase = 'satellite';
+                document.getElementById('baseMapLabel').innerText = "Satellite Basemap";
             }
         }
 
@@ -503,17 +533,16 @@
 
             const mPerDegLat = 111139.0;
             const mPerDegLon = 111139.0 * Math.cos(data.lat * Math.PI / 180.0);
-            const cellSizeM = 750.0; // 750m spatial cell resolution (exact proportion from reference image)
+            const cellSizeM = 750.0;
             const halfStepLat = (cellSizeM / 2.0) / mPerDegLat;
             const halfStepLon = (cellSizeM / 2.0) / mPerDegLon;
 
-            // Generate clean 25-cell geometric grid matching reference image
             for (let r = 0; r < 5; r++) {
-                const dy = (2 - r) * cellSizeM; // r=0 is North, r=4 is South
+                const dy = (2 - r) * cellSizeM;
                 const cellLat = data.lat + (dy / mPerDegLat);
 
                 for (let c = 0; c < 5; c++) {
-                    const dx = (c - 2) * cellSizeM; // c=0 is West, c=4 is East
+                    const dx = (c - 2) * cellSizeM;
                     const cellLon = data.lon + (dx / mPerDegLon);
 
                     const bounds = [
@@ -521,33 +550,45 @@
                         [cellLat + halfStepLat, cellLon + halfStepLon]
                     ];
 
-                    // Exact contiguous hazard runoff pattern matching reference image
+                    const isRed = (r === 2 && c === 2);
                     const isOrange = (
-                        (r === 2 && c >= 1 && c <= 4) ||
-                        (r === 3 && c >= 1 && c <= 4) ||
-                        (r === 4 && (c === 2 || c === 3))
+                        (r === 1 && c === 2) ||
+                        (r === 2 && (c === 1 || c === 3)) ||
+                        (r === 3 && c === 2) ||
+                        (r === 2 && c === 4) ||
+                        (r === 3 && c === 3)
                     );
 
-                    const strokeColor = isOrange ? '#ff9100' : '#00e676';
-                    const fillColor = isOrange ? '#f59e0b' : '#00e676';
-                    const fillOpacity = isOrange ? 0.40 : 0.04;
-                    const strokeWidth = 1.8;
+                    let strokeColor = '#00e676';
+                    let fillColor = '#00e676';
+                    let fillOpacity = 0.05;
+                    let cellStatus = '🟢 SAFE PERIMETER CELL';
+
+                    if (isRed) {
+                        strokeColor = '#ff1744';
+                        fillColor = '#ff1744';
+                        fillOpacity = 0.55;
+                        cellStatus = '🔥 GROUND ZERO CORE CELL';
+                    } else if (isOrange) {
+                        strokeColor = '#ff9100';
+                        fillColor = '#ff9100';
+                        fillOpacity = 0.35;
+                        cellStatus = '🔴 HIGH-HAZARD IMPACT CELL';
+                    }
 
                     const rect = L.rectangle(bounds, {
                         color: strokeColor,
-                        weight: strokeWidth,
+                        weight: 1.5,
                         fillColor: fillColor,
                         fillOpacity: fillOpacity,
                         className: 'spatial-grid-cell'
                     });
 
-                    const tierName = isOrange ? 'Runoff Hazard Zone' : 'Perimeter Safe Zone';
-                    const score = isOrange ? (0.65 + ((r * 2 + c * 3) % 4) * 0.07).toFixed(2) : (0.12 + ((r + c) % 3) * 0.05).toFixed(2);
-
                     rect.bindTooltip(`
                         <div style="font-family: monospace; font-size: 11px; padding: 2px;">
-                            <b style="color: ${isOrange ? '#ff9100' : '#00e676'};">▦ Cell [R${r+1}, C${c+1}]</b> &bull; ${tierName}<br>
-                            Hazard Intensity: <b>${score}</b>
+                            <b style="color: ${strokeColor};">${cellStatus}</b><br>
+                            Cell: [R${r+1}, C${c+1}] &bull; Center: ${cellLat.toFixed(4)}° N, ${cellLon.toFixed(4)}° E<br>
+                            Hazard Intensity: <b>${isRed ? '0.94' : (isOrange ? '0.68' : '0.12')}</b>
                         </div>
                     `, { sticky: true });
 
@@ -555,100 +596,60 @@
                 }
             }
 
-            if (isGridVisible && !map.hasLayer(gridLayerGroup)) {
+            if (isGridVisible) {
                 gridLayerGroup.addTo(map);
             }
         }
 
+        function toggle5x5Grid() {
+            isGridVisible = !isGridVisible;
+            const ind = document.getElementById('gridStatusIndicator');
+            const btn = document.getElementById('btnToggleGrid');
+
+            if (isGridVisible) {
+                map.addLayer(gridLayerGroup);
+                ind.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+                btn.className = "px-3 py-1.5 rounded-xl bg-amber-950/80 text-amber-300 font-bold border border-amber-600/70 hover:bg-amber-900/80 transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.25)]";
+            } else {
+                map.removeLayer(gridLayerGroup);
+                ind.className = "w-2 h-2 rounded-full bg-slate-500";
+                btn.className = "px-3 py-1.5 rounded-xl bg-slate-900/80 text-slate-400 font-medium border border-slate-700 hover:bg-slate-800 transition flex items-center gap-1.5";
+            }
+        }
+
+        function recenterIncident() {
+            const data = SCENARIOS[currentScenario];
+            map.setView([data.lat + 0.015, data.lon + 0.03], data.zoom);
+        }
+
         function drawScenarioFeatures(data) {
             clearLayers();
-
-            const mPerDegLat = 111139.0;
-            const mPerDegLon = 111139.0 * Math.cos(data.lat * Math.PI / 180.0);
-            const cellSizeM = 750.0;
-            const halfStepLat = (cellSizeM / 2.0) / mPerDegLat;
-            const halfStepLon = (cellSizeM / 2.0) / mPerDegLon;
-
-            // 1. 5x5 Spatial Hazard Raster Grid (25 Cells: green perimeter + orange hazard cluster)
             draw5x5HazardGrid(data);
 
-            // 2. Dashed Red Anisotropic Hazard Envelope (matching reference image oval contour)
-            const envelopePoints = [
-                [data.lat + halfStepLat * 1.55, data.lon - halfStepLon * 0.10], // Top apex
-                [data.lat + halfStepLat * 1.30, data.lon + halfStepLon * 1.15], // Top-Right shoulder
-                [data.lat + halfStepLat * 0.40, data.lon + halfStepLon * 2.10], // Upper-Right
-                [data.lat - halfStepLat * 0.70, data.lon + halfStepLon * 2.35], // Mid-Right (encloses row 3 col 4)
-                [data.lat - halfStepLat * 1.80, data.lon + halfStepLon * 1.60], // Lower-Right
-                [data.lat - halfStepLat * 2.55, data.lon + halfStepLon * 0.40], // Bottom apex (row 4 col 2,3)
-                [data.lat - halfStepLat * 2.30, data.lon - halfStepLon * 0.60], // Bottom-Left curve
-                [data.lat - halfStepLat * 1.40, data.lon - halfStepLon * 1.50], // Lower-Left (row 3 col 1)
-                [data.lat - halfStepLat * 0.20, data.lon - halfStepLon * 1.75], // Mid-Left (row 2 col 1)
-                [data.lat + halfStepLat * 1.10, data.lon - halfStepLon * 1.20]  // Top-Left shoulder
-            ];
-            const hazardEnvelope = L.polygon(envelopePoints, {
-                color: '#ff3366',
-                weight: 2.8,
-                dashArray: '6, 6',
-                fillColor: '#ef4444',
-                fillOpacity: 0.06
-            }).addTo(map);
-            hazardEnvelope.bindTooltip("Dynamic AOI Anisotropic Runoff Envelope", { sticky: true });
-            layers.push(hazardEnvelope);
-
-            // 3. Epicenter Soft Red Translucent Halo
-            const epicenterHalo = L.circle([data.lat, data.lon], {
-                radius: cellSizeM * 0.95,
-                color: '#ef4444',
-                weight: 1,
-                fillColor: '#ef4444',
-                fillOpacity: 0.52
-            }).addTo(map);
-            layers.push(epicenterHalo);
-
-            // 4. Central Solid Red Epicenter Core Marker
-            const epicenterMarker = L.circleMarker([data.lat, data.lon], {
+            // 1. Epicenter Callout
+            const originMarker = L.circleMarker([data.lat, data.lon], {
                 radius: 8.5,
                 fillColor: '#ef4444',
                 color: '#ffffff',
                 weight: 2.5,
                 fillOpacity: 1
             }).addTo(map);
-            epicenterMarker.bindPopup(`
+            originMarker.bindPopup(`
                 <div style="color: #000; font-family: monospace; font-size: 12px;">
-                    <b style="color: #dc2626;">🔴 HAZARD GROUND ZERO</b><br>
-                    <b>${data.name}</b><br>
-                    Displaced Population: <b>${data.pop}</b>
+                    <b style="color: #ef4444;">🔴 INCIDENT GROUND ZERO</b><br>
+                    Location: <b>${data.name}</b><br>
+                    Coordinates: ${data.lat.toFixed(4)}° N, ${data.lon.toFixed(4)}° E<br>
+                    Exposed Population: <b>${data.pop}</b>
                 </div>
             `);
-            layers.push(epicenterMarker);
+            layers.push(originMarker);
 
-            // 5. Vertical Cyan Dashed Search Axis & Node (matching top of reference image)
-            const transectVector = L.polyline([
-                [data.lat, data.lon],
-                [data.lat + halfStepLat * 4.4, data.lon]
-            ], {
-                color: '#7fffd4',
-                weight: 3.5,
-                dashArray: '8, 8',
-                opacity: 0.95
-            }).addTo(map);
-            layers.push(transectVector);
-
-            const transectNode = L.circleMarker([data.lat + halfStepLat * 4.4, data.lon], {
-                radius: 7,
-                color: '#7fffd4',
-                weight: 2.5,
-                fillColor: '#091326',
-                fillOpacity: 0.85
-            }).addTo(map).bindTooltip("Spatial Search Transect Axis (North)", { sticky: true });
-            layers.push(transectNode);
-
-            // 6. Search Rings (Ring 1: 0 - 5 km | Ring 2: 5 - 10 km)
+            // 2. Concentric Progressive Search Rings
             const ring5 = L.circle([data.lat, data.lon], {
                 radius: 5000,
                 color: '#7fffd4',
-                weight: 1.5,
-                dashArray: '6, 6',
+                weight: 1.2,
+                dashArray: '5, 5',
                 fill: false
             }).addTo(map);
             layers.push(ring5);
@@ -656,28 +657,38 @@
             const ring10 = L.circle([data.lat, data.lon], {
                 radius: 10000,
                 color: '#7fffd4',
-                weight: 1.5,
+                weight: 1.2,
                 dashArray: '6, 6',
                 fill: false
             }).addTo(map);
             layers.push(ring10);
 
-            // 7. Origin-to-Site Evacuation Route Corridor (Green Line)
-            const routeLine = L.polyline(data.route, {
+            const ring15 = L.circle([data.lat, data.lon], {
+                radius: 15000,
                 color: '#10b981',
-                weight: 4.5,
-                opacity: 0.95
+                weight: 1.5,
+                dashArray: '4, 4',
+                fill: false
             }).addTo(map);
-            routeLine.bindTooltip("Origin-to-Site Terrain Transect (5.84 km)", { sticky: true });
+            layers.push(ring15);
+
+            // 3. Origin-to-Site Route Corridor
+            const routeLine = L.polyline(data.route, {
+                color: '#7fffd4',
+                weight: 4.5,
+                opacity: 0.95,
+                dashArray: '8, 8'
+            }).addTo(map);
+            routeLine.bindTooltip(`Primary Corridor (${data.sites[0].dist})`, { sticky: true });
             layers.push(routeLine);
 
-            // 6. Real OSM Safe Sites (Green circles with # symbol)
+            // 4. Potential Relocation Sites (Green circles)
             data.sites.forEach(site => {
                 const isPrimary = site.isPrimary;
                 const marker = L.circleMarker([site.lat, site.lon], {
-                    radius: isPrimary ? 9 : 7,
+                    radius: isPrimary ? 9.5 : 7,
                     fillColor: '#10b981',
-                    color: '#ffffff',
+                    color: isPrimary ? '#7fffd4' : '#ffffff',
                     weight: isPrimary ? 3 : 1.5,
                     fillOpacity: 1
                 }).addTo(map);
@@ -685,53 +696,52 @@
                 marker.bindPopup(`
                     <div style="color: #000; font-family: monospace; font-size: 12px;">
                         <b style="color: #059669;">🟢 ${site.name}</b><br>
-                        Distance: <b>${site.dist}</b><br>
-                        Estimated Safe Capacity: <b>${site.cap.toLocaleString()}</b>
+                        Road Distance: <b>${site.dist}</b><br>
+                        Estimated Usable Capacity: <b>${site.cap.toLocaleString()}</b><br>
+                        Corridor Access: <b>${site.access}</b>
                     </div>
                 `);
                 layers.push(marker);
             });
 
-            // 7. Vetoed Sites (Red ✕ markers)
-            const vetoed = [
-                { name: "Lower Riverbed Clearing", lat: data.lat - 0.008, lon: data.lon + 0.015, reason: "Hazard Overlap" },
-                { name: "Escarpment Ridge Parcel", lat: data.lat + 0.022, lon: data.lon - 0.005, reason: "Excessive Slope (>24°)" }
-            ];
-            vetoed.forEach(v => {
-                const vMarker = L.circleMarker([v.lat, v.lon], {
-                    radius: 6,
-                    fillColor: '#ef4444',
-                    color: '#ffffff',
-                    weight: 1.5,
-                    fillOpacity: 1
-                }).addTo(map);
-                vMarker.bindPopup(`
-                    <div style="color: #000; font-family: monospace; font-size: 12px;">
-                        <b style="color: #dc2626;">✕ VETOED SITE</b><br>
-                        <b>${v.name}</b><br>
-                        Reason: <b>${v.reason}</b>
-                    </div>
-                `);
-                layers.push(vMarker);
-            });
-
             map.setView([data.lat + 0.015, data.lon + 0.03], data.zoom);
+        }
+
+        function renderCandidatesList(data) {
+            const list = document.getElementById('overviewCandidatesList');
+            if (!list) return;
+
+            list.innerHTML = data.sites.map(s => `
+                <div class="p-2 rounded-lg bg-slate-950/80 border ${s.isPrimary ? 'border-emerald-800/60 bg-emerald-950/20' : 'border-slate-800'} flex justify-between items-center">
+                    <div>
+                        <span class="font-bold text-white block text-xs">${s.name.split(' (')[0]} ${s.isPrimary ? '<span class="text-[9px] text-[#7fffd4] ml-1">[Primary]</span>' : ''}</span>
+                        <span class="text-[10px] text-slate-400">${s.dist} via ${s.access}</span>
+                    </div>
+                    <span class="text-emerald-400 font-bold text-xs">${s.cap.toLocaleString()} Persons</span>
+                </div>
+            `).join('');
         }
 
         function setIncident(key) {
             currentScenario = key;
             const s = SCENARIOS[key];
+            if (!s) return;
+
             document.getElementById('headerIncidentName').innerText = key.toUpperCase();
             document.getElementById('rightIncidentTitle').innerText = s.name;
             document.getElementById('mapCoordsBadge').innerText = `${s.lat.toFixed(4)}° N, ${s.lon.toFixed(4)}° E`;
             document.getElementById('barPop').innerText = s.pop;
             document.getElementById('barCap').innerText = s.cap;
+            document.getElementById('barHeadroom').innerText = s.headroom;
+            document.getElementById('barHazard').innerText = s.hazardText;
+            document.getElementById('barHazardSub').innerText = s.hazardSub;
+            document.getElementById('overviewDecisionBrief').innerText = s.brief;
 
             ['devgram', 'wayanad', 'silchar'].forEach(k => {
                 const btn = document.getElementById('btn' + k.charAt(0).toUpperCase() + k.slice(1));
                 if (btn) {
                     if (k === key) {
-                        btn.className = "px-2 py-0.5 rounded bg-blue-900/60 text-cyan-300 font-bold transition text-[11px]";
+                        btn.className = "px-2 py-0.5 rounded bg-blue-900/60 text-[#7fffd4] font-bold transition text-[11px]";
                     } else {
                         btn.className = "px-2 py-0.5 rounded text-slate-400 hover:text-white transition text-[11px]";
                     }
@@ -739,6 +749,8 @@
             });
 
             drawScenarioFeatures(s);
+            renderCandidatesList(s);
+            lucide.createIcons();
         }
 
         window.onload = () => {

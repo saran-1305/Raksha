@@ -12,10 +12,17 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Royal & Professional Google Fonts: Cinzel (Majestic Headers) + Plus Jakarta Sans (Executive UI) + JetBrains Mono (Telemetry) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #040711; color: #f1f5f9; }
+        .font-royal { font-family: 'Cinzel', serif; letter-spacing: 0.04em; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #03050a; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
@@ -30,6 +37,10 @@
             color: #7fffd4;
             box-shadow: 0 0 14px rgba(127, 255, 212, 0.35);
         }
+        .badge-data { background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .badge-derived { background: rgba(127, 255, 212, 0.12); color: #7fffd4; border: 1px solid rgba(127, 255, 212, 0.3); }
+        .badge-estimated { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .badge-user { background: rgba(192, 132, 252, 0.12); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased bg-[#040711]">
@@ -38,28 +49,30 @@
     <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-6 py-2 shadow-2xl">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
-            <!-- Left: Brand Logo & Title -->
+            <!-- Left: Brand Logo & Title with Royal Font -->
             <div class="flex items-center gap-3">
                 <a href="/" class="h-9 w-9 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
                     <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(127, 255, 212,0.6)]" />
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-lg text-white font-mono tracking-tight">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 font-semibold">MOBILITY &amp; LOGISTICS</span>
+                        <span class="font-royal font-black text-xl text-white tracking-wider">RAKSHA</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 font-semibold tracking-wide">MOBILITY &amp; LOGISTICS</span>
                     </div>
                     <div class="text-[10px] text-slate-400 font-mono flex items-center gap-2">
-                        <span>DATA STATUS:</span>
-                        <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>LIVE</span>
-                        <span class="text-slate-600">|</span>
-                        <span class="text-cyan-400 font-bold">DERIVED</span>
-                        <span class="text-slate-600">|</span>
-                        <span class="text-purple-400 font-bold">SCENARIO ESTIMATE</span>
+                        <span>PROVENANCE:</span>
+                        <span class="badge-data px-1.5 py-0.2 rounded text-[9px] font-bold">DATA</span>
+                        <span class="text-slate-600">➔</span>
+                        <span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold">DERIVED</span>
+                        <span class="text-slate-600">➔</span>
+                        <span class="badge-user px-1.5 py-0.2 rounded text-[9px] font-bold">USER CONFIGURED</span>
+                        <span class="text-slate-600">➔</span>
+                        <span class="badge-estimated px-1.5 py-0.2 rounded text-[9px] font-bold">ESTIMATED</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Center: EXACT PILL NAVIGATION FROM REFERENCE -->
+            <!-- Center: EXACT PILL NAVIGATION -->
             <nav class="hidden lg:flex items-center gap-1.5 nav-pill-container px-2 py-1.5 rounded-2xl text-xs font-mono">
                 <a href="/overview" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
                     <i data-lucide="layout-grid" class="w-4 h-4"></i>
@@ -74,7 +87,7 @@
                     <span class="tracking-wider">RELOCATION</span>
                 </a>
                 <a href="/logistics" class="nav-pill-active px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-2 transition">
-                    <i data-lucide="truck" class="w-4 h-4 text-cyan-400"></i>
+                    <i data-lucide="truck" class="w-4 h-4 text-[#7fffd4]"></i>
                     <span class="tracking-wider">LOGISTICS</span>
                 </a>
                 <a href="/dossier" class="px-3.5 py-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-blue-950/40 flex items-center gap-2 transition font-medium">
@@ -83,11 +96,13 @@
                 </a>
             </nav>
 
-            <!-- Right: Incident Context -->
-            <div class="flex items-center gap-3 font-mono text-xs text-right">
-                <div>
-                    <div class="text-white font-bold">INCIDENT: DEVGRAM</div>
-                    <div class="text-cyan-400 text-[10px]">ROUTE TO PRIMARY SANCTUARY</div>
+            <!-- Right: Interactive Hotspot Selector -->
+            <div class="flex items-center gap-2 font-mono text-xs">
+                <span class="text-slate-400 text-[10px] uppercase font-bold hidden sm:inline">INCIDENT SCENARIO:</span>
+                <div class="flex items-center gap-1 bg-[#091122] p-1 rounded-xl border border-blue-900/60">
+                    <button onclick="setScenario('devgram')" id="btnScenDev" class="px-2.5 py-1 rounded-lg bg-blue-900/80 text-[#7fffd4] font-bold border border-cyan-500/40 text-[11px] transition shadow-[0_0_10px_rgba(127,255,212,0.2)]">Devgram</button>
+                    <button onclick="setScenario('wayanad')" id="btnScenWay" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">Wayanad</button>
+                    <button onclick="setScenario('silchar')" id="btnScenSil" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">Silchar</button>
                 </div>
             </div>
         </div>
@@ -96,15 +111,17 @@
     <!-- Context Ribbon -->
     <div class="bg-slate-950/90 border-b border-slate-800/80 px-6 py-2">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="badge-data px-1.5 py-0.5 rounded text-[9px] font-bold">DATA</span>
                 <span class="text-slate-400">PRIMARY ROUTE:</span>
-                <span class="text-white font-bold bg-slate-800 px-2.5 py-0.5 rounded border border-slate-700">Devgram Habitation ➔ NH-58 ➔ Taluk Stadium</span>
-                <span class="text-[#7fffd4] font-bold">5.84 km</span>
+                <span id="ribbonRouteText" class="text-white font-bold bg-slate-900 px-2.5 py-0.5 rounded border border-slate-700">Devgram Habitation ➔ NH-58 ➔ Taluk Stadium</span>
+                <span id="ribbonDistance" class="text-[#7fffd4] font-bold">5.84 km</span>
+                <span id="ribbonHazardTag" class="text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-950/40 border border-amber-800/40 text-[10px]">LANDSLIDE RUNOFF</span>
             </div>
-            <div class="flex items-center gap-4">
-                <span>PEOPLE TO RELOCATE: <b class="text-amber-400">6,840</b></span>
-                <span>SANCTUARIES: <b class="text-emerald-400">4 SITES</b></span>
-                <span>ESTIMATED SAFE CAPACITY: <b class="text-emerald-400">7,182</b></span>
+            <div class="flex items-center gap-4 flex-wrap">
+                <span><span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold mr-1">DERIVED</span>PEOPLE TO RELOCATE: <b id="ribbonPop" class="text-amber-400 font-black">6,840</b></span>
+                <span><span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold mr-1">DERIVED</span>SITES QUALIFIED: <b id="ribbonSitesCount" class="text-emerald-400 font-black">4 SITES</b></span>
+                <span><span class="badge-estimated px-1.5 py-0.2 rounded text-[9px] font-bold mr-1">ESTIMATED</span>USABLE CAPACITY: <b id="ribbonCapacity" class="text-emerald-400 font-black">7,341</b></span>
             </div>
         </div>
     </div>
@@ -113,64 +130,79 @@
     <div class="bg-slate-900/90 border-b border-slate-800/80 px-6 py-3 shadow-lg">
         <div class="max-w-[1850px] mx-auto">
             <div class="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-3">
-                <div class="flex items-center gap-2 font-mono">
+                <div class="flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-[#7fffd4] animate-pulse"></span>
-                    <span class="text-xs font-bold text-[#7fffd4] uppercase tracking-wider">OPERATIONAL DECISION PIPELINE</span>
-                    <span class="text-[10px] text-slate-500 hidden sm:inline">| END-TO-END EVIDENTIARY WORKFLOW</span>
+                    <span class="font-royal text-xs font-bold text-[#7fffd4] uppercase tracking-wider">OPERATIONAL DECISION PIPELINE</span>
+                    <span class="text-[10px] text-slate-500 font-mono hidden sm:inline">| END-TO-END EVIDENTIARY WORKFLOW</span>
                 </div>
 
                 <!-- 5 Pipeline Steps -->
                 <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap font-mono text-xs w-full xl:w-auto">
                     <!-- Step 1 -->
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-[#7fffd4]/30 shadow-sm">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-[#7fffd4]/40 shadow-sm">
                         <span class="w-5 h-5 rounded-full bg-cyan-950 text-[#7fffd4] border border-cyan-500/40 flex items-center justify-center text-[10px] font-bold">1</span>
                         <div class="flex flex-col">
-                            <span class="font-bold text-white text-[11px] leading-tight">REAL ROUTE DATA</span>
-                            <span class="text-[9px] text-[#7fffd4]">5.84 km NH-58 GIS</span>
+                            <div class="flex items-center gap-1">
+                                <span class="badge-data px-1 py-0 rounded text-[8px] font-bold">DATA</span>
+                                <span class="font-bold text-white text-[11px] leading-tight">REAL ROUTE DATA</span>
+                            </div>
+                            <span id="pipeStep1" class="text-[9px] text-[#7fffd4]">5.84 km NH-58 GIS</span>
                         </div>
                     </div>
 
                     <span class="text-slate-600 font-bold hidden md:inline">➔</span>
 
                     <!-- Step 2 -->
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-purple-500/30 shadow-sm">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-purple-500/40 shadow-sm">
                         <span class="w-5 h-5 rounded-full bg-purple-950 text-purple-300 border border-purple-500/40 flex items-center justify-center text-[10px] font-bold">2</span>
                         <div class="flex flex-col">
-                            <span class="font-bold text-white text-[11px] leading-tight">USER-CONFIGURED TRANSPORT</span>
-                            <span class="text-[9px] text-purple-300">60-Seat Fleet Config</span>
+                            <div class="flex items-center gap-1">
+                                <span class="badge-user px-1 py-0 rounded text-[8px] font-bold">CONFIG</span>
+                                <span class="font-bold text-white text-[11px] leading-tight">USER-CONFIGURED TRANSPORT</span>
+                            </div>
+                            <span id="pipeStep2" class="text-[9px] text-purple-300">60-Seat Fleet Config</span>
                         </div>
                     </div>
 
                     <span class="text-slate-600 font-bold hidden md:inline">➔</span>
 
                     <!-- Step 3 -->
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-blue-500/30 shadow-sm">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-blue-500/40 shadow-sm">
                         <span class="w-5 h-5 rounded-full bg-blue-950 text-blue-300 border border-blue-500/40 flex items-center justify-center text-[10px] font-bold">3</span>
                         <div class="flex flex-col">
-                            <span class="font-bold text-white text-[11px] leading-tight">DERIVED VEHICLE REQUIREMENT</span>
-                            <span class="text-[9px] text-blue-300">114 Vehicles Required</span>
+                            <div class="flex items-center gap-1">
+                                <span class="badge-derived px-1 py-0 rounded text-[8px] font-bold">DERIVED</span>
+                                <span class="font-bold text-white text-[11px] leading-tight">DERIVED VEHICLE REQ</span>
+                            </div>
+                            <span id="pipeStep3" class="text-[9px] text-blue-300">114 Vehicle Loads</span>
                         </div>
                     </div>
 
                     <span class="text-slate-600 font-bold hidden md:inline">➔</span>
 
                     <!-- Step 4 -->
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-amber-500/30 shadow-sm">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-amber-500/40 shadow-sm">
                         <span class="w-5 h-5 rounded-full bg-amber-950 text-amber-300 border border-amber-500/40 flex items-center justify-center text-[10px] font-bold">4</span>
                         <div class="flex flex-col">
-                            <span class="font-bold text-white text-[11px] leading-tight">TRIP ALLOCATION</span>
-                            <span class="text-[9px] text-amber-300">2 Rotations / Multi-Site</span>
+                            <div class="flex items-center gap-1">
+                                <span class="badge-derived px-1 py-0 rounded text-[8px] font-bold">DERIVED</span>
+                                <span class="font-bold text-white text-[11px] leading-tight">TRIP ALLOCATION</span>
+                            </div>
+                            <span id="pipeStep4" class="text-[9px] text-amber-300">2 Rotations / 4 Sites</span>
                         </div>
                     </div>
 
                     <span class="text-slate-600 font-bold hidden md:inline">➔</span>
 
                     <!-- Step 5 -->
-                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-emerald-500/40 shadow-sm bg-emerald-950/20">
+                    <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/90 border border-emerald-500/50 shadow-sm bg-emerald-950/20">
                         <span class="w-5 h-5 rounded-full bg-emerald-900 text-emerald-300 border border-emerald-500/50 flex items-center justify-center text-[10px] font-bold">5</span>
                         <div class="flex flex-col">
-                            <span class="font-bold text-emerald-300 text-[11px] leading-tight">ESTIMATED RELOCATION TIME</span>
-                            <span class="text-[9px] text-emerald-400 font-bold">01h 35m (Buffer +01h 05m)</span>
+                            <div class="flex items-center gap-1">
+                                <span class="badge-estimated px-1 py-0 rounded text-[8px] font-bold">ESTIMATED</span>
+                                <span class="font-bold text-emerald-300 text-[11px] leading-tight">ESTIMATED RELOCATION TIME</span>
+                            </div>
+                            <span id="pipeStep5" class="text-[9px] text-emerald-400 font-bold">01h 35m (Buffer +01h 05m)</span>
                         </div>
                     </div>
                 </div>
@@ -187,41 +219,46 @@
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                     <div class="flex items-center gap-2">
                         <span class="w-5 h-5 rounded-full bg-cyan-950 text-[#7fffd4] border border-cyan-500/40 flex items-center justify-center text-[10px] font-bold">1</span>
-                        <h2 class="font-extrabold text-sm sm:text-base text-white font-mono">
-                            STEP 1: REAL ROUTE DATA
+                        <h2 class="font-royal font-bold text-sm sm:text-base text-white tracking-wide">
+                            STEP 1: REAL ROUTE NETWORK DATA
                         </h2>
                     </div>
-                    <span class="text-xs font-mono text-[#7fffd4] bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-800/60">
+                    <span id="mapRouteBadge" class="text-xs font-mono text-[#7fffd4] bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-800/60">
                         Primary Route: NH-58 (Paved 2-Lane)
                     </span>
                 </div>
 
                 <!-- Leaflet Route Map -->
-                <div id="routeMap" class="w-full h-[520px] rounded-xl border border-slate-800 bg-[#02050d] relative z-0"></div>
+                <div id="routeMap" class="w-full h-[500px] rounded-xl border border-slate-800 bg-[#02050d] relative z-0"></div>
 
                 <!-- Route Topology Summary -->
                 <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                        <span class="text-slate-500 text-[10px] block">ORIGIN 🔴</span>
-                        <span class="text-white font-bold">Devgram Cluster</span>
+                        <span class="text-slate-500 text-[10px] block">ORIGIN CLUSTER 🔴</span>
+                        <span id="topoOrigin" class="text-white font-bold">Devgram Habitation</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                        <span class="text-slate-500 text-[10px] block">DISTANCE</span>
-                        <span class="text-[#7fffd4] font-bold">5.84 km</span>
+                        <span class="text-slate-500 text-[10px] block">PRIMARY DISTANCE</span>
+                        <span id="topoDist" class="text-[#7fffd4] font-bold">5.84 km</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                        <span class="text-slate-500 text-[10px] block">DESTINATION 🟢</span>
-                        <span class="text-emerald-400 font-bold">Taluk Stadium (Site A)</span>
+                        <span class="text-slate-500 text-[10px] block">PRIMARY CANDIDATE 🟢</span>
+                        <span id="topoDest" class="text-emerald-400 font-bold">Taluk Stadium (Site A)</span>
                     </div>
                 </div>
 
-                <!-- Multi-Site Branching Scheme -->
-                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-slate-300 flex items-center justify-between flex-wrap gap-2">
-                    <span class="text-slate-400 font-bold">Multi-Site Allocation Route:</span>
-                    <span class="text-emerald-400">🔴 Origin ──→ Site A (5.84km, Estimated Capacity: 1,600)</span>
-                    <span class="text-cyan-300">├──→ Site B (8.12km, Estimated Capacity: 1,866)</span>
-                    <span class="text-amber-400">├──→ Site C (11.4km, Estimated Capacity: 1,133)</span>
-                    <span class="text-purple-300">└──→ Site D (13.9km, Estimated Capacity: 2,241)</span>
+                <!-- Multi-Site Branching Allocation Scheme -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-slate-300 flex flex-col gap-2">
+                    <div class="flex items-center justify-between border-b border-slate-800/60 pb-1.5">
+                        <span class="text-slate-400 font-bold flex items-center gap-1.5">
+                            <span class="badge-derived px-1.5 py-0.2 rounded text-[8px] font-bold">DERIVED</span>
+                            Multi-Site Allocation Routes &amp; Usable Capacities:
+                        </span>
+                        <span class="text-[10px] text-slate-400">All candidates screened outside hazard zone</span>
+                    </div>
+                    <div id="multiSiteRoutesContainer" class="flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                        <!-- Populated dynamically by JS -->
+                    </div>
                 </div>
             </div>
 
@@ -230,10 +267,10 @@
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                     <div class="flex items-center gap-2">
                         <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
-                        <h3 class="font-extrabold text-sm text-white">3-PHASE OPERATIONAL RELOCATION PLAN</h3>
+                        <h3 class="font-royal font-bold text-sm text-white tracking-wide">3-PHASE OPERATIONAL RELOCATION PLAN</h3>
                     </div>
                     <span class="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
-                        DECISION SUPPORT DIRECTIVE
+                        DIRECTIVE DIRECTORY
                     </span>
                 </div>
 
@@ -241,42 +278,42 @@
                     <!-- Phase 1 -->
                     <div class="p-3 rounded-xl bg-slate-950 border border-blue-900/40 space-y-1.5">
                         <div class="flex justify-between font-bold text-cyan-400">
-                            <span>PHASE 1: PREPARE</span>
+                            <span>PHASE 1: STAGE FLEET</span>
                             <span>0 – 20 min</span>
                         </div>
                         <ul class="text-[11px] text-slate-300 space-y-1 pl-4 list-disc">
-                            <li>Alert DDMA emergency desk &amp; police</li>
-                            <li>Assemble transport fleet at staging node</li>
-                            <li>Open receiving sites &amp; deploy personnel</li>
-                            <li>Establish assembly points at Devgram</li>
+                            <li>Alert DDMA emergency desk &amp; traffic control</li>
+                            <li>Assemble requisitioned transport units at staging depot</li>
+                            <li>Open intake sectors at candidate relocation facilities</li>
+                            <li>Designate neighborhood muster zones at incident origin</li>
                         </ul>
                     </div>
 
                     <!-- Phase 2 -->
                     <div class="p-3 rounded-xl bg-slate-950 border border-amber-900/40 space-y-1.5">
                         <div class="flex justify-between font-bold text-amber-400">
-                            <span>PHASE 2: MOVE</span>
+                            <span>PHASE 2: SEQUENCED TRANSIT</span>
                             <span>20 – 95 min</span>
                         </div>
                         <ul class="text-[11px] text-slate-300 space-y-1 pl-4 list-disc">
-                            <li>Move population in sequenced batches</li>
-                            <li>Prioritize infants, elderly &amp; vulnerable</li>
-                            <li>Follow designated NH-58 route</li>
-                            <li>Maintain continuous transit headcount</li>
+                            <li>Dispatch vehicles in coordinated priority batches</li>
+                            <li>Prioritize non-ambulatory, elderly, infants, and patients</li>
+                            <li>Enforce designated safe transit corridors</li>
+                            <li>Maintain continuous transit manifest &amp; GPS logs</li>
                         </ul>
                     </div>
 
                     <!-- Phase 3 -->
                     <div class="p-3 rounded-xl bg-slate-950 border border-emerald-900/40 space-y-1.5">
                         <div class="flex justify-between font-bold text-emerald-400">
-                            <span>PHASE 3: RECEIVE</span>
+                            <span>PHASE 3: INTAKE &amp; RELIEF</span>
                             <span>95 – 120 min</span>
                         </div>
                         <ul class="text-[11px] text-slate-300 space-y-1 pl-4 list-disc">
-                            <li>Register arrivals at Taluk &amp; Polytechnic</li>
-                            <li>Allocate shelter sectors &amp; family pods</li>
-                            <li>Distribute water (15 L/day) &amp; medical aid</li>
-                            <li>Reassess capacity &amp; weather status</li>
+                            <li>Register evacuees at candidate sites upon arrival</li>
+                            <li>Assign shelter bays, family clusters, and sanitation</li>
+                            <li>Distribute potable water (15 L/person/day) and medical aid</li>
+                            <li>Verify headcounts against initial demographic exposure</li>
                         </ul>
                     </div>
                 </div>
@@ -291,18 +328,18 @@
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                     <div class="flex items-center gap-2">
                         <span class="w-5 h-5 rounded-full bg-purple-950 text-purple-300 border border-purple-500/40 flex items-center justify-center text-[10px] font-bold">2</span>
-                        <h3 class="font-extrabold text-sm text-white">STEP 2: USER-CONFIGURED TRANSPORT</h3>
+                        <h3 class="font-royal font-bold text-sm text-white tracking-wide">STEP 2: USER-CONFIGURED TRANSPORT</h3>
                     </div>
-                    <span class="text-[10px] text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
-                        INTERACTIVE PLANNER
+                    <span class="badge-user px-2 py-0.5 rounded text-[10px] font-bold">
+                        OPERATOR INPUT
                     </span>
                 </div>
 
                 <!-- Input Controls -->
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Vehicle Type</label>
-                        <select id="cfgVehicleType" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs focus:border-[#7fffd4]">
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Vehicle Mode</label>
+                        <select id="cfgVehicleType" onchange="onVehicleTypeChange()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs focus:border-[#7fffd4]">
                             <option value="bus" selected>Standard Bus (60 Seat)</option>
                             <option value="minibus">Mini Bus (30 Seat)</option>
                             <option value="truck">Utility Truck (40 Capacity)</option>
@@ -310,7 +347,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Seating Capacity</label>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Vehicle Capacity (Persons)</label>
                         <input id="cfgSeatCap" type="number" value="60" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
                     </div>
                     <div>
@@ -318,15 +355,15 @@
                         <input id="cfgAvailableVehicles" type="number" value="80" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
                     </div>
                     <div>
-                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Avg Speed (km/h)</label>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Transit Speed (km/h)</label>
                         <input id="cfgSpeed" type="number" value="30" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
                     </div>
                     <div>
-                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Loading Time (min)</label>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Staging/Load Time (min)</label>
                         <input id="cfgLoadTime" type="number" value="20" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
                     </div>
                     <div>
-                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Unloading Time (min)</label>
+                        <label class="text-[10px] text-slate-400 uppercase block mb-1">Intake/Unload Time (min)</label>
                         <input id="cfgUnloadTime" type="number" value="15" onchange="recalcLogistics()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold text-xs">
                     </div>
                 </div>
@@ -341,7 +378,7 @@
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-amber-900/40">
                         <span class="text-[8px] text-amber-400 font-bold block uppercase tracking-wider">STEP 4</span>
                         <span class="text-slate-400 text-[9px] block font-bold">TRIP ALLOCATION</span>
-                        <span id="calcTripsReq" class="text-base font-black text-amber-300">2 Trips</span>
+                        <span id="calcTripsReq" class="text-base font-black text-amber-300">2 Rotations</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40">
                         <span class="text-[8px] text-emerald-400 font-bold block uppercase tracking-wider">OUTPUT</span>
@@ -349,88 +386,82 @@
                         <span id="calcTotalVehHrs" class="text-base font-black text-emerald-400">148 hrs</span>
                     </div>
                 </div>
+
+                <!-- Explainable Mathematical Derivation Box -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[10px] text-slate-300 leading-relaxed">
+                    <div class="flex items-center gap-1.5 text-[#7fffd4] font-bold mb-1">
+                        <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                        <span>EXPLAINABLE MATHEMATICAL DERIVATION:</span>
+                    </div>
+                    <p id="explainableDerivationText" class="text-slate-400">
+                        Calculating multi-site operational loads...
+                    </p>
+                </div>
             </div>
 
             <!-- Transport Mode Comparison with Selected Scenario -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-3">
-                <span class="text-[10px] text-slate-400 uppercase font-bold">MODE OPTIONS COMPARISON</span>
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-slate-400 uppercase font-bold">MODE OPTIONS COMPARISON (DYNAMICALLY RE-EVALUATED)</span>
+                    <span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold">SCENARIO SPECIFIC</span>
+                </div>
+                
                 <div class="border border-slate-800 rounded-xl overflow-hidden">
                     <table class="w-full text-[11px] text-left">
                         <thead class="bg-slate-950 text-slate-400 border-b border-slate-800">
                             <tr>
-                                <th class="p-2">Mode</th>
-                                <th class="p-2">Total Time</th>
-                                <th class="p-2">Estimated Cost Index</th>
-                                <th class="p-2">Capacity</th>
+                                <th class="p-2">Transport Mode</th>
+                                <th class="p-2">Loads Req</th>
+                                <th class="p-2">Est. Op Duration</th>
+                                <th class="p-2">Est. Cost Index</th>
+                                <th class="p-2">Efficiency</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-800 bg-slate-900/50">
-                            <tr class="bg-emerald-950/20 text-emerald-300 font-bold">
-                                <td class="p-2">Standard Bus (Selected Scenario)</td>
-                                <td class="p-2">3.2 h</td>
-                                <td class="p-2">₹₹ (Moderate)</td>
-                                <td class="p-2">HIGH</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2 text-slate-300">Mini Bus</td>
-                                <td class="p-2 text-slate-400">4.1 h</td>
-                                <td class="p-2 text-slate-400">₹₹₹</td>
-                                <td class="p-2 text-slate-400">MEDIUM</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2 text-slate-300">Utility Truck</td>
-                                <td class="p-2 text-slate-400">4.8 h</td>
-                                <td class="p-2 text-slate-400">₹₹</td>
-                                <td class="p-2 text-slate-400">MED-LOW</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2 text-slate-300">Private Fleet</td>
-                                <td class="p-2 text-slate-400">2.9 h</td>
-                                <td class="p-2 text-slate-400">₹₹₹₹</td>
-                                <td class="p-2 text-slate-400">LOW</td>
-                            </tr>
+                        <tbody id="modeComparisonTableBody" class="divide-y divide-slate-800 bg-slate-900/50">
+                            <!-- Populated dynamically by JS -->
                         </tbody>
                     </table>
                 </div>
 
                 <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300">
-                    <b class="text-white">Scenario Rationale:</b> Standard Bus scenario rationale: NH-58 provides two-lane paved clearance, absorbing 6,840 evacuees within 2 fleet rotations while minimizing fuel overhead.
+                    <b class="text-white">Scenario Rationale:</b>
+                    <span id="scenarioRationaleText">Standard Bus selected: highway clearance accommodates multi-site rotation while minimizing fleet congestion.</span>
                 </div>
             </div>
 
             <!-- 3. Scenario Transport Cost Estimate -->
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col gap-2.5">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <span class="text-xs font-bold text-white uppercase">TRANSPORT COST ESTIMATE</span>
-                    <span class="text-[10px] text-purple-400 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">SCENARIO ESTIMATE</span>
+                    <span class="text-xs font-bold text-white uppercase">ESTIMATED OPERATIONAL EXPENDITURE</span>
+                    <span class="badge-estimated px-2 py-0.5 rounded text-[10px] font-bold">PLANNING ESTIMATE</span>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
-                        <span class="text-slate-400">Vehicles:</span>
+                        <span class="text-slate-400">Total Vehicle Loads:</span>
                         <span id="costVehicles" class="text-white font-bold">114</span>
                     </div>
                     <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
-                        <span class="text-slate-400">Distance:</span>
-                        <span class="text-[#7fffd4] font-bold">5.84 km</span>
+                        <span class="text-slate-400">Primary Route Dist:</span>
+                        <span id="costDist" class="text-[#7fffd4] font-bold">5.84 km</span>
                     </div>
                     <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
                         <span class="text-slate-400">Fuel &amp; Operating:</span>
                         <span id="costFuel" class="text-white font-bold">₹ 48,000</span>
                     </div>
                     <div class="p-2 rounded bg-slate-950 border border-slate-800 flex justify-between">
-                        <span class="text-slate-400">Driver &amp; Crew:</span>
+                        <span class="text-slate-400">Driver &amp; Crew Stipend:</span>
                         <span id="costCrew" class="text-white font-bold">₹ 22,800</span>
                     </div>
                 </div>
 
                 <div class="p-2.5 rounded-xl bg-purple-950/20 border border-purple-800/40 flex justify-between items-center">
-                    <span class="text-slate-200 font-bold">TOTAL ESTIMATED COST:</span>
+                    <span class="text-slate-200 font-bold">TOTAL ESTIMATED EXPENDITURE:</span>
                     <span id="costTotal" class="text-base font-black text-purple-300">₹ 70,800</span>
                 </div>
 
                 <p class="text-[10px] text-slate-500 italic">
-                    ● Scenario estimate — actual cost depends on local rates, vehicle type, fuel prices, and district administration requisition scales.
+                    ● Planning assumption: actual requisition costs vary by district administration notification rates, vehicle classes, and route elevation gradient.
                 </p>
             </div>
 
@@ -439,18 +470,18 @@
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <div class="flex items-center gap-2">
                         <span class="w-5 h-5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-500/40 flex items-center justify-center text-[10px] font-bold">5</span>
-                        <span class="text-xs font-bold text-white uppercase">STEP 5: ESTIMATED RELOCATION TIME</span>
+                        <span class="font-royal text-xs font-bold text-white uppercase">STEP 5: ESTIMATED RELOCATION TIME</span>
                     </div>
-                    <span class="text-[10px] text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">SCENARIO WINDOW</span>
+                    <span class="badge-estimated px-2 py-0.5 rounded text-[10px] font-bold">SCENARIO WINDOW</span>
                 </div>
 
                 <div class="grid grid-cols-3 gap-2 text-center">
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
                         <span class="text-slate-500 text-[9px] block">EST. PLANNING WINDOW</span>
-                        <span class="text-sm font-black text-[#7fffd4]">02h 40m</span>
+                        <span id="timeWindow" class="text-sm font-black text-[#7fffd4]">02h 40m</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40 bg-emerald-950/20">
-                        <span class="text-slate-400 text-[9px] block font-bold">ESTIMATED RELOCATION TIME</span>
+                        <span class="text-slate-400 text-[9px] block font-bold">EST. RELOCATION TIME</span>
                         <span id="timeReloc" class="text-sm font-black text-emerald-400">01h 35m</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-emerald-900/40">
@@ -459,16 +490,16 @@
                     </div>
                 </div>
 
-                <div class="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 flex items-center justify-between text-xs">
+                <div id="feasibilityBox" class="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 flex items-center justify-between text-xs">
                     <span class="text-slate-200">Execution Feasibility:</span>
-                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                    <span id="feasibilityStatus" class="text-emerald-400 font-bold flex items-center gap-1">
                         <i data-lucide="check" class="w-4 h-4"></i>
                         <span>WITHIN PLANNING WINDOW</span>
                     </span>
                 </div>
 
                 <p class="text-[10px] text-slate-500 italic">
-                    * Presented as a scenario planning estimate for incident commanders, not a deterministic disaster arrival forecast.
+                    * Presented as a scenario planning assumption for incident commanders, not a deterministic disaster arrival forecast.
                 </p>
             </div>
 
@@ -476,7 +507,7 @@
             <div class="pt-2">
                 <a href="/dossier" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-black text-sm tracking-wide transition shadow-xl shadow-teal-500/30 flex items-center justify-center gap-2 cursor-pointer transform hover:scale-[1.02]">
                     <i data-lucide="file-check" class="w-4 h-4"></i>
-                    <span>GENERATE RAKSHA DECISION DOSSIER</span>
+                    <span class="font-royal">GENERATE RAKSHA DECISION DOSSIER</span>
                 </a>
             </div>
 
@@ -487,12 +518,101 @@
     <script>
         lucide.createIcons();
 
-        let routeMap;
+        // 3 Real Scenarios with true multi-site allocations & authentic road geometry
+        const SCENARIOS = {
+            devgram: {
+                id: 'devgram',
+                name: 'Devgram Habitation (Chamoli, Uttarakhand)',
+                hazard: 'LANDSLIDE RUNOFF',
+                pop: 6840,
+                usableCapacity: 7341,
+                routeDesc: 'Devgram Habitation ➔ NH-58 ➔ Taluk Stadium',
+                primaryDistKm: 5.84,
+                primaryRouteName: 'NH-58 Mountain Highway (Paved 2-Lane)',
+                windowMins: 160, // 2h 40m
+                originCoords: [30.3207, 79.2163],
+                mapCenter: [30.3550, 79.2600],
+                zoom: 12,
+                primaryRoutePolyline: [
+                    [30.3207, 79.2163],
+                    [30.3250, 79.2220],
+                    [30.3320, 79.2310],
+                    [30.3410, 79.2430],
+                    [30.3500, 79.2510],
+                    [30.3540, 79.2560]
+                ],
+                sites: [
+                    { id: 'dev-1', name: 'Taluk Stadium & Sports Complex', cap: 1600, alloc: 1600, distKm: 5.84, lat: 30.3540, lon: 79.2560, isPrimary: true, access: 'NH-58 Paved 2-Lane' },
+                    { id: 'dev-2', name: 'Regional Polytechnic Campus', cap: 2100, alloc: 1866, distKm: 8.12, lat: 30.3680, lon: 79.2780, isPrimary: false, access: 'Paved Approach Road' },
+                    { id: 'dev-3', name: 'Government Higher Secondary School Ground', cap: 1200, alloc: 1133, distKm: 11.40, lat: 30.3850, lon: 79.2990, isPrimary: false, access: 'District Road Paved' },
+                    { id: 'dev-4', name: 'Agriculture Research Farm Complex', cap: 2441, alloc: 2241, distKm: 13.90, lat: 30.4010, lon: 79.3150, isPrimary: false, access: 'State Highway Link' }
+                ],
+                rationale: 'NH-58 provides two-lane paved clearance, absorbing 6,840 evacuees across 4 screened sites within 2 fleet rotations.'
+            },
+            wayanad: {
+                id: 'wayanad',
+                name: 'Chooralmala / Meppadi (Wayanad, Kerala)',
+                hazard: 'DEBRIS FLOW & LANDSLIDE',
+                pop: 4200,
+                usableCapacity: 5600,
+                routeDesc: 'Chooralmala Ground Zero ➔ SH-59 ➔ St. Joseph HSS',
+                primaryDistKm: 4.20,
+                primaryRouteName: 'SH-59 Hill Highway (Paved 2-Lane)',
+                windowMins: 120, // 2h 00m
+                originCoords: [11.5126, 76.1287],
+                mapCenter: [11.5600, 76.1200],
+                zoom: 12,
+                primaryRoutePolyline: [
+                    [11.5126, 76.1287],
+                    [11.5280, 76.1295],
+                    [11.5390, 76.1310],
+                    [11.5450, 76.1315],
+                    [11.5510, 76.1320]
+                ],
+                sites: [
+                    { id: 'way-1', name: "St. Joseph's Higher Secondary School Ground", cap: 1400, alloc: 1200, distKm: 4.20, lat: 11.5510, lon: 76.1320, isPrimary: true, access: 'SH-59 Highway' },
+                    { id: 'way-2', name: 'Meppadi Community Hall & Panchayat Ground', cap: 1300, alloc: 1100, distKm: 6.80, lat: 11.5580, lon: 76.1250, isPrimary: false, access: 'Town Road Paved' },
+                    { id: 'way-3', name: 'Kalpetta Municipal Stadium & Indoor Complex', cap: 1800, alloc: 1400, distKm: 12.40, lat: 11.6080, lon: 76.0820, isPrimary: false, access: 'NH-766 Main Corridor' },
+                    { id: 'way-4', name: 'SKMJ Higher Secondary School Campus', cap: 1100, alloc: 500, distKm: 14.10, lat: 11.6140, lon: 76.0850, isPrimary: false, access: 'Municipal Arterial' }
+                ],
+                rationale: 'Wayanad ridge evacuation routes prioritize stable western slope terraces, completely avoiding low-lying river torrent crossings.'
+            },
+            silchar: {
+                id: 'silchar',
+                name: 'Silchar Flood Plain (Cachar, Assam)',
+                hazard: 'BARAK RIVER BASIN FLOOD',
+                pop: 12500,
+                usableCapacity: 14100,
+                routeDesc: 'Silchar Lowland ➔ Hailakandi Rd ➔ DSA Stadium',
+                primaryDistKm: 4.80,
+                primaryRouteName: 'Silchar-Hailakandi Corridor (Elevated Causeway)',
+                windowMins: 240, // 4h 00m
+                originCoords: [24.8333, 92.7789],
+                mapCenter: [24.7800, 79.2600 ? 92.7700 : 92.7700],
+                zoom: 12,
+                primaryRoutePolyline: [
+                    [24.8333, 92.7789],
+                    [24.8300, 92.7840],
+                    [24.8270, 92.7910],
+                    [24.8250, 92.7950]
+                ],
+                sites: [
+                    { id: 'sil-1', name: 'Silchar District Sports Association (DSA) Stadium', cap: 3200, alloc: 2800, distKm: 4.80, lat: 24.8250, lon: 92.7950, isPrimary: true, access: 'Elevated Ring Embankment' },
+                    { id: 'sil-2', name: 'GC College Ground & Multi-Purpose Campus', cap: 2600, alloc: 2200, distKm: 5.50, lat: 24.8210, lon: 92.7980, isPrimary: false, access: 'College Road Paved' },
+                    { id: 'sil-3', name: 'National Institute of Technology (NIT) Silchar', cap: 3800, alloc: 3500, distKm: 9.60, lat: 24.7570, lon: 92.7850, isPrimary: false, access: 'Elevated Expressway' },
+                    { id: 'sil-4', name: 'Assam University Durgakona Elevated Campus', cap: 4500, alloc: 4000, distKm: 14.20, lat: 24.7450, lon: 92.7530, isPrimary: false, access: 'Highland Ridge Highway' }
+                ],
+                rationale: 'Silchar flood candidate sites strictly require elevation >25m MSL outside submerged lowlands, utilizing elevated arterial causeways.'
+            }
+        };
+
+        let currentScenarioKey = 'devgram';
+        let routeMap, routeLayers = [];
 
         function initRouteMap() {
             routeMap = L.map('routeMap', {
-                center: [30.3400, 79.2380],
-                zoom: 13,
+                center: SCENARIOS.devgram.mapCenter,
+                zoom: SCENARIOS.devgram.zoom,
                 zoomControl: false
             });
 
@@ -506,103 +626,306 @@
                 maxZoom: 16
             }).addTo(routeMap);
 
-            // Origin
-            L.circleMarker([30.3207, 79.2163], {
+            renderScenarioMap(SCENARIOS.devgram);
+        }
+
+        function clearMapLayers() {
+            routeLayers.forEach(l => routeMap.removeLayer(l));
+            routeLayers = [];
+        }
+
+        function renderScenarioMap(scen) {
+            clearMapLayers();
+            routeMap.setView(scen.mapCenter, scen.zoom);
+
+            // 1. Origin Marker
+            const originMarker = L.circleMarker(scen.originCoords, {
                 radius: 10,
                 fillColor: '#ef4444',
                 color: '#ffffff',
                 weight: 2.5,
                 fillOpacity: 1
-            }).addTo(routeMap).bindPopup("<b>🔴 Origin: Devgram Cluster</b><br>6,840 Citizens");
+            }).addTo(routeMap).bindPopup(`<b>🔴 Incident Ground Zero:</b> ${scen.name}<br>Exposed Population: <b>${scen.pop.toLocaleString()}</b> citizens`);
+            routeLayers.push(originMarker);
 
-            // Destination Site A
-            L.circleMarker([30.3540, 79.2560], {
-                radius: 10,
-                fillColor: '#10b981',
-                color: '#7fffd4',
-                weight: 3,
-                fillOpacity: 1
-            }).addTo(routeMap).bindPopup("<b>🟢 Primary Sanctuary: Taluk Stadium</b><br>Estimated Capacity: 1,600");
+            // 2. Candidate Sites
+            scen.sites.forEach(s => {
+                const marker = L.circleMarker([s.lat, s.lon], {
+                    radius: s.isPrimary ? 10 : 7.5,
+                    fillColor: '#10b981',
+                    color: s.isPrimary ? '#7fffd4' : '#ffffff',
+                    weight: s.isPrimary ? 3 : 1.5,
+                    fillOpacity: 1
+                }).addTo(routeMap).bindPopup(`
+                    <div style="font-family: monospace; font-size: 11px;">
+                        <b style="color: #10b981;">🟢 Potential Relocation Site: ${s.name}</b><br>
+                        Allocated Evacuees: <b>${s.alloc.toLocaleString()}</b><br>
+                        Estimated Usable Capacity: <b>${s.cap.toLocaleString()}</b><br>
+                        Road Distance: <b>${s.distKm} km</b><br>
+                        Access Corridor: <b>${s.access}</b>
+                    </div>
+                `);
+                routeLayers.push(marker);
+            });
 
-            // Branch Sites
-            L.circleMarker([30.3680, 79.2780], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site B: Polytechnic Campus</b><br>Estimated Capacity: 1,866");
-            L.circleMarker([30.3850, 79.2990], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site C: Higher Sec School</b><br>Estimated Capacity: 1,133");
-            L.circleMarker([30.4010, 79.3150], { radius: 7, fillColor: '#10b981', color: '#fff', weight: 1.5, fillOpacity: 1 }).addTo(routeMap).bindPopup("<b>Site D: Agri Research Farm</b><br>Estimated Capacity: 2,241");
-
-            // Primary Route along NH-58
-            const routeCoords = [
-                [30.3207, 79.2163],
-                [30.3250, 79.2220],
-                [30.3320, 79.2310],
-                [30.3410, 79.2430],
-                [30.3500, 79.2510],
-                [30.3540, 79.2560]
-            ];
-            L.polyline(routeCoords, {
+            // 3. Primary Route
+            const primaryPoly = L.polyline(scen.primaryRoutePolyline, {
                 color: '#7fffd4',
                 weight: 5,
                 opacity: 0.9,
                 dashArray: '8, 8'
-            }).addTo(routeMap).bindTooltip("NH-58 Primary Route (5.84 km)");
+            }).addTo(routeMap).bindTooltip(`Primary Route: ${scen.primaryRouteName} (${scen.primaryDistKm} km)`);
+            routeLayers.push(primaryPoly);
 
-            // Secondary branches
-            L.polyline([[30.3540, 79.2560], [30.3680, 79.2780]], { color: '#38bdf8', weight: 3, opacity: 0.7, dashArray: '4, 4' }).addTo(routeMap);
-            L.polyline([[30.3680, 79.2780], [30.3850, 79.2990]], { color: '#38bdf8', weight: 3, opacity: 0.7, dashArray: '4, 4' }).addTo(routeMap);
+            // 4. Secondary Connectors
+            const primSite = scen.sites.find(s => s.isPrimary) || scen.sites[0];
+            scen.sites.filter(s => !s.isPrimary).forEach(s => {
+                const secPoly = L.polyline([[primSite.lat, primSite.lon], [s.lat, s.lon]], {
+                    color: '#38bdf8',
+                    weight: 3,
+                    opacity: 0.6,
+                    dashArray: '4, 4'
+                }).addTo(routeMap).bindTooltip(`Feeder to ${s.name} (${s.distKm} km)`);
+                routeLayers.push(secPoly);
+            });
+        }
+
+        function setScenario(key) {
+            currentScenarioKey = key;
+            const scen = SCENARIOS[key];
+            if (!scen) return;
+
+            // Update Header Switcher Buttons
+            ['btnScenDev', 'btnScenWay', 'btnScenSil'].forEach(id => {
+                const b = document.getElementById(id);
+                if (b) b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition';
+            });
+            const activeBtn = key === 'devgram' ? 'btnScenDev' : (key === 'wayanad' ? 'btnScenWay' : 'btnScenSil');
+            const ab = document.getElementById(activeBtn);
+            if (ab) ab.className = 'px-2.5 py-1 rounded-lg bg-blue-900/80 text-[#7fffd4] font-bold border border-cyan-500/40 text-[11px] transition shadow-[0_0_10px_rgba(127,255,212,0.2)]';
+
+            // Update Ribbon & Pipeline
+            document.getElementById('ribbonRouteText').innerText = scen.routeDesc;
+            document.getElementById('ribbonDistance').innerText = `${scen.primaryDistKm} km`;
+            document.getElementById('ribbonHazardTag').innerText = scen.hazard;
+            document.getElementById('ribbonPop').innerText = scen.pop.toLocaleString();
+            document.getElementById('ribbonSitesCount').innerText = `${scen.sites.length} SITES`;
+            document.getElementById('ribbonCapacity').innerText = scen.usableCapacity.toLocaleString();
+
+            document.getElementById('pipeStep1').innerText = `${scen.primaryDistKm} km GIS Network`;
+            document.getElementById('mapRouteBadge').innerText = `Primary Route: ${scen.primaryRouteName}`;
+
+            document.getElementById('topoOrigin').innerText = scen.name.split(' (')[0];
+            document.getElementById('topoDist').innerText = `${scen.primaryDistKm} km`;
+            document.getElementById('topoDest').innerText = scen.sites[0].name.split(' &')[0];
+
+            // Re-render Map
+            renderScenarioMap(scen);
+
+            // Re-render Multi-site allocation chips
+            renderMultiSiteAllocationChips(scen);
+
+            // Recalculate Logistics
+            recalcLogistics();
+        }
+
+        function renderMultiSiteAllocationChips(scen) {
+            const container = document.getElementById('multiSiteRoutesContainer');
+            if (!container) return;
+
+            const colors = ['#10b981', '#38bdf8', '#fbbf24', '#c084fc'];
+            container.innerHTML = scen.sites.map((s, idx) => {
+                const col = colors[idx % colors.length];
+                return `
+                    <div class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full" style="background-color: ${col};"></span>
+                        <span class="text-slate-200 font-bold">${s.name.split(' (')[0]}</span>
+                        <span class="text-slate-500 font-mono">(${s.distKm} km)</span>
+                        <span class="text-[10px] font-bold" style="color: ${col};">Alloc: ${s.alloc.toLocaleString()} / Est. Cap: ${s.cap.toLocaleString()}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function onVehicleTypeChange() {
+            const mode = document.getElementById('cfgVehicleType').value;
+            const caps = {
+                bus: 60,
+                minibus: 30,
+                truck: 40,
+                van: 15
+            };
+            if (caps[mode]) {
+                document.getElementById('cfgSeatCap').value = caps[mode];
+            }
+            recalcLogistics();
         }
 
         function recalcLogistics() {
-            const pop = 6840;
+            const scen = SCENARIOS[currentScenarioKey];
+            if (!scen) return;
+
+            const pop = scen.pop;
             const seatCap = Math.max(5, parseInt(document.getElementById('cfgSeatCap').value) || 60);
             const availVeh = Math.max(1, parseInt(document.getElementById('cfgAvailableVehicles').value) || 80);
             const speed = Math.max(5, parseFloat(document.getElementById('cfgSpeed').value) || 30);
             const loadM = parseFloat(document.getElementById('cfgLoadTime').value) || 20;
             const unloadM = parseFloat(document.getElementById('cfgUnloadTime').value) || 15;
 
-            const vehiclesReq = Math.ceil(pop / seatCap);
-            const tripsReq = Math.ceil(vehiclesReq / availVeh);
+            // 1. Calculate Per-Site Allocation Loads & Roundtrip Times
+            let totalLoadsReq = 0;
+            let totalVehHours = 0;
+            let totalKmTraveled = 0;
+            let maxRoundtripMins = 0;
 
-            // Travel time per roundtrip: distance = 5.84 km
-            // One-way travel mins = (5.84 / speed) * 60
-            const oneWayM = (5.84 / speed) * 60;
-            const tripMins = (oneWayM * 2) + loadM + unloadM;
-            const totalMins = tripMins * tripsReq;
+            scen.sites.forEach(s => {
+                const siteLoads = Math.ceil(s.alloc / seatCap);
+                totalLoadsReq += siteLoads;
 
-            const totalHours = (totalMins / 60).toFixed(1);
-            const totalVehHrs = Math.round(vehiclesReq * (totalMins / 60));
+                // Round-trip distance = 2 * one-way distance
+                const roundTripKm = s.distKm * 2;
+                totalKmTraveled += (siteLoads * roundTripKm);
 
-            document.getElementById('calcVehiclesReq').innerText = vehiclesReq;
-            document.getElementById('calcTripsReq').innerText = `${tripsReq} Trip${tripsReq > 1 ? 's' : ''}`;
-            document.getElementById('calcTotalVehHrs').innerText = `${totalVehHrs} hrs`;
+                // Round-trip time = (RoundTripKm / Speed) * 60 + loading + unloading
+                const roundTripTravelMins = (roundTripKm / speed) * 60;
+                const roundTripTotalMins = roundTripTravelMins + loadM + unloadM;
+                if (roundTripTotalMins > maxRoundtripMins) {
+                    maxRoundtripMins = roundTripTotalMins;
+                }
 
-            // Costs
-            const fuelPerKm = 35; // Rs 35 / km
-            const kmTotal = vehiclesReq * 5.84 * 2;
-            const fuelCost = Math.round(kmTotal * fuelPerKm);
-            const crewCost = Math.round(vehiclesReq * tripsReq * 100);
+                // Vehicle hours for this site
+                totalVehHours += siteLoads * (roundTripTotalMins / 60);
+            });
+
+            // 2. Rotations required given available fleet
+            const fleetRotations = Math.ceil(totalLoadsReq / availVeh);
+            const totalOperationalMins = maxRoundtripMins * fleetRotations;
+
+            // Step 2 & 3 in Pipeline
+            document.getElementById('pipeStep2').innerText = `${seatCap}-Seat / ${availVeh} Fleet`;
+            document.getElementById('pipeStep3').innerText = `${totalLoadsReq} Vehicle Loads`;
+            document.getElementById('pipeStep4').innerText = `${fleetRotations} Rotation${fleetRotations > 1 ? 's' : ''} / ${scen.sites.length} Sites`;
+
+            // Live Metrics Cards
+            document.getElementById('calcVehiclesReq').innerText = totalLoadsReq;
+            document.getElementById('calcTripsReq').innerText = `${fleetRotations} Rotation${fleetRotations > 1 ? 's' : ''}`;
+            document.getElementById('calcTotalVehHrs').innerText = `${Math.round(totalVehHours)} hrs`;
+
+            // Derivation explanation
+            const derivationBox = document.getElementById('explainableDerivationText');
+            if (derivationBox) {
+                derivationBox.innerHTML = `
+                    <b>Based on:</b> ${pop.toLocaleString()} evacuees allocated across ${scen.sites.length} qualified candidate facilities. 
+                    With <b>${seatCap} capacity</b>, exactly <b>${totalLoadsReq} vehicle loads</b> are mathematically required. 
+                    Given an active fleet of <b>${availVeh} vehicles</b>, the transport operation requires <b>${fleetRotations} rotation(s)</b>. 
+                    Round-trip cycle per load averages <b>${Math.round(maxRoundtripMins)} mins</b> (travel @ ${speed} km/h + ${loadM}m load + ${unloadM}m unload). 
+                    <b>Estimated Vehicle-Hours:</b> ${Math.round(totalVehHours)} hrs.
+                `;
+            }
+
+            // 3. Operational Costs
+            const fuelRatePerKm = 35; // Rs 35 / km
+            const fuelCost = Math.round(totalKmTraveled * fuelRatePerKm);
+            const crewCost = Math.round(totalLoadsReq * 200); // 200 Rs per run stipend
             const totalCost = fuelCost + crewCost;
 
-            document.getElementById('costVehicles').innerText = vehiclesReq;
+            document.getElementById('costVehicles').innerText = totalLoadsReq;
+            document.getElementById('costDist').innerText = `${scen.primaryDistKm} km`;
             document.getElementById('costFuel').innerText = `₹ ${fuelCost.toLocaleString()}`;
             document.getElementById('costCrew').innerText = `₹ ${crewCost.toLocaleString()}`;
             document.getElementById('costTotal').innerText = `₹ ${totalCost.toLocaleString()}`;
 
-            // Time comparison
-            const h = Math.floor(totalMins / 60);
-            const m = Math.round(totalMins % 60);
-            document.getElementById('timeReloc').innerText = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m`;
+            // 4. Time to Action Comparison
+            const h = Math.floor(totalOperationalMins / 60);
+            const m = Math.round(totalOperationalMins % 60);
+            const timeRelocStr = `${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m`;
+            document.getElementById('timeReloc').innerText = timeRelocStr;
 
-            // Buffer against 2h 40m (160 mins)
-            const planWindowMins = 160;
-            const diff = planWindowMins - totalMins;
+            // Scenario window
+            const winH = Math.floor(scen.windowMins / 60);
+            const winM = Math.round(scen.windowMins % 60);
+            document.getElementById('timeWindow').innerText = `${String(winH).padStart(2, '0')}h ${String(winM).padStart(2, '0')}m`;
+
+            const diff = scen.windowMins - totalOperationalMins;
             const bSign = diff >= 0 ? '+' : '-';
             const bH = Math.floor(Math.abs(diff) / 60);
             const bM = Math.round(Math.abs(diff) % 60);
-            document.getElementById('timeBuffer').innerText = `${bSign}${String(bH).padStart(2, '0')}h ${String(bM).padStart(2, '0')}m`;
+            const bufferStr = `${bSign}${String(bH).padStart(2, '0')}h ${String(bM).padStart(2, '0')}m`;
+            document.getElementById('timeBuffer').innerText = bufferStr;
+
+            document.getElementById('pipeStep5').innerText = `${timeRelocStr} (Buffer ${bufferStr})`;
+
+            // Feasibility badge
+            const feasStatus = document.getElementById('feasibilityStatus');
+            const feasBox = document.getElementById('feasibilityBox');
+            if (diff >= 0) {
+                feasStatus.className = 'text-emerald-400 font-bold flex items-center gap-1';
+                feasStatus.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>WITHIN PLANNING WINDOW</span>';
+                feasBox.className = 'p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30 flex items-center justify-between text-xs';
+            } else {
+                feasStatus.className = 'text-amber-400 font-bold flex items-center gap-1';
+                feasStatus.innerHTML = '<i data-lucide="alert-triangle" class="w-4 h-4"></i><span>EXCEEDS PLANNING WINDOW — INCREASE FLEET</span>';
+                feasBox.className = 'p-2.5 rounded-xl bg-amber-950/20 border border-amber-500/30 flex items-center justify-between text-xs';
+            }
+
+            // 5. Dynamic Mode Options Comparison Table
+            renderModeComparisonTable(scen, availVeh, speed, loadM, unloadM);
+
+            // Update scenario rationale
+            document.getElementById('scenarioRationaleText').innerText = scen.rationale;
+
+            lucide.createIcons();
+        }
+
+        function renderModeComparisonTable(scen, availVeh, speed, loadM, unloadM) {
+            const tableBody = document.getElementById('modeComparisonTableBody');
+            if (!tableBody) return;
+
+            const modes = [
+                { id: 'bus', name: 'Standard Bus', cap: 60, costIndex: '₹₹ (Moderate)', eff: 'HIGH' },
+                { id: 'minibus', name: 'Mini Bus', cap: 30, costIndex: '₹₹₹ (Higher)', eff: 'MEDIUM' },
+                { id: 'truck', name: 'Utility Truck', cap: 40, costIndex: '₹₹ (Moderate)', eff: 'MED-LOW' },
+                { id: 'van', name: 'Emergency Van', cap: 15, costIndex: '₹₹₹₹ (Costly)', eff: 'LOW' }
+            ];
+
+            const currentMode = document.getElementById('cfgVehicleType').value;
+
+            tableBody.innerHTML = modes.map(m => {
+                let mLoads = 0;
+                let maxMins = 0;
+                scen.sites.forEach(s => {
+                    const l = Math.ceil(s.alloc / m.cap);
+                    mLoads += l;
+                    const rM = ((s.distKm * 2) / speed) * 60 + loadM + unloadM;
+                    if (rM > maxMins) maxMins = rM;
+                });
+
+                const mRotations = Math.ceil(mLoads / availVeh);
+                const mTotalMins = maxMins * mRotations;
+                const mH = (mTotalMins / 60).toFixed(1);
+
+                const isSelected = (m.id === currentMode);
+                const rowClass = isSelected 
+                    ? 'bg-emerald-950/30 text-emerald-300 font-bold border-l-2 border-[#7fffd4]' 
+                    : 'text-slate-300 hover:bg-slate-900';
+
+                return `
+                    <tr class="${rowClass}">
+                        <td class="p-2">
+                            ${m.name} ${isSelected ? '<span class="text-[9px] text-[#7fffd4] ml-1 bg-cyan-950 px-1.5 py-0.5 rounded border border-cyan-800">[Selected Scenario]</span>' : ''}
+                        </td>
+                        <td class="p-2 font-mono">${mLoads}</td>
+                        <td class="p-2 font-mono">${mH} h</td>
+                        <td class="p-2">${m.costIndex}</td>
+                        <td class="p-2 font-bold ${m.eff === 'HIGH' ? 'text-emerald-400' : (m.eff === 'MEDIUM' ? 'text-cyan-300' : 'text-amber-400')}">${m.eff}</td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         window.onload = () => {
             initRouteMap();
-            recalcLogistics();
+            setScenario('devgram');
         };
     </script>
 </body>

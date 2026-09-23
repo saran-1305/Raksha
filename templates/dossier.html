@@ -11,9 +11,11 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Direct PDF Generation Library (html2pdf.js) -->
     <script src="/assets/html2pdf.bundle.min.js"></script>
+    <!-- Royal & Professional Google Fonts: Cinzel + Plus Jakarta Sans + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-        
         :root {
             --bg-base: #060b18;
             --bg-page: #080f20;
@@ -28,13 +30,15 @@
         }
 
         body { 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: var(--bg-base); 
             color: var(--text-main); 
             -webkit-font-smoothing: antialiased;
         }
         
+        .font-royal { font-family: 'Cinzel', serif; letter-spacing: 0.04em; }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #060b18; }
@@ -140,7 +144,7 @@
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-lg text-white font-mono tracking-tight">RAKSHA</span>
+                        <span class="font-royal font-black text-xl text-white tracking-wider">RAKSHA</span>
                         <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-bold">DECISION SUPPORT</span>
                     </div>
                     <p class="text-[11px] text-slate-400 hidden sm:block font-mono">Multi-Hazard Relocation Decision Report</p>

@@ -4,7 +4,7 @@ FastAPI Web Application & Live Geospatial API Server
 """
 
 import os
-from typing import Optional
+from typing import Optional, List, Dict, Any
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -102,6 +102,91 @@ def health_check():
 def get_presets():
     return PRESET_HOTSPOTS
 
+@app.get("/api/scenarios")
+def get_scenarios():
+    return {
+        "devgram": {
+            "id": "devgram",
+            "name": "Devgram Hazard Habitation (Chamoli, Uttarakhand)",
+            "lat": 30.3207,
+            "lon": 79.2163,
+            "hazard_type": "Glacial Inundation & Mountain Flash Flood",
+            "displaced_population": 6840,
+            "planning_window_mins": 160,
+            "primary_route_name": "NH-58 Mountain Highway (Paved 2-Lane)",
+            "primary_distance_km": 5.84
+        },
+        "wayanad": {
+            "id": "wayanad",
+            "name": "Chooralmala / Meppadi (Wayanad, Kerala)",
+            "lat": 11.5126,
+            "lon": 76.1287,
+            "hazard_type": "Landslide Runoff & Torrential Debris Flow",
+            "displaced_population": 4200,
+            "planning_window_mins": 120,
+            "primary_route_name": "SH-59 / Meppadi Highway (Paved 2-Lane)",
+            "primary_distance_km": 4.54
+        },
+        "silchar": {
+            "id": "silchar",
+            "name": "Silchar Flood Plain / Barak River (Assam)",
+            "lat": 24.8333,
+            "lon": 92.7789,
+            "hazard_type": "Riverine Flood & Embankment Breach",
+            "displaced_population": 12500,
+            "planning_window_mins": 240,
+            "primary_route_name": "Silchar-Hailakandi Elevated Corridor",
+            "primary_distance_km": 8.46
+        }
+    }
+
+class LogisticsCalcRequest(BaseModel):
+    allocations: Optional[List[Dict[str, Any]]] = None
+    scenario: Optional[str] = None
+    vehicle_capacity: int = Field(default=60, ge=5, le=200)
+    available_fleet: int = Field(default=80, ge=1, le=1000)
+    speed_kmh: float = Field(default=30.0, ge=5.0, le=120.0)
+    load_mins: float = Field(default=20.0, ge=1.0, le=180.0)
+    unload_mins: float = Field(default=15.0, ge=1.0, le=180.0)
+    planning_window_mins: float = Field(default=160.0, ge=30.0, le=1440.0)
+
+@app.post("/api/logistics/calculate")
+def calculate_logistics(req: LogisticsCalcRequest):
+    allocs = req.allocations
+    plan_window = req.planning_window_mins
+
+    if not allocs and req.scenario:
+        scen_meta = get_scenarios().get(req.scenario)
+        if scen_meta:
+            plan_window = scen_meta.get("planning_window_mins", plan_window)
+            eval_res = engine.evaluate_relocation_rings(
+                centroid_lat=scen_meta["lat"],
+                centroid_lon=scen_meta["lon"],
+                displaced_population=scen_meta["displaced_population"],
+                hazard_level="High",
+                hazard_type=scen_meta["hazard_type"]
+            )
+            allocs = eval_res.get("multi_site_allocation", {}).get("allocations", [])
+
+    if not allocs:
+        # Default fallback to Devgram allocations if none provided
+        allocs = [
+            {"site_id": "site-1", "site_name": "Taluk Stadium & Sports Complex", "allocated_population": 1600, "distance_km": 5.84, "capacity": 1600},
+            {"site_id": "site-2", "site_name": "Regional Polytechnic Campus", "allocated_population": 1866, "distance_km": 8.12, "capacity": 2100},
+            {"site_id": "site-3", "site_name": "Government Higher Secondary School Ground", "allocated_population": 1133, "distance_km": 11.40, "capacity": 1200},
+            {"site_id": "site-4", "site_name": "Agriculture Research Farm Complex", "allocated_population": 2241, "distance_km": 13.90, "capacity": 2400}
+        ]
+
+    return engine.compute_detailed_logistics(
+        allocations=allocs,
+        vehicle_capacity=req.vehicle_capacity,
+        available_fleet=req.available_fleet,
+        speed_kmh=req.speed_kmh,
+        load_mins=req.load_mins,
+        unload_mins=req.unload_mins,
+        planning_window_mins=plan_window
+    )
+
 @app.post("/api/analyze")
 def run_analysis(req: AnalysisRequest):
     try:
@@ -140,7 +225,8 @@ def run_analysis(req: AnalysisRequest):
             displaced_population=req.displaced_population,
             hazard_level=hazard_level,
             hazard_index=hazard_index,
-            flow_bearing_deg=aoi_data.get("flow_bearing_deg", 135.0)
+            flow_bearing_deg=aoi_data.get("flow_bearing_deg", 135.0),
+            hazard_type=req.hazard_type
         )
 
         # 6. Cartosat-3 Sub-Meter High-Resolution Validation for Top Recommended Site
