@@ -14,68 +14,98 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Royal & Professional Google Fonts: Space Grotesk (Command Headers) + Outfit (Executive UI) + JetBrains Mono (Telemetry) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        raksha: {
+                            base: '#050505',
+                            surface: '#080808',
+                            card: '#0D0D0D',
+                            accent: '#00E5FF',
+                            accentLight: '#84FFFF',
+                            hazard: '#FF5A36',
+                            textMuted: '#eaeaea'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                        royal: ['Space Grotesk', 'Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #040711; color: #f1f5f9; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        body { font-family: 'Outfit', 'Inter', sans-serif; background-color: #050505; color: #f1f5f9; }
+        .font-royal { font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.04em; }
+        .font-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
+        .font-sans { font-family: 'Outfit', 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #060a14; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
         .radar-sweep {
-            background: conic-gradient(from 0deg, rgba(6, 182, 212, 0.15), rgba(6, 182, 212, 0) 60deg);
+            background: conic-gradient(from 0deg, rgba(0, 229, 255, 0.15), rgba(0, 229, 255, 0) 60deg);
             animation: sweep 4s linear infinite;
         }
         @keyframes sweep { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Reference nav pill styling matching user uploaded image */
+        /* Reference nav pill styling */
         .nav-pill-container {
-            background-color: rgba(6, 14, 32, 0.95);
-            border: 1px solid rgba(23, 37, 84, 0.85);
+            background-color: rgba(8, 8, 8, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
         .nav-pill-active {
-            background-color: #0e203f;
-            border: 1.5px solid #7fffd4;
-            color: #7fffd4;
-            box-shadow: 0 0 14px rgba(127, 255, 212, 0.35);
+            background-color: rgba(0, 229, 255, 0.15);
+            border: 1.5px solid #00E5FF;
+            color: #00E5FF;
+            box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased bg-[#050505]">
 
     <!-- Unified Global Header -->
-    <header class="border-b border-blue-900/40 bg-[#060b17]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
+    <header class="border-b border-white/10 bg-[#080808]/95 backdrop-blur sticky top-0 z-50 px-5 py-3 shadow-2xl">
         <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-4">
             
             <!-- Left: Brand Logo, Back Button & Title -->
             <div class="flex items-center gap-3">
-                <a href="/overview" class="h-9 px-3.5 rounded-xl bg-blue-950/90 hover:bg-blue-900 border border-cyan-500/60 text-cyan-300 hover:text-white font-mono text-xs font-bold transition flex items-center gap-2 shadow-[0_0_14px_rgba(127, 255, 212,0.25)]" title="Return to Overview Dashboard">
-                    <i data-lucide="arrow-left" class="w-4 h-4 text-cyan-400"></i>
+                <a href="/overview" class="h-9 px-3.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 border border-[#00E5FF]/40 text-[#00E5FF] hover:text-white font-mono text-xs font-bold transition flex items-center gap-2 shadow-[0_0_14px_rgba(0,229,255,0.25)]" title="Return to Overview Dashboard">
+                    <i data-lucide="arrow-left" class="w-4 h-4 text-[#00E5FF]"></i>
                     <span>← BACK TO OVERVIEW</span>
                 </a>
                 <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(127, 255, 212,0.6)]" />
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-lg text-white font-mono tracking-tight">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/15 text-cyan-400 border border-blue-500/30 font-semibold">EO STUDIO</span>
+                        <span class="font-royal font-black text-xl text-white tracking-wider">RAKSHA</span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/15 text-[#00E5FF] border border-blue-500/30 font-semibold">EO STUDIO</span>
                     </div>
                     <p class="text-[11px] text-slate-400 hidden sm:block">Multi-Sensor Earth Observation &amp; Sub-Meter Validation Console</p>
                 </div>
             </div>
 
-
             <!-- Right: Hotspot Presets & Refresh -->
             <div class="flex items-center gap-2">
                 <div class="hidden xl:flex items-center gap-1.5 text-xs font-mono">
                     <span class="text-slate-500 text-[11px] uppercase mr-1">Hotspot:</span>
-                    <button onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-cyan-300 text-xs transition border border-blue-800/60">Devgram</button>
-                    <button onclick="selectPreset('wayanad')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-red-300 text-xs transition border border-blue-800/60">Wayanad</button>
-                    <button onclick="selectPreset('silchar')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-blue-300 text-xs transition border border-blue-800/60">Silchar</button>
-                    <button onclick="selectPreset('chamoli')" class="px-2.5 py-1 rounded bg-blue-950/50 hover:bg-blue-900/60 text-amber-300 text-xs transition border border-blue-800/60">Joshimath</button>
+                    <button onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-white/10 text-[#00E5FF] text-xs transition border border-white/10">Devgram</button>
+                    <button onclick="selectPreset('wayanad')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-white/10 text-red-300 text-xs transition border border-white/10">Wayanad</button>
+                    <button onclick="selectPreset('silchar')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-white/10 text-blue-300 text-xs transition border border-white/10">Silchar</button>
+                    <button onclick="selectPreset('chamoli')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-white/10 text-amber-300 text-xs transition border border-white/10">Joshimath</button>
                 </div>
-                <button onclick="refreshAnalysis()" class="p-2 rounded-lg bg-blue-950/60 hover:bg-blue-900/70 text-cyan-400 border border-blue-800/60 transition" title="Re-query Satellite Telemetry">
+                <button onclick="refreshAnalysis()" class="p-2 rounded-lg bg-[#0D0D0D] hover:bg-white/10 text-[#00E5FF] border border-white/10 transition" title="Re-query Satellite Telemetry">
                     <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -83,20 +113,20 @@
     </header>
 
     <!-- Contextual Breadcrumb Ribbon -->
-    <div class="border-b border-blue-900/30 bg-[#070e1c] px-6 py-2.5">
+    <div class="border-b border-white/10 bg-[#080808] px-6 py-2.5">
         <div class="max-w-[1850px] mx-auto flex items-center justify-between">
             <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
-                <a href="/overview" class="text-cyan-400 hover:underline flex items-center gap-1 font-bold">
+                <a href="/overview" class="text-[#00E5FF] hover:underline flex items-center gap-1 font-bold">
                     <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
                     <span>OVERVIEW</span>
                 </a>
                 <span>/</span>
                 <span class="text-slate-200 font-semibold uppercase tracking-wider">EARTH OBSERVATION STUDIO</span>
-                <span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 hidden sm:inline-block">
+                <span class="ml-2 px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/10 text-[#00E5FF] border border-[#00E5FF]/30 hidden sm:inline-block">
                     MULTISPECTRAL &amp; SYNTHETIC APERTURE RADAR
                 </span>
             </div>
-            <a href="/overview" class="px-3 py-1 rounded-lg bg-blue-950/90 hover:bg-blue-900 border border-cyan-500/50 text-xs font-mono text-cyan-300 hover:text-white transition flex items-center gap-1.5 group shadow-[0_0_10px_rgba(127, 255, 212,0.2)]">
+            <a href="/overview" class="px-3 py-1 rounded-lg bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 border border-[#00E5FF]/40 text-xs font-mono text-[#00E5FF] hover:text-white transition flex items-center gap-1.5 group shadow-[0_0_10px_rgba(0,229,255,0.2)]">
                 <i data-lucide="arrow-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
                 <span>BACK TO OVERVIEW</span>
             </a>
@@ -104,11 +134,11 @@
     </div>
 
     <!-- Sub-header Sensor Health Ribbon -->
-    <div class="bg-slate-950/90 border-b border-slate-800/80 px-6 py-2">
+    <div class="bg-[#080808] border-b border-white/10 px-6 py-2">
             <div class="flex items-center gap-2">
                 <span class="text-slate-400">ACTIVE DISASTER TARGET:</span>
-                <span id="activeSectorBadge" class="text-white font-bold bg-slate-800 px-2.5 py-0.5 rounded border border-slate-700">Devgram, Chamoli District, Uttarakhand</span>
-                <span id="activeCoordsBadge" class="text-cyan-400">30.3207° N, 79.2163° E</span>
+                <span id="activeSectorBadge" class="text-white font-bold bg-[#0D0D0D] px-2.5 py-0.5 rounded border border-white/10">Devgram, Chamoli District, Uttarakhand</span>
+                <span id="activeCoordsBadge" class="text-[#00E5FF]">30.3207° N, 79.2163° E</span>
             </div>
         </div>
     </div>
@@ -122,23 +152,23 @@
         <div class="flex flex-col gap-4">
 
             <!-- Satellite Platform Switcher Toolbar -->
-            <div class="flex flex-wrap items-center justify-between gap-3 bg-[#060e22]/95 border border-blue-900/60 p-3.5 rounded-2xl shadow-xl font-mono">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-[#080808] border border-white/10 p-3.5 rounded-2xl shadow-xl font-mono">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-[0_0_12px_rgba(127, 255, 212,0.25)]">
+                    <div class="w-8 h-8 rounded-lg bg-[#00E5FF]/15 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] shrink-0 shadow-[0_0_12px_rgba(0,229,255,0.25)]">
                         <i data-lucide="satellite" class="w-4 h-4"></i>
                     </div>
                     <div>
-                        <h2 class="font-extrabold text-sm text-white flex items-center gap-2">
+                        <h2 class="font-royal font-bold text-sm text-white flex items-center gap-2">
                             Multi-Sensor Satellite Earth Observation Deck
-                            <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-cyan-300 border border-blue-500/40">4 SENSORS</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-mono">4 SENSORS</span>
                         </h2>
                         <p class="text-xs text-slate-400">Sentinel-1 (SAR) • Sentinel-2 (Optical) • Cartosat-3 (0.28m) • ISRO Bhuvan (LULC)</p>
                     </div>
                 </div>
 
                 <!-- Interactive Switcher Filter Tabs -->
-                <div class="flex flex-wrap items-center gap-1.5 bg-slate-950/90 p-1 rounded-xl border border-slate-800 text-xs">
-                    <button type="button" onclick="switchSatelliteView('all')" id="tabSat-all" class="px-3 py-1.5 rounded-lg bg-blue-900/70 text-cyan-300 font-bold border border-blue-700/60 transition flex items-center gap-1.5 shadow-[0_0_10px_rgba(127, 255, 212,0.2)]">
+                <div class="flex flex-wrap items-center gap-1.5 bg-[#0D0D0D] p-1 rounded-xl border border-white/10 text-xs">
+                    <button type="button" onclick="switchSatelliteView('all')" id="tabSat-all" class="px-3 py-1.5 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 transition flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,229,255,0.2)]">
                         <i data-lucide="layers" class="w-3.5 h-3.5"></i>
                         <span>All 4 Satellites</span>
                     </button>
@@ -481,10 +511,10 @@
                     </div>
 
                     <!-- Basemap Switcher Buttons -->
-                    <div class="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 self-start sm:self-auto">
-                        <button id="btnBasemapSat" onclick="switchBasemap('satellite')" class="px-2.5 py-1 rounded text-xs font-mono bg-slate-900 hover:bg-slate-800 text-slate-400 transition">Satellite</button>
-                        <button id="btnBasemapTerrain" onclick="switchBasemap('terrain')" class="px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(127, 255, 212,0.2)]">Terrain</button>
-                        <button id="btnBasemapStreets" onclick="switchBasemap('streets')" class="px-2.5 py-1 rounded text-xs font-mono bg-slate-900 hover:bg-slate-800 text-slate-400 transition">Streets</button>
+                    <div class="flex items-center gap-1 bg-[#0D0D0D] p-1 rounded-xl border border-white/10 self-start sm:self-auto">
+                        <button id="btnBasemapSat" onclick="switchBasemap('satellite')" class="px-2.5 py-1 rounded text-xs font-mono bg-[#080808] hover:bg-white/10 text-slate-400 transition">Satellite</button>
+                        <button id="btnBasemapTerrain" onclick="switchBasemap('terrain')" class="px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]">Terrain</button>
+                        <button id="btnBasemapStreets" onclick="switchBasemap('streets')" class="px-2.5 py-1 rounded text-xs font-mono bg-[#080808] hover:bg-white/10 text-slate-400 transition">Streets</button>
                     </div>
                 </div>
 
@@ -681,16 +711,16 @@
         <div class="mt-4 pt-4 border-t border-blue-900/40 flex flex-col gap-6 font-mono">
             
             <!-- 4-Pillar Incident Telemetry Synthesis Bar -->
-            <div class="bg-gradient-to-r from-[#060e22] via-[#091533] to-[#060e22] border border-blue-900/60 rounded-2xl p-4 shadow-2xl flex flex-wrap items-center justify-between gap-4">
+            <div class="bg-[#080808] border border-white/10 rounded-2xl p-4 shadow-2xl flex flex-wrap items-center justify-between gap-4">
                 <!-- Left Title & Badge -->
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-cyan-950/60 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0 shadow-[0_0_14px_rgba(127, 255, 212,0.25)]">
+                    <div class="w-10 h-10 rounded-xl bg-[#00E5FF]/10 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] shrink-0 shadow-[0_0_14px_rgba(0,229,255,0.25)]">
                         <i data-lucide="satellite" class="w-5 h-5"></i>
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="font-bold text-sm text-white">EARTH OBSERVATION SYNTHESIS</span>
-                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold">ANALYSIS COMPLETE</span>
+                            <span class="font-royal font-bold text-sm text-white">EARTH OBSERVATION SYNTHESIS</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold font-mono">ANALYSIS COMPLETE</span>
                         </div>
                         <p class="text-xs text-slate-400">All 7 satellite sensors processed for Devgram Target Sector (30.3207° N, 79.2163° E)</p>
                     </div>
@@ -882,18 +912,18 @@
             const btnStr = document.getElementById('btnBasemapStreets');
 
             [btnSat, btnTerr, btnStr].forEach(b => {
-                if (b) b.className = "px-2.5 py-1 rounded text-xs font-mono bg-slate-900 hover:bg-slate-800 text-slate-400 transition";
+                if (b) b.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#080808] hover:bg-white/10 text-slate-400 transition";
             });
 
             if (mode === 'satellite') {
                 activeBasemapLayer = baseLayers.satellite.addTo(primaryEoMap);
-                if (btnSat) btnSat.className = "px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(127, 255, 212,0.2)]";
+                if (btnSat) btnSat.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
             } else if (mode === 'streets') {
                 activeBasemapLayer = baseLayers.streets.addTo(primaryEoMap);
-                if (btnStr) btnStr.className = "px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(127, 255, 212,0.2)]";
+                if (btnStr) btnStr.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
             } else {
                 activeBasemapLayer = baseLayers.terrain.addTo(primaryEoMap);
-                if (btnTerr) btnTerr.className = "px-2.5 py-1 rounded text-xs font-mono bg-cyan-950 border border-cyan-500/60 text-cyan-300 font-bold transition shadow-[0_0_10px_rgba(127, 255, 212,0.2)]";
+                if (btnTerr) btnTerr.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
             }
         }
 
@@ -1261,7 +1291,7 @@
             for (const [k, tab] of Object.entries(tabs)) {
                 if (!tab) continue;
                 if (k === view) {
-                    tab.className = 'px-3 py-1.5 rounded-lg bg-blue-900/70 text-cyan-300 font-bold border border-blue-700/60 transition flex items-center gap-1.5 shadow-[0_0_10px_rgba(127, 255, 212,0.2)]';
+                    tab.className = 'px-3 py-1.5 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 transition flex items-center gap-1.5 shadow-[0_0_10px_rgba(0,229,255,0.25)]';
                 } else {
                     tab.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5';
                 }

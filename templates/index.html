@@ -24,15 +24,39 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Direct PDF Generation Library -->
     <script src="/assets/html2pdf.bundle.min.js"></script>
-    <!-- Royal & Professional Google Fonts: Cinzel + Plus Jakarta Sans + JetBrains Mono -->
+    <!-- Royal & Professional Google Fonts: Space Grotesk + Outfit + JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        raksha: {
+                            base: '#050505',
+                            surface: '#080808',
+                            card: '#0D0D0D',
+                            accent: '#00E5FF',
+                            accentLight: '#84FFFF',
+                            hazard: '#FF5A36',
+                            textMuted: '#eaeaea'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                        royal: ['Space Grotesk', 'Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f19; }
-        .font-royal { font-family: 'Cinzel', serif; letter-spacing: 0.04em; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Outfit', 'Inter', sans-serif; background-color: #050505; }
+        .font-royal { font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.04em; }
+        .font-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
+        .font-sans { font-family: 'Outfit', 'Inter', sans-serif; }
         #map { height: 500px; width: 100%; border-radius: 0.75rem; z-index: 1; }
         .pulse-beacon {
             animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
@@ -43,14 +67,14 @@
             100% { transform: scale(0.8); opacity: 0.9; }
         }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #090d16; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col antialiased">
+<body class="text-slate-100 min-h-screen flex flex-col antialiased bg-[#050505]">
 
     <!-- Top Navigation Bar -->
-    <header class="border-b border-slate-800 bg-slate-900 px-6 py-2.5 flex flex-wrap items-center justify-between gap-4 shadow-lg relative z-20">
+    <header class="border-b border-white/10 bg-[#080808] px-6 py-2.5 flex flex-wrap items-center justify-between gap-4 shadow-lg relative z-20">
         <div class="flex items-center gap-3">
             <a href="/" class="h-10 w-10 flex items-center justify-center transition-transform duration-300 hover:scale-105 shrink-0" title="RAKSHA Home">
                 <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Official Logo" class="h-10 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(6,182,212,0.5)]" />
@@ -1089,15 +1113,15 @@
                 
                 if (!dot || !lbl) return;
                 if (idx < curIdx) {
-                    dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-slate-900 transition-all text-xs font-bold bg-emerald-500 text-slate-950";
+                    dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-[#050505] transition-all text-xs font-bold bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40";
                     dot.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i>`;
-                    lbl.className = "text-[9px] font-mono font-bold tracking-wider text-emerald-400";
+                    lbl.className = "text-[9px] font-mono font-bold tracking-wider text-[#00E5FF]";
                 } else if (idx === curIdx) {
-                    dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-slate-900 transition-all text-xs font-bold bg-cyan-400 text-slate-950 shadow-[0_0_12px_rgba(127, 255, 212,0.6)]";
+                    dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-[#050505] transition-all text-xs font-bold bg-[#00E5FF] text-[#050505] shadow-[0_0_12px_rgba(0,229,255,0.6)] font-black";
                     dot.innerText = idx + 1;
-                    lbl.className = "text-[9px] font-mono font-bold tracking-wider text-cyan-400";
+                    lbl.className = "text-[9px] font-mono font-bold tracking-wider text-[#00E5FF]";
                 } else {
-                    dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-slate-900 transition-all text-xs font-bold bg-slate-800 text-slate-400";
+                    dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-[#050505] transition-all text-xs font-bold bg-[#141414] text-slate-500 border border-white/10";
                     dot.innerText = idx + 1;
                     lbl.className = "text-[9px] font-mono font-bold tracking-wider text-slate-500";
                 }
