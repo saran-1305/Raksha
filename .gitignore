@@ -10,3 +10,8 @@ env/
 RAKSHA_Project.zip
 *.log
 templates/*_step*.html
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+/*.mp4
