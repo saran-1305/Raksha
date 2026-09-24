@@ -176,18 +176,26 @@
                                 <p class="text-[11px] text-slate-400 font-mono">Spatial Runoff Envelope &amp; 4-Tier Risk Dispersion Map</p>
                             </div>
                         </div>
-                        <div class="flex flex-wrap items-center gap-2 text-[10px] font-mono">
+                        <div class="flex flex-wrap items-center justify-end gap-2 text-[10px] font-mono">
+                            <!-- Basemap Mode Selector -->
+                            <div class="flex items-center gap-1 bg-[#050505] p-1 rounded-lg border border-white/10">
+                                <span class="text-slate-500 px-1 uppercase text-[9px]">Map:</span>
+                                <button id="btn-base-sat" onclick="switchBaseMap('satellite')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/50 font-bold transition shadow-sm shadow-[#00E5FF]/20 flex items-center gap-1">🛰️ Earth / Satellite</button>
+                                <button id="btn-base-terrain" onclick="switchBaseMap('terrain')" class="px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1">🏔️ Topo</button>
+                                <button id="btn-base-street" onclick="switchBaseMap('street')" class="px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1">🗺️ Street</button>
+                                <button id="btn-base-dark" onclick="switchBaseMap('dark')" class="px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1">🌑 Dark</button>
+                            </div>
                             <!-- Layer Visibility HUD Controls -->
-                            <div class="flex items-center gap-1 bg-[#050505] p-1 rounded-lg border border-white/10 mr-1">
-                                <button id="btn-toggle-rings" onclick="toggleLayer('rings')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● 4-Tier Isochrones</button>
-                                <button id="btn-toggle-envelope" onclick="toggleLayer('envelope')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Runoff Corridor</button>
-                                <button id="btn-toggle-vector" onclick="toggleLayer('vector')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Flow Vector</button>
+                            <div class="hidden sm:flex items-center gap-1 bg-[#050505] p-1 rounded-lg border border-white/10">
+                                <button id="btn-toggle-rings" onclick="toggleLayer('rings')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Isochrones</button>
+                                <button id="btn-toggle-envelope" onclick="toggleLayer('envelope')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Corridor</button>
+                                <button id="btn-toggle-vector" onclick="toggleLayer('vector')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Vector</button>
                             </div>
                             <!-- 4-Tier Legend -->
                             <div class="flex items-center gap-2 bg-[#050505] px-2.5 py-1 rounded-lg border border-white/10">
                                 <span class="flex items-center gap-1 text-red-400" title="Tier 1: 0 - 1.0 km"><span class="w-2 h-2 rounded-full bg-red-500"></span> Critical</span>
                                 <span class="flex items-center gap-1 text-orange-400" title="Tier 2: 1.0 - 2.2 km"><span class="w-2 h-2 rounded-full bg-orange-500"></span> High</span>
-                                <span class="flex items-center gap-1 text-amber-400" title="Tier 3: 2.2 - 3.5 km"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Moderate</span>
+                                <span class="flex items-center gap-1 text-amber-400" title="Tier 3: 2.2 - 3.5 km"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Mod</span>
                                 <span class="flex items-center gap-1 text-emerald-400" title="Tier 4: 3.5 - 5.0 km"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Low</span>
                             </div>
                         </div>
@@ -438,11 +446,64 @@
 
         let map, precipChart, transectChart;
         let ringsGroup, envelopeGroup, vectorGroup, markerGroup;
+        let currentBaseType = 'satellite';
 
         const layerVisibility = {
             rings: true,
             envelope: true,
             vector: true
+        };
+
+        const BASE_MAPS = {
+            satellite: {
+                id: 'satellite',
+                name: 'Earth / Satellite',
+                layer: L.layerGroup([
+                    L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+                        attribution: '&copy; Google Earth &bull; Maxar',
+                        maxNativeZoom: 19,
+                        maxZoom: 21,
+                        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+                    })
+                ])
+            },
+            terrain: {
+                id: 'terrain',
+                name: 'Topographic Relief',
+                layer: L.layerGroup([
+                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+                        attribution: 'Tiles &copy; Esri Topo',
+                        maxNativeZoom: 18,
+                        maxZoom: 20
+                    })
+                ])
+            },
+            street: {
+                id: 'street',
+                name: 'OpenStreetMap Streets',
+                layer: L.layerGroup([
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors',
+                        maxNativeZoom: 19,
+                        maxZoom: 20
+                    })
+                ])
+            },
+            dark: {
+                id: 'dark',
+                name: 'Dark Tactical Canvas',
+                layer: L.layerGroup([
+                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                        attribution: 'Tiles &copy; Esri',
+                        maxNativeZoom: 16,
+                        maxZoom: 20
+                    }),
+                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+                        maxNativeZoom: 16,
+                        maxZoom: 20
+                    })
+                ])
+            }
         };
 
         const SCENARIOS = {
@@ -452,7 +513,7 @@
                 coords: '30.3207° N, 79.2163° E',
                 lat: 30.3207,
                 lon: 79.2163,
-                zoom: 12,
+                zoom: 13,
                 pop: '720',
                 popRight: '720 Citizens',
                 hamlets: '4 Mountain Hamlets',
@@ -481,7 +542,7 @@
                 coords: '11.5126° N, 76.1287° E',
                 lat: 11.5126,
                 lon: 76.1287,
-                zoom: 12,
+                zoom: 13,
                 pop: '2,450',
                 popRight: '2,450 Citizens',
                 hamlets: '6 Tea Plantation Hamlets',
@@ -510,7 +571,7 @@
                 coords: '24.8333° N, 92.7789° E',
                 lat: 24.8333,
                 lon: 92.7789,
-                zoom: 12,
+                zoom: 13,
                 pop: '14,800',
                 popRight: '14,800 Citizens',
                 hamlets: '18 Urban Wards & Villages',
@@ -542,30 +603,55 @@
                 center: [currentScenario.lat, currentScenario.lon],
                 zoom: currentScenario.zoom,
                 minZoom: 6,
-                maxZoom: 18,
+                maxZoom: 20,
                 zoomControl: false
             });
 
             L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-                maxNativeZoom: 16,
-                maxZoom: 19
-            }).addTo(map);
+            // Default Base Map: Google Earth / Satellite
+            BASE_MAPS.satellite.layer.addTo(map);
 
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-                maxNativeZoom: 16,
-                maxZoom: 19
-            }).addTo(map);
-
-            // Layer Groups
-            ringsGroup = L.layerGroup().addTo(map);
+            // Data Layer Groups (Always on top of basemap)
             envelopeGroup = L.layerGroup().addTo(map);
+            ringsGroup = L.layerGroup().addTo(map);
             vectorGroup = L.layerGroup().addTo(map);
             markerGroup = L.layerGroup().addTo(map);
 
             renderScenarioLayers(currentScenario);
+        }
+
+        function switchBaseMap(type) {
+            if (!map || !BASE_MAPS[type]) return;
+
+            // Remove previous base layers
+            Object.values(BASE_MAPS).forEach(bm => {
+                if (map.hasLayer(bm.layer)) {
+                    map.removeLayer(bm.layer);
+                }
+            });
+
+            // Add selected base layer and send to back
+            BASE_MAPS[type].layer.addTo(map);
+            currentBaseType = type;
+
+            // Re-order groups to guarantee data overlays stay above satellite
+            if (map.hasLayer(envelopeGroup)) envelopeGroup.bringToFront();
+            if (map.hasLayer(ringsGroup)) ringsGroup.bringToFront();
+            if (map.hasLayer(vectorGroup)) vectorGroup.bringToFront();
+            if (map.hasLayer(markerGroup)) markerGroup.bringToFront();
+
+            // Update UI buttons
+            ['sat', 'terrain', 'street', 'dark'].forEach(k => {
+                const btn = document.getElementById(`btn-base-${k}`);
+                if (!btn) return;
+                const activeKey = k === 'sat' ? 'satellite' : k;
+                if (activeKey === type) {
+                    btn.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/50 font-bold transition shadow-sm shadow-[#00E5FF]/20 flex items-center gap-1';
+                } else {
+                    btn.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1';
+                }
+            });
         }
 
         // Generates realistic hydrological tapered debris / runoff fan along flowBearing
@@ -615,61 +701,61 @@
             const lon = scen.lon;
 
             // =========================================================================
-            // 1. CONCENTRIC 4-TIER RISK DISPERSION ISOCHRONES (PRECISELY CENTERED ON EPICENTER)
+            // 1. DIRECTIONAL ANISOTROPIC RUNOFF ENVELOPE (DYNAMIC AOI)
+            // =========================================================================
+            const envCoords = generateFlowEnvelopeCoords(lat, lon, scen.flowBearing);
+            const aoiPoly = L.polygon(envCoords, {
+                color: '#00E5FF',
+                weight: 2.5,
+                dashArray: '6, 6',
+                fillColor: '#ef4444',
+                fillOpacity: 0.22
+            }).bindTooltip(`<b>🔴 Dynamic Hazard Runoff Zone</b><br>AOI Area: ${scen.aoiArea} [DERIVED]<br>Axis: ${scen.sectorDilation}<br>Valley Drainage Corridor`, { sticky: true });
+            envelopeGroup.addLayer(aoiPoly);
+
+            // =========================================================================
+            // 2. CONCENTRIC 4-TIER RISK DISPERSION ISOCHRONES (PRECISELY CENTERED ON EPICENTER)
             // =========================================================================
             // Tier 4: Low Risk Perimeter (3.5 - 5.0 km)
             const r4 = L.circle([lat, lon], {
                 radius: 5000,
-                color: '#10b981',
-                weight: 1.5,
+                color: '#00FFAA',
+                weight: 2,
                 dashArray: '5, 5',
-                fillColor: '#10b981',
-                fillOpacity: 0.05
+                fillColor: '#00FFAA',
+                fillOpacity: 0.08
             }).bindTooltip(`<b>🟢 Tier 4: Low Risk Perimeter</b><br>Radius: 5.0 km from Epicenter<br>Precautionary Monitoring & Peripheral Watch Buffer`, { sticky: true });
             ringsGroup.addLayer(r4);
 
             // Tier 3: Moderate Risk Zone (2.2 - 3.5 km)
             const r3 = L.circle([lat, lon], {
                 radius: 3500,
-                color: '#eab308',
-                weight: 1.8,
-                fillColor: '#eab308',
-                fillOpacity: 0.10
+                color: '#FFD700',
+                weight: 2.2,
+                fillColor: '#FFD700',
+                fillOpacity: 0.14
             }).bindTooltip(`<b>🟡 Tier 3: Moderate Risk Zone</b><br>Radius: 3.5 km from Epicenter<br>Secondary Flash Flood & Slope Destabilization Buffer`, { sticky: true });
             ringsGroup.addLayer(r3);
 
             // Tier 2: High Risk Peripheral (1.0 - 2.2 km)
             const r2 = L.circle([lat, lon], {
                 radius: 2200,
-                color: '#f97316',
-                weight: 2.0,
-                fillColor: '#f97316',
-                fillOpacity: 0.16
+                color: '#FF8800',
+                weight: 2.4,
+                fillColor: '#FF8800',
+                fillOpacity: 0.22
             }).bindTooltip(`<b>🟠 Tier 2: High Risk Peripheral</b><br>Radius: 2.2 km from Epicenter<br>Severe Inundation & Debris Flow Risk Corridor`, { sticky: true });
             ringsGroup.addLayer(r2);
 
             // Tier 1: Critical Risk Core (0 - 1.0 km)
             const r1 = L.circle([lat, lon], {
                 radius: 1000,
-                color: '#ef4444',
-                weight: 2.4,
-                fillColor: '#ef4444',
-                fillOpacity: 0.26
+                color: '#FF2A4B',
+                weight: 2.8,
+                fillColor: '#FF2A4B',
+                fillOpacity: 0.32
             }).bindTooltip(`<b>🔴 Tier 1: Critical Risk Core</b><br>Radius: 1.0 km from Epicenter<br>Immediate Impact & Structural Destruction Core`, { sticky: true });
             ringsGroup.addLayer(r1);
-
-            // =========================================================================
-            // 2. DIRECTIONAL ANISOTROPIC RUNOFF ENVELOPE (DYNAMIC AOI)
-            // =========================================================================
-            const envCoords = generateFlowEnvelopeCoords(lat, lon, scen.flowBearing);
-            const aoiPoly = L.polygon(envCoords, {
-                color: '#00E5FF',
-                weight: 2,
-                dashArray: '6, 6',
-                fillColor: '#ef4444',
-                fillOpacity: 0.14
-            }).bindTooltip(`<b>🔴 Dynamic Hazard Runoff Zone</b><br>AOI Area: ${scen.aoiArea} [DERIVED]<br>Axis: ${scen.sectorDilation}<br>Valley Drainage Corridor`, { sticky: true });
-            envelopeGroup.addLayer(aoiPoly);
 
             // =========================================================================
             // 3. DOWNHILL STREAMLINE & FLOW VECTOR ARROWS
@@ -686,41 +772,39 @@
 
             const flowLine = L.polyline([[lat, lon], [endLat, endLon]], {
                 color: '#00E5FF',
-                weight: 2.5,
-                dashArray: '5, 5',
-                opacity: 0.85
+                weight: 3.5,
+                dashArray: '6, 6',
+                opacity: 0.95
             }).bindTooltip(`<b>🌊 Downhill Runoff Vector: ${scen.sectorDilation}</b><br>Slope Axis Drainage Flowline`, { sticky: true });
             vectorGroup.addLayer(flowLine);
 
             // Directional arrow head
             const arrowHead = L.circleMarker([endLat, endLon], {
-                radius: 6,
+                radius: 7,
                 color: '#00E5FF',
                 fillColor: '#ffffff',
                 fillOpacity: 1,
-                weight: 2.5
-            }).bindTooltip(`<b>Downhill Direction: ${scen.sectorDilation}</b>`);
+                weight: 3
+            }).bindTooltip(`<b>Downhill Flow Direction: ${scen.sectorDilation}</b>`);
             vectorGroup.addLayer(arrowHead);
 
             // =========================================================================
             // 4. EPICENTER PULSE BEACON & POPUP
             // =========================================================================
-            // Epicenter outer glowing halo
             const beaconHalo = L.circleMarker([lat, lon], {
-                radius: 16,
-                fillColor: '#ef4444',
-                color: '#ef4444',
-                weight: 1,
-                fillOpacity: 0.25
+                radius: 18,
+                fillColor: '#FF2A4B',
+                color: '#ffffff',
+                weight: 1.5,
+                fillOpacity: 0.35
             });
             markerGroup.addLayer(beaconHalo);
 
-            // Core marker
             const epicenterMarker = L.circleMarker([lat, lon], {
-                radius: 9,
-                fillColor: '#ef4444',
+                radius: 10,
+                fillColor: '#FF2A4B',
                 color: '#ffffff',
-                weight: 2.5,
+                weight: 3,
                 fillOpacity: 1
             }).bindPopup(`
                 <div class="font-mono text-xs p-1">
