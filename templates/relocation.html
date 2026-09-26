@@ -19,11 +19,11 @@
                             600: '#141414',
                             text: '#FFFFFF',
                             textMuted: '#EAEAEA',
-                            accent: '#00E5FF',
-                            accentLight: '#84FFFF',
-                            accentLighter: '#B2EBF2',
+                            accent: '#38bdf8',
+                            accentLight: '#7dd3fc',
+                            accentLighter: '#bae6fd',
                             hazard: '#FF5A36',
-                            safe: '#00E5FF'
+                            safe: '#38bdf8'
                         }
                     },
                     fontFamily: {
@@ -64,17 +64,16 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
         }
         .nav-pill-active {
-            background-color: #0D0D0D;
-            border: 1.5px solid #00E5FF;
-            color: #00E5FF;
-            box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
         }
         .grid-cell-icon {
             background: transparent !important;
             border: none !important;
         }
-        .badge-data { background: rgba(0, 229, 255, 0.1); color: #00E5FF; border: 1px solid rgba(0, 229, 255, 0.25); }
-        .badge-derived { background: rgba(132, 255, 255, 0.1); color: #84FFFF; border: 1px solid rgba(132, 255, 255, 0.25); }
+        .badge-data { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+        .badge-derived { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
         .badge-estimated { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
         .badge-user { background: rgba(192, 132, 252, 0.12); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
     </style>
@@ -88,7 +87,7 @@
             <!-- Left: Brand Logo & Title -->
             <div class="flex items-center gap-3">
                 <a href="/" class="h-9 w-9 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain " />
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
@@ -102,7 +101,7 @@
             <div class="flex items-center gap-2 font-poppins text-xs">
                 <span class="text-slate-400 text-[10px] uppercase font-bold hidden sm:inline">SCENARIO:</span>
                 <div class="flex items-center gap-1 bg-[#0D0D0D] p-1 rounded-xl border border-white/10">
-                    <button onclick="switchHotspot('devgram')" id="btnDev" class="px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 text-[11px] transition shadow-[0_0_10px_rgba(0,229,255,0.25)]">Devgram</button>
+                    <button onclick="switchHotspot('devgram')" id="btnDev" class="px-2.5 py-1 rounded-lg bg-slate-700 text-white font-bold border border-slate-600 text-[11px] transition shadow-sm">Devgram</button>
                     <button onclick="switchHotspot('wayanad')" id="btnWay" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">Wayanad</button>
                     <button onclick="switchHotspot('silchar')" id="btnSil" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white text-[11px] transition">Silchar</button>
                 </div>
@@ -117,12 +116,12 @@
                 <span class="badge-data px-1.5 py-0.5 rounded text-[9px] font-bold">DATA</span>
                 <span class="text-slate-400">INCIDENT GROUND ZERO:</span>
                 <span id="ribbonName" class="text-white font-bold bg-[#141414] px-2.5 py-0.5 rounded border border-white/10">Devgram Habitation (Chamoli)</span>
-                <span id="ribbonCoords" class="text-[#00E5FF]">30.3207° N, 79.2163° E</span>
+                <span id="ribbonCoords" class="text-slate-300 font-semibold">30.3207° N, 79.2163° E</span>
                 <span id="ribbonHazardBadge" class="text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-950/40 border border-amber-800/40 text-[10px]">LANDSLIDE RUNOFF</span>
             </div>
             <div class="flex items-center gap-4 flex-wrap">
                 <span><span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold mr-1">DERIVED</span>PEOPLE TO RELOCATE: <b id="ribbonPop" class="text-amber-400 font-black">6,840</b></span>
-                <span><span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold mr-1">DERIVED</span>REQUIRED CAPACITY: <b id="ribbonReqCap" class="text-[#00E5FF] font-black">6,840</b></span>
+                <span><span class="badge-derived px-1.5 py-0.2 rounded text-[9px] font-bold mr-1">DERIVED</span>REQUIRED CAPACITY: <b id="ribbonReqCap" class="text-white font-bold">6,840</b></span>
                 <span><span class="badge-estimated px-1.5 py-0.2 rounded text-[9px] font-bold mr-1">ESTIMATED</span>ESTIMATED USABLE CAPACITY: <b id="ribbonSafeCap" class="text-emerald-400 font-black">7,341 (+501 SURPLUS)</b></span>
             </div>
         </div>
@@ -138,7 +137,7 @@
                 <!-- Map Header Controls: Basemap Switcher (Satellite, Terrain, Street) + Animate -->
                 <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-2.5">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="map" class="w-4 h-4 text-[#00E5FF]"></i>
+                        <i data-lucide="map" class="w-4 h-4 text-slate-400"></i>
                         <span class="font-royal text-xs font-bold text-white uppercase tracking-wider">Progressive Spatial Search &amp; Safety Map</span>
                     </div>
 
@@ -154,14 +153,14 @@
                                 <i data-lucide="mountain" class="w-3.5 h-3.5 text-amber-400"></i>
                                 <span>Terrain</span>
                             </button>
-                            <button type="button" onclick="setBaseMap('street')" id="btnBaseStreet" class="px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(0,229,255,0.25)]" title="Street Network &amp; Settlement Outlines">
+                            <button type="button" onclick="setBaseMap('street')" id="btnBaseStreet" class="px-2.5 py-1 rounded-lg bg-slate-700 text-white font-bold border border-slate-600 transition text-[11px] flex items-center gap-1 shadow-sm" title="Street Network &amp; Settlement Outlines">
                                 <i data-lucide="map" class="w-3.5 h-3.5 text-emerald-400"></i>
                                 <span>Street Map</span>
                             </button>
                         </div>
 
                         <!-- Animate Button -->
-                        <button onclick="triggerSearchAnimation()" class="px-2.5 py-1.5 rounded-xl bg-[#141414] text-[#00E5FF] border border-white/10 text-[11px] font-bold flex items-center gap-1 hover:border-[#00E5FF]/40 transition" title="Fly through progressive search rings">
+                        <button onclick="triggerSearchAnimation()" class="px-2.5 py-1.5 rounded-xl bg-[#141414] text-slate-200 border border-white/10 text-[11px] font-bold flex items-center gap-1 hover:border-slate-500 transition" title="Fly through progressive search rings">
                             <i data-lucide="play" class="w-3.5 h-3.5 text-cyan-400"></i>
                             <span class="hidden sm:inline">Animate Search</span>
                         </button>
@@ -189,7 +188,7 @@
 
             <!-- 6-Step Workflow Navigation Strip -->
             <div class="bg-[#080808] border border-white/10 rounded-2xl p-2 shadow-xl flex items-center justify-between gap-1 overflow-x-auto text-[11px] font-bold">
-                <button onclick="goToStep(1)" id="stepTab-1" class="flex-1 py-1.5 px-2 rounded-xl bg-[#00E5FF]/15 text-[#00E5FF] border border-[#00E5FF]/50 text-center transition">01 DISCOVER</button>
+                <button onclick="goToStep(1)" id="stepTab-1" class="flex-1 py-1.5 px-2 rounded-xl bg-slate-700 text-white border border-slate-600 text-center transition">01 DISCOVER</button>
                 <button onclick="goToStep(2)" id="stepTab-2" class="flex-1 py-1.5 px-2 rounded-xl text-slate-400 hover:text-white text-center transition">02 SAFETY</button>
                 <button onclick="goToStep(3)" id="stepTab-3" class="flex-1 py-1.5 px-2 rounded-xl text-slate-400 hover:text-white text-center transition">03 CAPACITY</button>
                 <button onclick="goToStep(4)" id="stepTab-4" class="flex-1 py-1.5 px-2 rounded-xl text-slate-400 hover:text-white text-center transition">04 SUITABILITY</button>
@@ -204,7 +203,7 @@
                         <span class="text-[10px] text-cyan-400 uppercase font-bold">01 DISCOVER</span>
                         <h3 class="font-royal font-bold text-base text-white">Spatial Horizon Expansion</h3>
                     </div>
-                    <span class="px-2 py-0.5 rounded bg-[#141414] text-[#00E5FF] border border-white/10 text-[10px]">15 km MAX RADIUS</span>
+                    <span class="px-2 py-0.5 rounded bg-[#141414] text-slate-300 border border-white/10 text-[10px]">15 km MAX RADIUS</span>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
@@ -214,7 +213,7 @@
                     </div>
                     <div class="p-3 rounded-xl bg-[#0D0D0D] border border-white/10">
                         <span class="text-slate-500 text-[10px] block">REQUIRED CAPACITY</span>
-                        <span id="step1ReqCap" class="text-base font-black text-[#00E5FF]">720</span>
+                        <span id="step1ReqCap" class="text-base font-black text-white">720</span>
                     </div>
                 </div>
 
@@ -248,7 +247,7 @@
                     <span id="step1Logic">Search expanded through concentric 5km rings until cumulative usable capacity exceeded affected population.</span>
                 </div>
 
-                <button onclick="goToStep(2)" class="w-full py-2.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition flex items-center justify-center gap-2">
+                <button onclick="goToStep(2)" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold transition flex items-center justify-center gap-2">
                     <span>NEXT: SAFETY VETO SCREENING</span>
                     <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                 </button>
@@ -288,7 +287,7 @@
 
                 <div class="flex gap-2">
                     <button onclick="goToStep(1)" class="py-2.5 px-3 rounded-xl bg-[#141414] hover:bg-[#202020] text-slate-300 font-bold transition">BACK</button>
-                    <button onclick="goToStep(3)" class="flex-1 py-2.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition flex items-center justify-center gap-2">
+                    <button onclick="goToStep(3)" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold transition flex items-center justify-center gap-2">
                         <span>NEXT: USABLE CAPACITY</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </button>
@@ -319,7 +318,7 @@
 
                 <div class="flex gap-2">
                     <button onclick="goToStep(2)" class="py-2.5 px-3 rounded-xl bg-[#141414] hover:bg-[#202020] text-slate-300 font-bold transition">BACK</button>
-                    <button onclick="goToStep(4)" class="flex-1 py-2.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition flex items-center justify-center gap-2">
+                    <button onclick="goToStep(4)" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold transition flex items-center justify-center gap-2">
                         <span>NEXT: SUITABILITY</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </button>
@@ -333,7 +332,7 @@
                         <span class="text-[10px] text-cyan-400 uppercase font-bold">04 SUITABILITY</span>
                         <h3 class="font-royal font-bold text-base text-white">Facility &amp; Terrain Suitability</h3>
                     </div>
-                    <span class="px-2 py-0.5 rounded bg-[#141414] text-[#00E5FF] border border-white/10 text-[10px]">TERRAIN &amp; ACCESS</span>
+                    <span class="px-2 py-0.5 rounded bg-[#141414] text-slate-300 border border-white/10 text-[10px]">TERRAIN &amp; ACCESS</span>
                 </div>
 
                 <div class="space-y-2.5 text-xs">
@@ -348,7 +347,7 @@
                     <div class="p-3 rounded-xl bg-[#0D0D0D] border border-white/10 space-y-1">
                         <div class="flex justify-between font-bold">
                             <span class="text-white">Road Corridor Accessibility</span>
-                            <span class="text-[#00E5FF]">Paved Two-Way Clearance</span>
+                            <span class="text-slate-200 font-semibold">Paved Two-Way Clearance</span>
                         </div>
                         <p class="text-[11px] text-slate-400">Primary routes follow paved national/state highway infrastructure capable of supporting emergency bus fleets.</p>
                     </div>
@@ -364,7 +363,7 @@
 
                 <div class="flex gap-2">
                     <button onclick="goToStep(3)" class="py-2.5 px-3 rounded-xl bg-[#141414] hover:bg-[#202020] text-slate-300 font-bold transition">BACK</button>
-                    <button onclick="goToStep(5)" class="flex-1 py-2.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition flex items-center justify-center gap-2">
+                    <button onclick="goToStep(5)" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold transition flex items-center justify-center gap-2">
                         <span>NEXT: MCDA RANKING</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </button>
@@ -393,26 +392,26 @@
 
                     <div class="flex justify-between items-center text-[11px]">
                         <span class="text-slate-300">Shelter Usable Capacity (25%)</span>
-                        <span class="font-bold text-[#00E5FF]">92 / 100</span>
+                        <span class="font-bold text-white">92 / 100</span>
                     </div>
                     <div class="w-full bg-[#050505] rounded-full h-2 overflow-hidden border border-white/10">
-                        <div class="bg-[#00E5FF] h-full rounded-full" style="width: 92%"></div>
+                        <div class="bg-blue-500 h-full rounded-full" style="width: 92%"></div>
                     </div>
 
                     <div class="flex justify-between items-center text-[11px]">
                         <span class="text-slate-300">Highway Accessibility (15%)</span>
-                        <span class="font-bold text-[#00E5FF]">88 / 100</span>
+                        <span class="font-bold text-white">88 / 100</span>
                     </div>
                     <div class="w-full bg-[#050505] rounded-full h-2 overflow-hidden border border-white/10">
-                        <div class="bg-[#00E5FF] h-full rounded-full" style="width: 88%"></div>
+                        <div class="bg-blue-500 h-full rounded-full" style="width: 88%"></div>
                     </div>
 
                     <div class="flex justify-between items-center text-[11px]">
                         <span class="text-slate-300">Lifeline Infrastructure (15%)</span>
-                        <span class="font-bold text-[#00E5FF]">85 / 100</span>
+                        <span class="font-bold text-white">85 / 100</span>
                     </div>
                     <div class="w-full bg-[#050505] rounded-full h-2 overflow-hidden border border-white/10">
-                        <div class="bg-[#00E5FF] h-full rounded-full" style="width: 85%"></div>
+                        <div class="bg-blue-500 h-full rounded-full" style="width: 85%"></div>
                     </div>
 
                     <div class="flex justify-between items-center text-[11px]">
@@ -431,7 +430,7 @@
 
                 <div class="flex gap-2">
                     <button onclick="goToStep(4)" class="py-2.5 px-3 rounded-xl bg-[#141414] hover:bg-[#202020] text-slate-300 font-bold transition">BACK</button>
-                    <button onclick="goToStep(6)" class="flex-1 py-2.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition flex items-center justify-center gap-2">
+                    <button onclick="goToStep(6)" class="flex-1 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-bold transition flex items-center justify-center gap-2">
                         <span>NEXT: RELOCATION PLAN</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </button>
@@ -455,7 +454,7 @@
                     </div>
                     <div class="p-2.5 rounded-xl bg-[#0D0D0D] border border-white/10 flex justify-between">
                         <span class="text-slate-400">Designated Candidates:</span>
-                        <span id="step6Sites" class="text-[#00E5FF] font-bold">4 Potential Relocation Sites Approved</span>
+                        <span id="step6Sites" class="text-white font-bold">4 Potential Relocation Sites Approved</span>
                     </div>
                     <div class="p-2.5 rounded-xl bg-[#0D0D0D] border border-white/10 flex justify-between">
                         <span class="text-slate-400">Primary Transit Route:</span>
@@ -475,10 +474,10 @@
             </div>
 
             <!-- SITE DOSSIER INSPECTOR (Dynamic card that updates when any site is clicked) -->
-            <div id="siteDossierCard" class="bg-[#080808] border border-[#00E5FF]/30 rounded-2xl p-4 shadow-xl flex flex-col gap-2.5">
+            <div id="siteDossierCard" class="bg-[#080808] border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col gap-2.5">
                 <div class="flex items-center justify-between border-b border-white/10 pb-2">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="info" class="w-4 h-4 text-[#00E5FF]"></i>
+                        <i data-lucide="info" class="w-4 h-4 text-slate-400"></i>
                         <span class="font-royal font-bold text-xs text-white uppercase tracking-wider">Candidate Site Dossier</span>
                     </div>
                     <span id="dossierStatusBadge" class="text-[10px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-bold">QUALIFIED</span>
@@ -491,7 +490,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-slate-400">Transit Distance:</span>
-                        <span id="dossierDist" class="text-[#00E5FF] font-bold">5.31 km</span>
+                        <span id="dossierDist" class="text-white font-bold">5.31 km</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-slate-400">Estimated Usable Capacity:</span>
@@ -511,7 +510,7 @@
                     </div>
                     <div class="flex justify-between">
                         <span class="text-slate-400">MCDA Rank:</span>
-                        <span id="dossierScore" class="text-[#00E5FF] font-bold">0.885 (Rank #1)</span>
+                        <span id="dossierScore" class="text-white font-bold">0.885 (Rank #1)</span>
                     </div>
                 </div>
             </div>
@@ -677,7 +676,7 @@
             for (const [key, btn] of Object.entries(btns)) {
                 if (!btn) continue;
                 if (key === type) {
-                    btn.className = 'px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(0,229,255,0.25)]';
+                    btn.className = 'px-2.5 py-1 rounded-lg bg-slate-700 text-white font-bold border border-slate-600 transition text-[11px] flex items-center gap-1 shadow-sm';
                 } else {
                     btn.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition text-[11px] flex items-center gap-1';
                 }
@@ -731,7 +730,7 @@
                         (r === 1 && c === 2)
                     );
 
-                    const strokeColor = isHazard ? '#ef4444' : '#00E5FF';
+                    const strokeColor = isHazard ? '#ef4444' : '#3b82f6';
                     const fillColor = isHazard ? '#ef4444' : '#10b981';
                     const fillOpacity = isHazard ? 0.35 : 0.04;
 
@@ -742,7 +741,7 @@
                         fillOpacity: fillOpacity
                     }).bindTooltip(`
                         <div style="font-family: 'Poppins', 'Inter', sans-serif; font-size: 11px;">
-                            <b style="color: ${isHazard ? '#ef4444' : '#00E5FF'};">▦ Search Cell [R${r+1}, C${c+1}]</b> &bull; ${isHazard ? 'High Hazard Zone' : 'Perimeter Safe Buffer'}<br>
+                            <b style="color: ${isHazard ? '#ef4444' : '#38bdf8'};">▦ Search Cell [R${r+1}, C${c+1}]</b> &bull; ${isHazard ? 'High Hazard Zone' : 'Perimeter Safe Buffer'}<br>
                             Hazard Intensity: <b>${isHazard ? '0.78' : '0.12'}</b>
                         </div>
                     `, { sticky: true });
@@ -802,8 +801,8 @@
             mapLayers.push(originMarker);
 
             // 3. Search Rings (5km, 10km, 15km)
-            const r5 = L.circle([scen.lat, scen.lon], { radius: 5000, color: '#00E5FF', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
-            const r10 = L.circle([scen.lat, scen.lon], { radius: 10000, color: '#00E5FF', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
+            const r5 = L.circle([scen.lat, scen.lon], { radius: 5000, color: '#3b82f6', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
+            const r10 = L.circle([scen.lat, scen.lon], { radius: 10000, color: '#3b82f6', weight: 1.2, dashArray: '5, 5', fill: false }).addTo(map);
             const r15 = L.circle([scen.lat, scen.lon], { radius: 15000, color: '#10b981', weight: 1.5, fill: false }).addTo(map);
             mapLayers.push(r5, r10, r15);
 
@@ -813,7 +812,7 @@
                 const marker = L.circleMarker([s.lat, s.lon], {
                     radius: s.primary ? 9.5 : 7,
                     fillColor: color,
-                    color: s.primary ? '#00E5FF' : '#ffffff',
+                    color: s.primary ? '#3b82f6' : '#ffffff',
                     weight: s.primary ? 3 : 1.5,
                     fillOpacity: 1
                 }).addTo(map);
@@ -825,7 +824,7 @@
 
             // 5. Evacuation Primary Corridor
             const primaryPoly = L.polyline(scen.routePolyline, {
-                color: '#00E5FF',
+                color: '#3b82f6',
                 weight: 4.5,
                 opacity: 0.85,
                 dashArray: '6, 6'
@@ -844,7 +843,7 @@
             });
             const activeBtn = scen.id === 'devgram' ? 'btnDev' : (scen.id === 'wayanad' ? 'btnWay' : 'btnSil');
             const ab = document.getElementById(activeBtn);
-            if (ab) ab.className = 'px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 text-[11px] transition shadow-[0_0_10px_rgba(0,229,255,0.25)]';
+            if (ab) ab.className = 'px-2.5 py-1 rounded-lg bg-slate-700 text-white font-bold border border-slate-600 text-[11px] transition shadow-sm';
 
             // Ribbon
             document.getElementById('ribbonName').innerText = scen.name;
@@ -883,7 +882,7 @@
             // Step 3
             const capListEl = document.getElementById('step3CapacityList');
             capListEl.innerHTML = scen.sites.filter(s => s.passed).map(s => `
-                <div class="p-2.5 rounded-xl bg-[#0D0D0D] border border-white/10 flex justify-between items-center cursor-pointer hover:border-[#00E5FF]/50 transition" onclick='updateDossier(${JSON.stringify(s)})'>
+                <div class="p-2.5 rounded-xl bg-[#0D0D0D] border border-white/10 flex justify-between items-center cursor-pointer hover:border-slate-600 transition" onclick='updateDossier(${JSON.stringify(s)})'>
                     <div>
                         <span class="font-bold text-white block">${s.name}</span>
                         <span class="text-[10px] text-slate-400">${s.dist} via ${s.access}</span>
@@ -940,7 +939,7 @@
             if (targetCard) targetCard.classList.remove('hidden');
 
             const activeTab = document.getElementById('stepTab-' + stepNum);
-            if (activeTab) activeTab.className = 'flex-1 py-1.5 px-2 rounded-xl bg-[#00E5FF]/15 text-[#00E5FF] border border-[#00E5FF]/40 text-center transition font-bold shadow-[0_0_12px_rgba(0,229,255,0.2)]';
+            if (activeTab) activeTab.className = 'flex-1 py-1.5 px-2 rounded-xl bg-slate-700 text-white border border-slate-600 text-center transition font-bold shadow-sm';
         }
 
         function triggerSearchAnimation() {

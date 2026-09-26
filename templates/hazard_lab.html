@@ -28,11 +28,11 @@
                             600: '#141414',
                             text: '#FFFFFF',
                             textMuted: '#EAEAEA',
-                            accent: '#00E5FF',
-                            accentLight: '#84FFFF',
-                            accentLighter: '#B2EBF2',
+                            accent: '#38bdf8',
+                            accentLight: '#7dd3fc',
+                            accentLighter: '#bae6fd',
                             hazard: '#FF5A36',
-                            safe: '#00E5FF'
+                            safe: '#38bdf8'
                         }
                     },
                     fontFamily: {
@@ -74,9 +74,9 @@
         }
         .nav-pill-active {
             background-color: #0D0D0D;
-            border: 1.5px solid #00E5FF;
-            color: #00E5FF;
-            box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
+            border: 1.5px solid #38bdf8;
+            color: #38bdf8;
+            
         }
     </style>
 </head>
@@ -89,7 +89,7 @@
             <!-- Left: Brand Logo & Title -->
             <div class="flex items-center gap-3">
                 <a href="/" class="h-9 w-9 flex items-center justify-center transition-transform hover:scale-105" title="RAKSHA Home">
-                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(0,229,255,0.6)]" />
+                    <img src="/assets/raksha_emblem_transparent.png" alt="RAKSHA Logo" class="h-9 w-auto object-contain filter drop-shadow-sm" />
                 </a>
                 <div>
                     <div class="flex items-center gap-2">
@@ -103,7 +103,7 @@
             <div class="flex items-center gap-2">
                 <div class="hidden xl:flex items-center gap-1.5 text-xs font-poppins">
                     <span class="text-slate-500 text-[11px] uppercase mr-1">Hotspot:</span>
-                    <button id="btn-preset-devgram" onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs transition border border-[#00E5FF]/50 font-bold shadow-sm shadow-[#00E5FF]/20">Devgram</button>
+                    <button id="btn-preset-devgram" onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-[#38bdf8]/20 hover:bg-[#38bdf8]/30 text-[#38bdf8] text-xs transition border border-[#38bdf8]/50 font-bold shadow-sm shadow-[#38bdf8]/20">Devgram</button>
                     <button id="btn-preset-wayanad" onclick="selectPreset('wayanad')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-[#141414] text-slate-300 text-xs transition border border-white/10">Wayanad</button>
                     <button id="btn-preset-silchar" onclick="selectPreset('silchar')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-[#141414] text-slate-300 text-xs transition border border-white/10">Silchar</button>
                 </div>
@@ -117,12 +117,12 @@
             <div class="flex items-center gap-2">
                 <span class="text-slate-400">INCIDENT TARGET:</span>
                 <span id="activeLocationName" class="text-white font-bold bg-[#141414] px-2.5 py-0.5 rounded border border-white/10">Devgram Habitation (Chamoli, Uttarakhand)</span>
-                <span id="activeCoords" class="text-[#00E5FF]">30.3207° N, 79.2163° E</span>
+                <span id="activeCoords" class="text-[#38bdf8]">30.3207° N, 79.2163° E</span>
             </div>
             <div class="flex items-center gap-4">
                 <span>HAZARD TIER: <b id="lblHazardLevel" class="text-amber-400">ELEVATED [DERIVED]</b></span>
-                <span>HAZARD INDEX: <b id="lblHazardIndex" class="text-[#00E5FF]">0.36 / 1.0</b></span>
-                <span>SECTOR DILATION: <b id="lblSectorDilation" class="text-[#00E5FF]">135.0° SE [DERIVED]</b></span>
+                <span>HAZARD INDEX: <b id="lblHazardIndex" class="text-[#38bdf8]">0.36 / 1.0</b></span>
+                <span>SECTOR DILATION: <b id="lblSectorDilation" class="text-[#38bdf8]">135.0° SE [DERIVED]</b></span>
             </div>
         </div>
     </div>
@@ -144,7 +144,7 @@
             </div>
             <div class="p-3.5 rounded-xl bg-[#080808] border border-white/10">
                 <span class="text-[10px] text-slate-500 uppercase block">Hazard Index</span>
-                <span id="statHazardIndex" class="text-sm font-bold text-[#00E5FF] mt-1 block">0.36 / 1.0</span>
+                <span id="statHazardIndex" class="text-sm font-bold text-[#38bdf8] mt-1 block">0.36 / 1.0</span>
                 <span class="text-[9px] text-slate-400">Composite Hydrology</span>
             </div>
             <div class="p-3.5 rounded-xl bg-[#080808] border border-red-500/30">
@@ -181,16 +181,16 @@
                             <!-- Basemap Mode Selector -->
                             <div class="flex items-center gap-1 bg-[#050505] p-1 rounded-lg border border-white/10">
                                 <span class="text-slate-500 px-1 uppercase text-[9px]">Map:</span>
-                                <button id="btn-base-sat" onclick="switchBaseMap('satellite')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/50 font-bold transition shadow-sm shadow-[#00E5FF]/20 flex items-center gap-1">🛰️ Earth / Satellite</button>
+                                <button id="btn-base-sat" onclick="switchBaseMap('satellite')" class="px-2 py-0.5 rounded text-[10px] bg-[#38bdf8]/25 text-[#38bdf8] border border-[#38bdf8]/50 font-bold transition shadow-sm shadow-[#38bdf8]/20 flex items-center gap-1">🛰️ Earth / Satellite</button>
                                 <button id="btn-base-terrain" onclick="switchBaseMap('terrain')" class="px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1">🏔️ Topo</button>
                                 <button id="btn-base-street" onclick="switchBaseMap('street')" class="px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1">🗺️ Street</button>
                                 <button id="btn-base-dark" onclick="switchBaseMap('dark')" class="px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1">🌑 Dark</button>
                             </div>
                             <!-- Layer Visibility HUD Controls -->
                             <div class="hidden sm:flex items-center gap-1 bg-[#050505] p-1 rounded-lg border border-white/10">
-                                <button id="btn-toggle-rings" onclick="toggleLayer('rings')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Isochrones</button>
-                                <button id="btn-toggle-envelope" onclick="toggleLayer('envelope')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Corridor</button>
-                                <button id="btn-toggle-vector" onclick="toggleLayer('vector')" class="px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30">● Vector</button>
+                                <button id="btn-toggle-rings" onclick="toggleLayer('rings')" class="px-2 py-0.5 rounded text-[10px] bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition hover:bg-[#38bdf8]/30">● Isochrones</button>
+                                <button id="btn-toggle-envelope" onclick="toggleLayer('envelope')" class="px-2 py-0.5 rounded text-[10px] bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition hover:bg-[#38bdf8]/30">● Corridor</button>
+                                <button id="btn-toggle-vector" onclick="toggleLayer('vector')" class="px-2 py-0.5 rounded text-[10px] bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition hover:bg-[#38bdf8]/30">● Vector</button>
                             </div>
                             <!-- 4-Tier Legend -->
                             <div class="flex items-center gap-2 bg-[#050505] px-2.5 py-1 rounded-lg border border-white/10">
@@ -208,7 +208,7 @@
                     <!-- Map Explanation Footnote -->
                     <div class="flex items-center justify-between text-[11px] font-poppins text-slate-400 pt-1">
                         <span id="mapFlowFootnote">Anisotropic flow elongation: 135° SE downhill runoff corridor.</span>
-                        <span id="mapAOIFootnote" class="text-[#00E5FF]">Dynamic AOI: 8.18 km² [DERIVED]</span>
+                        <span id="mapAOIFootnote" class="text-[#38bdf8]">Dynamic AOI: 8.18 km² [DERIVED]</span>
                     </div>
                 </div>
 
@@ -218,7 +218,7 @@
                         <div class="flex items-center gap-2">
                             <i data-lucide="grid" class="w-4 h-4 text-amber-400"></i>
                             <h3 class="font-bold text-sm text-white">5×5 Spatial Hazard Raster Grid (25 Cells)</h3>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded bg-[#141414] text-[#00E5FF] border border-white/10">1.0 km CELL RESOLUTION</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded bg-[#141414] text-[#38bdf8] border border-white/10">1.0 km CELL RESOLUTION</span>
                         </div>
                         <span class="text-[10px] text-slate-400">Click any cell to inspect slope &amp; elevation</span>
                     </div>
@@ -256,7 +256,7 @@
                         </div>
                         <div class="p-2.5 rounded-lg bg-[#0D0D0D] border border-white/10 flex justify-between items-center">
                             <span class="text-slate-400">🏘️ Affected Habitations</span>
-                            <span id="statHamlets" class="text-[#00E5FF] font-bold">4 Mountain Hamlets</span>
+                            <span id="statHamlets" class="text-[#38bdf8] font-bold">4 Mountain Hamlets</span>
                         </div>
                         <div class="p-2.5 rounded-lg bg-[#0D0D0D] border border-white/10 flex justify-between items-center">
                             <span class="text-slate-400">🌉 Critical Bridges</span>
@@ -296,7 +296,7 @@
                         </div>
                         <div class="flex items-center justify-between p-2 rounded bg-[#0D0D0D] border border-white/10">
                             <span class="text-slate-300">Planning Horizon</span>
-                            <span class="text-[#00E5FF] font-bold">0 – 3 Hours</span>
+                            <span class="text-[#38bdf8] font-bold">0 – 3 Hours</span>
                         </div>
                         <div class="p-2.5 rounded bg-[#0D0D0D] border border-white/10 text-[11px] text-slate-300 leading-relaxed">
                             <b class="text-white">Trigger Summary:</b> Heavy continuous rainfall (142.5mm) has saturated steep Himalayan slopes (>28°), creating high probability of debris flows into settled valleys. Ingress roads face imminent blockage.
@@ -305,8 +305,8 @@
                 </div>
 
                 <!-- BOTTOM HANDOFF CARD: PROCEED TO RELOCATION -->
-                <div class="p-4 rounded-2xl bg-gradient-to-br from-[#0D0D0D] via-[#080808] to-[#050505] border border-[#00E5FF]/40 shadow-2xl flex flex-col gap-3">
-                    <div class="text-[10px] text-[#00E5FF] uppercase font-bold tracking-wider">
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-[#0D0D0D] via-[#080808] to-[#050505] border border-[#38bdf8]/40 shadow-2xl flex flex-col gap-3">
+                    <div class="text-[10px] text-[#38bdf8] uppercase font-bold tracking-wider">
                         RELOCATION ASSESSMENT
                     </div>
                     <div class="text-base font-extrabold text-white flex items-center justify-between">
@@ -331,14 +331,14 @@
         <div class="bg-[#080808] border border-white/10 rounded-2xl p-5 shadow-xl flex flex-col gap-4 font-poppins">
             <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
                 <div class="flex items-center gap-2">
-                    <i data-lucide="layers" class="w-4 h-4 text-[#00E5FF]"></i>
+                    <i data-lucide="layers" class="w-4 h-4 text-[#38bdf8]"></i>
                     <h3 class="font-bold text-sm text-white">DEEP TECHNICAL EVIDENCE WORKSPACE</h3>
                     <span class="text-[10px] text-slate-500">Click any tab to review supporting telemetry</span>
                 </div>
 
                 <!-- Tabs -->
                 <div class="flex items-center gap-1.5 text-xs flex-wrap">
-                    <button onclick="switchTab('tab-env')" id="btn-env" class="px-3 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition">ENVIRONMENT (Rainfall)</button>
+                    <button onclick="switchTab('tab-env')" id="btn-env" class="px-3 py-1 rounded-lg bg-[#38bdf8]/15 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition">ENVIRONMENT (Rainfall)</button>
                     <button onclick="switchTab('tab-terrain')" id="btn-terrain" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">TERRAIN (SRTM DEM)</button>
                     <button onclick="switchTab('tab-sat')" id="btn-sat" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">SATELLITE (Sentinel-1/2)</button>
                     <button onclick="switchTab('tab-pop')" id="btn-pop" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">POPULATION (WorldPop)</button>
@@ -358,7 +358,7 @@
                     <div class="md:col-span-4 flex flex-col justify-between gap-3 text-xs">
                         <div class="p-3 rounded-xl bg-[#0D0D0D] border border-white/10">
                             <span class="text-slate-500 text-[10px] block">CUMULATIVE PRECIPITATION</span>
-                            <span class="text-lg font-black text-[#00E5FF]">142.5 mm</span>
+                            <span class="text-lg font-black text-[#38bdf8]">142.5 mm</span>
                             <span class="text-[10px] text-slate-400 block">Status: LIVE</span>
                         </div>
                         <div class="p-3 rounded-xl bg-[#0D0D0D] border border-white/10">
@@ -390,7 +390,7 @@
                         </div>
                         <div class="p-2.5 rounded-lg bg-[#0D0D0D] border border-white/10 text-center">
                             <span class="text-slate-500 text-[9px] block">NET DELTA</span>
-                            <span id="lblDemDelta" class="text-sm font-bold text-[#00E5FF]">-652 m</span>
+                            <span id="lblDemDelta" class="text-sm font-bold text-[#38bdf8]">-652 m</span>
                         </div>
                         <div class="p-2.5 rounded-lg bg-[#0D0D0D] border border-white/10 text-center">
                             <span class="text-slate-500 text-[9px] block">MAX SLOPE</span>
@@ -403,17 +403,17 @@
             <!-- Tab 3: Satellite -->
             <div id="tab-sat" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div class="p-3.5 rounded-xl bg-[#0D0D0D] border border-white/10 space-y-2">
-                    <span class="text-[#00E5FF] font-bold block">Sentinel-2 L2A Optical</span>
+                    <span class="text-[#38bdf8] font-bold block">Sentinel-2 L2A Optical</span>
                     <p class="text-slate-400 text-[11px]">Cloud-masked multispectral imagery via Microsoft Planetary Computer STAC.</p>
                     <div class="text-[10px] text-emerald-400">● LIVE STAC QUERY</div>
                 </div>
                 <div class="p-3.5 rounded-xl bg-[#0D0D0D] border border-white/10 space-y-2">
-                    <span class="text-[#00E5FF] font-bold block">Sentinel-1 C-Band SAR</span>
+                    <span class="text-[#38bdf8] font-bold block">Sentinel-1 C-Band SAR</span>
                     <p class="text-slate-400 text-[11px]">All-weather cloud-penetrating synthetic aperture radar for slope and surface moisture changes.</p>
                     <div class="text-[10px] text-emerald-400">● LIVE STAC QUERY</div>
                 </div>
                 <div class="p-3.5 rounded-xl bg-[#0D0D0D] border border-white/10 space-y-2">
-                    <span class="text-[#00E5FF] font-bold block">Cartosat-3 Sub-Meter PAN</span>
+                    <span class="text-[#38bdf8] font-bold block">Cartosat-3 Sub-Meter PAN</span>
                     <p class="text-slate-400 text-[11px]">Sub-meter ground-audit frame indexing for post-evacuation assessment.</p>
                     <div class="text-[10px] text-amber-400">● ARCHITECTURE / FRAMEWORK</div>
                 </div>
@@ -421,7 +421,7 @@
 
             <!-- Tab 4: Population -->
             <div id="tab-pop" class="hidden p-4 rounded-xl bg-[#0D0D0D] border border-white/10 text-xs space-y-2">
-                <span class="text-[#00E5FF] font-bold block">WorldPop Global 100m Gridded Population</span>
+                <span class="text-[#38bdf8] font-bold block">WorldPop Global 100m Gridded Population</span>
                 <p class="text-slate-300 leading-relaxed">
                     Gridded spatial census modeling under Creative Commons Attribution 4.0 International. Estimates ambient population density across the 8.18 km² hazard cone.
                 </p>
@@ -430,7 +430,7 @@
 
             <!-- Tab 5: Reference -->
             <div id="tab-ref" class="hidden p-4 rounded-xl bg-[#0D0D0D] border border-white/10 text-xs space-y-2">
-                <span class="text-[#00E5FF] font-bold block">ISRO Bhuvan / NRSC Thematic Framework</span>
+                <span class="text-[#38bdf8] font-bold block">ISRO Bhuvan / NRSC Thematic Framework</span>
                 <p class="text-slate-300 leading-relaxed">
                     National Remote Sensing Centre (NRSC) 1:50,000 thematic Land Use / Land Cover (LULC) baseline for flood and landslide recurrence screening.
                 </p>
@@ -648,7 +648,7 @@
                 if (!btn) return;
                 const activeKey = k === 'sat' ? 'satellite' : k;
                 if (activeKey === type) {
-                    btn.className = 'px-2 py-0.5 rounded text-[10px] font-poppins bg-[#00E5FF]/25 text-[#00E5FF] border border-[#00E5FF]/50 font-bold transition shadow-sm shadow-[#00E5FF]/20 flex items-center gap-1';
+                    btn.className = 'px-2 py-0.5 rounded text-[10px] font-poppins bg-[#38bdf8]/25 text-[#38bdf8] border border-[#38bdf8]/50 font-bold transition shadow-sm shadow-[#38bdf8]/20 flex items-center gap-1';
                 } else {
                     btn.className = 'px-2 py-0.5 rounded text-[10px] font-poppins bg-[#0D0D0D] text-slate-400 border border-white/10 transition hover:text-white flex items-center gap-1';
                 }
@@ -706,7 +706,7 @@
             // =========================================================================
             const envCoords = generateFlowEnvelopeCoords(lat, lon, scen.flowBearing);
             const aoiPoly = L.polygon(envCoords, {
-                color: '#00E5FF',
+                color: '#38bdf8',
                 weight: 2.5,
                 dashArray: '6, 6',
                 fillColor: '#ef4444',
@@ -772,7 +772,7 @@
             const endLon = lon + (vecLen * fx) / mPerLon;
 
             const flowLine = L.polyline([[lat, lon], [endLat, endLon]], {
-                color: '#00E5FF',
+                color: '#38bdf8',
                 weight: 3.5,
                 dashArray: '6, 6',
                 opacity: 0.95
@@ -782,7 +782,7 @@
             // Directional arrow head
             const arrowHead = L.circleMarker([endLat, endLon], {
                 radius: 7,
-                color: '#00E5FF',
+                color: '#38bdf8',
                 fillColor: '#ffffff',
                 fillOpacity: 1,
                 weight: 3
@@ -814,7 +814,7 @@
                     <div class="text-slate-700 mt-1"><b>Coordinates:</b> ${scen.coords}</div>
                     <div class="text-slate-700"><b>Population:</b> ${scen.pop}</div>
                     <div class="text-slate-700"><b>Hazard:</b> ${scen.hazardType}</div>
-                    <div class="text-[#00E5FF] font-bold mt-1">Flow Corridor: ${scen.sectorDilation}</div>
+                    <div class="text-[#38bdf8] font-bold mt-1">Flow Corridor: ${scen.sectorDilation}</div>
                 </div>
             `);
             markerGroup.addLayer(epicenterMarker);
@@ -827,7 +827,7 @@
             if (layerKey === 'rings') {
                 if (layerVisibility.rings) {
                     map.addLayer(ringsGroup);
-                    if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30';
+                    if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition hover:bg-[#38bdf8]/30';
                 } else {
                     map.removeLayer(ringsGroup);
                     if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-500 border border-white/10 font-medium transition hover:text-white';
@@ -835,7 +835,7 @@
             } else if (layerKey === 'envelope') {
                 if (layerVisibility.envelope) {
                     map.addLayer(envelopeGroup);
-                    if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30';
+                    if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition hover:bg-[#38bdf8]/30';
                 } else {
                     map.removeLayer(envelopeGroup);
                     if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-500 border border-white/10 font-medium transition hover:text-white';
@@ -843,7 +843,7 @@
             } else if (layerKey === 'vector') {
                 if (layerVisibility.vector) {
                     map.addLayer(vectorGroup);
-                    if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition hover:bg-[#00E5FF]/30';
+                    if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#38bdf8]/20 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition hover:bg-[#38bdf8]/30';
                 } else {
                     map.removeLayer(vectorGroup);
                     if (btn) btn.className = 'px-2 py-0.5 rounded text-[10px] bg-[#0D0D0D] text-slate-500 border border-white/10 font-medium transition hover:text-white';
@@ -918,8 +918,8 @@
                         datasets: [{
                             label: 'Hourly Rainfall (mm)',
                             data: scen.precipData,
-                            borderColor: '#00E5FF',
-                            backgroundColor: 'rgba(0, 229, 255, 0.15)',
+                            borderColor: '#38bdf8',
+                            backgroundColor: 'rgba(56, 189, 248, 0.15)',
                             fill: true,
                             tension: 0.4
                         }]
@@ -976,7 +976,7 @@
             const activeEl = document.getElementById(tabId);
             if (activeEl) activeEl.classList.remove('hidden');
             const activeBtn = document.getElementById('btn-' + tabId.replace('tab-', ''));
-            if (activeBtn) activeBtn.className = 'px-3 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition';
+            if (activeBtn) activeBtn.className = 'px-3 py-1 rounded-lg bg-[#38bdf8]/15 text-[#38bdf8] border border-[#38bdf8]/40 font-bold transition';
         }
 
         function selectPreset(name) {
@@ -989,7 +989,7 @@
                 const btn = document.getElementById('btn-preset-' + p);
                 if (!btn) return;
                 if (p === name) {
-                    btn.className = 'px-2.5 py-1 rounded bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs transition border border-[#00E5FF]/50 font-bold shadow-sm shadow-[#00E5FF]/20';
+                    btn.className = 'px-2.5 py-1 rounded bg-[#38bdf8]/20 hover:bg-[#38bdf8]/30 text-[#38bdf8] text-xs transition border border-[#38bdf8]/50 font-bold shadow-sm shadow-[#38bdf8]/20';
                 } else {
                     btn.className = 'px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-[#141414] text-slate-300 text-xs transition border border-white/10';
                 }
