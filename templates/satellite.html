@@ -38,7 +38,7 @@
                         sans: ['Poppins', 'Outfit', 'Inter', 'sans-serif'],
                         poppins: ['Poppins', 'sans-serif'],
                         royal: ['Poppins', 'Space Grotesk', 'Outfit', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace']
+                        mono: ['Poppins', 'Inter', 'sans-serif']
                     }
                 }
             }
@@ -48,7 +48,8 @@
     <style>
         body { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; background-color: #050505; color: #f1f5f9; }
         .font-royal { font-family: 'Poppins', 'Space Grotesk', sans-serif; letter-spacing: 0.04em; }
-        .font-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
         .font-sans { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
@@ -81,7 +82,7 @@
             
             <!-- Left: Brand Logo, Back Button & Title -->
             <div class="flex items-center gap-3">
-                <a href="/overview" class="h-9 px-3.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 border border-[#00E5FF]/40 text-[#00E5FF] hover:text-white font-mono text-xs font-bold transition flex items-center gap-2 shadow-[0_0_14px_rgba(0,229,255,0.25)]" title="Return to Overview Dashboard">
+                <a href="/overview" class="h-9 px-3.5 rounded-xl bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 border border-[#00E5FF]/40 text-[#00E5FF] hover:text-white font-poppins text-xs font-bold transition flex items-center gap-2 shadow-[0_0_14px_rgba(0,229,255,0.25)]" title="Return to Overview Dashboard">
                     <i data-lucide="arrow-left" class="w-4 h-4 text-[#00E5FF]"></i>
                     <span>← BACK TO OVERVIEW</span>
                 </a>
@@ -91,7 +92,7 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-royal font-black text-xl text-white tracking-wider">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/15 text-[#00E5FF] border border-blue-500/30 font-semibold">EO STUDIO</span>
+                        <span class="text-[10px] font-poppins px-2 py-0.5 rounded bg-blue-500/15 text-[#00E5FF] border border-blue-500/30 font-semibold">EO STUDIO</span>
                     </div>
                     <p class="text-[11px] text-slate-400 hidden sm:block">Multi-Sensor Earth Observation &amp; Sub-Meter Validation Console</p>
                 </div>
@@ -99,7 +100,7 @@
 
             <!-- Right: Hotspot Presets & Refresh -->
             <div class="flex items-center gap-2">
-                <div class="hidden xl:flex items-center gap-1.5 text-xs font-mono">
+                <div class="hidden xl:flex items-center gap-1.5 text-xs font-poppins">
                     <span class="text-slate-500 text-[11px] uppercase mr-1">Hotspot:</span>
                     <button onclick="selectPreset('devgram')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-white/10 text-[#00E5FF] text-xs transition border border-white/10">Devgram</button>
                     <button onclick="selectPreset('wayanad')" class="px-2.5 py-1 rounded bg-[#0D0D0D] hover:bg-white/10 text-red-300 text-xs transition border border-white/10">Wayanad</button>
@@ -116,7 +117,7 @@
     <!-- Contextual Breadcrumb Ribbon -->
     <div class="border-b border-white/10 bg-[#080808] px-6 py-2.5">
         <div class="max-w-[1850px] mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+            <div class="flex items-center gap-2 text-xs font-poppins text-slate-400">
                 <a href="/overview" class="text-[#00E5FF] hover:underline flex items-center gap-1 font-bold">
                     <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
                     <span>OVERVIEW</span>
@@ -127,7 +128,7 @@
                     MULTISPECTRAL &amp; SYNTHETIC APERTURE RADAR
                 </span>
             </div>
-            <a href="/overview" class="px-3 py-1 rounded-lg bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 border border-[#00E5FF]/40 text-xs font-mono text-[#00E5FF] hover:text-white transition flex items-center gap-1.5 group shadow-[0_0_10px_rgba(0,229,255,0.2)]">
+            <a href="/overview" class="px-3 py-1 rounded-lg bg-[#00E5FF]/15 hover:bg-[#00E5FF]/25 border border-[#00E5FF]/40 text-xs font-poppins text-[#00E5FF] hover:text-white transition flex items-center gap-1.5 group shadow-[0_0_10px_rgba(0,229,255,0.2)]">
                 <i data-lucide="arrow-left" class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform"></i>
                 <span>BACK TO OVERVIEW</span>
             </a>
@@ -153,7 +154,7 @@
         <div class="flex flex-col gap-4">
 
             <!-- Satellite Platform Switcher Toolbar -->
-            <div class="flex flex-wrap items-center justify-between gap-3 bg-[#080808] border border-white/10 p-3.5 rounded-2xl shadow-xl font-mono">
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-[#080808] border border-white/10 p-3.5 rounded-2xl shadow-xl font-poppins">
                 <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-lg bg-[#00E5FF]/15 border border-[#00E5FF]/30 flex items-center justify-center text-[#00E5FF] shrink-0 shadow-[0_0_12px_rgba(0,229,255,0.25)]">
                         <i data-lucide="satellite" class="w-4 h-4"></i>
@@ -161,7 +162,7 @@
                     <div>
                         <h2 class="font-royal font-bold text-sm text-white flex items-center gap-2">
                             Multi-Sensor Satellite Earth Observation Deck
-                            <span class="text-[10px] px-2 py-0.5 rounded bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-mono">4 SENSORS</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40 font-poppins">4 SENSORS</span>
                         </h2>
                         <p class="text-xs text-slate-400">Sentinel-1 (SAR) • Sentinel-2 (Optical) • Cartosat-3 (0.28m) • ISRO Bhuvan (LULC)</p>
                     </div>
@@ -208,12 +209,12 @@
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
                                 Sentinel-1 C-Band SAR Radar Telemetry
-                                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono">ALL-WEATHER</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-poppins">ALL-WEATHER</span>
                             </h2>
-                            <p class="text-xs text-slate-400 font-mono">Microsoft Planetary Computer STAC • Active Microwave Flood Detection</p>
+                            <p class="text-xs text-slate-400 font-poppins">Microsoft Planetary Computer STAC • Active Microwave Flood Detection</p>
                         </div>
                     </div>
-                    <span class="text-xs font-mono font-bold text-emerald-400 flex items-center gap-1">
+                    <span class="text-xs font-poppins font-bold text-emerald-400 flex items-center gap-1">
                         <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> STAC LIVE
                     </span>
                 </div>
@@ -226,16 +227,16 @@
                             <div class="w-16 h-16 rounded-full border border-cyan-500/30 relative flex items-center justify-center radar-sweep">
                                 <i data-lucide="radio" class="w-6 h-6 text-cyan-400"></i>
                             </div>
-                            <span class="text-xs font-mono">Querying SAR GRD Scene...</span>
+                            <span class="text-xs font-poppins">Querying SAR GRD Scene...</span>
                         </div>
-                        <div class="absolute bottom-2 left-2 right-2 bg-black/80 backdrop-blur px-2.5 py-1 rounded text-[10px] font-mono text-cyan-300 flex justify-between">
+                        <div class="absolute bottom-2 left-2 right-2 bg-black/80 backdrop-blur px-2.5 py-1 rounded text-[10px] font-poppins text-cyan-300 flex justify-between">
                             <span>POLARIZATION:</span>
                             <span class="font-bold text-white">VV + VH DUAL-POL</span>
                         </div>
                     </div>
 
                     <!-- Telemetry Metrics & Physics -->
-                    <div class="sm:col-span-7 flex flex-col gap-2.5 text-xs font-mono">
+                    <div class="sm:col-span-7 flex flex-col gap-2.5 text-xs font-poppins">
                         <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 space-y-2">
                             <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
                                 <span class="text-slate-400">SCENE IDENTIFIER:</span>
@@ -277,12 +278,12 @@
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
                                 Sentinel-2 L2A Multi-Spectral Optical Console
-                                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono">10m OPTICAL</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-poppins">10m OPTICAL</span>
                             </h2>
-                            <p class="text-xs text-slate-400 font-mono">Microsoft Planetary Computer STAC • Land Cover, Vegetation &amp; True Color</p>
+                            <p class="text-xs text-slate-400 font-poppins">Microsoft Planetary Computer STAC • Land Cover, Vegetation &amp; True Color</p>
                         </div>
                     </div>
-                    <span class="text-xs font-mono font-bold text-emerald-400 flex items-center gap-1">
+                    <span class="text-xs font-poppins font-bold text-emerald-400 flex items-center gap-1">
                         <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> STAC LIVE
                     </span>
                 </div>
@@ -293,16 +294,16 @@
                         <img id="optPreviewImg" src="" alt="Sentinel-2 Optical Preview" class="w-full h-full object-cover hidden">
                         <div id="optPreviewPlaceholder" class="text-center p-4 text-slate-600 flex flex-col items-center gap-2">
                             <i data-lucide="image" class="w-8 h-8 text-emerald-500/40"></i>
-                            <span class="text-xs font-mono">Querying S2 Optical STAC...</span>
+                            <span class="text-xs font-poppins">Querying S2 Optical STAC...</span>
                         </div>
-                        <div class="absolute bottom-2 left-2 right-2 bg-black/80 backdrop-blur px-2.5 py-1 rounded text-[10px] font-mono text-emerald-300 flex justify-between">
+                        <div class="absolute bottom-2 left-2 right-2 bg-black/80 backdrop-blur px-2.5 py-1 rounded text-[10px] font-poppins text-emerald-300 flex justify-between">
                             <span>RESOLUTION:</span>
                             <span class="font-bold text-white">10m GSD (B2, B3, B4, B8)</span>
                         </div>
                     </div>
 
                     <!-- Telemetry Data -->
-                    <div class="sm:col-span-7 flex flex-col gap-2.5 text-xs font-mono">
+                    <div class="sm:col-span-7 flex flex-col gap-2.5 text-xs font-poppins">
                         <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 space-y-2">
                             <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
                                 <span class="text-slate-400">S2 SCENE IDENTIFIER:</span>
@@ -327,7 +328,7 @@
                         </div>
 
                         <!-- Multi-Spectral Band Architecture -->
-                        <div class="grid grid-cols-4 gap-1.5 text-[10px] text-center font-mono">
+                        <div class="grid grid-cols-4 gap-1.5 text-[10px] text-center font-poppins">
                             <div class="bg-blue-950/40 p-1.5 rounded border border-blue-900/60 text-blue-300"><b>B2 (Blue)</b><br>490 nm</div>
                             <div class="bg-emerald-950/40 p-1.5 rounded border border-emerald-900/60 text-emerald-300"><b>B3 (Green)</b><br>560 nm</div>
                             <div class="bg-red-950/40 p-1.5 rounded border border-red-900/60 text-red-300"><b>B4 (Red)</b><br>665 nm</div>
@@ -352,18 +353,18 @@
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
                                 ISRO Cartosat-3 Architecture Specification Studio
-                                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono">0.28m GSD</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-poppins">0.28m GSD</span>
                             </h2>
-                            <p class="text-xs text-slate-400 font-mono">Bhoonidhi Catalog Framework • Indian Space Policy 2023 Regulatory Spec</p>
+                            <p class="text-xs text-slate-400 font-poppins">Bhoonidhi Catalog Framework • Indian Space Policy 2023 Regulatory Spec</p>
                         </div>
                     </div>
-                    <span id="cartoVerdictBadge" class="text-xs px-2.5 py-1 rounded-full font-mono font-bold bg-slate-800 text-amber-300 border border-amber-500/40 flex items-center gap-1">
+                    <span id="cartoVerdictBadge" class="text-xs px-2.5 py-1 rounded-full font-poppins font-bold bg-slate-800 text-amber-300 border border-amber-500/40 flex items-center gap-1">
                         <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i> ASSESSED [ARCHITECTURE]
                     </span>
                 </div>
 
                 <!-- Provenance & Architecture Notice -->
-                <div class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[10.5px] font-mono text-amber-300 flex items-center justify-between">
+                <div class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[10.5px] font-poppins text-amber-300 flex items-center justify-between">
                     <span class="flex items-center gap-1.5">
                         <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400"></i>
                         <span>DATA PROVENANCE: <b>BHOONIDHI CATALOG FRAMEWORK SPECIFICATION [ARCHITECTURE]</b></span>
@@ -372,7 +373,7 @@
                 </div>
 
                 <!-- Metrics Grid -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-poppins text-xs">
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
                         <span class="text-slate-500 text-[10px] block">PAN RESOLUTION</span>
                         <span class="text-amber-400 font-extrabold text-sm">0.28 m GSD</span>
@@ -398,13 +399,13 @@
                 <!-- Interactive Mini-Map: Cartosat Footprint & Access Site -->
                 <div class="relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800 h-52">
                     <div id="cartoMiniMap" class="h-full w-full"></div>
-                    <div class="absolute top-2 left-2 z-[500] bg-slate-900/90 backdrop-blur px-2.5 py-1 rounded text-[10px] font-mono text-amber-300 border border-slate-700">
+                    <div class="absolute top-2 left-2 z-[500] bg-slate-900/90 backdrop-blur px-2.5 py-1 rounded text-[10px] font-poppins text-amber-300 border border-slate-700">
                         🛰️ Potential Emergency Access Site Boundary [ARCHITECTURE]
                     </div>
                 </div>
 
                 <!-- Assessment Checklist -->
-                <div class="space-y-1 text-xs font-mono">
+                <div class="space-y-1 text-xs font-poppins">
                     <div class="flex items-center gap-2 text-emerald-400">
                         <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
                         <span>Road Access: Available <span class="text-[9px] text-slate-400 font-normal">[ESTIMATED via OSM]</span></span>
@@ -434,18 +435,18 @@
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
                                 ISRO Bhuvan / NRSC National Spatial Anchor
-                                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30 font-mono">1:50k LULC</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30 font-poppins">1:50k LULC</span>
                             </h2>
-                            <p class="text-xs text-slate-400 font-mono">National Remote Sensing Centre (NRSC / ISRO Hyderabad) • WMS Services</p>
+                            <p class="text-xs text-slate-400 font-poppins">National Remote Sensing Centre (NRSC / ISRO Hyderabad) • WMS Services</p>
                         </div>
                     </div>
-                    <span class="text-xs px-2.5 py-1 rounded-full font-mono font-bold bg-purple-950 text-purple-300 border border-purple-800 flex items-center gap-1">
+                    <span class="text-xs px-2.5 py-1 rounded-full font-poppins font-bold bg-purple-950 text-purple-300 border border-purple-800 flex items-center gap-1">
                         <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> WMS CONNECTED
                     </span>
                 </div>
 
                 <!-- Provenance & Architecture Notice -->
-                <div class="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10.5px] font-mono text-purple-300 flex items-center justify-between">
+                <div class="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10.5px] font-poppins text-purple-300 flex items-center justify-between">
                     <span class="flex items-center gap-1.5">
                         <i data-lucide="info" class="w-3.5 h-3.5 text-purple-400"></i>
                         <span>DATA PROVENANCE: <b>NRSC GEOPORTAL WMS REFERENCE THEMATIC LAYER</b></span>
@@ -453,7 +454,7 @@
                     <span class="text-slate-400 text-[10px]">Open Geospatial Consortium WMS</span>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-poppins">
                     <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
                         <span class="text-slate-500 text-[10px] block">BHUVAN LULC CLASSIFICATION</span>
                         <span id="bhuvanClass" class="text-purple-300 font-bold text-sm block">Built-up (Institutional Campus)</span>
@@ -476,7 +477,7 @@
                     </div>
                 </div>
 
-                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs font-poppins">
                     <span class="text-slate-400">Official National Geoportal Reference:</span>
                     <a href="https://bhuvan.nrsc.gov.in" target="_blank" class="text-purple-400 hover:text-purple-300 underline flex items-center gap-1">
                         <span>bhuvan.nrsc.gov.in</span>
@@ -505,22 +506,22 @@
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
                                 Primary Geospatial Visualization
-                                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-mono">TOPOGRAPHIC</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-poppins">TOPOGRAPHIC</span>
                             </h2>
-                            <p class="text-xs text-slate-400 font-mono">Multi-Layer Relief Shading • SRTM 30m Global DEM • Vector Transects</p>
+                            <p class="text-xs text-slate-400 font-poppins">Multi-Layer Relief Shading • SRTM 30m Global DEM • Vector Transects</p>
                         </div>
                     </div>
 
                     <!-- Basemap Switcher Buttons -->
                     <div class="flex items-center gap-1 bg-[#0D0D0D] p-1 rounded-xl border border-white/10 self-start sm:self-auto">
-                        <button id="btnBasemapSat" onclick="switchBasemap('satellite')" class="px-2.5 py-1 rounded text-xs font-mono bg-[#080808] hover:bg-white/10 text-slate-400 transition">Satellite</button>
-                        <button id="btnBasemapTerrain" onclick="switchBasemap('terrain')" class="px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]">Terrain</button>
-                        <button id="btnBasemapStreets" onclick="switchBasemap('streets')" class="px-2.5 py-1 rounded text-xs font-mono bg-[#080808] hover:bg-white/10 text-slate-400 transition">Streets</button>
+                        <button id="btnBasemapSat" onclick="switchBasemap('satellite')" class="px-2.5 py-1 rounded text-xs font-poppins bg-[#080808] hover:bg-white/10 text-slate-400 transition">Satellite</button>
+                        <button id="btnBasemapTerrain" onclick="switchBasemap('terrain')" class="px-2.5 py-1 rounded text-xs font-poppins bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]">Terrain</button>
+                        <button id="btnBasemapStreets" onclick="switchBasemap('streets')" class="px-2.5 py-1 rounded text-xs font-poppins bg-[#080808] hover:bg-white/10 text-slate-400 transition">Streets</button>
                     </div>
                 </div>
 
                 <!-- Layer Toggles & Action Toolbar -->
-                <div class="flex flex-wrap items-center justify-between gap-2.5 px-3.5 py-2 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs font-mono">
+                <div class="flex flex-wrap items-center justify-between gap-2.5 px-3.5 py-2 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs font-poppins">
                     <div class="flex flex-wrap items-center gap-4">
                         <label class="flex items-center gap-1.5 cursor-pointer text-slate-300 hover:text-white transition">
                             <input type="checkbox" id="chkLayerHazard" checked onchange="toggleLayer('hazard')" class="rounded bg-slate-900 border-slate-700 text-red-500 focus:ring-0 focus:ring-offset-0 cursor-pointer">
@@ -559,14 +560,14 @@
                     <div id="primaryEoMap" class="w-full h-full"></div>
                     
                     <!-- Live Dynamic Cursor HUD -->
-                    <div class="absolute bottom-3 left-3 z-[500] bg-black/85 backdrop-blur px-3 py-1.5 rounded-lg border border-slate-700 text-[11px] font-mono text-cyan-300 shadow-xl pointer-events-none flex items-center gap-2">
+                    <div class="absolute bottom-3 left-3 z-[500] bg-black/85 backdrop-blur px-3 py-1.5 rounded-lg border border-slate-700 text-[11px] font-poppins text-cyan-300 shadow-xl pointer-events-none flex items-center gap-2">
                         <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
                         <span id="cursorCoords">CURSOR: 30.3207° N, 79.2163° E | SRTM RES: 30m</span>
                     </div>
                 </div>
 
                 <!-- Bottom Telemetry Strip -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-poppins text-xs">
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800/80 flex flex-col justify-between">
                         <span class="text-slate-500 text-[10px] block">HAZARD EPICENTER</span>
                         <span id="eoEpicenterName" class="text-red-400 font-bold text-xs truncate block my-0.5">Devgram / Raini (Chamoli)</span>
@@ -600,16 +601,16 @@
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
                                 SRTM DEM Terrain Profile
                             </h2>
-                            <p class="text-xs text-slate-400 font-mono">Continuous Multi-Point Coronal Elevation Transect</p>
+                            <p class="text-xs text-slate-400 font-poppins">Continuous Multi-Point Coronal Elevation Transect</p>
                         </div>
                     </div>
-                    <span class="text-xs px-2.5 py-1 rounded-full font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                    <span class="text-xs px-2.5 py-1 rounded-full font-poppins font-bold bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> LIVE SRTM DEM
                     </span>
                 </div>
 
                 <!-- Visual Transect Strip -->
-                <div class="bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 flex items-center justify-between font-mono text-[11px]">
+                <div class="bg-slate-950 px-3.5 py-2 rounded-xl border border-slate-800 flex items-center justify-between font-poppins text-[11px]">
                     <div class="flex items-center gap-1.5 text-red-400 font-bold shrink-0">
                         <span class="w-2 h-2 rounded-full bg-red-500"></span>
                         <span id="transectOriginLabel">HAZARD ORIGIN</span>
@@ -626,7 +627,7 @@
                 </div>
 
                 <!-- 4 Calculation Metric Cards -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono text-xs text-center">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-poppins text-xs text-center">
                     <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
                         <span class="text-slate-500 text-[10px] block uppercase">Min Elevation</span>
                         <span id="eoMinElev" class="text-cyan-300 font-extrabold text-sm block my-0.5">1,260 m</span>
@@ -651,7 +652,7 @@
 
                 <!-- Elevation Profile Line Chart -->
                 <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex flex-col gap-2">
-                    <div class="flex items-center justify-between text-[10.5px] font-mono text-slate-400 border-b border-slate-800/80 pb-1.5">
+                    <div class="flex items-center justify-between text-[10.5px] font-poppins text-slate-400 border-b border-slate-800/80 pb-1.5">
                         <span class="flex items-center gap-1.5 text-slate-300">
                             <i data-lucide="activity" class="w-3.5 h-3.5 text-cyan-400"></i>
                             ELEVATION PROFILE (SRTM 30m GSD)
@@ -664,7 +665,7 @@
                 </div>
 
                 <!-- 3 Safety Verification Check Rows -->
-                <div class="space-y-1.5 font-mono text-xs">
+                <div class="space-y-1.5 font-poppins text-xs">
                     <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-800/80">
                         <span class="text-slate-300">Relocation Slope Veto &lt; 14°</span>
                         <span class="text-emerald-400 font-bold flex items-center gap-1">
@@ -686,7 +687,7 @@
                 </div>
 
                 <!-- Sensor Telemetry Provenance Box -->
-                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[10.5px] font-mono space-y-1.5">
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[10.5px] font-poppins space-y-1.5">
                     <div class="flex items-center justify-between text-slate-400 border-b border-slate-800 pb-1">
                         <span class="font-bold text-slate-200 uppercase tracking-wider">Sensor Telemetry Provenance</span>
                         <span class="text-cyan-400">MULTI-SOURCE FUSION</span>
@@ -709,7 +710,7 @@
         <!-- ====================================================================== -->
         <!-- DOWN PART: DECISION SYNTHESIS & PILL NAVIGATION DOCK -->
         <!-- ====================================================================== -->
-        <div class="mt-4 pt-4 border-t border-blue-900/40 flex flex-col gap-6 font-mono">
+        <div class="mt-4 pt-4 border-t border-blue-900/40 flex flex-col gap-6 font-poppins">
             
             <!-- 4-Pillar Incident Telemetry Synthesis Bar -->
             <div class="bg-[#080808] border border-white/10 rounded-2xl p-4 shadow-2xl flex flex-wrap items-center justify-between gap-4">
@@ -721,7 +722,7 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <span class="font-royal font-bold text-sm text-white">EARTH OBSERVATION SYNTHESIS</span>
-                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold font-mono">ANALYSIS COMPLETE</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-bold font-poppins">ANALYSIS COMPLETE</span>
                         </div>
                         <p class="text-xs text-slate-400">All 7 satellite sensors processed for Devgram Target Sector (30.3207° N, 79.2163° E)</p>
                     </div>
@@ -770,7 +771,7 @@
     </main>
 
     <!-- Footer Status -->
-    <footer class="border-t border-slate-800/80 bg-slate-950/80 px-6 py-4 text-xs font-mono text-slate-500 flex flex-wrap items-center justify-between gap-4">
+    <footer class="border-t border-slate-800/80 bg-slate-950/80 px-6 py-4 text-xs font-poppins text-slate-500 flex flex-wrap items-center justify-between gap-4">
         <div>
             <span>RAKSHA Engine 2.0 • Multi-Sensor Earth Observation Framework</span>
             <span class="mx-2">•</span>
@@ -813,7 +814,7 @@
             // Access Marker
             const accessIcon = L.divIcon({
                 className: 'emergency-access-icon',
-                html: `<div class="px-2 py-0.5 rounded-lg bg-amber-950 border border-amber-400 text-amber-300 flex items-center justify-center font-mono font-bold text-[9px] shadow">ACCESS</div>`,
+                html: `<div class="px-2 py-0.5 rounded-lg bg-amber-950 border border-amber-400 text-amber-300 flex items-center justify-center font-poppins font-bold text-[9px] shadow">ACCESS</div>`,
                 iconSize: [50, 20],
                 iconAnchor: [25, 10]
             });
@@ -913,18 +914,18 @@
             const btnStr = document.getElementById('btnBasemapStreets');
 
             [btnSat, btnTerr, btnStr].forEach(b => {
-                if (b) b.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#080808] hover:bg-white/10 text-slate-400 transition";
+                if (b) b.className = "px-2.5 py-1 rounded text-xs font-poppins bg-[#080808] hover:bg-white/10 text-slate-400 transition";
             });
 
             if (mode === 'satellite') {
                 activeBasemapLayer = baseLayers.satellite.addTo(primaryEoMap);
-                if (btnSat) btnSat.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
+                if (btnSat) btnSat.className = "px-2.5 py-1 rounded text-xs font-poppins bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
             } else if (mode === 'streets') {
                 activeBasemapLayer = baseLayers.streets.addTo(primaryEoMap);
-                if (btnStr) btnStr.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
+                if (btnStr) btnStr.className = "px-2.5 py-1 rounded text-xs font-poppins bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
             } else {
                 activeBasemapLayer = baseLayers.terrain.addTo(primaryEoMap);
-                if (btnTerr) btnTerr.className = "px-2.5 py-1 rounded text-xs font-mono bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
+                if (btnTerr) btnTerr.className = "px-2.5 py-1 rounded text-xs font-poppins bg-[#00E5FF]/15 border border-[#00E5FF]/40 text-[#00E5FF] font-bold transition shadow-[0_0_10px_rgba(0,229,255,0.25)]";
             }
         }
 
@@ -997,11 +998,11 @@
                     scales: {
                         x: {
                             grid: { color: 'rgba(51, 65, 85, 0.25)' },
-                            ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 9.5 } }
+                            ticks: { color: '#94a3b8', font: { family: 'Poppins', size: 9.5 } }
                         },
                         y: {
                             grid: { color: 'rgba(51, 65, 85, 0.25)' },
-                            ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 9.5 } }
+                            ticks: { color: '#94a3b8', font: { family: 'Poppins', size: 9.5 } }
                         }
                     },
                     plugins: {
@@ -1010,8 +1011,8 @@
                             backgroundColor: '#091122',
                             borderColor: '#06b6d4',
                             borderWidth: 1,
-                            titleFont: { family: 'JetBrains Mono' },
-                            bodyFont: { family: 'JetBrains Mono' },
+                            titleFont: { family: 'Poppins' },
+                            bodyFont: { family: 'Poppins' },
                             callbacks: {
                                 label: function(context) {
                                     return ` Elevation: ${context.parsed.y} m`;
@@ -1060,18 +1061,18 @@
                     iconAnchor: [12, 12]
                 });
                 L.marker([geom.origin.lat, geom.origin.lon], { icon: hazardIcon })
-                    .bindPopup(`<div class="font-mono text-xs"><b>HAZARD EPICENTER</b><br>${geom.origin.name}<br>${geom.origin.lat}° N, ${geom.origin.lon}° E</div>`)
+                    .bindPopup(`<div class="font-poppins text-xs"><b>HAZARD EPICENTER</b><br>${geom.origin.name}<br>${geom.origin.lat}° N, ${geom.origin.lon}° E</div>`)
                     .addTo(hazardGroup);
 
                 // 2. Safe Site Marker & Badge
                 const siteIcon = L.divIcon({
                     className: 'safe-site-marker',
-                    html: `<div class="px-2.5 py-0.5 rounded-full bg-emerald-600 border border-emerald-300 text-white font-mono font-bold text-[10px] shadow-lg flex items-center gap-1"><span>SITE</span></div>`,
+                    html: `<div class="px-2.5 py-0.5 rounded-full bg-emerald-600 border border-emerald-300 text-white font-poppins font-bold text-[10px] shadow-lg flex items-center gap-1"><span>SITE</span></div>`,
                     iconSize: [44, 22],
                     iconAnchor: [22, 11]
                 });
                 L.marker([geom.dest.lat, geom.dest.lon], { icon: siteIcon })
-                    .bindPopup(`<div class="font-mono text-xs"><b>PRIMARY SAFE SANCTUARY</b><br>${geom.dest.name}<br>${geom.dest.lat}° N, ${geom.dest.lon}° E</div>`)
+                    .bindPopup(`<div class="font-poppins text-xs"><b>PRIMARY SAFE SANCTUARY</b><br>${geom.dest.name}<br>${geom.dest.lat}° N, ${geom.dest.lon}° E</div>`)
                     .addTo(sitesGroup);
 
                 // 3. Transect Vector Line

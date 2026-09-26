@@ -22,10 +22,10 @@ export default {
       },
       fontFamily: {
         sans: ['Outfit', 'Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
+        mono: ['Poppins', 'Inter', 'sans-serif'],
         'space-grotesk': ['Space Grotesk', 'sans-serif'],
         'inter': ['Inter', 'sans-serif'],
-        'plex-mono': ['IBM Plex Mono', 'monospace']
+        'plex-mono': ['Poppins', 'sans-serif']
       }
     },
   },

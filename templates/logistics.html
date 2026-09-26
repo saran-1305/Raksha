@@ -37,7 +37,7 @@
                         sans: ['Poppins', 'Outfit', 'Inter', 'sans-serif'],
                         poppins: ['Poppins', 'sans-serif'],
                         royal: ['Poppins', 'Space Grotesk', 'Outfit', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace']
+                        mono: ['Poppins', 'Inter', 'sans-serif']
                     }
                 }
             }
@@ -47,7 +47,8 @@
     <style>
         body { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; background-color: #050505; color: #f1f5f9; }
         .font-royal { font-family: 'Poppins', 'Space Grotesk', sans-serif; letter-spacing: 0.04em; }
-        .font-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
         .font-sans { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
@@ -83,13 +84,13 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-royal font-black text-xl text-white tracking-wider">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 font-semibold tracking-wide">MOBILITY &amp; LOGISTICS</span>
+                        <span class="text-[10px] font-poppins px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 border border-purple-500/30 font-semibold tracking-wide">MOBILITY &amp; LOGISTICS</span>
                     </div>
                 </div>
             </div>
 
             <!-- Right: Interactive Incident Selector -->
-            <div class="flex items-center gap-2 font-mono text-xs">
+            <div class="flex items-center gap-2 font-poppins text-xs">
                 <span class="text-slate-400 text-[10px] uppercase font-bold hidden sm:inline">DISASTER BENCHMARK:</span>
                 <div class="flex items-center gap-1 bg-[#0D0D0D] p-1 rounded-xl border border-white/10">
                     <button onclick="setScenario('devgram')" id="btnScenDev" class="px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 text-[11px] transition shadow-[0_0_10px_rgba(0,229,255,0.25)]">Devgram (Chamoli)</button>
@@ -102,7 +103,7 @@
 
     <!-- Context Ribbon -->
     <div class="bg-[#080808] border-b border-white/10 px-6 py-2.5">
-        <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
+        <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-poppins">
             <div class="flex items-center gap-2 flex-wrap">
                 <span class="badge-data px-1.5 py-0.5 rounded text-[9px] font-bold">DATA</span>
                 <span class="text-slate-400">TRANSIT ROUTE:</span>
@@ -124,62 +125,23 @@
         <!-- ================= LEFT: ROUTE MAP (~55% / 7 COLS) ================= -->
         <div class="lg:col-span-7 flex flex-col gap-4">
             <div class="bg-[#080808] border border-white/10 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 pb-2.5 gap-2">
+                <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
                     <div class="flex items-center gap-2">
                         <i data-lucide="navigation" class="w-4 h-4 text-[#00E5FF]"></i>
                         <h2 class="font-royal font-bold text-sm sm:text-base text-white tracking-wide">
                             Operational Transit Route Map &amp; Candidate Topology
                         </h2>
                     </div>
-
-                    <!-- Basemap Switcher: Satellite / Street Map / Terrain / Dark -->
-                    <div class="flex items-center gap-1 bg-[#0D0D0D] p-1 rounded-xl border border-white/10 shadow-inner">
-                        <span class="text-slate-500 text-[10px] uppercase px-1.5 hidden md:inline">MAP:</span>
-                        <button type="button" onclick="setRouteBaseMap('satellite')" id="btnRouteSat" class="px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(0,229,255,0.25)]" title="High-Resolution Satellite Imagery">
-                            <i data-lucide="satellite" class="w-3.5 h-3.5 text-cyan-400"></i>
-                            <span>Satellite</span>
-                        </button>
-                        <button type="button" onclick="setRouteBaseMap('street')" id="btnRouteStreet" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition text-[11px] flex items-center gap-1" title="OpenStreetMap Road Network &amp; Infrastructure">
-                            <i data-lucide="map" class="w-3.5 h-3.5 text-emerald-400"></i>
-                            <span>Street Map</span>
-                        </button>
-                        <button type="button" onclick="setRouteBaseMap('terrain')" id="btnRouteTerrain" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition text-[11px] flex items-center gap-1" title="Topographic Elevation &amp; Contours">
-                            <i data-lucide="mountain" class="w-3.5 h-3.5 text-amber-400"></i>
-                            <span>Terrain</span>
-                        </button>
-                        <button type="button" onclick="setRouteBaseMap('dark')" id="btnRouteDark" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition text-[11px] flex items-center gap-1" title="Tactical Dark Gray Map">
-                            <i data-lucide="moon" class="w-3.5 h-3.5 text-purple-400"></i>
-                            <span>Dark</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between text-xs font-mono">
-                    <span id="mapRouteBadge" class="text-xs font-mono text-[#00E5FF] bg-[#00E5FF]/10 px-2.5 py-1 rounded border border-[#00E5FF]/30">
+                    <span id="mapRouteBadge" class="text-xs font-poppins text-[#00E5FF] bg-[#00E5FF]/10 px-2.5 py-1 rounded border border-[#00E5FF]/30">
                         Primary Corridor: Urgam-Helang Road ➔ NH-58 Corridor (5.31 km)
-                    </span>
-                    <span class="text-slate-400 text-[11px] hidden sm:flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        <span>Live GIS Telemetry Feed</span>
                     </span>
                 </div>
 
                 <!-- Leaflet Route Map -->
                 <div id="routeMap" class="w-full h-[520px] rounded-xl border border-white/10 bg-[#050505] relative z-0"></div>
 
-                <!-- Map Legend -->
-                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400 px-1 py-1 border-t border-white/10">
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> 🔴 Incident Origin</span>
-                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> 🟢 Primary Intake Hub</span>
-                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#00E5FF]"></span> 🔵 Feeder Sites</span>
-                        <span class="flex items-center gap-1"><span class="w-4 h-0.5 bg-[#00E5FF]"></span> ═ Evacuation Corridor</span>
-                    </div>
-                    <span class="text-slate-500 text-[10px]">Click any node or route to inspect corridor logistics</span>
-                </div>
-
                 <!-- Route Topology Summary -->
-                <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
+                <div class="grid grid-cols-3 gap-2 font-poppins text-xs text-center">
                     <div class="p-2.5 rounded-xl bg-[#0D0D0D] border border-white/10">
                         <span class="text-slate-500 text-[10px] block">INCIDENT ORIGIN 🔴</span>
                         <span id="topoOrigin" class="text-white font-bold">Devgram Village</span>
@@ -190,12 +152,12 @@
                     </div>
                     <div class="p-2.5 rounded-xl bg-[#0D0D0D] border border-white/10">
                         <span class="text-slate-500 text-[10px] block">PRIMARY CANDIDATE 🟢</span>
-                        <span id="topoDest" class="text-emerald-400 font-bold">GIC Pipalkoti Grounds</span>
+                        <span id="topoDest" class="text-emerald-400 font-bold">Pipalkoti Relief Grounds</span>
                     </div>
                 </div>
 
                 <!-- Multi-Site Branching Allocation Scheme -->
-                <div class="p-3 rounded-xl bg-[#0D0D0D] border border-white/10 font-mono text-[11px] text-slate-300 flex flex-col gap-2">
+                <div class="p-3 rounded-xl bg-[#0D0D0D] border border-white/10 font-poppins text-[11px] text-slate-300 flex flex-col gap-2">
                     <div class="flex items-center justify-between border-b border-white/10 pb-1.5">
                         <span class="text-slate-400 font-bold flex items-center gap-1.5">
                             <span class="badge-derived px-1.5 py-0.2 rounded text-[8px] font-bold">DERIVED</span>
@@ -210,7 +172,7 @@
             </div>
 
             <!-- 3-Phase Operational Action Plan -->
-            <div class="bg-[#080808] border border-white/10 rounded-2xl p-5 shadow-xl flex flex-col gap-3 font-mono">
+            <div class="bg-[#080808] border border-white/10 rounded-2xl p-5 shadow-xl flex flex-col gap-3 font-poppins">
                 <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
                     <div class="flex items-center gap-2">
                         <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
@@ -268,7 +230,7 @@
         </div>
 
         <!-- ================= RIGHT: LOGISTICS CALCULATOR (~45% / 5 COLS) ================= -->
-        <div class="lg:col-span-5 flex flex-col gap-4 font-mono text-xs">
+        <div class="lg:col-span-5 flex flex-col gap-4 font-poppins text-xs">
 
             <!-- Parameterized Transport Calculator (Configurable) -->
             <div class="bg-[#080808] border border-white/10 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
@@ -473,9 +435,9 @@
                 hazard: 'HIMALAYAN FLASH FLOOD',
                 pop: 720,
                 usableCapacity: 1050,
-                routeDesc: 'Devgram Village ➔ Urgam-Helang Road ➔ GIC Pipalkoti Grounds',
+                routeDesc: 'Devgram Village ➔ Urgam-Helang Road ➔ Pipalkoti Relief Grounds',
                 primaryDistKm: 5.31,
-                primaryRouteName: 'Urgam-Helang Road ➔ NH-58 Badrinath Corridor (5.31 km)',
+                primaryRouteName: 'Urgam-Helang Link ➔ NH-58 Badrinath Corridor (5.31 km)',
                 windowMins: 180, // 3h 00m
                 originCoords: [30.3207, 79.2163],
                 mapCenter: [30.3550, 79.2600],
@@ -492,10 +454,10 @@
                     [30.3540, 79.2560]
                 ],
                 sites: [
-                    { id: 'dev-1', name: 'Government Inter College (GIC) Pipalkoti Campus & Grounds', cap: 350, alloc: 350, distKm: 5.31, lat: 30.3540, lon: 79.2560, isPrimary: true, access: 'NH-58 Paved 2-Lane' },
-                    { id: 'dev-2', name: 'Helang Panchayat Centre & GMVN Complex Grounds', cap: 250, alloc: 250, distKm: 7.92, lat: 30.3680, lon: 79.2780, isPrimary: false, access: 'Paved Approach Road' },
-                    { id: 'dev-3', name: 'Government Inter College (GIC) Joshimath Grounds', cap: 200, alloc: 120, distKm: 10.68, lat: 30.3850, lon: 79.2990, isPrimary: false, access: 'District Road Paved' },
-                    { id: 'dev-4', name: 'GMVN Tourist Complex & Grounds, Birahi', cap: 250, alloc: 0, distKm: 13.01, lat: 30.4010, lon: 79.3150, isPrimary: false, access: 'NH-58 Highway Link (Reserve)' }
+                    { id: 'dev-1', name: 'GIC Pipalkoti Campus & Grounds', cap: 350, alloc: 350, distKm: 5.31, lat: 30.3540, lon: 79.2560, isPrimary: true, access: 'NH-58 Paved 2-Lane' },
+                    { id: 'dev-2', name: 'Helang Community Campus & ITI Ground', cap: 250, alloc: 250, distKm: 7.92, lat: 30.3680, lon: 79.2780, isPrimary: false, access: 'Paved Approach Road' },
+                    { id: 'dev-3', name: 'Government Inter College (GIC) Joshimath Corridor Ground', cap: 200, alloc: 120, distKm: 10.68, lat: 30.3850, lon: 79.2990, isPrimary: false, access: 'District Road Paved' },
+                    { id: 'dev-4', name: 'Agriculture & Horticulture Research Station, Marwari', cap: 250, alloc: 0, distKm: 13.01, lat: 30.4010, lon: 79.3150, isPrimary: false, access: 'Highway Link (Reserve)' }
                 ],
                 rationale: 'Urgam-Helang mountain road requires agile 25-30 seat mini-buses and 4x4 utility transports. 720 evacuees are completely absorbed across 3 screened sites within 2 rotations.'
             },
@@ -524,10 +486,10 @@
                     [11.5623, 76.1614]
                 ],
                 sites: [
-                    { id: 'way-1', name: "Dr. Moopen's Medical College (DM WIMS) Campus & Hospital, Meppadi", cap: 1100, alloc: 1100, distKm: 6.57, lat: 11.5623, lon: 76.1614, isPrimary: true, access: 'SH-59 Hill Highway' },
-                    { id: 'way-2', name: 'GHSS Meppadi Campus & Grounds', cap: 650, alloc: 650, distKm: 4.54, lat: 11.5532, lon: 76.1245, isPrimary: false, access: 'Town Road Paved' },
-                    { id: 'way-3', name: 'Meppadi Grama Panchayat Community Hall & Grounds', cap: 550, alloc: 550, distKm: 6.88, lat: 11.5655, lon: 76.1615, isPrimary: false, access: 'Paved Arterial' },
-                    { id: 'way-4', name: 'Taluk Headquarters Hospital Grounds, Vythiri', cap: 500, alloc: 150, distKm: 10.50, lat: 11.5510, lon: 76.0406, isPrimary: false, access: 'NH-766 Main Corridor' }
+                    { id: 'way-1', name: "Dr. Moopen's WIMS Medical College & Hospital Campus (Meppadi)", cap: 1100, alloc: 1100, distKm: 6.57, lat: 11.5623, lon: 76.1614, isPrimary: true, access: 'SH-59 Hill Highway' },
+                    { id: 'way-2', name: 'Government Higher Secondary School Meppadi Ground', cap: 650, alloc: 650, distKm: 4.54, lat: 11.5532, lon: 76.1245, isPrimary: false, access: 'Town Road Paved' },
+                    { id: 'way-3', name: 'Meppadi Panchayat Stadium & Community Hall', cap: 550, alloc: 550, distKm: 6.88, lat: 11.5655, lon: 76.1615, isPrimary: false, access: 'Paved Arterial' },
+                    { id: 'way-4', name: 'Taluk Headquarters Hospital Grounds (Vythiri)', cap: 500, alloc: 150, distKm: 10.50, lat: 11.5510, lon: 76.0406, isPrimary: false, access: 'NH-766 Main Corridor' }
                 ],
                 rationale: 'SH-59 hill corridor accommodates 35 regional buses, safely evacuating 2,450 displaced tea estate residents to medical and institutional shelters outside the debris runoff fan.'
             },
@@ -537,9 +499,9 @@
                 hazard: 'BARAK RIVER BASIN FLOOD',
                 pop: 14800,
                 usableCapacity: 16700,
-                routeDesc: 'Silchar Lowland ➔ SH-39 / NH-37 ➔ Assam University Campus',
+                routeDesc: 'Silchar Lowland ➔ NH-37 Elevated Bypass ➔ Assam University',
                 primaryDistKm: 10.16,
-                primaryRouteName: 'Silchar-Hailakandi Road (SH-39) / NH-37 (10.16 km)',
+                primaryRouteName: 'Silchar-Hailakandi Elevated Corridor / NH-37 (10.16 km)',
                 windowMins: 300, // 5h 00m
                 originCoords: [24.8333, 92.7789],
                 mapCenter: [24.7800, 92.7700],
@@ -555,92 +517,17 @@
                     [24.7450, 92.7530]
                 ],
                 sites: [
-                    { id: 'sil-1', name: 'Assam University Campus, Silchar (Dorgakona)', cap: 6000, alloc: 6000, distKm: 10.16, lat: 24.7450, lon: 92.7530, isPrimary: true, access: 'SH-39 / University Road (42m Elev)' },
-                    { id: 'sil-2', name: 'NIT Silchar Campus & SAC Grounds', cap: 5200, alloc: 5200, distKm: 8.46, lat: 24.7580, lon: 92.7910, isPrimary: false, access: 'Silchar-Hailakandi Road SH-39 (36m Elev)' },
-                    { id: 'sil-3', name: 'Silchar DSA Stadium (Satindra Mohan Dev Stadium)', cap: 3500, alloc: 3500, distKm: 1.87, lat: 24.8250, lon: 92.7950, isPrimary: false, access: 'Club Road / Stadium Road (28m Elev)' },
-                    { id: 'sil-4', name: 'Cachar College Campus & Grounds, Silchar', cap: 2000, alloc: 100, distKm: 0.34, lat: 24.8320, lon: 92.7820, isPrimary: false, access: 'College Road Paved (27m Elev)' }
+                    { id: 'sil-1', name: 'Assam University Elevated Campus (Durgakona)', cap: 6000, alloc: 6000, distKm: 10.16, lat: 24.7450, lon: 92.7530, isPrimary: true, access: 'Highland Ridge Highway (42m Elev)' },
+                    { id: 'sil-2', name: 'NIT Silchar Highland Sports Arena & Campus', cap: 5200, alloc: 5200, distKm: 8.46, lat: 24.7580, lon: 92.7910, isPrimary: false, access: 'Elevated Expressway (36m Elev)' },
+                    { id: 'sil-3', name: 'District Sports Association (DSA) Stadium Silchar', cap: 3500, alloc: 3500, distKm: 1.87, lat: 24.8250, lon: 92.7950, isPrimary: false, access: 'Elevated Ring Embankment (28m Elev)' },
+                    { id: 'sil-4', name: 'Cachar College Elevated Complex & Grounds', cap: 2000, alloc: 100, distKm: 0.34, lat: 24.8320, lon: 92.7820, isPrimary: false, access: 'College Road Paved (27m Elev)' }
                 ],
-                rationale: 'Causeways along NH-37 and Silchar-Hailakandi SH-39 corridor safely move 14,800 evacuees to university and collegiate campuses located well above the 23.5m Barak flood crest datum.'
+                rationale: 'Elevated causeways along NH-37 and Hailakandi corridor safely move 14,800 evacuees to university and collegiate highlands located well above the 23.5m Barak flood crest datum.'
             }
         };
 
         let currentScenarioKey = 'devgram';
-        let routeMap = null;
-        let routeLayers = [];
-        let currentRouteBaseLayer = null;
-
-        const BASE_TILES = {
-            satellite: {
-                layer: L.layerGroup([
-                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                        attribution: '&copy; Esri &copy; Maxar',
-                        maxNativeZoom: 18,
-                        maxZoom: 19
-                    }),
-                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
-                        maxNativeZoom: 18,
-                        maxZoom: 19
-                    })
-                ])
-            },
-            street: {
-                layer: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; OpenStreetMap contributors',
-                    maxNativeZoom: 19,
-                    maxZoom: 19
-                })
-            },
-            terrain: {
-                layer: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-                    attribution: 'Tiles &copy; Esri Topo',
-                    maxNativeZoom: 17,
-                    maxZoom: 19
-                })
-            },
-            dark: {
-                layer: L.layerGroup([
-                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-                        attribution: 'Tiles &copy; Esri',
-                        maxNativeZoom: 16,
-                        maxZoom: 19
-                    }),
-                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-                        maxNativeZoom: 16,
-                        maxZoom: 19
-                    })
-                ])
-            }
-        };
-
-        function setRouteBaseMap(type) {
-            if (currentRouteBaseLayer && routeMap && routeMap.hasLayer(currentRouteBaseLayer)) {
-                routeMap.removeLayer(currentRouteBaseLayer);
-            }
-            const cfg = BASE_TILES[type] || BASE_TILES.satellite;
-            currentRouteBaseLayer = cfg.layer;
-            if (routeMap) {
-                currentRouteBaseLayer.addTo(routeMap);
-                if (currentRouteBaseLayer.bringToBack) {
-                    currentRouteBaseLayer.bringToBack();
-                }
-            }
-
-            const btns = {
-                satellite: document.getElementById('btnRouteSat'),
-                street: document.getElementById('btnRouteStreet'),
-                terrain: document.getElementById('btnRouteTerrain'),
-                dark: document.getElementById('btnRouteDark')
-            };
-
-            for (const [key, btn] of Object.entries(btns)) {
-                if (!btn) continue;
-                if (key === type) {
-                    btn.className = 'px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 transition text-[11px] flex items-center gap-1 shadow-[0_0_10px_rgba(0,229,255,0.25)]';
-                } else {
-                    btn.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition text-[11px] flex items-center gap-1';
-                }
-            }
-        }
+        let routeMap, routeLayers = [];
 
         function initRouteMap() {
             routeMap = L.map('routeMap', {
@@ -653,16 +540,21 @@
 
             L.control.zoom({ position: 'bottomright' }).addTo(routeMap);
 
-            setRouteBaseMap('satellite');
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxNativeZoom: 16,
+                maxZoom: 19
+            }).addTo(routeMap);
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+                maxNativeZoom: 16,
+                maxZoom: 19
+            }).addTo(routeMap);
+
             renderScenarioMap(SCENARIOS.devgram);
         }
 
         function clearMapLayers() {
-            routeLayers.forEach(l => {
-                if (routeMap && routeMap.hasLayer(l)) {
-                    routeMap.removeLayer(l);
-                }
-            });
+            routeLayers.forEach(l => routeMap.removeLayer(l));
             routeLayers = [];
         }
 
@@ -672,44 +564,25 @@
 
             // 1. Origin Marker
             const originMarker = L.circleMarker(scen.originCoords, {
-                radius: 11,
+                radius: 10,
                 fillColor: '#ef4444',
                 color: '#ffffff',
-                weight: 3,
+                weight: 2.5,
                 fillOpacity: 1
-            }).addTo(routeMap).bindPopup(`
-                <div style="font-family: monospace; font-size: 11px;">
-                    <b style="color: #ef4444;">🔴 Incident Ground Zero:</b> ${scen.name}<br>
-                    Exposed Population: <b>${scen.pop.toLocaleString()}</b> citizens<br>
-                    Hazard Type: <b>${scen.hazard}</b>
-                </div>
-            `);
+            }).addTo(routeMap).bindPopup(`<b>🔴 Incident Ground Zero:</b> ${scen.name}<br>Exposed Demographic: <b>${scen.pop.toLocaleString()}</b> citizens`);
             routeLayers.push(originMarker);
-
-            // Origin pulse circle
-            const originCircle = L.circle(scen.originCoords, {
-                radius: 400,
-                color: '#ef4444',
-                weight: 1.5,
-                fillColor: '#ef4444',
-                fillOpacity: 0.15,
-                dashArray: '4, 4'
-            }).addTo(routeMap);
-            routeLayers.push(originCircle);
 
             // 2. Candidate Sites
             scen.sites.forEach(s => {
                 const marker = L.circleMarker([s.lat, s.lon], {
-                    radius: s.isPrimary ? 11 : 8,
-                    fillColor: s.isPrimary ? '#10b981' : '#00E5FF',
-                    color: '#ffffff',
-                    weight: s.isPrimary ? 3 : 2,
+                    radius: s.isPrimary ? 10 : 7.5,
+                    fillColor: '#10b981',
+                    color: s.isPrimary ? '#00E5FF' : '#ffffff',
+                    weight: s.isPrimary ? 3 : 1.5,
                     fillOpacity: 1
                 }).addTo(routeMap).bindPopup(`
-                    <div style="font-family: monospace; font-size: 11px;">
-                        <b style="color: ${s.isPrimary ? '#10b981' : '#00E5FF'};">
-                            ${s.isPrimary ? '🟢 Primary Intake Hub:' : '🔵 Candidate Site:'} ${s.name}
-                        </b><br>
+                    <div style="font-family: 'Poppins', 'Inter', sans-serif; font-size: 11px;">
+                        <b style="color: #10b981;">🟢 Potential Relocation Site: ${s.name}</b><br>
                         Allocated Evacuees: <b>${s.alloc.toLocaleString()}</b><br>
                         Estimated Usable Capacity: <b>${s.cap.toLocaleString()}</b><br>
                         Road Distance: <b>${s.distKm} km</b><br>
@@ -717,37 +590,26 @@
                     </div>
                 `);
                 routeLayers.push(marker);
-
-                if (s.isPrimary) {
-                    marker.bindTooltip(`🟢 Primary: ${s.name.split(' (')[0]}`, { permanent: false, direction: 'top' });
-                }
             });
 
-            // 3. Primary Route Polyline (Outer Glow + Core Line)
-            const primaryGlow = L.polyline(scen.primaryRoutePolyline, {
-                color: '#00E5FF',
-                weight: 8,
-                opacity: 0.35
-            }).addTo(routeMap);
-            routeLayers.push(primaryGlow);
-
+            // 3. Primary Route
             const primaryPoly = L.polyline(scen.primaryRoutePolyline, {
                 color: '#00E5FF',
-                weight: 4,
-                opacity: 0.95,
+                weight: 5,
+                opacity: 0.9,
                 dashArray: '8, 8'
-            }).addTo(routeMap).bindTooltip(`Primary Evacuation Corridor: ${scen.primaryRouteName} (${scen.primaryDistKm} km)`);
+            }).addTo(routeMap).bindTooltip(`Primary Route: ${scen.primaryRouteName} (${scen.primaryDistKm} km)`);
             routeLayers.push(primaryPoly);
 
-            // 4. Secondary Connectors to other candidates
+            // 4. Secondary Connectors
             const primSite = scen.sites.find(s => s.isPrimary) || scen.sites[0];
             scen.sites.filter(s => !s.isPrimary).forEach(s => {
                 const secPoly = L.polyline([[primSite.lat, primSite.lon], [s.lat, s.lon]], {
                     color: '#38bdf8',
-                    weight: 2.5,
-                    opacity: 0.65,
+                    weight: 3,
+                    opacity: 0.6,
                     dashArray: '4, 4'
-                }).addTo(routeMap).bindTooltip(`Secondary Connector: ${s.name} (${s.distKm} km)`);
+                }).addTo(routeMap).bindTooltip(`Feeder to ${s.name} (${s.distKm} km)`);
                 routeLayers.push(secPoly);
             });
         }
@@ -807,7 +669,7 @@
                     <div class="px-2.5 py-1 rounded-lg bg-[#0D0D0D] border border-white/10 flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full" style="background-color: ${col};"></span>
                         <span class="text-slate-200 font-bold">${s.name.split(' (')[0].split(' &')[0]}</span>
-                        <span class="text-slate-500 font-mono">(${s.distKm} km)</span>
+                        <span class="text-slate-500 font-poppins">(${s.distKm} km)</span>
                         <span class="text-[10px] font-bold" style="color: ${col};">Alloc: ${s.alloc.toLocaleString()} / Cap: ${s.cap.toLocaleString()}</span>
                     </div>
                 `;
@@ -974,8 +836,8 @@
                         <td class="p-2">
                             ${m.name} ${isSelected ? '<span class="text-[9px] text-[#00E5FF] ml-1 bg-[#00E5FF]/15 px-1.5 py-0.5 rounded border border-[#00E5FF]/40">[Active Mode]</span>' : ''}
                         </td>
-                        <td class="p-2 font-mono">${mLoads}</td>
-                        <td class="p-2 font-mono">${mH} h</td>
+                        <td class="p-2 font-poppins">${mLoads}</td>
+                        <td class="p-2 font-poppins">${mH} h</td>
                         <td class="p-2">${m.costIndex}</td>
                         <td class="p-2 font-bold text-[10px] text-[#00E5FF]">${m.roadSuitability}</td>
                     </tr>

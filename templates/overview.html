@@ -29,7 +29,7 @@
                     fontFamily: {
                         sans: ['Poppins', 'Outfit', 'Inter', 'sans-serif'],
                         poppins: ['Poppins', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
+                        mono: ['Poppins', 'Inter', 'sans-serif'],
                         royal: ['Poppins', 'Space Grotesk', 'Outfit', 'sans-serif'],
                         space: ['Space Grotesk', 'Poppins', 'sans-serif']
                     }
@@ -51,7 +51,8 @@
     <style>
         body { font-family: 'Poppins', 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #050505; color: #f1f5f9; }
         .font-royal { font-family: 'Poppins', 'Space Grotesk', 'Outfit', sans-serif; letter-spacing: 0.03em; }
-        .font-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
         .font-sans { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
@@ -112,7 +113,7 @@
         </div>
 
         <!-- Right: Incident Selector & Status -->
-        <div class="flex items-center gap-3 font-mono">
+        <div class="flex items-center gap-3 font-poppins">
             <div class="hidden sm:flex items-center gap-1 bg-[#0D0D0D] px-2.5 py-1 rounded-xl border border-white/10 text-xs">
                 <span class="text-slate-500 text-[10px] uppercase mr-1">SCENARIO:</span>
                 <button onclick="setIncident('devgram')" id="btnDevgram" class="px-2 py-0.5 rounded bg-[#00E5FF]/15 text-[#00E5FF] border border-[#00E5FF]/40 font-bold transition text-[11px]">Devgram</button>
@@ -144,18 +145,18 @@
                 </div>
                 <div class="flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span class="text-[8px] font-mono text-emerald-400 font-bold hidden lg:block">LIVE</span>
+                    <span class="text-[8px] font-poppins text-emerald-400 font-bold hidden lg:block">LIVE</span>
                 </div>
             </div>
 
             <!-- Center Vertical Label (Desktop) / Horizontal (Mobile) -->
-            <div class="flex items-center gap-2 text-slate-400 group-hover:text-[#00E5FF] font-mono font-bold transition">
+            <div class="flex items-center gap-2 text-slate-400 group-hover:text-[#00E5FF] font-poppins font-bold transition">
                 <span class="text-xs lg:[writing-mode:vertical-rl] lg:rotate-180 tracking-widest uppercase">🛰️ SATELLITE IMAGERY</span>
                 <i data-lucide="arrow-up-right" class="w-4 h-4 text-[#00E5FF] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
             </div>
 
             <!-- Bottom Subtitle / Tag -->
-            <div class="flex items-center lg:flex-col gap-1 text-[9px] font-mono">
+            <div class="flex items-center lg:flex-col gap-1 text-[9px] font-poppins">
                 <span class="px-2 py-0.5 rounded bg-[#141414] text-[#00E5FF] border border-[#00E5FF]/30 font-bold group-hover:border-[#00E5FF]">
                     EO STUDIO
                 </span>
@@ -169,7 +170,7 @@
             <div id="cleanMap" class="w-full h-full z-0"></div>
 
             <!-- Legend Overlay (Top-Right) -->
-            <div class="absolute top-4 right-4 z-10 bg-[#080808]/95 backdrop-blur-md border border-white/10 rounded-2xl p-3 shadow-2xl font-mono text-[11px] max-w-[260px] hidden sm:flex flex-col gap-2">
+            <div class="absolute top-4 right-4 z-10 bg-[#080808]/95 backdrop-blur-md border border-white/10 rounded-2xl p-3 shadow-2xl font-poppins text-[11px] max-w-[260px] hidden sm:flex flex-col gap-2">
                 <div class="flex items-center gap-1.5 border-b border-white/10 pb-1.5">
                     <i data-lucide="layers" class="w-3.5 h-3.5 text-[#00E5FF]"></i>
                     <span class="font-extrabold text-white text-xs tracking-wide">Active Geospatial Layers</span>
@@ -209,7 +210,7 @@
             </div>
 
             <!-- Coordinates Callout (Bottom-Left) -->
-            <div class="absolute bottom-4 left-4 z-10 bg-[#080808]/90 backdrop-blur-md border border-white/10 rounded-xl px-3 py-1.5 shadow-2xl font-mono text-xs flex items-center gap-2">
+            <div class="absolute bottom-4 left-4 z-10 bg-[#080808]/90 backdrop-blur-md border border-white/10 rounded-xl px-3 py-1.5 shadow-2xl font-poppins text-xs flex items-center gap-2">
                 <i data-lucide="crosshair" class="w-3.5 h-3.5 text-[#00E5FF]"></i>
                 <span class="text-slate-400 text-[10px]">EPICENTER:</span>
                 <span id="mapCoordsBadge" class="text-white font-bold text-[11px]">30.3207° N, 79.2163° E</span>
@@ -217,7 +218,7 @@
         </section>
 
         <!-- ================= RIGHT COLUMN: ~40% DECISION PANEL ================= -->
-        <section class="w-full lg:flex-[4] h-[50vh] lg:h-full bg-[#080808]/95 overflow-y-auto p-5 lg:p-6 flex flex-col gap-5 font-mono shrink-0 border-l border-white/10">
+        <section class="w-full lg:flex-[4] h-[50vh] lg:h-full bg-[#080808]/95 overflow-y-auto p-5 lg:p-6 flex flex-col gap-5 font-poppins shrink-0 border-l border-white/10">
 
             <!-- Incident Overview Header -->
             <div class="border-b border-white/10 pb-3 flex items-center justify-between">
@@ -288,7 +289,7 @@
             <!-- Sequential Decision Flow Call to Action -->
             <div class="pt-1 flex flex-col gap-2">
                 <!-- Step Pipeline Indicator -->
-                <div class="bg-[#0D0D0D] p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-[10px] font-mono">
+                <div class="bg-[#0D0D0D] p-2.5 rounded-xl border border-white/10 flex items-center justify-between text-[10px] font-poppins">
                     <div class="flex items-center gap-1 text-[#00E5FF] font-bold">
                         <span class="w-2 h-2 rounded-full bg-[#00E5FF] animate-pulse"></span>
                         <span>01 OVERVIEW</span>
@@ -380,7 +381,7 @@
                 zoom: 12,
                 brief: "Devgram mountain hamlet cluster is directly intersected by an active valley runoff envelope. Local settlement shelters are within the debris hazard zone. The progressive search expanded along the Urgam-Helang mountain road to NH-58, successfully qualifying 1,050 estimated usable capacity across 4 institutional campuses.",
                 sites: [
-                    { name: "Pipalkoti Institutional Complex (Site A)", lat: 30.3540, lon: 79.2560, cap: 350, dist: "5.31 km", access: "NH-58 Paved 2-Way", isPrimary: true },
+                    { name: "GIC Pipalkoti Campus & Grounds (Site A)", lat: 30.3540, lon: 79.2560, cap: 350, dist: "5.31 km", access: "NH-58 Paved 2-Way", isPrimary: true },
                     { name: "Helang Community Campus (Site B)", lat: 30.3680, lon: 79.2780, cap: 250, dist: "7.82 km", access: "NH-58 Spur Road" },
                     { name: "GIC Joshimath Corridor Ground (Site C)", lat: 30.3850, lon: 79.2990, cap: 200, dist: "11.45 km", access: "District Paved Road" },
                     { name: "Marwari Sub-Station Agri Campus (Site D)", lat: 30.4010, lon: 79.3150, cap: 250, dist: "13.90 km", access: "Highway Lateral" }
@@ -577,7 +578,7 @@
                     });
 
                     rect.bindTooltip(`
-                        <div style="font-family: monospace; font-size: 11px; padding: 2px;">
+                        <div style="font-family: 'Poppins', 'Inter', sans-serif; font-size: 11px; padding: 2px;">
                             <b style="color: ${strokeColor};">${cellStatus}</b><br>
                             Cell: [R${r+1}, C${c+1}] &bull; Center: ${cellLat.toFixed(4)}° N, ${cellLon.toFixed(4)}° E<br>
                             Hazard Intensity: <b>${isRed ? '0.94' : (isOrange ? '0.68' : '0.12')}</b>
@@ -627,7 +628,7 @@
                 fillOpacity: 1
             }).addTo(map);
             originMarker.bindPopup(`
-                <div style="color: #000; font-family: monospace; font-size: 12px;">
+                <div style="color: #000; font-family: 'Poppins', 'Inter', sans-serif; font-size: 12px;">
                     <b style="color: #ef4444;">🔴 INCIDENT GROUND ZERO</b><br>
                     Location: <b>${data.name}</b><br>
                     Coordinates: ${data.lat.toFixed(4)}° N, ${data.lon.toFixed(4)}° E<br>
@@ -686,7 +687,7 @@
                 }).addTo(map);
 
                 marker.bindPopup(`
-                    <div style="color: #000; font-family: monospace; font-size: 12px;">
+                    <div style="color: #000; font-family: 'Poppins', 'Inter', sans-serif; font-size: 12px;">
                         <b style="color: #059669;">🟢 ${site.name}</b><br>
                         Road Distance: <b>${site.dist}</b><br>
                         Estimated Usable Capacity: <b>${site.cap.toLocaleString()}</b><br>

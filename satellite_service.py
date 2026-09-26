@@ -23,7 +23,7 @@ logger = logging.getLogger("RAKSHA_SatelliteService")
 # Real OpenStreetMap facilities pre-indexed for instant <1s demo evaluation
 PRESET_OSM_FACILITIES = {
     "devgram": [
-        {"id": "OSM-DEV-1", "name": "Pipalkoti Institutional Complex & Relief Grounds", "type": "Institutional Campus", "lat": 30.3540, "lon": 79.2560, "gross_area_sqm": 26250, "is_real_osm": True},
+        {"id": "OSM-DEV-1", "name": "GIC Pipalkoti Campus & Grounds", "type": "Institutional Campus", "lat": 30.3540, "lon": 79.2560, "gross_area_sqm": 26250, "is_real_osm": True},
         {"id": "OSM-DEV-2", "name": "Helang Community Campus & ITI Ground", "type": "Technical Institute", "lat": 30.3680, "lon": 79.2780, "gross_area_sqm": 18750, "is_real_osm": True},
         {"id": "OSM-DEV-3", "name": "Government Inter College (GIC) Joshimath Corridor Ground", "type": "School Complex", "lat": 30.3850, "lon": 79.2990, "gross_area_sqm": 15000, "is_real_osm": True},
         {"id": "OSM-DEV-4", "name": "Agriculture & Horticulture Research Station, Marwari", "type": "Research Reserve", "lat": 30.4010, "lon": 79.3150, "gross_area_sqm": 18750, "is_real_osm": True},

@@ -47,7 +47,7 @@
                         sans: ['Poppins', 'Outfit', 'Inter', 'sans-serif'],
                         poppins: ['Poppins', 'sans-serif'],
                         royal: ['Poppins', 'Space Grotesk', 'Outfit', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace']
+                        mono: ['Poppins', 'Inter', 'sans-serif']
                     }
                 }
             }
@@ -56,7 +56,8 @@
     <style>
         body { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; background-color: #050505; }
         .font-royal { font-family: 'Poppins', 'Space Grotesk', sans-serif; letter-spacing: 0.04em; }
-        .font-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
         .font-sans { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; }
         #map { height: 500px; width: 100%; border-radius: 0.75rem; z-index: 1; }
         .pulse-beacon {
@@ -125,33 +126,33 @@
             <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 shadow-xl flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-3 flex-wrap">
                     <div>
-                        <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">LATITUDE (°N)</label>
-                        <input id="inputLat" type="number" step="0.0001" value="30.3207" class="w-28 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
+                        <label class="block text-[10px] font-poppins uppercase tracking-wider text-slate-400 mb-1">LATITUDE (°N)</label>
+                        <input id="inputLat" type="number" step="0.0001" value="30.3207" class="w-28 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-poppins text-cyan-300 focus:outline-none focus:border-cyan-500">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">LONGITUDE (°E)</label>
-                        <input id="inputLon" type="number" step="0.0001" value="79.2163" class="w-28 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-mono text-cyan-300 focus:outline-none focus:border-cyan-500">
+                        <label class="block text-[10px] font-poppins uppercase tracking-wider text-slate-400 mb-1">LONGITUDE (°E)</label>
+                        <input id="inputLon" type="number" step="0.0001" value="79.2163" class="w-28 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-poppins text-cyan-300 focus:outline-none focus:border-cyan-500">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">SCENARIO DISPLACED POP</label>
-                        <input id="inputPop" type="number" step="10" value="720" class="w-32 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-mono text-emerald-300 focus:outline-none focus:border-emerald-500">
+                        <label class="block text-[10px] font-poppins uppercase tracking-wider text-slate-400 mb-1">SCENARIO DISPLACED POP</label>
+                        <input id="inputPop" type="number" step="10" value="720" class="w-32 px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-sm font-poppins text-emerald-300 focus:outline-none focus:border-emerald-500">
                     </div>
                 </div>
 
                 <div class="flex items-center gap-2 flex-wrap">
-                    <button id="btnToggleGrid" onclick="toggleHazardGrid()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle 5x5 Spatial Hazard Runoff Grid">
+                    <button id="btnToggleGrid" onclick="toggleHazardGrid()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle 5x5 Spatial Hazard Runoff Grid">
                         <i data-lucide="grid" class="w-3.5 h-3.5 text-amber-400"></i>
                         <span id="lblToggleGrid">5x5 Grid: ON</span>
                     </button>
-                    <a href="/hazard-lab" class="px-3 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow" title="Open 5x5 Spatial Hazard Runoff & DEM Laboratory">
+                    <a href="/hazard-lab" class="px-3 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Open 5x5 Spatial Hazard Runoff & DEM Laboratory">
                         <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-400"></i>
                         <span>Hazard Lab ➔</span>
                     </a>
-                    <button id="btnToggleCarto" onclick="toggleCartosatOverlay()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle Potential Emergency Access Site & 0.28m Boundary">
+                    <button id="btnToggleCarto" onclick="toggleCartosatOverlay()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle Potential Emergency Access Site & 0.28m Boundary">
                         <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i>
                         <span id="lblToggleCarto">Access Site: ON</span>
                     </button>
-                    <button id="btnToggleBhuvan" onclick="toggleBhuvanWMSLayer()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-600/40 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle ISRO Bhuvan National Spatial Framework WMS Map">
+                    <button id="btnToggleBhuvan" onclick="toggleBhuvanWMSLayer()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-600/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle ISRO Bhuvan National Spatial Framework WMS Map">
                         <i data-lucide="map" class="w-3.5 h-3.5 text-purple-400"></i>
                         <span id="lblToggleBhuvan">Bhuvan: OFF</span>
                     </button>
@@ -198,7 +199,7 @@
                 </div>
 
                 <!-- Location Status Badge -->
-                <div class="absolute bottom-3 left-3 z-10 bg-slate-950/90 backdrop-blur border border-slate-800 px-3.5 py-1.5 rounded-lg text-xs font-mono text-slate-200 flex items-center gap-2 shadow-lg">
+                <div class="absolute bottom-3 left-3 z-10 bg-slate-950/90 backdrop-blur border border-slate-800 px-3.5 py-1.5 rounded-lg text-xs font-poppins text-slate-200 flex items-center gap-2 shadow-lg">
                     <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i>
                     <span id="labelLocation">Devgram, Chamoli District, Uttarakhand</span>
                 </div>
@@ -214,15 +215,15 @@
                         </h3>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span id="transectDistanceLabel" class="text-[11px] font-mono text-cyan-400">Vector Distance: ~4.8 km</span>
-                        <span id="transectProvenanceBadge" class="text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-mono">LIVE SRTM DEM</span>
+                        <span id="transectDistanceLabel" class="text-[11px] font-poppins text-cyan-400">Vector Distance: ~4.8 km</span>
+                        <span id="transectProvenanceBadge" class="text-[9px] px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 font-poppins">LIVE SRTM DEM</span>
                     </div>
                 </div>
                 <div class="h-28 w-full bg-slate-950/70 p-2 rounded-lg border border-slate-800">
                     <canvas id="transectChart"></canvas>
                 </div>
                 <!-- Transect Real Metrics Summary Ribbon -->
-                <div class="grid grid-cols-4 gap-2 pt-1 font-mono text-[10px]">
+                <div class="grid grid-cols-4 gap-2 pt-1 font-poppins text-[10px]">
                     <div class="bg-slate-950 p-1.5 rounded border border-slate-800 text-center">
                         <span class="text-slate-500 block text-[9px]">MIN ELEVATION</span>
                         <span id="transectMinElev" class="text-slate-200 font-bold">1,368 m</span>
@@ -240,7 +241,7 @@
                         <span id="transectMaxGrad" class="text-amber-400 font-bold">52.3%</span>
                     </div>
                 </div>
-                <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 px-1">
+                <div class="flex items-center justify-between text-[10px] font-poppins text-slate-400 px-1">
                     <span>🔴 Epicenter (0% Origin)</span>
                     <span class="text-amber-400">Continuous 12-Point SRTM DEM Corridor</span>
                     <span class="text-emerald-400">🟢 Safe Ground (100% Target)</span>
@@ -275,11 +276,11 @@
                             <i data-lucide="satellite" class="w-4 h-4"></i>
                         </div>
                         <div>
-                            <div class="text-xs font-bold text-white font-mono">Multi-Sensor Earth Observation Studio</div>
+                            <div class="text-xs font-bold text-white font-poppins">Multi-Sensor Earth Observation Studio</div>
                             <div class="text-[11px] text-slate-400">Sentinel-1 SAR radar physics, Cartosat-3 sub-meter &amp; Bhuvan WMS</div>
                         </div>
                     </div>
-                    <a href="/earth-observation" class="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 transition shadow shrink-0">
+                    <a href="/earth-observation" class="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-poppins font-bold text-xs flex items-center gap-1.5 transition shadow shrink-0">
                         <span>Open Studio</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </a>
@@ -289,10 +290,10 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded bg-blue-500/15 text-blue-400 text-xs font-mono font-semibold border border-blue-500/30">SENTINEL-2 L2A</span>
+                            <span class="px-2 py-0.5 rounded bg-blue-500/15 text-blue-400 text-xs font-poppins font-semibold border border-blue-500/30">SENTINEL-2 L2A</span>
                             <span class="text-xs text-slate-400">Microsoft Planetary Computer STAC</span>
                         </div>
-                        <span id="satModeBadge" class="text-xs font-mono text-emerald-400 flex items-center gap-1">
+                        <span id="satModeBadge" class="text-xs font-poppins text-emerald-400 flex items-center gap-1">
                             <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Live STAC Telemetry
                         </span>
                     </div>
@@ -304,30 +305,30 @@
                                 <i data-lucide="image" class="w-6 h-6"></i>
                                 <span>No Scene Loaded</span>
                             </div>
-                            <div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-mono text-cyan-300">
+                            <div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-poppins text-cyan-300">
                                 10m True Color
                             </div>
                         </div>
                         <div class="col-span-7 flex flex-col gap-1.5 text-xs">
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">Scene Identifier:</span>
-                                <span id="satSceneId" class="font-mono text-slate-200 truncate max-w-[150px]">-</span>
+                                <span id="satSceneId" class="font-poppins text-slate-200 truncate max-w-[150px]">-</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">Acquisition Date:</span>
-                                <span id="satDatetime" class="font-mono text-cyan-300">-</span>
+                                <span id="satDatetime" class="font-poppins text-cyan-300">-</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">Cloud Cover:</span>
-                                <span id="satCloudCover" class="font-mono font-bold text-amber-400">-</span>
+                                <span id="satCloudCover" class="font-poppins font-bold text-amber-400">-</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">MGRS Tile Grid:</span>
-                                <span id="satTileId" class="font-mono text-slate-200">-</span>
+                                <span id="satTileId" class="font-poppins text-slate-200">-</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-slate-400">Sensor Platform:</span>
-                                <span id="satPlatform" class="font-mono text-slate-200">-</span>
+                                <span id="satPlatform" class="font-poppins text-slate-200">-</span>
                             </div>
                         </div>
                     </div>
@@ -337,10 +338,10 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-400 text-xs font-mono font-semibold border border-cyan-500/30">SENTINEL-1 SAR</span>
+                            <span class="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-400 text-xs font-poppins font-semibold border border-cyan-500/30">SENTINEL-1 SAR</span>
                             <span class="text-xs text-slate-400">All-Weather C-Band Radar (GRD)</span>
                         </div>
-                        <span id="sarModeBadge" class="text-xs font-mono text-cyan-300 flex items-center gap-1">
+                        <span id="sarModeBadge" class="text-xs font-poppins text-cyan-300 flex items-center gap-1">
                             <i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-400 animate-pulse"></i> Live SAR Telemetry
                         </span>
                     </div>
@@ -352,30 +353,30 @@
                                 <i data-lucide="radio" class="w-6 h-6 text-cyan-500"></i>
                                 <span>SAR Backscatter</span>
                             </div>
-                            <div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-mono text-cyan-300">
+                            <div class="absolute bottom-1 right-1 bg-black/80 px-1.5 py-0.5 rounded text-[10px] font-poppins text-cyan-300">
                                 C-Band VV+VH
                             </div>
                         </div>
                         <div class="col-span-7 flex flex-col gap-1.5 text-xs">
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">SAR Scene ID:</span>
-                                <span id="sarSceneId" class="font-mono text-slate-200 truncate max-w-[150px]">-</span>
+                                <span id="sarSceneId" class="font-poppins text-slate-200 truncate max-w-[150px]">-</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">Orbit Pass:</span>
-                                <span id="sarOrbit" class="font-mono text-cyan-300 font-bold">-</span>
+                                <span id="sarOrbit" class="font-poppins text-cyan-300 font-bold">-</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">Polarization:</span>
-                                <span id="sarPolar" class="font-mono font-bold text-emerald-400">VV + VH Dual-Pol</span>
+                                <span id="sarPolar" class="font-poppins font-bold text-emerald-400">VV + VH Dual-Pol</span>
                             </div>
                             <div class="flex justify-between border-b border-slate-800/80 pb-1">
                                 <span class="text-slate-400">Cloud Penetration:</span>
-                                <span class="font-mono text-emerald-400 font-bold">100% (Active Radar)</span>
+                                <span class="font-poppins text-emerald-400 font-bold">100% (Active Radar)</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-slate-400">Inundation Mode:</span>
-                                <span class="font-mono text-cyan-300 text-[10px]">Specular dB Drop</span>
+                                <span class="font-poppins text-cyan-300 text-[10px]">Specular dB Drop</span>
                             </div>
                         </div>
                     </div>
@@ -385,22 +386,22 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 text-xs font-mono font-semibold border border-amber-500/30">EMERGENCY ACCESS ASSESSMENT</span>
+                            <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 text-xs font-poppins font-semibold border border-amber-500/30">EMERGENCY ACCESS ASSESSMENT</span>
                             <span class="text-xs text-slate-400">0.28m Architecture Specification • Access Potential</span>
                         </div>
-                        <span id="cartoVerdictBadge" class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-slate-800 border border-amber-500/40 text-amber-300">
+                        <span id="cartoVerdictBadge" class="text-xs px-2 py-0.5 rounded font-poppins font-bold bg-slate-800 border border-amber-500/40 text-amber-300">
                             ARCHITECTURE SPEC
                         </span>
                     </div>
 
-                    <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 space-y-1.5 text-xs font-mono">
+                    <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 space-y-1.5 text-xs font-poppins">
                         <div class="flex justify-between text-slate-300 border-b border-slate-800/80 pb-1">
                             <span class="text-slate-500">TARGET SANCTUARY:</span>
                             <span id="cartoTargetName" class="font-bold text-white truncate max-w-[180px]">-</span>
                         </div>
                         <div class="flex justify-between text-slate-300 border-b border-slate-800/80 pb-1 text-[11px]">
                             <span class="text-slate-500">BHOONIDHI SCENE ID:</span>
-                            <span id="cartoSceneId" class="text-cyan-300 font-mono truncate max-w-[180px]">C3_PANMX_CATALOG_FRAME</span>
+                            <span id="cartoSceneId" class="text-cyan-300 font-poppins truncate max-w-[180px]">C3_PANMX_CATALOG_FRAME</span>
                         </div>
                         <div class="grid grid-cols-2 gap-2 text-[11px] pt-0.5">
                             <div>
@@ -426,7 +427,7 @@
                             <div class="flex items-center gap-1.5 text-emerald-400"><i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Terrain Slope &amp; Runoff: Analyzed <span class="text-[9px] text-slate-400 font-normal">[DERIVED via SRTM DEM]</span></span></div>
                         </div>
                         <div class="flex items-center gap-2 pt-1 border-t border-slate-800/80">
-                            <button onclick="zoomToCartosatAudit()" class="flex-1 px-2.5 py-1 rounded bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-600/40 text-[10.5px] font-mono transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <button onclick="zoomToCartosatAudit()" class="flex-1 px-2.5 py-1 rounded bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-600/40 text-[10.5px] font-poppins transition flex items-center justify-center gap-1.5 cursor-pointer">
                                 <i data-lucide="crosshair" class="w-3.5 h-3.5 text-amber-400"></i>
                                 <span>Inspect Potential Access Site on Map</span>
                             </button>
@@ -438,15 +439,15 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 text-xs font-mono font-semibold border border-purple-500/30">ISRO BHUVAN ANCHOR</span>
+                            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 text-xs font-poppins font-semibold border border-purple-500/30">ISRO BHUVAN ANCHOR</span>
                             <span class="text-xs text-slate-400">NRSC 1:50k LULC & Hazard Archive</span>
                         </div>
-                        <span id="bhuvanStatusBadge" class="text-xs px-2 py-0.5 rounded font-mono font-bold bg-purple-950 border border-purple-800 text-purple-300 flex items-center gap-1">
+                        <span id="bhuvanStatusBadge" class="text-xs px-2 py-0.5 rounded font-poppins font-bold bg-purple-950 border border-purple-800 text-purple-300 flex items-center gap-1">
                             <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span> WMS CONNECTED
                         </span>
                     </div>
 
-                    <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 space-y-1.5 text-xs font-mono">
+                    <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 space-y-1.5 text-xs font-poppins">
                         <div class="flex justify-between text-slate-300 border-b border-slate-800/80 pb-1">
                             <span class="text-slate-500">BHUVAN LULC CLASSIFICATION:</span>
                             <span id="bhuvanLulcClass" class="font-bold text-purple-300 truncate max-w-[190px]">Built-up / Institutional</span>
@@ -474,11 +475,11 @@
                             <span id="bhuvanTenure" class="text-emerald-300 font-bold truncate max-w-[200px]">Government / Public Institutional</span>
                         </div>
                         <div class="flex items-center gap-2 pt-1">
-                            <button onclick="toggleBhuvanWMSLayer()" id="btnCardBhuvan" class="flex-1 px-2.5 py-1 rounded bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-700/60 text-[10.5px] font-mono transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <button onclick="toggleBhuvanWMSLayer()" id="btnCardBhuvan" class="flex-1 px-2.5 py-1 rounded bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-700/60 text-[10.5px] font-poppins transition flex items-center justify-center gap-1.5 cursor-pointer">
                                 <i data-lucide="layers" class="w-3.5 h-3.5"></i>
                                 <span id="lblCardBhuvan">Toggle Bhuvan WMS on Map</span>
                             </button>
-                            <button onclick="zoomToBhuvanThematic()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[10.5px] font-mono transition flex items-center gap-1 cursor-pointer">
+                            <button onclick="zoomToBhuvanThematic()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[10.5px] font-poppins transition flex items-center gap-1 cursor-pointer">
                                 <i data-lucide="focus" class="w-3.5 h-3.5 text-purple-400"></i>
                                 <span>Focus</span>
                             </button>
@@ -500,16 +501,16 @@
 
                     <div class="grid grid-cols-3 gap-2 mb-3">
                         <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
-                            <span class="block text-[10px] font-mono text-slate-400">24H RAINFALL</span>
-                            <span id="metricRain24h" class="text-base font-extrabold text-cyan-400 font-mono">- mm</span>
+                            <span class="block text-[10px] font-poppins text-slate-400">24H RAINFALL</span>
+                            <span id="metricRain24h" class="text-base font-extrabold text-cyan-400 font-poppins">- mm</span>
                         </div>
                         <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
-                            <span class="block text-[10px] font-mono text-slate-400">SOIL MOISTURE</span>
-                            <span id="metricSoil" class="text-base font-extrabold text-emerald-400 font-mono">- m³/m³</span>
+                            <span class="block text-[10px] font-poppins text-slate-400">SOIL MOISTURE</span>
+                            <span id="metricSoil" class="text-base font-extrabold text-emerald-400 font-poppins">- m³/m³</span>
                         </div>
                         <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800">
-                            <span class="block text-[10px] font-mono text-slate-400">HAZARD INDEX (τ)</span>
-                            <span id="metricHazardIndex" class="text-base font-extrabold text-red-400 font-mono">-</span>
+                            <span class="block text-[10px] font-poppins text-slate-400">HAZARD INDEX (τ)</span>
+                            <span id="metricHazardIndex" class="text-base font-extrabold text-red-400 font-poppins">-</span>
                         </div>
                     </div>
 
@@ -521,10 +522,10 @@
                 <!-- Dynamic AOI Telemetry Card -->
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 shadow-lg flex items-center justify-between text-xs">
                     <div>
-                        <span class="block text-slate-400 text-[10px] font-mono">DYNAMIC ANISOTROPIC AOI</span>
+                        <span class="block text-slate-400 text-[10px] font-poppins">DYNAMIC ANISOTROPIC AOI</span>
                         <span class="font-bold text-slate-200">Flow & Slope Dilated Boundary</span>
                     </div>
-                    <div class="flex items-center gap-4 font-mono">
+                    <div class="flex items-center gap-4 font-poppins">
                         <div>
                             <span class="text-slate-400 text-[10px] block">AOI AREA</span>
                             <span id="aoiArea" class="font-bold text-cyan-400">- km²</span>
@@ -552,11 +553,11 @@
                             <i data-lucide="truck" class="w-4 h-4"></i>
                         </div>
                         <div>
-                            <div class="text-xs font-bold text-white font-mono">Evacuation Fleet Commander</div>
+                            <div class="text-xs font-bold text-white font-poppins">Evacuation Fleet Commander</div>
                             <div class="text-[11px] text-slate-400">Sphere standard life-support quotas, dynamic sliders &amp; turnaround cycles</div>
                         </div>
                     </div>
-                    <a href="/logistics-dispatch" class="px-3 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 transition shadow shrink-0">
+                    <a href="/logistics-dispatch" class="px-3 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-400 text-slate-950 font-poppins font-bold text-xs flex items-center gap-1.5 transition shadow shrink-0">
                         <span>Fleet Commander</span>
                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                     </a>
@@ -570,7 +571,7 @@
                             </h3>
                             <p class="text-xs text-slate-400">Transit to #1 Recommended Relocation Site</p>
                         </div>
-                        <div class="text-right font-mono">
+                        <div class="text-right font-poppins">
                             <span class="text-[10px] text-slate-400 block">ESTIMATED CONVOY TIME</span>
                             <span id="logisticsTransitTime" class="text-base font-extrabold text-cyan-400">~25 mins</span>
                         </div>
@@ -578,18 +579,18 @@
 
                     <div class="grid grid-cols-3 gap-3">
                         <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex flex-col gap-1">
-                            <span class="text-[10px] font-mono text-slate-400">50-SEATER BUSES</span>
-                            <span id="fleetBuses" class="text-xl font-extrabold text-cyan-300 font-mono">84</span>
+                            <span class="text-[10px] font-poppins text-slate-400">50-SEATER BUSES</span>
+                            <span id="fleetBuses" class="text-xl font-extrabold text-cyan-300 font-poppins">84</span>
                             <span class="text-[10px] text-slate-500">State Transport Fleet</span>
                         </div>
                         <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex flex-col gap-1">
-                            <span class="text-[10px] font-mono text-slate-400">AMBULANCES</span>
-                            <span id="fleetAmbulances" class="text-xl font-extrabold text-amber-400 font-mono">53</span>
+                            <span class="text-[10px] font-poppins text-slate-400">AMBULANCES</span>
+                            <span id="fleetAmbulances" class="text-xl font-extrabold text-amber-400 font-poppins">53</span>
                             <span class="text-[10px] text-slate-500">ALS/BLS Priority Triage</span>
                         </div>
                         <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex flex-col gap-1">
-                            <span class="text-[10px] font-mono text-slate-400">RELIEF TRUCKS</span>
-                            <span id="fleetTrucks" class="text-xl font-extrabold text-emerald-400 font-mono">6</span>
+                            <span class="text-[10px] font-poppins text-slate-400">RELIEF TRUCKS</span>
+                            <span id="fleetTrucks" class="text-xl font-extrabold text-emerald-400 font-poppins">6</span>
                             <span class="text-[10px] text-slate-500">Rations & Supplies</span>
                         </div>
                     </div>
@@ -604,28 +605,28 @@
                                 Sphere Standards Planning Guidance
                             </h3>
                         </div>
-                        <span class="text-[10px] font-mono text-slate-400">Planning Sizing</span>
+                        <span class="text-[10px] font-poppins text-slate-400">Planning Sizing</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
                         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-                            <span class="text-[10px] font-mono text-slate-400">DAILY POTABLE WATER</span>
-                            <span id="quotaWater" class="text-lg font-bold text-blue-400 font-mono">63,000 L / day</span>
+                            <span class="text-[10px] font-poppins text-slate-400">DAILY POTABLE WATER</span>
+                            <span id="quotaWater" class="text-lg font-bold text-blue-400 font-poppins">63,000 L / day</span>
                             <span class="text-[10px] text-slate-500">15 Liters/person/day</span>
                         </div>
                         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-                            <span class="text-[10px] font-mono text-slate-400">EMERGENCY SANITATION</span>
-                            <span id="quotaLatrines" class="text-lg font-bold text-purple-400 font-mono">210 Units</span>
+                            <span class="text-[10px] font-poppins text-slate-400">EMERGENCY SANITATION</span>
+                            <span id="quotaLatrines" class="text-lg font-bold text-purple-400 font-poppins">210 Units</span>
                             <span class="text-[10px] text-slate-500">1 Latrine per 20 persons</span>
                         </div>
                         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-                            <span class="text-[10px] font-mono text-slate-400">FAMILY SHELTERS</span>
-                            <span id="quotaShelters" class="text-lg font-bold text-amber-400 font-mono">840 Tents</span>
+                            <span class="text-[10px] font-poppins text-slate-400">FAMILY SHELTERS</span>
+                            <span id="quotaShelters" class="text-lg font-bold text-amber-400 font-poppins">840 Tents</span>
                             <span class="text-[10px] text-slate-500">5 Persons per tent</span>
                         </div>
                         <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col gap-1">
-                            <span class="text-[10px] font-mono text-slate-400">MEDICAL TRIAGE</span>
-                            <span id="quotaTriage" class="text-lg font-bold text-emerald-400 font-mono">3 Stations</span>
+                            <span class="text-[10px] font-poppins text-slate-400">MEDICAL TRIAGE</span>
+                            <span id="quotaTriage" class="text-lg font-bold text-emerald-400 font-poppins">3 Stations</span>
                             <span class="text-[10px] text-slate-500">1 per 2,000 displaced</span>
                         </div>
                     </div>
@@ -643,14 +644,14 @@
                             <i data-lucide="compass" class="w-4 h-4"></i>
                         </div>
                         <div>
-                            <div class="text-xs font-bold text-white font-mono flex items-center gap-2">
+                            <div class="text-xs font-bold text-white font-poppins flex items-center gap-2">
                                 Relocation Decision Studio
                                 <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 font-semibold tracking-wide">DEEP ENGINE</span>
                             </div>
                             <div class="text-[10.5px] text-slate-400">Zero-tolerance hard veto audit, 100-pt MCDA ranking &amp; 6-stage relocation pipeline</div>
                         </div>
                     </div>
-                    <a href="/relocation-engine" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-black text-xs sm:text-sm flex items-center gap-2 transition-all duration-150 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 hover:scale-[1.02] shrink-0 cursor-pointer">
+                    <a href="/relocation-engine" class="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-poppins font-black text-xs sm:text-sm flex items-center gap-2 transition-all duration-150 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 hover:scale-[1.02] shrink-0 cursor-pointer">
                         <span>Decision Studio</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
@@ -663,15 +664,15 @@
                     <!-- Header Strip -->
                     <div class="flex items-center justify-between border-b border-emerald-800/40 pb-2">
                         <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono text-[10px] font-extrabold flex items-center gap-1.5 shadow-sm">
+                            <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-poppins text-[10px] font-extrabold flex items-center gap-1.5 shadow-sm">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                                 🏆 RANK #1 PRIMARY SANCTUARY
                             </span>
-                            <span class="text-[10px] text-slate-400 font-mono hidden sm:inline">ZERO-DEFICIT CHOICE</span>
+                            <span class="text-[10px] text-slate-400 font-poppins hidden sm:inline">ZERO-DEFICIT CHOICE</span>
                         </div>
-                        <div class="flex items-center gap-1 font-mono">
+                        <div class="flex items-center gap-1 font-poppins">
                             <span class="text-[9px] text-slate-400">MCDA SCORE:</span>
-                            <span id="hero_score" class="text-xs font-black text-amber-300 font-mono bg-amber-950/40 border border-amber-500/30 px-1.5 py-0.5 rounded">89.4 / 100</span>
+                            <span id="hero_score" class="text-xs font-black text-amber-300 font-poppins bg-amber-950/40 border border-amber-500/30 px-1.5 py-0.5 rounded">89.4 / 100</span>
                         </div>
                     </div>
 
@@ -680,13 +681,13 @@
                         <h2 id="hero_siteName" class="text-base font-extrabold text-white tracking-tight flex items-center gap-2">
                             Chamoli Sports Stadium Complex
                         </h2>
-                        <p id="hero_siteType" class="text-[11px] text-emerald-400/90 font-mono">
+                        <p id="hero_siteType" class="text-[11px] text-emerald-400/90 font-poppins">
                             Public Stadium / Multi-Purpose Relief Hub • Government Land Cadastre
                         </p>
                     </div>
 
                     <!-- 4 Clear Key Metrics -->
-                    <div class="grid grid-cols-4 gap-2 font-mono">
+                    <div class="grid grid-cols-4 gap-2 font-poppins">
                         <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/90 text-center">
                             <span class="text-[8.5px] text-slate-400 uppercase block">DISTANCE</span>
                             <span id="hero_siteDist" class="text-xs font-bold text-cyan-300 block">4.8 km</span>
@@ -710,16 +711,16 @@
                     </div>
 
                     <!-- Footer Action Bar -->
-                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+                    <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-poppins">
                         <div class="flex items-center gap-1.5 text-slate-400 truncate text-[10px]">
                             <i data-lucide="shield-alert" class="w-3 h-3 text-amber-400 shrink-0"></i>
                             <span id="hero_cartoValidation" class="truncate text-slate-300">Potential Emergency Access Site Assessed [ARCHITECTURE]</span>
                         </div>
                         <div class="flex items-center gap-2 shrink-0">
-                            <button onclick="zoomToPrimarySite()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10.5px] font-mono font-semibold transition flex items-center gap-1 cursor-pointer border border-slate-700">
+                            <button onclick="zoomToPrimarySite()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10.5px] font-poppins font-semibold transition flex items-center gap-1 cursor-pointer border border-slate-700">
                                 <i data-lucide="crosshair" class="w-3 h-3 text-cyan-400"></i> Pan Map
                             </button>
-                            <a href="/relocation-engine" class="text-emerald-400 hover:text-emerald-300 text-[10.5px] font-mono font-bold transition flex items-center gap-0.5">
+                            <a href="/relocation-engine" class="text-emerald-400 hover:text-emerald-300 text-[10.5px] font-poppins font-bold transition flex items-center gap-0.5">
                                 <span>Full Engine</span>
                                 <i data-lucide="chevron-right" class="w-3 h-3"></i>
                             </a>
@@ -734,12 +735,12 @@
                             <div class="w-5 h-5 rounded bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                                 <i data-lucide="list-ordered" class="w-3 h-3"></i>
                             </div>
-                            <h3 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                            <h3 class="text-xs font-bold text-white font-poppins uppercase tracking-wider flex items-center gap-2">
                                 Candidate Sanctuaries Comparison
                                 <span id="board_countBadge" class="text-[9px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800 font-bold">4 SITES</span>
                             </h3>
                         </div>
-                        <div class="text-right font-mono text-[10.5px] text-slate-400">
+                        <div class="text-right font-poppins text-[10.5px] text-slate-400">
                             BUFFER: <span id="board_searchBuffer" class="font-bold text-cyan-400">AOI + 15 KM</span>
                         </div>
                     </div>
@@ -750,7 +751,7 @@
                     </div>
 
                     <!-- Comparison Rationale Ribbon -->
-                    <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/90 text-[10px] font-mono text-slate-400 flex items-center justify-between gap-2">
+                    <div class="p-2 rounded-lg bg-slate-950 border border-slate-800/90 text-[10px] font-poppins text-slate-400 flex items-center justify-between gap-2">
                         <div class="flex items-center gap-1.5 truncate">
                             <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
                             <span id="board_summaryText" class="truncate">Greedy allocation achieves non-fragmented relocation across assessed safe sites.</span>
@@ -768,18 +769,18 @@
                             <div class="w-5 h-5 rounded bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-cyan-400">
                                 <i data-lucide="shield-alert" class="w-3 h-3"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-white font-mono uppercase tracking-wider flex items-center gap-2">
+                            <h4 class="text-xs font-bold text-white font-poppins uppercase tracking-wider flex items-center gap-2">
                                 Population Absorption &amp; Directives
                             </h4>
                         </div>
-                        <span id="abs_statusBadge" class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold">
+                        <span id="abs_statusBadge" class="text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-poppins font-bold">
                             100% ZERO-DEFICIT
                         </span>
                     </div>
 
                     <!-- Absorption Progress & Statistics -->
                     <div class="flex flex-col gap-1.5">
-                        <div class="flex items-center justify-between text-[10.5px] font-mono flex-wrap gap-1">
+                        <div class="flex items-center justify-between text-[10.5px] font-poppins flex-wrap gap-1">
                             <span class="text-slate-400">Displaced: <b id="abs_targetPop" class="text-white">720</b></span>
                             <span class="text-slate-400">WorldPop (100m): <b id="abs_worldpop" class="text-emerald-400">720</b></span>
                             <span class="text-slate-400">Safe Capacity: <b id="abs_safeCap" class="text-emerald-400">1,050</b></span>
@@ -791,7 +792,7 @@
                     </div>
 
                     <!-- Directives Operational Quick-Tags -->
-                    <div class="grid grid-cols-3 gap-1.5 text-[9.5px] font-mono">
+                    <div class="grid grid-cols-3 gap-1.5 text-[9.5px] font-poppins">
                         <div class="bg-slate-950/90 p-1.5 rounded border border-slate-800 flex items-center gap-1.5">
                             <i data-lucide="clock" class="w-3 h-3 text-cyan-400 shrink-0"></i>
                             <div class="truncate">
@@ -817,13 +818,13 @@
 
                     <!-- Action Command Buttons -->
                     <div class="flex items-center gap-2 pt-1 border-t border-slate-800/80">
-                        <button onclick="exportDossier()" class="flex-1 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-mono font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer">
+                        <button onclick="exportDossier()" class="flex-1 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-poppins font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer">
                             <i data-lucide="file-check" class="w-3.5 h-3.5"></i> Export DDMA PDF
                         </button>
-                        <button onclick="switchTab('logistics')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-mono text-xs flex items-center gap-1 transition cursor-pointer" title="Switch to Evacuation Fleet Tab">
+                        <button onclick="switchTab('logistics')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-poppins text-xs flex items-center gap-1 transition cursor-pointer" title="Switch to Evacuation Fleet Tab">
                             <i data-lucide="truck" class="w-3.5 h-3.5 text-cyan-400"></i> Fleet Tab
                         </button>
-                        <a href="/ddma" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-mono text-xs flex items-center gap-1 transition" title="Official DDMA Statutory Portal">
+                        <a href="/ddma" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-poppins text-xs flex items-center gap-1 transition" title="Official DDMA Statutory Portal">
                             <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
@@ -847,7 +848,7 @@
                 </button>
             </div>
             
-            <div id="dossierContent" class="space-y-3 font-mono text-slate-300 max-h-[60vh] overflow-y-auto pr-2">
+            <div id="dossierContent" class="space-y-3 font-poppins text-slate-300 max-h-[60vh] overflow-y-auto pr-2">
                 <!-- Injected via JS -->
             </div>
 
@@ -856,7 +857,7 @@
                     <button onclick="downloadDossierReport()" class="px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-sans font-semibold text-xs flex items-center gap-1.5 cursor-pointer shadow-lg shadow-emerald-500/20">
                         <i data-lucide="file-down" class="w-3.5 h-3.5"></i> Download Official Dossier (.pdf)
                     </button>
-                    <button onclick="downloadDossierJson()" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-mono text-xs flex items-center gap-1.5 cursor-pointer">
+                    <button onclick="downloadDossierJson()" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 font-poppins text-xs flex items-center gap-1.5 cursor-pointer">
                         <i data-lucide="file-json" class="w-3.5 h-3.5"></i> Export JSON Data
                     </button>
                 </div>
@@ -960,8 +961,8 @@
             if (lbl) lbl.innerText = isCartosatVisible ? 'Cartosat-3: ON' : 'Cartosat-3: OFF';
             if (btn) {
                 btn.className = isCartosatVisible 
-                    ? "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow"
-                    : "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow";
+                    ? "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow"
+                    : "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow";
             }
             cartosatLayers.forEach(l => {
                 if (isCartosatVisible) map.addLayer(l);
@@ -978,8 +979,8 @@
             if (cardLbl) cardLbl.innerText = isBhuvanWmsVisible ? 'Hide Bhuvan WMS on Map' : 'Show Bhuvan WMS on Map';
             if (btn) {
                 btn.className = isBhuvanWmsVisible
-                    ? "px-3 py-2 rounded-xl bg-purple-950/80 hover:bg-purple-900 text-purple-300 border border-purple-500 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow"
-                    : "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-600/40 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow";
+                    ? "px-3 py-2 rounded-xl bg-purple-950/80 hover:bg-purple-900 text-purple-300 border border-purple-500 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow"
+                    : "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-600/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow";
             }
             if (isBhuvanWmsVisible) {
                 map.addLayer(bhuvanWMS);
@@ -1017,9 +1018,9 @@
             if (lbl) lbl.innerText = isSarRadarVisible ? 'SAR Radar: ON' : 'SAR Radar: OFF';
             if (btn) {
                 if (isSarRadarVisible) {
-                    btn.className = "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow";
+                    btn.className = "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow";
                 } else {
-                    btn.className = "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 text-xs font-mono transition flex items-center gap-1.5 cursor-pointer shadow";
+                    btn.className = "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow";
                 }
             }
             if (sarRadarLayer) {
@@ -1077,13 +1078,13 @@
                 const mode = prov.overall_mode || (prov.weather === 'LIVE' && prov.elevation === 'LIVE' && prov.sentinel2 === 'LIVE' ? (prov.osm === 'LIVE' ? 'LIVE' : 'PRE-INDEXED') : 'DEMO FALLBACK');
                 pLbl.innerText = mode;
                 if (mode === 'LIVE') {
-                    pill.className = "px-2.5 py-1 rounded-md text-[11px] font-mono font-bold tracking-wider flex items-center gap-1.5 bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 shadow-sm";
+                    pill.className = "px-2.5 py-1 rounded-md text-[11px] font-poppins font-bold tracking-wider flex items-center gap-1.5 bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 shadow-sm";
                     pDot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
                 } else if (mode.includes('PRE-INDEXED') || mode.includes('HYBRID')) {
-                    pill.className = "px-2.5 py-1 rounded-md text-[11px] font-mono font-bold tracking-wider flex items-center gap-1.5 bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 shadow-sm";
+                    pill.className = "px-2.5 py-1 rounded-md text-[11px] font-poppins font-bold tracking-wider flex items-center gap-1.5 bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 shadow-sm";
                     pDot.className = "w-2 h-2 rounded-full bg-cyan-400 animate-pulse";
                 } else {
-                    pill.className = "px-2.5 py-1 rounded-md text-[11px] font-mono font-bold tracking-wider flex items-center gap-1.5 bg-amber-500/15 border border-amber-500/40 text-amber-300 shadow-sm";
+                    pill.className = "px-2.5 py-1 rounded-md text-[11px] font-poppins font-bold tracking-wider flex items-center gap-1.5 bg-amber-500/15 border border-amber-500/40 text-amber-300 shadow-sm";
                     pDot.className = "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
                 }
             }
@@ -1116,15 +1117,15 @@
                 if (idx < curIdx) {
                     dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-[#050505] transition-all text-xs font-bold bg-[#00E5FF]/20 text-[#00E5FF] border border-[#00E5FF]/40";
                     dot.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i>`;
-                    lbl.className = "text-[9px] font-mono font-bold tracking-wider text-[#00E5FF]";
+                    lbl.className = "text-[9px] font-poppins font-bold tracking-wider text-[#00E5FF]";
                 } else if (idx === curIdx) {
                     dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-[#050505] transition-all text-xs font-bold bg-[#00E5FF] text-[#050505] shadow-[0_0_12px_rgba(0,229,255,0.6)] font-black";
                     dot.innerText = idx + 1;
-                    lbl.className = "text-[9px] font-mono font-bold tracking-wider text-[#00E5FF]";
+                    lbl.className = "text-[9px] font-poppins font-bold tracking-wider text-[#00E5FF]";
                 } else {
                     dot.className = "w-7 h-7 rounded-full flex items-center justify-center ring-4 ring-[#050505] transition-all text-xs font-bold bg-[#141414] text-slate-500 border border-white/10";
                     dot.innerText = idx + 1;
-                    lbl.className = "text-[9px] font-mono font-bold tracking-wider text-slate-500";
+                    lbl.className = "text-[9px] font-poppins font-bold tracking-wider text-slate-500";
                 }
             });
             lucide.createIcons();
@@ -1269,7 +1270,7 @@
                         fillColor: (cell.style && cell.style.fillColor) || '#eab308',
                         fillOpacity: (cell.style && cell.style.fillOpacity) || 0.25
                     }).bindTooltip(
-                        `<div class="font-mono text-xs"><b>${dot} Cell ${cellId}</b> (${tier})<br>Hazard Score: <b>${score}</b><br>Distance: ${cell.distance_m || 0} m</div>`,
+                        `<div class="font-poppins text-xs"><b>${dot} Cell ${cellId}</b> (${tier})<br>Hazard Score: <b>${score}</b><br>Distance: ${cell.distance_m || 0} m</div>`,
                         { sticky: true }
                     );
                     hazardGridLayers.push(rect);
@@ -1339,7 +1340,7 @@
 
                 const marker = L.marker([site.coordinates.lat, site.coordinates.lon], { icon: siteMarkerIcon })
                     .bindPopup(`
-                        <div class="text-xs p-1 font-mono">
+                        <div class="text-xs p-1 font-poppins">
                             <b class="${isSafe ? 'text-emerald-600' : 'text-red-600'}">${site.name}</b><br>
                             <b>Type:</b> ${site.type || site.facility_type}<br>
                             <b>Distance:</b> ${site.distance_km} km (${site.ring_label})<br>
@@ -1375,7 +1376,7 @@
                     fillColor: '#f59e0b',
                     fillOpacity: 0.12
                 }).bindPopup(`
-                    <div class="font-mono text-xs">
+                    <div class="font-poppins text-xs">
                         <b class="text-amber-400">🛰️ ISRO Cartosat-3 Architecture Specification</b><br>
                         <b>Target:</b> ${cartoData.site_target}<br>
                         <b>PAN GSD:</b> 0.28 m [ARCHITECTURE] | <b>MX GSD:</b> 1.12 m<br>
@@ -1390,13 +1391,13 @@
                 // Potential Emergency Access Site Marker
                 const accessIcon = L.divIcon({
                     className: 'emergency-access-icon',
-                    html: `<div class="px-2.5 py-1 rounded-lg bg-amber-950/95 border-2 border-amber-400 text-amber-300 flex items-center gap-1.5 font-mono font-bold text-[10.5px] shadow-2xl"><i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i><span>ACCESS</span></div>`,
+                    html: `<div class="px-2.5 py-1 rounded-lg bg-amber-950/95 border-2 border-amber-400 text-amber-300 flex items-center gap-1.5 font-poppins font-bold text-[10.5px] shadow-2xl"><i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i><span>ACCESS</span></div>`,
                     iconSize: [80, 28],
                     iconAnchor: [40, 14]
                 });
                 const accessMarker = L.marker([cLat, cLon], { icon: accessIcon })
                     .bindPopup(`
-                        <div class="font-mono text-xs space-y-1">
+                        <div class="font-poppins text-xs space-y-1">
                             <b class="text-amber-400">POTENTIAL EMERGENCY ACCESS SITE</b>
                             <div class="text-[10px] text-slate-400">Location: ${cartoData.site_target || 'Target Safe Sanctuary'}</div>
                             <div class="border-t border-slate-700/80 pt-1.5 text-[11px] space-y-1">
@@ -1428,7 +1429,7 @@
                     fillColor: '#9333ea',
                     fillOpacity: 0.10
                 }).bindPopup(`
-                    <div class="font-mono text-xs">
+                    <div class="font-poppins text-xs">
                         <b class="text-purple-400">🌲 ISRO Bhuvan 1:50k LULC Anchor</b><br>
                         <b>Classification:</b> ${bhuvanData.lulc_50k?.classification || 'Institutional Land'}<br>
                         <b>National Code:</b> ${bhuvanData.lulc_50k?.code || 'LULC-50K'}<br>
@@ -1455,10 +1456,10 @@
             const modeBadge = document.getElementById('satModeBadge');
             if (sat.mode === 'live_telemetry') {
                 modeBadge.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Live STAC Telemetry`;
-                modeBadge.className = "text-xs font-mono text-emerald-400 flex items-center gap-1";
+                modeBadge.className = "text-xs font-poppins text-emerald-400 flex items-center gap-1";
             } else {
                 modeBadge.innerHTML = `<i data-lucide="info" class="w-3.5 h-3.5"></i> Offline Demo Fallback`;
-                modeBadge.className = "text-xs font-mono text-amber-400 flex items-center gap-1";
+                modeBadge.className = "text-xs font-poppins text-amber-400 flex items-center gap-1";
             }
 
             const thumb = document.getElementById('satThumbnail');
@@ -1488,10 +1489,10 @@
                 if (sarBadge) {
                     if (sar.status === 'LIVE' || sar.mode === 'live_telemetry') {
                         sarBadge.innerHTML = `<i data-lucide="radio" class="w-3.5 h-3.5 text-cyan-400 animate-pulse"></i> Live SAR Telemetry`;
-                        sarBadge.className = "text-xs font-mono text-cyan-300 flex items-center gap-1";
+                        sarBadge.className = "text-xs font-poppins text-cyan-300 flex items-center gap-1";
                     } else {
                         sarBadge.innerHTML = `<i data-lucide="info" class="w-3.5 h-3.5"></i> Radar Cache Fallback`;
-                        sarBadge.className = "text-xs font-mono text-amber-400 flex items-center gap-1";
+                        sarBadge.className = "text-xs font-poppins text-amber-400 flex items-center gap-1";
                     }
                 }
 
@@ -1690,39 +1691,39 @@
                             <div class="flex items-center justify-between gap-2 border-b ${isPrimary ? 'border-emerald-800/40' : isElig ? 'border-slate-800/80' : 'border-red-900/30'} pb-1.5 mb-1.5">
                                 <div class="flex items-center gap-1.5 truncate">
                                     <span class="text-xs font-bold ${isPrimary ? 'text-emerald-300' : isElig ? 'text-white' : 'text-slate-400'} truncate">${s.name}</span>
-                                    <span class="text-[9.5px] font-mono text-slate-500 hidden sm:inline">(${s.type || s.facility_type || 'Facility'})</span>
+                                    <span class="text-[9.5px] font-poppins text-slate-500 hidden sm:inline">(${s.type || s.facility_type || 'Facility'})</span>
                                 </div>
                                 <div class="flex items-center gap-1 shrink-0">
                                     ${isPrimary ? `
-                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-1">
+                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-poppins bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-1">
                                             <i data-lucide="award" class="w-3 h-3 text-emerald-400"></i> RANK #1
                                         </span>
                                     ` : isSupp ? `
-                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-cyan-950 text-cyan-300 border border-cyan-800">
+                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-poppins bg-cyan-950 text-cyan-300 border border-cyan-800">
                                             RANK #${rank}
                                         </span>
                                     ` : `
-                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-mono bg-red-950 text-red-400 border border-red-800">
+                                        <span class="px-1.5 py-0.5 rounded text-[9px] font-bold font-poppins bg-red-950 text-red-400 border border-red-800">
                                             VETOED
                                         </span>
                                     `}
                                 </div>
                             </div>
-                            <div class="grid grid-cols-12 items-center gap-2 text-[10.5px] font-mono">
+                            <div class="grid grid-cols-12 items-center gap-2 text-[10.5px] font-poppins">
                                 <div class="col-span-8 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-slate-400">
                                     <span>Dist: <b class="text-slate-200">${s.distance_km} km</b></span>
                                     <span>Cap: <b class="${isElig ? 'text-cyan-300' : 'text-slate-500'}">${cap.toLocaleString()}</b></span>
                                     <span>Slope: <b class="${s.slope_deg <= 14 ? 'text-emerald-400' : 'text-red-400'}">${s.slope_deg}°</b></span>
                                 </div>
                                 <div class="col-span-4 flex items-center justify-end gap-2">
-                                    <span class="text-xs font-black ${isElig ? 'text-amber-300' : 'text-red-400 font-mono'}">${isElig ? `${score}/100` : '0/100'}</span>
-                                    <button onclick="zoomToSite(${s.coordinates.lat}, ${s.coordinates.lon})" class="px-2 py-0.8 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10px] font-mono transition cursor-pointer flex items-center gap-1 border border-slate-700">
+                                    <span class="text-xs font-black ${isElig ? 'text-amber-300' : 'text-red-400 font-poppins'}">${isElig ? `${score}/100` : '0/100'}</span>
+                                    <button onclick="zoomToSite(${s.coordinates.lat}, ${s.coordinates.lon})" class="px-2 py-0.8 rounded bg-slate-800 hover:bg-slate-700 text-cyan-300 text-[10px] font-poppins transition cursor-pointer flex items-center gap-1 border border-slate-700">
                                         <i data-lucide="crosshair" class="w-3 h-3"></i> Pan
                                     </button>
                                 </div>
                             </div>
                             ${!isElig && s.veto_reasons && s.veto_reasons.length > 0 ? `
-                                <div class="mt-1.5 pt-1 border-t border-red-900/30 text-[9.5px] font-mono text-red-400 flex items-center gap-1">
+                                <div class="mt-1.5 pt-1 border-t border-red-900/30 text-[9.5px] font-poppins text-red-400 flex items-center gap-1">
                                     <i data-lucide="shield-alert" class="w-3 h-3 text-red-400 shrink-0"></i>
                                     <span>Veto: ${s.veto_reasons[0]}</span>
                                 </div>
@@ -1760,7 +1761,7 @@
             const statusBadge = document.getElementById('abs_statusBadge');
             if (statusBadge) {
                 statusBadge.innerText = deficit === 0 ? '100% ZERO-DEFICIT' : `${Math.round((safeCap / targetPop) * 100)}% COVERAGE`;
-                statusBadge.className = deficit === 0 ? 'text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono font-bold' : 'text-[9px] px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono font-bold';
+                statusBadge.className = deficit === 0 ? 'text-[9px] px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-poppins font-bold' : 'text-[9px] px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-poppins font-bold';
             }
 
             const pBar = document.getElementById('abs_progressBar');
@@ -1912,10 +1913,10 @@
                     allocRows += `
                         <div class="p-2 bg-slate-900/80 rounded border border-slate-800 flex justify-between items-center text-[11px]">
                             <div>
-                                <b class="text-white">${a.site_name}</b> <span class="text-xs font-mono text-cyan-400">(${a.role})</span>
+                                <b class="text-white">${a.site_name}</b> <span class="text-xs font-poppins text-cyan-400">(${a.role})</span>
                                 <div class="text-[10px] text-slate-400">Sphere Safe Capacity: ${a.site_capacity.toLocaleString()} | Utilization: ${a.utilization_pct}%</div>
                             </div>
-                            <div class="text-right font-mono font-bold text-emerald-400 text-xs">
+                            <div class="text-right font-poppins font-bold text-emerald-400 text-xs">
                                 ${a.allocated_population.toLocaleString()} Persons
                             </div>
                         </div>
@@ -1936,7 +1937,7 @@
                 <!-- 2. Data Provenance Audit -->
                 <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
                     <div class="text-cyan-400 font-bold flex items-center gap-1.5"><i data-lucide="satellite" class="w-4 h-4 text-cyan-400"></i> 2. DATA PROVENANCE & MULTI-SENSOR AUDIT</div>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[10px] font-mono pt-1">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[10px] font-poppins pt-1">
                         <div class="p-1.5 bg-slate-900 rounded border border-slate-800">
                             <span class="text-cyan-400 font-bold block">SENTINEL-1 SAR</span>
                             <span class="text-slate-300">${prov.sentinel1 || 'LIVE'}</span> • All-Weather Radar
@@ -1974,7 +1975,7 @@
                 <!-- 4. Multi-Site Allocation -->
                 <div class="p-3 bg-emerald-950/20 rounded-lg border border-emerald-800/60 space-y-1.5">
                     <div class="text-emerald-400 font-bold flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> 4. GREEDY MULTI-SITE CAPACITY ALLOCATION & SPHERE SIZING</div>
-                    <div class="text-xs font-mono font-bold text-white">${multiAlloc.allocation_formula || 'Full Coverage Achieved'}</div>
+                    <div class="text-xs font-poppins font-bold text-white">${multiAlloc.allocation_formula || 'Full Coverage Achieved'}</div>
                     <div class="space-y-1 pt-1">${allocRows}</div>
                     <div class="text-[10px] text-slate-400 pt-1">
                         Sphere Standards basis: Estimated Safe Capacity using Sphere settlement planning guidance (45 m²/person) and explicit RAKSHA land-use assumptions (60% usable shelter footprint).
@@ -2001,9 +2002,9 @@
                 <div class="p-3 bg-slate-950 rounded-lg border border-cyan-800/60 space-y-2">
                     <div class="text-cyan-300 font-bold flex items-center justify-between text-xs">
                         <span class="flex items-center gap-1.5"><i data-lucide="layers" class="w-4 h-4 text-cyan-400"></i> 7. SATELLITE EO DECISION ARCHITECTURE MATRIX</span>
-                        <span class="text-[9px] font-mono text-slate-400 uppercase">SIH DEFENSE POSTURE</span>
+                        <span class="text-[9px] font-poppins text-slate-400 uppercase">SIH DEFENSE POSTURE</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                    <div class="grid grid-cols-2 gap-2 text-[10px] font-poppins">
                         <div class="p-2 rounded bg-slate-900 border border-slate-800">
                             <b class="text-cyan-400">🛰️ SENTINEL-1 SAR (Detect):</b> All-weather, cloud-penetrating radar flood extent & surface change detection.
                         </div>
@@ -2017,13 +2018,13 @@
                             <b class="text-purple-400">🗺️ BHUVAN / NRSC (Anchor):</b> Authoritative Indian geospatial foundation, LULC & historical disaster rasters.
                         </div>
                     </div>
-                    <div class="p-2 rounded bg-cyan-950/30 border border-cyan-800/40 text-[10px] text-cyan-200 font-mono italic text-center">
+                    <div class="p-2 rounded bg-cyan-950/30 border border-cyan-800/40 text-[10px] text-cyan-200 font-poppins italic text-center">
                         “Sentinel-1 detects change, Sentinel-2 provides environmental context, Cartosat-3 validates sites at high resolution, and RAKSHA converts these observations into relocation decisions.”
                     </div>
                 </div>
 
                 <!-- 8. Disclaimer & Roadmap -->
-                <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 text-[10px] text-slate-500 font-mono">
+                <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 text-[10px] text-slate-500 font-poppins">
                     Authority: District Disaster Management Authority (DDMA) & State Emergency Operations Centre (SEOC).
                     RAKSHA Engine 2.0 Operational Intelligence. Note: Sentinel-1 SAR flood masks, Bhuvan WMS, Cartosat-3 validation, and road-network routing (OSRM) are scheduled for production integration.
                 </div>

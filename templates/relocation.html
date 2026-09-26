@@ -29,7 +29,7 @@
                     fontFamily: {
                         sans: ['Poppins', 'Outfit', 'Inter', 'sans-serif'],
                         poppins: ['Poppins', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'IBM Plex Mono', 'monospace'],
+                        mono: ['Poppins', 'Inter', 'sans-serif'],
                         royal: ['Poppins', 'Space Grotesk', 'Outfit', 'sans-serif'],
                         space: ['Space Grotesk', 'Poppins', 'sans-serif']
                     }
@@ -51,7 +51,8 @@
     <style>
         body { font-family: 'Poppins', 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #050505; color: #f1f5f9; }
         .font-royal { font-family: 'Poppins', 'Space Grotesk', 'Outfit', sans-serif; letter-spacing: 0.03em; }
-        .font-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
+        .font-poppins { font-family: 'Poppins', 'Inter', sans-serif !important; }
         .font-sans { font-family: 'Poppins', 'Outfit', 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
@@ -92,13 +93,13 @@
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-royal font-black text-xl text-white tracking-wider">RAKSHA</span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold tracking-wide">RELOCATION STUDIO</span>
+                        <span class="text-[10px] font-poppins px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold tracking-wide">RELOCATION STUDIO</span>
                     </div>
                 </div>
             </div>
 
             <!-- Right: Interactive Incident Presets -->
-            <div class="flex items-center gap-2 font-mono text-xs">
+            <div class="flex items-center gap-2 font-poppins text-xs">
                 <span class="text-slate-400 text-[10px] uppercase font-bold hidden sm:inline">SCENARIO:</span>
                 <div class="flex items-center gap-1 bg-[#0D0D0D] p-1 rounded-xl border border-white/10">
                     <button onclick="switchHotspot('devgram')" id="btnDev" class="px-2.5 py-1 rounded-lg bg-[#00E5FF]/15 text-[#00E5FF] font-bold border border-[#00E5FF]/40 text-[11px] transition shadow-[0_0_10px_rgba(0,229,255,0.25)]">Devgram</button>
@@ -111,7 +112,7 @@
 
     <!-- Context Ribbon -->
     <div class="bg-[#080808] border-b border-white/10 px-6 py-2">
-        <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
+        <div class="max-w-[1850px] mx-auto flex flex-wrap items-center justify-between gap-3 text-[11px] font-poppins">
             <div class="flex items-center gap-2 flex-wrap">
                 <span class="badge-data px-1.5 py-0.5 rounded text-[9px] font-bold">DATA</span>
                 <span class="text-slate-400">INCIDENT GROUND ZERO:</span>
@@ -141,7 +142,7 @@
                         <span class="font-royal text-xs font-bold text-white uppercase tracking-wider">Progressive Spatial Search &amp; Safety Map</span>
                     </div>
 
-                    <div class="flex items-center gap-2 text-xs font-mono">
+                    <div class="flex items-center gap-2 text-xs font-poppins">
                         <!-- Basemap Switcher: Satellite / Terrain / Street Map -->
                         <div class="flex items-center gap-1 bg-[#0D0D0D] p-1 rounded-xl border border-white/10 shadow-inner">
                             <span class="text-slate-500 text-[10px] uppercase px-1.5 hidden sm:inline">BASEMAP:</span>
@@ -171,7 +172,7 @@
                 <div id="relocationMap" class="w-full h-[580px] rounded-xl border border-white/10 bg-[#050505] relative z-0"></div>
 
                 <!-- Map Legend -->
-                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-slate-400 pt-1 border-t border-white/10">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-poppins text-slate-400 pt-1 border-t border-white/10">
                     <div class="flex items-center gap-3">
                         <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> 🔴 Origin</span>
                         <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> 🟢 Qualified Candidate</span>
@@ -184,7 +185,7 @@
         </div>
 
         <!-- ================= RIGHT: DECISION PANEL (~40% / 5 COLS) ================= -->
-        <div class="lg:col-span-5 flex flex-col gap-4 font-mono text-xs">
+        <div class="lg:col-span-5 flex flex-col gap-4 font-poppins text-xs">
 
             <!-- 6-Step Workflow Navigation Strip -->
             <div class="bg-[#080808] border border-white/10 rounded-2xl p-2 shadow-xl flex items-center justify-between gap-1 overflow-x-auto text-[11px] font-bold">
@@ -486,7 +487,7 @@
                 <div class="space-y-1.5 text-xs">
                     <div class="flex justify-between">
                         <span class="text-slate-400">Candidate Name:</span>
-                        <span id="dossierSiteName" class="text-white font-bold">Pipalkoti Institutional Complex (Site A)</span>
+                        <span id="dossierSiteName" class="text-white font-bold">GIC Pipalkoti Campus & Grounds (Site A)</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-slate-400">Transit Distance:</span>
@@ -563,7 +564,7 @@
                 h10Cap: 600,
                 h15Cap: 1050,
                 logic: 'Search expanded through Urgam-Helang mountain road, qualifying four institutional complexes along the paved NH-58 Badrinath corridor.',
-                mcdaRationale: 'Pipalkoti Institutional Complex ranks #1: zero gorge runoff overlap, 5.2° slope gradient, two-way paved NH-58 transit, accommodating 350 as primary intake node.',
+                mcdaRationale: 'GIC Pipalkoti Campus & Grounds ranks #1: zero gorge runoff overlap, 5.2° slope gradient, two-way paved NH-58 transit, accommodating 350 as primary intake node.',
                 routePolyline: [
                     [30.3207, 79.2163],
                     [30.3250, 79.2220],
@@ -573,7 +574,7 @@
                     [30.3540, 79.2560]
                 ],
                 sites: [
-                    { id: 1, name: "Pipalkoti Institutional Complex (Site A)", lat: 30.3540, lon: 79.2560, cap: "350", dist: "5.31 km", slope: "5.2°", access: "Paved 2-Lane NH-58 Corridor", score: "0.885 (Rank #1)", passed: true, primary: true },
+                    { id: 1, name: "GIC Pipalkoti Campus & Grounds (Site A)", lat: 30.3540, lon: 79.2560, cap: "350", dist: "5.31 km", slope: "5.2°", access: "Paved 2-Lane NH-58 Corridor", score: "0.885 (Rank #1)", passed: true, primary: true },
                     { id: 2, name: "Helang Community Campus (Site B)", lat: 30.3680, lon: 79.2780, cap: "250", dist: "7.82 km", slope: "6.4°", access: "NH-58 Spur Link", score: "0.832 (Rank #2)", passed: true },
                     { id: 3, name: "GIC Joshimath Corridor Ground (Site C)", lat: 30.3850, lon: 79.2990, cap: "200", dist: "11.45 km", slope: "4.8°", access: "District Paved Road", score: "0.785 (Rank #3)", passed: true },
                     { id: 4, name: "Marwari Sub-Station Agri Campus (Site D)", lat: 30.4010, lon: 79.3150, cap: "250", dist: "13.90 km", slope: "4.1°", access: "Highway Lateral", score: "0.760 (Rank #4)", passed: true },
@@ -740,7 +741,7 @@
                         fillColor: fillColor,
                         fillOpacity: fillOpacity
                     }).bindTooltip(`
-                        <div style="font-family: monospace; font-size: 11px;">
+                        <div style="font-family: 'Poppins', 'Inter', sans-serif; font-size: 11px;">
                             <b style="color: ${isHazard ? '#ef4444' : '#00E5FF'};">▦ Search Cell [R${r+1}, C${c+1}]</b> &bull; ${isHazard ? 'High Hazard Zone' : 'Perimeter Safe Buffer'}<br>
                             Hazard Intensity: <b>${isHazard ? '0.78' : '0.12'}</b>
                         </div>
