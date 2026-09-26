@@ -135,7 +135,7 @@ def get_scenarios():
             "hazard_type": "Riverine Flood & Embankment Breach",
             "displaced_population": 14800,
             "planning_window_mins": 300,
-            "primary_route_name": "Silchar-Hailakandi Road (SH-39) / NH-37",
+            "primary_route_name": "Silchar-Hailakandi Elevated Corridor / NH-37",
             "primary_distance_km": 10.16
         }
     }
@@ -171,9 +171,9 @@ def calculate_logistics(req: LogisticsCalcRequest):
     if not allocs:
         # Default fallback to Devgram allocations if none provided
         allocs = [
-            {"site_id": "site-1", "site_name": "Government Inter College (GIC) Pipalkoti Campus & Grounds", "allocated_population": 350, "distance_km": 5.31, "capacity": 350},
-            {"site_id": "site-2", "site_name": "Helang Panchayat Centre & GMVN Complex Grounds", "allocated_population": 250, "distance_km": 7.82, "capacity": 250},
-            {"site_id": "site-3", "site_name": "Government Inter College (GIC) Joshimath Grounds", "allocated_population": 120, "distance_km": 11.45, "capacity": 200}
+            {"site_id": "site-1", "site_name": "Pipalkoti Institutional Complex", "allocated_population": 350, "distance_km": 5.31, "capacity": 350},
+            {"site_id": "site-2", "site_name": "Helang Community Campus", "allocated_population": 250, "distance_km": 7.82, "capacity": 250},
+            {"site_id": "site-3", "site_name": "GIC Joshimath Corridor Ground", "allocated_population": 120, "distance_km": 11.45, "capacity": 200}
         ]
 
     return engine.compute_detailed_logistics(
