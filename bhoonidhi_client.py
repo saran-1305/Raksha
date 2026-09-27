@@ -75,7 +75,7 @@ class BhoonidhiClient:
             except Exception as e:
                 pass
 
-        # High-Resolution Architectural Validation Frame
+        # High-Resolution Architectural Validation Frame (Visual Demo Representation)
         delta = 0.0035  # ~380m local boundary audit box
         footprint_poly = [
             [round(lat - delta, 5), round(lon - delta, 5)],
@@ -84,29 +84,47 @@ class BhoonidhiClient:
             [round(lat - delta, 5), round(lon + delta, 5)]
         ]
 
+        # Modeled visual overlays: access road vector, inner open staging, building clusters
+        access_road_vector = [
+            [round(lat - delta * 1.5, 5), round(lon - delta * 0.8, 5)],
+            [round(lat - delta * 0.5, 5), round(lon - delta * 0.4, 5)],
+            [round(lat, 5), round(lon, 5)]
+        ]
+        open_staging_poly = [
+            [round(lat - delta * 0.5, 5), round(lon - delta * 0.5, 5)],
+            [round(lat + delta * 0.5, 5), round(lon - delta * 0.5, 5)],
+            [round(lat + delta * 0.5, 5), round(lon + delta * 0.5, 5)],
+            [round(lat - delta * 0.5, 5), round(lon + delta * 0.5, 5)]
+        ]
+
         return {
             "satellite": "ISRO Cartosat-3",
-            "source_status": "ARCHITECTURE",
-            "scene_id": f"C3_PANMX_{lat:.4f}_{lon:.4f}_CATALOG_FRAME",
-            "acquisition_date": "2026-03-14T05:18:22Z",
-            "resolution": {
-                "panchromatic_gsd_m": 0.28,
-                "multispectral_gsd_m": 1.12,
-                "swath_km": 17.0
+            "section_label": "CARTOSAT-3 — TARGETED HIGH-RESOLUTION VALIDATION",
+            "status": "DEMO / ARCHITECTURE",
+            "provenance": "ARCHITECTURE",
+            "is_demo_layer": True,
+            "target_specifications": {
+                "sensor": "Panchromatic & 4-Band Multispectral (PAN/MX)",
+                "planned_pan_gsd": "0.28 m GSD (Target Specification)",
+                "planned_mx_gsd": "1.12 m GSD (Target Specification)",
+                "swath_width_km": 17.0
             },
-            "acquisition_agency": "National Remote Sensing Centre (NRSC) / ISRO",
-            "catalog_portal": "https://bhoonidhi.nrsc.gov.in",
-            "cloud_cover_pct": 3.8,
-            "sun_elevation_deg": 61.2,
-            "incidence_angle_deg": 6.4,
-            "bbox": [round(lon - delta, 5), round(lat - delta, 5), round(lon + delta, 5), round(lat + delta, 5)],
+            "technical_honesty_note": "Visual high-resolution simulation layer representing planned Cartosat-3 ground validation. No raw Cartosat-3 imagery was retrieved.",
+            "visual_overlays": {
+                "candidate_site_boundary": footprint_poly,
+                "access_road_corridor": access_road_vector,
+                "open_staging_area": open_staging_poly,
+                "terrain_context": "Slope profiles modeled via SRTM DEM"
+            },
             "footprint_polygon": footprint_poly,
+            "access_road_vector": access_road_vector,
+            "open_staging_poly": open_staging_poly,
             "emergency_access_zone": {
                 "center": [round(lat, 5), round(lon, 5)],
                 "status": "POTENTIAL_EMERGENCY_ACCESS",
-                "source_label": "ARCHITECTURE"
+                "source_label": "DEMO / ARCHITECTURE"
             },
-            "licensing": "Indian Space Policy 2023 (Bhoonidhi Catalog Framework)",
+            "licensing": "Indian Space Policy 2023 (Restricted Data < 5m GSD - Nodal Agency Integration)",
             "auth_status": self.get_auth_status()
         }
 

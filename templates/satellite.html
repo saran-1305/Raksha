@@ -343,7 +343,7 @@
         <!-- Right 6 Columns: ISRO Cartosat-3 & ISRO Bhuvan High-Resolution Pillars -->
         <div id="col-isro" class="lg:col-span-6 flex flex-col gap-6">
 
-            <!-- 3. ISRO Cartosat-3 Sub-Meter Ground Validation Studio -->
+            <!-- 3. CARTOSAT-3 — TARGETED HIGH-RESOLUTION VALIDATION -->
             <div id="card-sat-carto" class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                     <div class="flex items-center gap-2.5">
@@ -352,129 +352,170 @@
                         </div>
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
-                                ISRO Cartosat-3 Architecture Specification Studio
-                                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30 font-poppins">0.28m GSD</span>
+                                CARTOSAT-3 — TARGETED HIGH-RESOLUTION VALIDATION
                             </h2>
-                            <p class="text-xs text-slate-400 font-poppins">Bhoonidhi Catalog Framework • Indian Space Policy 2023 Regulatory Spec</p>
+                            <p class="text-xs text-slate-400 font-poppins">STATUS: <b class="text-amber-300">DEMO / ARCHITECTURE</b> • Planned ISRO Optical Ground Validation</p>
                         </div>
                     </div>
-                    <span id="cartoVerdictBadge" class="text-xs px-2.5 py-1 rounded-full font-poppins font-bold bg-slate-800 text-amber-300 border border-amber-500/40 flex items-center gap-1">
-                        <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i> ASSESSED [ARCHITECTURE]
-                    </span>
+                    <div class="flex items-center gap-1">
+                        <span class="text-[9px] px-2 py-0.5 rounded font-poppins font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">DEMO</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded font-poppins font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">ARCHITECTURE</span>
+                    </div>
                 </div>
 
                 <!-- Provenance & Architecture Notice -->
                 <div class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[10.5px] font-poppins text-amber-300 flex items-center justify-between">
                     <span class="flex items-center gap-1.5">
                         <i data-lucide="info" class="w-3.5 h-3.5 text-amber-400"></i>
-                        <span>DATA PROVENANCE: <b>BHOONIDHI CATALOG FRAMEWORK SPECIFICATION [ARCHITECTURE]</b></span>
+                        <span>DATA PROVENANCE: <b>PLANNED HIGH-RESOLUTION VALIDATION SPECIFICATION</b></span>
                     </span>
-                    <span class="text-slate-400 text-[10px]">Indian Space Policy 2023</span>
+                    <span class="px-1.5 py-0.5 rounded text-[8px] bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span>
                 </div>
 
                 <!-- Metrics Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-poppins text-xs">
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                        <span class="text-slate-500 text-[10px] block">PAN RESOLUTION</span>
-                        <span class="text-amber-400 font-extrabold text-sm">0.28 m GSD</span>
-                        <span class="text-[9px] text-slate-500 block">[ARCHITECTURE]</span>
+                        <span class="text-slate-500 text-[10px] block">TARGET SENSOR SPEC</span>
+                        <span class="text-amber-400 font-extrabold text-sm">0.28m PAN / 1.12m MX</span>
+                        <span class="text-[8px] px-1 py-0.2 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase inline-block mt-0.5">ARCHITECTURE</span>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                        <span class="text-slate-500 text-[10px] block">ROAD ACCESS</span>
-                        <span id="cartoRoadAccessStatus" class="text-emerald-400 font-extrabold text-sm">Available</span>
-                        <span class="text-[9px] text-slate-500 block">[ESTIMATED]</span>
+                        <span class="text-slate-500 text-[10px] block">ACCESS CORRIDOR</span>
+                        <span id="cartoRoadAccessStatus" class="text-emerald-400 font-extrabold text-sm">Road Traced</span>
+                        <span class="text-[8px] px-1 py-0.2 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase inline-block mt-0.5">DERIVED</span>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                        <span class="text-slate-500 text-[10px] block">OPEN AREA</span>
-                        <span id="cartoOpenGround" class="text-cyan-300 font-extrabold text-sm">Estimated</span>
-                        <span class="text-[9px] text-slate-500 block">[DERIVED]</span>
+                        <span class="text-slate-500 text-[10px] block">OPEN AREA FOOTPRINT</span>
+                        <span id="cartoOpenGround" class="text-cyan-300 font-extrabold text-sm">Parcel Estimated</span>
+                        <span class="text-[8px] px-1 py-0.2 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase inline-block mt-0.5">DERIVED</span>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-center">
-                        <span class="text-slate-500 text-[10px] block">EMERGENCY ACCESS</span>
-                        <span class="text-emerald-400 font-extrabold text-sm">Potential Site</span>
-                        <span class="text-[9px] text-slate-500 block">[ARCHITECTURE]</span>
+                        <span class="text-slate-500 text-[10px] block">TERRAIN CONTEXT</span>
+                        <span class="text-emerald-300 font-extrabold text-sm">SRTM DEM Profile</span>
+                        <span class="text-[8px] px-1 py-0.2 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase inline-block mt-0.5">LIVE</span>
                     </div>
                 </div>
 
                 <!-- Interactive Mini-Map: Cartosat Footprint & Access Site -->
                 <div class="relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800 h-52">
                     <div id="cartoMiniMap" class="h-full w-full"></div>
-                    <div class="absolute top-2 left-2 z-[500] bg-slate-900/90 backdrop-blur px-2.5 py-1 rounded text-[10px] font-poppins text-amber-300 border border-slate-700">
-                        🛰️ Potential Emergency Access Site Boundary [ARCHITECTURE]
+                    <div class="absolute top-2 left-2 z-[500] bg-slate-900/90 backdrop-blur px-2.5 py-1 rounded text-[10px] font-poppins text-amber-300 border border-slate-700 flex items-center gap-1.5">
+                        <span>🛰️ Potential Emergency Access Site Boundary</span>
+                        <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span>
+                        <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span>
                     </div>
                 </div>
 
                 <!-- Assessment Checklist -->
                 <div class="space-y-1 text-xs font-poppins">
-                    <div class="flex items-center gap-2 text-emerald-400">
-                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
-                        <span>Road Access: Available <span class="text-[9px] text-slate-400 font-normal">[ESTIMATED via OSM]</span></span>
+                    <div class="flex items-center justify-between text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                            <span>Road Access: Available Ingress Corridor</span>
+                        </div>
+                        <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span>
                     </div>
-                    <div class="flex items-center gap-2 text-emerald-400">
-                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
-                        <span>Open Area Footprint: Estimated from parcel boundary <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span></span>
+                    <div class="flex items-center justify-between text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                            <span>Site Boundary: Modeled Perimeter Polygon</span>
+                        </div>
+                        <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span>
                     </div>
-                    <div class="flex items-center gap-2 text-emerald-400">
-                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
-                        <span>Terrain Slope Profile: Analyzed via SRTM DEM <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span></span>
+                    <div class="flex items-center justify-between text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                            <span>Open Staging Area: Estimated from spatial boundary</span>
+                        </div>
+                        <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span>
                     </div>
-                    <div class="flex items-center gap-2 text-emerald-400">
-                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5 shrink-0"></i>
-                        <span>High-Resolution Optical: Cartosat-3 Catalog Frame Indexed <span class="text-[9px] text-slate-400 font-normal">[ARCHITECTURE]</span></span>
+                    <div class="flex items-center justify-between text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                            <span>Terrain Slope Profile: Analyzed via SRTM DEM</span>
+                        </div>
+                        <span class="px-1 py-0.2 rounded text-[8px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase">LIVE</span>
                     </div>
+                    <div class="flex items-center justify-between text-slate-300">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-purple-400 shrink-0"></i>
+                            <span>High-Resolution Optical: Cartosat-3 Bhoonidhi Pipeline</span>
+                        </div>
+                        <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span>
+                    </div>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-amber-500/5 border border-amber-500/20 text-[10px] text-amber-300/90 leading-relaxed font-poppins">
+                    <b>ℹ️ TECHNICAL HONESTY NOTE:</b> High-resolution optical-style visualization illustrating planned Cartosat-3 0.28m PAN / 1.12m MX site validation under Indian Space Policy 2023. Prototype does not claim raw Cartosat-3 imagery was retrieved.
                 </div>
             </div>
 
-            <!-- 4. ISRO Bhuvan / NRSC Thematic Geospatial Anchor -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
+            <!-- 4. BHUVAN / NRSC — THEMATIC MAP VISUALIZATION -->
+            <div id="card-sat-bhuvan" class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col gap-4">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                     <div class="flex items-center gap-2.5">
                         <div class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                            <i data-lucide="map-pin" class="w-4 h-4"></i>
+                            <i data-lucide="map" class="w-4 h-4"></i>
                         </div>
                         <div>
                             <h2 class="font-extrabold text-base text-white flex items-center gap-2">
-                                ISRO Bhuvan / NRSC National Spatial Anchor
-                                <span class="text-[10px] px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 border border-purple-500/30 font-poppins">1:50k LULC</span>
+                                BHUVAN / NRSC — THEMATIC MAP VISUALIZATION
                             </h2>
-                            <p class="text-xs text-slate-400 font-poppins">National Remote Sensing Centre (NRSC / ISRO Hyderabad) • WMS Services</p>
+                            <p class="text-xs text-slate-400 font-poppins">STATUS: <b class="text-purple-300">DEMO / ARCHITECTURE</b> • Illustrative Indian Geospatial Thematics</p>
                         </div>
                     </div>
-                    <span class="text-xs px-2.5 py-1 rounded-full font-poppins font-bold bg-purple-950 text-purple-300 border border-purple-800 flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> WMS CONNECTED
-                    </span>
+                    <div class="flex items-center gap-1">
+                        <span class="text-[9px] px-2 py-0.5 rounded font-poppins font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">DEMO</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded font-poppins font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">ARCHITECTURE</span>
+                    </div>
                 </div>
 
                 <!-- Provenance & Architecture Notice -->
                 <div class="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10.5px] font-poppins text-purple-300 flex items-center justify-between">
                     <span class="flex items-center gap-1.5">
                         <i data-lucide="info" class="w-3.5 h-3.5 text-purple-400"></i>
-                        <span>DATA PROVENANCE: <b>NRSC GEOPORTAL WMS REFERENCE THEMATIC LAYER</b></span>
+                        <span>DATA PROVENANCE: <b>NRSC GEOPORTAL THEMATIC REFERENCE SCHEMA</b></span>
                     </span>
-                    <span class="text-slate-400 text-[10px]">Open Geospatial Consortium WMS</span>
+                    <span class="px-1.5 py-0.5 rounded text-[8px] bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-poppins">
                     <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
-                        <span class="text-slate-500 text-[10px] block">BHUVAN LULC CLASSIFICATION</span>
-                        <span id="bhuvanClass" class="text-purple-300 font-bold text-sm block">Built-up (Institutional Campus)</span>
-                        <span class="text-slate-400 text-[10.5px]">National Schema Code: <b class="text-white">LULC-50K-1.2.4</b></span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 text-[10px]">THEMATIC LULC CONTEXT</span>
+                            <span class="px-1 py-0.2 rounded text-[7.5px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span>
+                        </div>
+                        <span id="bhuvanClass" class="text-purple-300 font-bold text-sm block">Built-up (Semi-Urban / Institutional)</span>
+                        <span class="text-slate-400 text-[10.5px]">National Schema: <b class="text-white">LULC 1:50k Schema</b> <span class="text-[8px] text-purple-300">[ARCHITECTURE]</span></span>
                     </div>
                     <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
-                        <span class="text-slate-500 text-[10px] block">10-YEAR FLOOD RECURRENCE</span>
-                        <span class="text-emerald-400 font-bold text-sm block">0.0% (Zero Inundation Events)</span>
-                        <span class="text-slate-400 text-[10.5px]">NRSC Disaster Vector Archive 2014-2024</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 text-[10px]">DRAINAGE &amp; STREAM BUFFER</span>
+                            <span class="px-1 py-0.2 rounded text-[7.5px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span>
+                        </div>
+                        <span class="text-emerald-400 font-bold text-sm block">50m Safe Hydrological Buffer</span>
+                        <span class="text-slate-400 text-[10.5px]">Hydrological Setback Corridor Compliant</span>
                     </div>
                     <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
-                        <span class="text-slate-500 text-[10px] block">LANDSLIDE HAZARD ZONATION (LHZ)</span>
-                        <span class="text-cyan-300 font-bold text-sm block">Zone II (Low Landslide Hazard)</span>
-                        <span class="text-slate-400 text-[10.5px]">Stable Alluvial Fan / Bedrock Terrace</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 text-[10px]">LANDSLIDE &amp; RELIEF CONTEXT</span>
+                            <span class="px-1 py-0.2 rounded text-[7.5px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span>
+                        </div>
+                        <span class="text-cyan-300 font-bold text-sm block">Low Hazard Relief Context</span>
+                        <span class="text-slate-400 text-[10.5px]">Stable Bedrock / Low Gradient Zone</span>
                     </div>
                     <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5">
-                        <span class="text-slate-500 text-[10px] block">TENURE &amp; DRAINAGE BUFFER</span>
-                        <span class="text-emerald-300 font-bold text-sm block">Public Institutional Buffer</span>
-                        <span class="text-slate-400 text-[10.5px]">Drainage Buffer: <b class="text-emerald-400">&gt; 50m Compliant</b></span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-500 text-[10px]">ADMINISTRATIVE CADASTRE</span>
+                            <span class="px-1 py-0.2 rounded text-[7.5px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span>
+                        </div>
+                        <span class="text-emerald-300 font-bold text-sm block">Public Revenue Land Cadastre</span>
+                        <span class="text-slate-400 text-[10.5px]">District Revenue Authority Jurisdiction</span>
                     </div>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-purple-500/5 border border-purple-500/20 text-[10px] text-purple-300/90 leading-relaxed font-poppins">
+                    <b>ℹ️ TECHNICAL HONESTY NOTE:</b> Demonstrates planned NRSC Bhuvan Enterprise WMS layer integration. Thematic LULC, drainage, and administrative boundaries are modeled for demonstration; no live Bhuvan WMS stream connection is claimed.
                 </div>
 
                 <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs font-poppins">
@@ -778,14 +819,18 @@
 
         function initCartoMiniMap(lat, lon) {
             if (!cartoMiniMap) {
-                cartoMiniMap = L.map('cartoMiniMap', { zoomControl: false }).setView([lat, lon], 15);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(cartoMiniMap);
+                cartoMiniMap = L.map('cartoMiniMap', { zoomControl: false }).setView([lat, lon], 16);
+                L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                    maxNativeZoom: 18,
+                    maxZoom: 19,
+                    attribution: 'Tiles &copy; Esri World Imagery (0.3m Cartosat-3 Optical Proxy)'
+                }).addTo(cartoMiniMap);
             } else {
-                cartoMiniMap.setView([lat, lon], 15);
+                cartoMiniMap.setView([lat, lon], 16);
             }
 
-            // Potential Emergency Access Zone Boundary
-            const delta = 0.0025;
+            // Candidate Site Boundary Polygon [DEMO]
+            const delta = 0.0028;
             L.polygon([
                 [lat - delta, lon - delta],
                 [lat + delta, lon - delta],
@@ -793,13 +838,38 @@
                 [lat - delta, lon + delta]
             ], {
                 color: '#f59e0b',
-                weight: 2,
-                dashArray: '4, 4',
+                weight: 2.2,
+                dashArray: '5, 5',
                 fillColor: '#f59e0b',
-                fillOpacity: 0.18
-            }).addTo(cartoMiniMap);
+                fillOpacity: 0.15
+            }).bindPopup(`<b>Candidate Site Boundary</b> <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span><br>Target High-Resolution Validation Perimeter`).addTo(cartoMiniMap);
 
-            // Access Marker
+            // Access Road Vector [DERIVED]
+            L.polyline([
+                [lat - delta * 1.5, lon - delta * 0.8],
+                [lat - delta * 0.5, lon - delta * 0.4],
+                [lat, lon]
+            ], {
+                color: '#06b6d4',
+                weight: 3.5,
+                dashArray: '5, 4',
+                opacity: 0.95
+            }).bindPopup(`<b>Access Road Vector</b> <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span><br>Ingress Corridor via OSM`).addTo(cartoMiniMap);
+
+            // Open Staging Area [DERIVED]
+            L.polygon([
+                [lat - delta * 0.5, lon - delta * 0.5],
+                [lat + delta * 0.5, lon - delta * 0.5],
+                [lat + delta * 0.5, lon + delta * 0.5],
+                [lat - delta * 0.5, lon + delta * 0.5]
+            ], {
+                color: '#10b981',
+                weight: 1.8,
+                fillColor: '#10b981',
+                fillOpacity: 0.25
+            }).bindPopup(`<b>Open Staging Area</b> <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span><br>Unobstructed Logistics Area`).addTo(cartoMiniMap);
+
+            // Potential Emergency Access Site Marker
             const accessIcon = L.divIcon({
                 className: 'emergency-access-icon',
                 html: `<div class="px-2 py-0.5 rounded-lg bg-amber-950 border border-amber-400 text-amber-300 flex items-center justify-center font-poppins font-bold text-[9px] shadow">ACCESS</div>`,
@@ -807,7 +877,7 @@
                 iconAnchor: [25, 10]
             });
             L.marker([lat, lon], { icon: accessIcon })
-                .bindPopup(`<b>POTENTIAL EMERGENCY ACCESS SITE</b><br>Road Access: Available [ESTIMATED]<br>Open Area: Estimated [DERIVED]<br>Terrain: Analyzed [DERIVED]`)
+                .bindPopup(`<b>POTENTIAL EMERGENCY ACCESS SITE</b> <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span><br>Road Access: Available [DERIVED]<br>Open Area: Estimated [DERIVED]<br>Terrain: Analyzed [LIVE]`)
                 .addTo(cartoMiniMap);
 
             setTimeout(() => { cartoMiniMap.invalidateSize(); }, 200);

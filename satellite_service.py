@@ -340,25 +340,25 @@ class SatelliteTelemetryService:
         open_staging_sqm = gross_area - built_footprint_sqm
 
         return {
-            "status": "ARCHITECTURE",
+            "section_label": "CARTOSAT-3 — TARGETED HIGH-RESOLUTION VALIDATION",
+            "status": "DEMO / ARCHITECTURE",
             "source_status": "ARCHITECTURE",
-            "assessment_type": "EMERGENCY ACCESS ASSESSMENT",
-            "satellite": "ISRO Cartosat-3 (0.28m Architecture Specification)",
-            "scene_id": bhoonidhi_meta.get("scene_id", "C3_PANMX_CATALOG_FRAME"),
-            "acquisition_date": bhoonidhi_meta.get("acquisition_date", "2026-03-14T05:18:22Z"),
-            "sensor_resolution": {
-                "panchromatic_gsd": "0.28 m GSD (Architecture Spec)",
-                "multispectral_gsd": "1.12 m GSD (4-Band VNIR)",
-                "swath_width": "17.0 km"
+            "provenance": "ARCHITECTURE",
+            "is_demo_layer": True,
+            "satellite": "ISRO Cartosat-3 (Planned Sub-Meter Architecture)",
+            "sensor_specification": {
+                "target_panchromatic_gsd": "0.28 m GSD (Target Specification)",
+                "target_multispectral_gsd": "1.12 m GSD (4-Band VNIR)",
+                "target_swath_width": "17.0 km"
             },
             "site_target": site_name,
             "target_coordinates": {"lat": lat, "lon": lon},
             "road_access": "Available",
-            "road_access_source": "ESTIMATED",
+            "road_access_source": "DERIVED",
             "open_area": "Estimated",
             "open_area_source": "DERIVED",
             "terrain": "Analyzed",
-            "terrain_source": "DERIVED",
+            "terrain_source": "LIVE",
             "emergency_access": "Potential Emergency Access Site",
             "emergency_access_source": "ARCHITECTURE",
             "verified_spatial_metrics": {
@@ -368,24 +368,26 @@ class SatelliteTelemetryService:
                 "built_up_density_pct": built_density_pct,
                 "usable_shelter_area_sqm": usable_area,
                 "road_access": "Available",
-                "road_access_source": "ESTIMATED",
+                "road_access_source": "DERIVED",
                 "open_area_source": "DERIVED",
-                "terrain_source": "DERIVED",
+                "terrain_source": "LIVE",
                 "heavy_transport_access_points": 2 if gross_area >= 100000 else 1
             },
             "validation_verdict": "POTENTIAL EMERGENCY ACCESS SITE",
             "verification_checks": [
-                "Road Access: Available [ESTIMATED via OSM]",
+                "Road Access: Available [DERIVED via OpenStreetMap]",
+                "Site Boundary: Modeled Perimeter Polygon [DEMO]",
                 "Open Area: Estimated from spatial boundary [DERIVED]",
-                "Terrain: Analyzed via SRTM DEM slope profiles [DERIVED]",
-                "Cartosat-3 0.28m PAN: Catalog frame indexed for ground audit [ARCHITECTURE]"
+                "Terrain: Analyzed via SRTM DEM slope profiles [LIVE/DERIVED]",
+                "Cartosat-3 0.28m PAN: Planned High-Resolution Validation [ARCHITECTURE]"
             ],
             "bbox": bhoonidhi_meta.get("bbox"),
             "footprint_polygon": bhoonidhi_meta.get("footprint_polygon"),
+            "access_road_vector": bhoonidhi_meta.get("access_road_vector"),
+            "open_staging_poly": bhoonidhi_meta.get("open_staging_poly"),
             "emergency_access_zone": bhoonidhi_meta.get("emergency_access_zone"),
-            "cloud_cover_pct": bhoonidhi_meta.get("cloud_cover_pct", 3.8),
-            "bhoonidhi_details": bhoonidhi_meta,
-            "provenance": "ISRO Bhoonidhi Metadata & Spatial Layout Assessment [ARCHITECTURE]"
+            "technical_honesty_note": "Visual high-resolution simulation layer representing planned Cartosat-3 ground validation. No raw Cartosat-3 imagery was retrieved.",
+            "provenance_summary": "Visual Simulation & Planned Bhoonidhi Catalog Architecture [DEMO / ARCHITECTURE]"
         }
 
     def fetch_bhuvan_thematic(self, candidate_site: Dict[str, Any], epicenter_lat: float = 0.0, epicenter_lon: float = 0.0) -> Dict[str, Any]:

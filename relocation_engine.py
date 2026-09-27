@@ -756,11 +756,11 @@ class RelocationEngine:
         # Determine overall data mode
         p_s1 = self.sat_service.component_status.get("sentinel1", "live").upper()
         p_s2 = self.sat_service.component_status.get("sentinel2", "live").upper()
-        p_carto = self.sat_service.component_status.get("cartosat3", "architecture").upper()
+        p_carto = "DEMO / ARCHITECTURE"
         p_wx = self.sat_service.component_status.get("weather", "live").upper()
         p_dem = self.sat_service.component_status.get("elevation", "live").upper()
         p_osm = self.sat_service.component_status.get("osm", "live").upper()
-        p_bhuvan = "CONNECTED"
+        p_bhuvan = "DEMO / ARCHITECTURE"
 
         if "FALLBACK" in [p_s1, p_s2, p_wx, p_dem, p_osm]:
             overall_mode = "DEMO FALLBACK"

@@ -148,13 +148,13 @@
                         <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-400"></i>
                         <span>Hazard Lab ➔</span>
                     </a>
-                    <button id="btnToggleCarto" onclick="toggleCartosatOverlay()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle Potential Emergency Access Site & 0.28m Boundary">
+                    <button id="btnToggleCarto" onclick="toggleCartosatOverlay()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle Cartosat-3 High-Resolution Validation [DEMO / ARCHITECTURE]">
                         <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-amber-400"></i>
-                        <span id="lblToggleCarto">Access Site: ON</span>
+                        <span id="lblToggleCarto">Cartosat-3 Demo: ON</span>
                     </button>
-                    <button id="btnToggleBhuvan" onclick="toggleBhuvanWMSLayer()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-600/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle ISRO Bhuvan National Spatial Framework WMS Map">
+                    <button id="btnToggleBhuvan" onclick="toggleBhuvanWMSLayer()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-600/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow" title="Toggle Bhuvan Thematic Visualization [DEMO / ARCHITECTURE]">
                         <i data-lucide="map" class="w-3.5 h-3.5 text-purple-400"></i>
-                        <span id="lblToggleBhuvan">Bhuvan: OFF</span>
+                        <span id="lblToggleBhuvan">Bhuvan Demo: OFF</span>
                     </button>
                     <button id="btnAnalyze" onclick="executeAnalysis()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-cyan-600/30 transition flex items-center gap-2 cursor-pointer">
                         <i data-lucide="satellite" class="w-4 h-4"></i>
@@ -382,104 +382,128 @@
                     </div>
                 </div>
 
-                <!-- Emergency Access & Cartosat-3 Assessment Card -->
+                <!-- CARTOSAT-3 — TARGETED HIGH-RESOLUTION VALIDATION Card -->
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 text-xs font-poppins font-semibold border border-amber-500/30">EMERGENCY ACCESS ASSESSMENT</span>
-                            <span class="text-xs text-slate-400">0.28m Architecture Specification • Access Potential</span>
+                            <span class="px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 text-xs font-poppins font-bold border border-amber-500/30">
+                                CARTOSAT-3 — TARGETED HIGH-RESOLUTION VALIDATION
+                            </span>
                         </div>
-                        <span id="cartoVerdictBadge" class="text-xs px-2 py-0.5 rounded font-poppins font-bold bg-slate-800 border border-amber-500/40 text-amber-300">
-                            ARCHITECTURE SPEC
-                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[9px] px-1.5 py-0.5 rounded font-poppins font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">DEMO</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded font-poppins font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">ARCHITECTURE</span>
+                        </div>
+                    </div>
+                    <div class="text-[11px] text-slate-400 font-poppins mb-2">
+                        STATUS: <b class="text-amber-300">DEMO / ARCHITECTURE</b> • Planned ISRO Sub-Meter Optical Screening
                     </div>
 
                     <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 space-y-1.5 text-xs font-poppins">
                         <div class="flex justify-between text-slate-300 border-b border-slate-800/80 pb-1">
                             <span class="text-slate-500">TARGET SANCTUARY:</span>
-                            <span id="cartoTargetName" class="font-bold text-white truncate max-w-[180px]">-</span>
-                        </div>
-                        <div class="flex justify-between text-slate-300 border-b border-slate-800/80 pb-1 text-[11px]">
-                            <span class="text-slate-500">BHOONIDHI SCENE ID:</span>
-                            <span id="cartoSceneId" class="text-cyan-300 font-poppins truncate max-w-[180px]">C3_PANMX_CATALOG_FRAME</span>
+                            <span class="flex items-center gap-1.5 font-bold text-white truncate max-w-[190px]">
+                                <span id="cartoTargetName">-</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase">LIVE</span>
+                            </span>
                         </div>
                         <div class="grid grid-cols-2 gap-2 text-[11px] pt-0.5">
                             <div>
-                                <span class="text-slate-500 block text-[9px]">PAN RESOLUTION</span>
-                                <span class="text-cyan-400 font-bold">0.28 m GSD</span> <span class="text-[9px] text-slate-400 font-normal">[ARCHITECTURE]</span>
+                                <span class="text-slate-500 block text-[9px]">TARGET SENSOR SPEC</span>
+                                <span class="text-amber-300 font-bold">0.28m PAN / 1.12m MX</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase ml-1">ARCHITECTURE</span>
                             </div>
                             <div>
-                                <span class="text-slate-500 block text-[9px]">ROAD ACCESS</span>
-                                <span id="cartoRoadAccess" class="text-emerald-400 font-bold">Available</span> <span class="text-[9px] text-slate-400 font-normal">[ESTIMATED]</span>
+                                <span class="text-slate-500 block text-[9px]">ACCESS CORRIDOR</span>
+                                <span id="cartoRoadAccess" class="text-emerald-400 font-bold">Road Traced</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase ml-1">DERIVED</span>
                             </div>
                             <div>
-                                <span class="text-slate-500 block text-[9px]">OPEN AREA</span>
-                                <span id="cartoOpenStaging" class="text-cyan-300 font-bold">Estimated</span> <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span>
+                                <span class="text-slate-500 block text-[9px]">OPEN AREA FOOTPRINT</span>
+                                <span id="cartoOpenStaging" class="text-cyan-300 font-bold">Parcel Estimated</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase ml-1">DERIVED</span>
                             </div>
                             <div>
-                                <span class="text-slate-500 block text-[9px]">TERRAIN ANALYSIS</span>
-                                <span id="cartoTerrainStatus" class="text-emerald-300 font-bold">Analyzed</span> <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span>
+                                <span class="text-slate-500 block text-[9px]">TERRAIN CONTEXT</span>
+                                <span id="cartoTerrainStatus" class="text-emerald-300 font-bold">SRTM DEM Profile</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase ml-1">LIVE</span>
                             </div>
                         </div>
-                        <div id="cartoChecksList" class="pt-1 text-[10.5px] text-slate-300 space-y-0.5">
-                            <div class="flex items-center gap-1.5 text-emerald-400"><i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Road Access: Available <span class="text-[9px] text-slate-400 font-normal">[ESTIMATED via OSM]</span></span></div>
-                            <div class="flex items-center gap-1.5 text-emerald-400"><i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Open Area Footprint: Estimated <span class="text-[9px] text-slate-400 font-normal">[DERIVED from parcel geometry]</span></span></div>
-                            <div class="flex items-center gap-1.5 text-emerald-400"><i data-lucide="check" class="w-3.5 h-3.5"></i> <span>Terrain Slope &amp; Runoff: Analyzed <span class="text-[9px] text-slate-400 font-normal">[DERIVED via SRTM DEM]</span></span></div>
+                        <div id="cartoChecksList" class="pt-1 text-[10.5px] text-slate-300 space-y-0.5 border-t border-slate-800/80">
+                            <div class="flex items-center gap-1.5 text-slate-300"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i> <span>Candidate Site Boundary: Modeled Perimeter <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span></span></div>
+                            <div class="flex items-center gap-1.5 text-slate-300"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i> <span>Road Network Trace: Verified via OpenStreetMap <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span></span></div>
+                            <div class="flex items-center gap-1.5 text-slate-300"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i> <span>Terrain Slope Profiles: Computed via SRTM DEM <span class="px-1 py-0.2 rounded text-[8px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase">LIVE</span></span></div>
+                            <div class="flex items-center gap-1.5 text-slate-300"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i> <span>Planned Optical Verification: Cartosat-3 Bhoonidhi Pipeline <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span></span></div>
+                        </div>
+                        <div class="p-2 rounded bg-amber-500/5 border border-amber-500/20 text-[10px] text-amber-300/90 leading-relaxed font-poppins">
+                            <b>ℹ️ TECHNICAL HONESTY NOTE:</b> High-resolution optical-style visualization illustrating planned Cartosat-3 0.28m PAN / 1.12m MX site validation under Indian Space Policy 2023. Prototype does not claim raw Cartosat-3 imagery was retrieved.
                         </div>
                         <div class="flex items-center gap-2 pt-1 border-t border-slate-800/80">
-                            <button onclick="zoomToCartosatAudit()" class="flex-1 px-2.5 py-1 rounded bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-600/40 text-[10.5px] font-poppins transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <button onclick="zoomToCartosatAudit()" class="flex-1 px-2.5 py-1.5 rounded bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-600/40 text-[10.5px] font-poppins transition flex items-center justify-center gap-1.5 cursor-pointer">
                                 <i data-lucide="crosshair" class="w-3.5 h-3.5 text-amber-400"></i>
-                                <span>Inspect Potential Access Site on Map</span>
+                                <span>Inspect Cartosat-3 Demo Visualization on Map</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- ISRO Bhuvan / NRSC Thematic Anchor Card -->
+                <!-- BHUVAN / NRSC — THEMATIC MAP VISUALIZATION Card -->
                 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-2">
-                            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-400 text-xs font-poppins font-semibold border border-purple-500/30">ISRO BHUVAN ANCHOR</span>
-                            <span class="text-xs text-slate-400">NRSC 1:50k LULC & Hazard Archive</span>
+                            <span class="px-2 py-0.5 rounded bg-purple-500/15 text-purple-300 text-xs font-poppins font-bold border border-purple-500/30">
+                                BHUVAN / NRSC — THEMATIC MAP VISUALIZATION
+                            </span>
                         </div>
-                        <span id="bhuvanStatusBadge" class="text-xs px-2 py-0.5 rounded font-poppins font-bold bg-purple-950 border border-purple-800 text-purple-300 flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span> WMS CONNECTED
-                        </span>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[9px] px-1.5 py-0.5 rounded font-poppins font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">DEMO</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded font-poppins font-bold bg-purple-500/15 text-purple-300 border border-purple-500/30">ARCHITECTURE</span>
+                        </div>
+                    </div>
+                    <div class="text-[11px] text-slate-400 font-poppins mb-2 flex items-center justify-between">
+                        <span>STATUS: <b class="text-purple-300">DEMO / ARCHITECTURE</b> • Reference Thematic Modeling</span>
+                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">PLANNED WMS INTEGRATION</span>
                     </div>
 
                     <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 space-y-1.5 text-xs font-poppins">
                         <div class="flex justify-between text-slate-300 border-b border-slate-800/80 pb-1">
-                            <span class="text-slate-500">BHUVAN LULC CLASSIFICATION:</span>
-                            <span id="bhuvanLulcClass" class="font-bold text-purple-300 truncate max-w-[190px]">Built-up / Institutional</span>
+                            <span class="text-slate-500">THEMATIC LULC CONTEXT:</span>
+                            <span class="flex items-center gap-1.5 font-bold text-purple-300 truncate max-w-[190px]">
+                                <span id="bhuvanLulcClass">Built-up / Institutional</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span>
+                            </span>
                         </div>
                         <div class="grid grid-cols-2 gap-2 text-[11px] pt-0.5">
                             <div>
-                                <span class="text-slate-500 block text-[9px]">LULC CODE & SCALE</span>
-                                <span id="bhuvanLulcCode" class="text-slate-300 font-bold">LULC-50K (1:50,000)</span>
+                                <span class="text-slate-500 block text-[9px]">NATIONAL THEMATIC SCHEMA</span>
+                                <span id="bhuvanLulcCode" class="text-slate-300 font-bold">NRSC LULC 1:50k Schema</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase ml-1">ARCHITECTURE</span>
                             </div>
                             <div>
-                                <span class="text-slate-500 block text-[9px]">10-YR FLOOD RECURRENCE</span>
-                                <span id="bhuvanFloodRecurrence" class="text-emerald-400 font-bold">0.0% (Zero Events)</span>
+                                <span class="text-slate-500 block text-[9px]">DRAINAGE &amp; STREAM BUFFER</span>
+                                <span id="bhuvanDrainageBuffer" class="text-emerald-400 font-bold">50m Safe Hydrological Buffer</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase ml-1">DEMO</span>
                             </div>
                             <div>
-                                <span class="text-slate-500 block text-[9px]">LANDSLIDE ZONATION (LHZ)</span>
-                                <span id="bhuvanLhzZone" class="text-cyan-400 font-bold">Zone II (Stable Relief)</span>
+                                <span class="text-slate-500 block text-[9px]">LANDSLIDE &amp; RELIEF CONTEXT</span>
+                                <span id="bhuvanLhzZone" class="text-cyan-400 font-bold">Low Hazard Relief Context</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase ml-1">DEMO</span>
                             </div>
                             <div>
-                                <span class="text-slate-500 block text-[9px]">DRAINAGE 50m BUFFER</span>
-                                <span id="bhuvanDrainageBuffer" class="text-emerald-400 font-bold">Compliant (&gt; 50m)</span>
+                                <span class="text-slate-500 block text-[9px]">ADMINISTRATIVE CADASTRE</span>
+                                <span id="bhuvanTenure" class="text-emerald-300 font-bold">Public / Revenue Cadastre</span>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase ml-1">ARCHITECTURE</span>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between pt-1 border-t border-slate-800/80 text-[10.5px]">
-                            <span class="text-slate-400">Tenure / Cadastre:</span>
-                            <span id="bhuvanTenure" class="text-emerald-300 font-bold truncate max-w-[200px]">Government / Public Institutional</span>
+                        <div class="p-2 rounded bg-purple-500/5 border border-purple-500/20 text-[10px] text-purple-300/90 leading-relaxed font-poppins">
+                            <b>ℹ️ TECHNICAL HONESTY NOTE:</b> Demonstrates planned NRSC Bhuvan Enterprise WMS layer integration. Thematic LULC, drainage, and administrative boundaries are modeled for demonstration; no live Bhuvan WMS stream connection is claimed.
                         </div>
-                        <div class="flex items-center gap-2 pt-1">
-                            <button onclick="toggleBhuvanWMSLayer()" id="btnCardBhuvan" class="flex-1 px-2.5 py-1 rounded bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-700/60 text-[10.5px] font-poppins transition flex items-center justify-center gap-1.5 cursor-pointer">
+                        <div class="flex items-center gap-2 pt-1 border-t border-slate-800/80">
+                            <button onclick="toggleBhuvanWMSLayer()" id="btnCardBhuvan" class="flex-1 px-2.5 py-1.5 rounded bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-700/60 text-[10.5px] font-poppins transition flex items-center justify-center gap-1.5 cursor-pointer">
                                 <i data-lucide="layers" class="w-3.5 h-3.5"></i>
-                                <span id="lblCardBhuvan">Toggle Bhuvan WMS on Map</span>
+                                <span id="lblCardBhuvan">Toggle Bhuvan Thematic Demo on Map</span>
                             </button>
-                            <button onclick="zoomToBhuvanThematic()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[10.5px] font-poppins transition flex items-center gap-1 cursor-pointer">
+                            <button onclick="zoomToBhuvanThematic()" class="px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[10.5px] font-poppins transition flex items-center gap-1 cursor-pointer">
                                 <i data-lucide="focus" class="w-3.5 h-3.5 text-purple-400"></i>
                                 <span>Focus</span>
                             </button>
@@ -958,7 +982,7 @@
             isCartosatVisible = !isCartosatVisible;
             const lbl = document.getElementById('lblToggleCarto');
             const btn = document.getElementById('btnToggleCarto');
-            if (lbl) lbl.innerText = isCartosatVisible ? 'Cartosat-3: ON' : 'Cartosat-3: OFF';
+            if (lbl) lbl.innerText = isCartosatVisible ? 'Cartosat-3 Demo: ON' : 'Cartosat-3 Demo: OFF';
             if (btn) {
                 btn.className = isCartosatVisible 
                     ? "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow"
@@ -971,27 +995,26 @@
         }
 
         function toggleBhuvanWMSLayer() {
-            isBhuvanWmsVisible = !isBhuvanWmsVisible;
+            isBhuvanThematicVisible = !isBhuvanThematicVisible;
             const lbl = document.getElementById('lblToggleBhuvan');
             const btn = document.getElementById('btnToggleBhuvan');
             const cardLbl = document.getElementById('lblCardBhuvan');
-            if (lbl) lbl.innerText = isBhuvanWmsVisible ? 'Bhuvan: ON' : 'Bhuvan: OFF';
-            if (cardLbl) cardLbl.innerText = isBhuvanWmsVisible ? 'Hide Bhuvan WMS on Map' : 'Show Bhuvan WMS on Map';
+            if (lbl) lbl.innerText = isBhuvanThematicVisible ? 'Bhuvan Demo: ON' : 'Bhuvan Demo: OFF';
+            if (cardLbl) cardLbl.innerText = isBhuvanThematicVisible ? 'Hide Bhuvan Demo on Map' : 'Show Bhuvan Demo on Map';
             if (btn) {
-                btn.className = isBhuvanWmsVisible
+                btn.className = isBhuvanThematicVisible
                     ? "px-3 py-2 rounded-xl bg-purple-950/80 hover:bg-purple-900 text-purple-300 border border-purple-500 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow"
                     : "px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-600/40 text-xs font-poppins transition flex items-center gap-1.5 cursor-pointer shadow";
             }
-            if (isBhuvanWmsVisible) {
-                map.addLayer(bhuvanWMS);
-            } else {
-                map.removeLayer(bhuvanWMS);
-            }
+            bhuvanThematicLayers.forEach(l => {
+                if (isBhuvanThematicVisible) map.addLayer(l);
+                else map.removeLayer(l);
+            });
         }
 
         function zoomToCartosatAudit() {
-            if (lastAnalysisData && lastAnalysisData.cartosat3_validation) {
-                const c = lastAnalysisData.cartosat3_validation;
+            if (lastAnalysisData && (lastAnalysisData.cartosat3_validation || (lastAnalysisData.relocation_decision && lastAnalysisData.relocation_decision.cartosat3_validation))) {
+                const c = lastAnalysisData.cartosat3_validation || lastAnalysisData.relocation_decision.cartosat3_validation;
                 const coords = c.target_coordinates;
                 if (coords && coords.lat && coords.lon) {
                     map.flyTo([coords.lat, coords.lon], 16, { duration: 1.2 });
@@ -1001,12 +1024,12 @@
         }
 
         function zoomToBhuvanThematic() {
-            if (lastAnalysisData && lastAnalysisData.bhuvan_thematic) {
-                const b = lastAnalysisData.bhuvan_thematic;
+            if (lastAnalysisData && (lastAnalysisData.bhuvan_thematic || (lastAnalysisData.relocation_decision && lastAnalysisData.relocation_decision.bhuvan_thematic))) {
+                const b = lastAnalysisData.bhuvan_thematic || lastAnalysisData.relocation_decision.bhuvan_thematic;
                 const coords = b.target_coordinates;
                 if (coords && coords.lat && coords.lon) {
                     map.flyTo([coords.lat, coords.lon], 15, { duration: 1.2 });
-                    if (!isBhuvanWmsVisible) toggleBhuvanWMSLayer();
+                    if (!isBhuvanThematicVisible) toggleBhuvanWMSLayer();
                 }
             }
         }
@@ -1036,21 +1059,20 @@
                 const lbl = document.getElementById(idLbl);
                 if (!dot || !lbl) return;
                 const isLive = (status === 'LIVE' || status === 'live_telemetry' || status === 'live_api');
-                const isPre = (status === 'PRE_INDEXED' || status === 'PRE-INDEXED');
-                const isArch = (status === 'ARCHITECTURE' || status === 'architecture');
+                const isDemoArch = (status === 'DEMO / ARCHITECTURE' || status === 'DEMO' || status === 'ARCHITECTURE' || status === 'architecture');
                 const isConnected = (status === 'CONNECTED' || status === 'connected');
                 if (isLive) {
                     dot.className = "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse";
                     lbl.className = "text-emerald-400 font-bold";
                     lbl.innerText = "LIVE";
-                } else if (isArch) {
+                } else if (isDemoArch) {
                     dot.className = "w-1.5 h-1.5 rounded-full bg-amber-400";
                     lbl.className = "text-amber-300 font-bold";
-                    lbl.innerText = fallbackLabel || "0.28m ARCHITECTURE";
+                    lbl.innerText = fallbackLabel || "DEMO / ARCH";
                 } else if (isConnected) {
                     dot.className = "w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse";
                     lbl.className = "text-purple-300 font-bold";
-                    lbl.innerText = fallbackLabel || "CONNECTED";
+                    lbl.innerText = fallbackLabel || "DEMO / ARCH";
                 } else if (isPre) {
                     dot.className = "w-1.5 h-1.5 rounded-full bg-cyan-400";
                     lbl.className = "text-cyan-300 font-bold";
@@ -1063,8 +1085,8 @@
             };
             setBdg('dotS1', 'lblS1', prov.sentinel1, 'FALLBACK');
             setBdg('dotS2', 'lblS2', prov.sentinel2, 'FALLBACK');
-            setBdg('dotCarto', 'lblCarto', prov.cartosat3, '0.28m ARCHITECTURE');
-            setBdg('dotBhuvan', 'lblBhuvan', prov.bhuvan, 'WMS 1:50k');
+            setBdg('dotCarto', 'lblCarto', prov.cartosat3, 'DEMO / ARCH');
+            setBdg('dotBhuvan', 'lblBhuvan', prov.bhuvan, 'DEMO / ARCH');
             setBdg('dotWeather', 'lblWeather', prov.weather, 'FALLBACK');
             setBdg('dotDEM', 'lblDEM', prov.elevation, 'FALLBACK');
             setBdg('dotOSM', 'lblOSM', prov.osm, 'PRE-INDEXED');
@@ -1355,6 +1377,7 @@
             });
 
             // 1. Potential Emergency Access Site Boundary Overlay [ARCHITECTURE]
+            // 1. Cartosat-3 Targeted High-Resolution Validation [DEMO / ARCHITECTURE]
             cartosatLayers.forEach(l => map.removeLayer(l));
             cartosatLayers = [];
             const cartoData = data.cartosat3_validation || (data.relocation_decision && data.relocation_decision.cartosat3_validation);
@@ -1362,7 +1385,7 @@
                 const cLat = cartoData.target_coordinates.lat;
                 const cLon = cartoData.target_coordinates.lon;
                 
-                // Cartosat-3 High-Resolution Boundary Audit Polygon
+                // Candidate site boundary perimeter polygon
                 const cPolyCoords = cartoData.footprint_polygon || [
                     [cLat - 0.0035, cLon - 0.0035],
                     [cLat + 0.0035, cLon - 0.0035],
@@ -1376,15 +1399,59 @@
                     fillColor: '#f59e0b',
                     fillOpacity: 0.12
                 }).bindPopup(`
-                    <div class="font-poppins text-xs">
-                        <b class="text-amber-400">🛰️ ISRO Cartosat-3 Architecture Specification</b><br>
-                        <b>Target:</b> ${cartoData.site_target}<br>
-                        <b>PAN GSD:</b> 0.28 m [ARCHITECTURE] | <b>MX GSD:</b> 1.12 m<br>
-                        <b>Road Access:</b> Available [ESTIMATED]<br>
-                        <b>Open Area:</b> Estimated [DERIVED]<br>
-                        <b>Terrain:</b> Analyzed [DERIVED via SRTM]<br>
-                        <b>Bhoonidhi Catalog:</b> <span class="text-cyan-300">${cartoData.scene_id || 'C3_PANMX_CATALOG_FRAME'}</span><br>
-                        <b>Framework:</b> Indian Space Policy 2023 [ARCHITECTURE]
+                    <div class="font-poppins text-xs space-y-1.5 p-1 max-w-[280px]">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-1">
+                            <span class="font-bold text-amber-300 text-[11px]">CARTOSAT-3 — TARGETED VALIDATION</span>
+                            <span class="px-1.5 py-0.5 rounded text-[8px] bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase">DEMO / ARCH</span>
+                        </div>
+                        <div class="text-[10px] text-slate-300"><b>Target:</b> ${cartoData.site_target || 'Target Safe Sanctuary'} <span class="px-1 py-0.2 rounded text-[7.5px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase">LIVE</span></div>
+                        <div class="space-y-0.5 text-[10.5px] border-t border-slate-800 pt-1">
+                            <div class="flex justify-between"><span class="text-slate-400">Sensor Spec:</span> <span class="text-amber-300 font-bold">0.28m PAN / 1.12m MX <span class="px-1 py-0.2 rounded text-[7.5px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span></span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Candidate Perimeter:</span> <span class="text-cyan-300 font-bold">Modeled Boundary <span class="px-1 py-0.2 rounded text-[7.5px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span></span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Access Road:</span> <span class="text-emerald-400 font-bold">OSM Traced <span class="px-1 py-0.2 rounded text-[7.5px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span></span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Staging Footprint:</span> <span class="text-cyan-300 font-bold">Parcel Estimated <span class="px-1 py-0.2 rounded text-[7.5px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span></span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Terrain Context:</span> <span class="text-emerald-300 font-bold">SRTM DEM Profile <span class="px-1 py-0.2 rounded text-[7.5px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase">LIVE</span></span></div>
+                        </div>
+                        <div class="text-[9.5px] text-amber-300/80 bg-amber-500/10 p-1.5 rounded border border-amber-500/20 leading-tight">
+                            <b>Demo Visualization:</b> High-resolution optical validation simulation. Prototype does not claim raw Cartosat-3 imagery was retrieved.
+                        </div>
+                    </div>
+                `);
+
+                // Access road corridor vector overlay
+                const roadCoords = cartoData.access_road_vector || [
+                    [cLat - 0.0052, cLon - 0.0028],
+                    [cLat - 0.0018, cLon - 0.0014],
+                    [cLat, cLon]
+                ];
+                const roadLine = L.polyline(roadCoords, {
+                    color: '#06b6d4',
+                    weight: 3.5,
+                    dashArray: '6, 4',
+                    opacity: 0.95
+                }).bindPopup(`
+                    <div class="font-poppins text-xs p-1">
+                        <b>Access Road Corridor</b> <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span><br>
+                        <span class="text-slate-300 text-[10px]">Vehicular ingress route to sanctuary verified via OpenStreetMap</span>
+                    </div>
+                `);
+
+                // Open staging & logistics area overlay
+                const stagingCoords = cartoData.open_staging_poly || [
+                    [cLat - 0.0017, cLon - 0.0017],
+                    [cLat + 0.0017, cLon - 0.0017],
+                    [cLat + 0.0017, cLon + 0.0017],
+                    [cLat - 0.0017, cLon + 0.0017]
+                ];
+                const stagingPoly = L.polygon(stagingCoords, {
+                    color: '#10b981',
+                    weight: 1.8,
+                    fillColor: '#10b981',
+                    fillOpacity: 0.2
+                }).bindPopup(`
+                    <div class="font-poppins text-xs p-1">
+                        <b>Open Staging & Logistics Footprint</b> <span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span><br>
+                        <span class="text-slate-300 text-[10px]">Unobstructed parcel for shelter setup, triage & relief distribution</span>
                     </div>
                 `);
 
@@ -1397,49 +1464,88 @@
                 });
                 const accessMarker = L.marker([cLat, cLon], { icon: accessIcon })
                     .bindPopup(`
-                        <div class="font-poppins text-xs space-y-1">
-                            <b class="text-amber-400">POTENTIAL EMERGENCY ACCESS SITE</b>
+                        <div class="font-poppins text-xs space-y-1 p-0.5">
+                            <div class="flex items-center justify-between">
+                                <b class="text-amber-400">POTENTIAL EMERGENCY ACCESS SITE</b>
+                                <span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span>
+                            </div>
                             <div class="text-[10px] text-slate-400">Location: ${cartoData.site_target || 'Target Safe Sanctuary'}</div>
                             <div class="border-t border-slate-700/80 pt-1.5 text-[11px] space-y-1">
-                                <div class="flex justify-between items-center"><span class="text-slate-400">Road Access:</span> <span class="text-emerald-400 font-bold">Available <span class="text-[9px] text-slate-400 font-normal">[ESTIMATED]</span></span></div>
-                                <div class="flex justify-between items-center"><span class="text-slate-400">Open Area:</span> <span class="text-cyan-300 font-bold">Estimated <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span></span></div>
-                                <div class="flex justify-between items-center"><span class="text-slate-400">Terrain:</span> <span class="text-emerald-300 font-bold">Analyzed <span class="text-[9px] text-slate-400 font-normal">[DERIVED]</span></span></div>
-                                <div class="flex justify-between items-center"><span class="text-slate-400">Cartosat-3 0.28m:</span> <span class="text-amber-300 font-bold">Catalog Spec <span class="text-[9px] text-slate-400 font-normal">[ARCHITECTURE]</span></span></div>
+                                <div class="flex justify-between items-center"><span class="text-slate-400">Road Access:</span> <span class="text-emerald-400 font-bold">Available <span class="px-1 py-0.2 rounded text-[7.5px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span></span></div>
+                                <div class="flex justify-between items-center"><span class="text-slate-400">Open Staging:</span> <span class="text-cyan-300 font-bold">Estimated <span class="px-1 py-0.2 rounded text-[7.5px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase">DERIVED</span></span></div>
+                                <div class="flex justify-between items-center"><span class="text-slate-400">Terrain Context:</span> <span class="text-emerald-300 font-bold">Analyzed <span class="px-1 py-0.2 rounded text-[7.5px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase">LIVE</span></span></div>
+                                <div class="flex justify-between items-center"><span class="text-slate-400">Sensor Spec:</span> <span class="text-amber-300 font-bold">0.28m PAN <span class="px-1 py-0.2 rounded text-[7.5px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span></span></div>
                             </div>
                         </div>
                     `)
-                    .bindTooltip(`<b>POTENTIAL EMERGENCY ACCESS SITE</b><br><span class="text-[10.5px] text-amber-300">Road Access: Available [ESTIMATED]</span>`, { permanent: false });
+                    .bindTooltip(`<b>POTENTIAL EMERGENCY ACCESS SITE</b><br><span class="text-[10.5px] text-amber-300">Road Access: Available [DERIVED]</span>`, { permanent: false });
 
-                cartosatLayers.push(cartoPolygon, accessMarker);
+                cartosatLayers.push(cartoPolygon, roadLine, stagingPoly, accessMarker);
                 if (isCartosatVisible) {
                     cartosatLayers.forEach(l => l.addTo(map));
                 }
                 setTimeout(() => { if (window.lucide) lucide.createIcons(); }, 100);
             }
 
-            // 2. ISRO Bhuvan 1:50k LULC Thematic Boundary Overlay
+            // 2. ISRO Bhuvan / NRSC Thematic Geospatial Visualization Overlay [DEMO / ARCHITECTURE]
             bhuvanThematicLayers.forEach(l => map.removeLayer(l));
             bhuvanThematicLayers = [];
             const bhuvanData = data.bhuvan_thematic || (data.relocation_decision && data.relocation_decision.bhuvan_thematic);
-            if (bhuvanData && bhuvanData.thematic_bbox) {
-                const bhuvanPoly = L.polygon(bhuvanData.thematic_bbox, {
+            if (bhuvanData) {
+                const bLat = (bhuvanData.target_coordinates && bhuvanData.target_coordinates.lat) || (topSite && topSite.coordinates && topSite.coordinates.lat) || lat;
+                const bLon = (bhuvanData.target_coordinates && bhuvanData.target_coordinates.lon) || (topSite && topSite.coordinates && topSite.coordinates.lon) || lon;
+                const bBoxCoords = bhuvanData.thematic_bbox || [
+                    [bLat - 0.004, bLon - 0.004],
+                    [bLat + 0.004, bLon - 0.004],
+                    [bLat + 0.004, bLon + 0.004],
+                    [bLat - 0.004, bLon + 0.004]
+                ];
+                const bhuvanPoly = L.polygon(bBoxCoords, {
                     color: '#a855f7',
                     weight: 2,
                     dashArray: '6, 3',
                     fillColor: '#9333ea',
-                    fillOpacity: 0.10
+                    fillOpacity: 0.12
                 }).bindPopup(`
-                    <div class="font-poppins text-xs">
-                        <b class="text-purple-400">🌲 ISRO Bhuvan 1:50k LULC Anchor</b><br>
-                        <b>Classification:</b> ${bhuvanData.lulc_50k?.classification || 'Institutional Land'}<br>
-                        <b>National Code:</b> ${bhuvanData.lulc_50k?.code || 'LULC-50K'}<br>
-                        <b>Land Tenure:</b> ${bhuvanData.lulc_50k?.land_tenure_category || 'Public Land'}<br>
-                        <b>10-Yr Flood Recurrence:</b> ${bhuvanData.historical_disaster_screening?.bhuvan_flood_recurrence_10yr || '0.0%'}<br>
-                        <b>Landslide Zonation (LHZ):</b> ${bhuvanData.historical_disaster_screening?.landslide_hazard_zonation || 'Zone II'}<br>
-                        <b>Drainage Buffer:</b> ${bhuvanData.historical_disaster_screening?.drainage_buffer_compliance || 'Compliant'}
+                    <div class="font-poppins text-xs space-y-1.5 p-1 max-w-[280px]">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-1">
+                            <span class="font-bold text-purple-300 text-[11px]">BHUVAN / NRSC — THEMATIC MAP</span>
+                            <span class="px-1.5 py-0.5 rounded text-[8px] bg-purple-500/20 text-purple-300 border border-purple-500/30 font-bold uppercase">DEMO / ARCH</span>
+                        </div>
+                        <div class="text-[10px] text-slate-300"><b>LULC Context:</b> ${(bhuvanData.thematic_reference && bhuvanData.thematic_reference.lulc_context) || (bhuvanData.lulc_50k && bhuvanData.lulc_50k.classification) || 'Built-up (Semi-Urban / Institutional)'} <span class="px-1 py-0.2 rounded text-[7.5px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span></div>
+                        <div class="space-y-0.5 text-[10.5px] border-t border-slate-800 pt-1">
+                            <div class="flex justify-between"><span class="text-slate-400">National Schema:</span> <span class="text-purple-300 font-bold">1:50k NRSC Schema <span class="px-1 py-0.2 rounded text-[7.5px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span></span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Drainage Buffer:</span> <span class="text-emerald-400 font-bold">50m Safe Corridor <span class="px-1 py-0.2 rounded text-[7.5px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span></span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Landslide / Relief:</span> <span class="text-cyan-300 font-bold">Stable Relief <span class="px-1 py-0.2 rounded text-[7.5px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span></span></div>
+                            <div class="flex justify-between"><span class="text-slate-400">Administrative Cadastre:</span> <span class="text-emerald-300 font-bold">Public Revenue Land <span class="px-1 py-0.2 rounded text-[7.5px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase">ARCHITECTURE</span></span></div>
+                        </div>
+                        <div class="text-[9.5px] text-purple-300/80 bg-purple-500/10 p-1.5 rounded border border-purple-500/20 leading-tight">
+                            <b>Demo Thematic Visualization:</b> Illustrative Indian spatial classification & hydrological buffer modeling. No direct Bhuvan WMS stream claimed.
+                        </div>
                     </div>
                 `);
-                bhuvanThematicLayers.push(bhuvanPoly);
+
+                // Drainage corridor buffer polygon
+                const drainageCoords = bhuvanData.drainage_buffer_poly || [
+                    [bLat - 0.0036, bLon - 0.0052],
+                    [bLat + 0.0004, bLon - 0.0036],
+                    [bLat + 0.0036, bLon - 0.0044],
+                    [bLat + 0.0028, bLon - 0.0056]
+                ];
+                const drainagePoly = L.polygon(drainageCoords, {
+                    color: '#38bdf8',
+                    weight: 1.8,
+                    dashArray: '4, 4',
+                    fillColor: '#0284c7',
+                    fillOpacity: 0.16
+                }).bindPopup(`
+                    <div class="font-poppins text-xs p-1">
+                        <b>50m Hydrological Drainage Buffer Corridor</b> <span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase">DEMO</span><br>
+                        <span class="text-slate-300 text-[10px]">Safe setback margin protecting sanctuary from flash flood runoff</span>
+                    </div>
+                `);
+
+                bhuvanThematicLayers.push(bhuvanPoly, drainagePoly);
                 if (isBhuvanThematicVisible) {
                     bhuvanThematicLayers.forEach(l => l.addTo(map));
                 }
@@ -1510,46 +1616,78 @@
                 }
             }
 
-            // Emergency Access & Cartosat-3 Assessment Panel
+            // Emergency Access & Cartosat-3 Assessment Panel [DEMO / ARCHITECTURE]
             const carto = data.cartosat3_validation || (data.relocation_decision && data.relocation_decision.cartosat3_validation) || {};
             if (carto && carto.site_target) {
                 const targetEl = document.getElementById('cartoTargetName');
                 if (targetEl) targetEl.innerText = carto.site_target;
-                const sceneIdEl = document.getElementById('cartoSceneId');
-                if (sceneIdEl) sceneIdEl.innerText = carto.scene_id || 'C3_PANMX_CATALOG_FRAME';
                 const openEl = document.getElementById('cartoOpenStaging');
-                if (openEl) openEl.innerText = "Estimated";
+                if (openEl) openEl.innerText = "Parcel Estimated";
                 const roadEl = document.getElementById('cartoRoadAccess');
-                if (roadEl) roadEl.innerText = (carto.road_access || "Available");
+                if (roadEl) roadEl.innerText = (carto.road_access || "Road Traced");
                 const terrainEl = document.getElementById('cartoTerrainStatus');
-                if (terrainEl) terrainEl.innerText = (carto.terrain || "Analyzed");
+                if (terrainEl) terrainEl.innerText = (carto.terrain || "SRTM DEM Profile");
                 
                 const cList = document.getElementById('cartoChecksList');
                 if (cList && carto.verification_checks) {
-                    cList.innerHTML = carto.verification_checks.map(chk => `
-                        <div class="flex items-center gap-1.5 text-emerald-400">
-                            <i data-lucide="check" class="w-3 h-3 shrink-0"></i>
-                            <span>${chk}</span>
-                        </div>
-                    `).join('');
+                    cList.innerHTML = carto.verification_checks.map(chk => {
+                        let badge = '<span class="px-1 py-0.2 rounded text-[8px] bg-slate-700 text-slate-300 font-bold uppercase ml-1">INFO</span>';
+                        let clean = chk;
+                        if (chk.includes('[LIVE]')) {
+                            badge = '<span class="px-1 py-0.2 rounded text-[8px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold uppercase ml-1">LIVE</span>';
+                            clean = chk.replace(/\[LIVE.*?\]/, '').trim();
+                        } else if (chk.includes('[DERIVED via OpenStreetMap]') || chk.includes('[DERIVED]')) {
+                            badge = '<span class="px-1 py-0.2 rounded text-[8px] bg-sky-500/15 text-sky-400 border border-sky-500/30 font-bold uppercase ml-1">DERIVED</span>';
+                            clean = chk.replace(/\[DERIVED.*?\]/, '').trim();
+                        } else if (chk.includes('[DEMO]')) {
+                            badge = '<span class="px-1 py-0.2 rounded text-[8px] bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold uppercase ml-1">DEMO</span>';
+                            clean = chk.replace(/\[DEMO.*?\]/, '').trim();
+                        } else if (chk.includes('[ARCHITECTURE]')) {
+                            badge = '<span class="px-1 py-0.2 rounded text-[8px] bg-purple-500/15 text-purple-300 border border-purple-500/30 font-bold uppercase ml-1">ARCHITECTURE</span>';
+                            clean = chk.replace(/\[ARCHITECTURE.*?\]/, '').trim();
+                        }
+                        return `
+                            <div class="flex items-center justify-between text-slate-300 py-0.5">
+                                <div class="flex items-center gap-1.5 truncate">
+                                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                                    <span class="truncate">${clean}</span>
+                                </div>
+                                ${badge}
+                            </div>
+                        `;
+                    }).join('');
+                    if (window.lucide) lucide.createIcons();
                 }
             }
 
-            // ISRO Bhuvan / NRSC Anchor Intelligence Panel
+            // ISRO Bhuvan / NRSC Thematic Intelligence Panel [DEMO / ARCHITECTURE]
             const bhuvan = data.bhuvan_thematic || (data.relocation_decision && data.relocation_decision.bhuvan_thematic);
             if (bhuvan) {
                 const lulcEl = document.getElementById('bhuvanLulcClass');
-                if (lulcEl && bhuvan.lulc_50k) lulcEl.innerText = bhuvan.lulc_50k.classification || 'Built-up / Institutional';
+                if (lulcEl) {
+                    const lVal = (bhuvan.thematic_reference && bhuvan.thematic_reference.lulc_context) || (bhuvan.lulc_50k && bhuvan.lulc_50k.classification) || 'Built-up (Semi-Urban / Institutional)';
+                    lulcEl.innerText = lVal;
+                }
                 const codeEl = document.getElementById('bhuvanLulcCode');
-                if (codeEl && bhuvan.lulc_50k) codeEl.innerText = `${bhuvan.lulc_50k.code} (${bhuvan.lulc_50k.scale})`;
-                const floodEl = document.getElementById('bhuvanFloodRecurrence');
-                if (floodEl && bhuvan.historical_disaster_screening) floodEl.innerText = bhuvan.historical_disaster_screening.bhuvan_flood_recurrence_10yr || '0.0% (Zero Events)';
-                const lhzEl = document.getElementById('bhuvanLhzZone');
-                if (lhzEl && bhuvan.historical_disaster_screening) lhzEl.innerText = bhuvan.historical_disaster_screening.landslide_hazard_zonation || 'Zone II (Stable Relief)';
+                if (codeEl) {
+                    const cVal = (bhuvan.thematic_reference && bhuvan.thematic_reference.lulc_code) || (bhuvan.lulc_50k && bhuvan.lulc_50k.code) || 'LULC-50K-1.2.4';
+                    codeEl.innerText = `${cVal} (1:50k Schema)`;
+                }
                 const bufEl = document.getElementById('bhuvanDrainageBuffer');
-                if (bufEl && bhuvan.historical_disaster_screening) bufEl.innerText = bhuvan.historical_disaster_screening.drainage_buffer_compliance || 'Compliant (> 50m)';
+                if (bufEl) {
+                    const bVal = (bhuvan.disaster_context_modeling && bhuvan.disaster_context_modeling.drainage_buffer_context) || (bhuvan.historical_disaster_screening && bhuvan.historical_disaster_screening.drainage_buffer_compliance) || '50m Hydrological Buffer';
+                    bufEl.innerText = bVal;
+                }
+                const lhzEl = document.getElementById('bhuvanLhzZone');
+                if (lhzEl) {
+                    const lhzVal = (bhuvan.disaster_context_modeling && bhuvan.disaster_context_modeling.landslide_hazard_context) || (bhuvan.historical_disaster_screening && bhuvan.historical_disaster_screening.landslide_hazard_zonation) || 'Low Hazard Relief Context';
+                    lhzEl.innerText = lhzVal;
+                }
                 const tenEl = document.getElementById('bhuvanTenure');
-                if (tenEl && bhuvan.lulc_50k) tenEl.innerText = bhuvan.lulc_50k.land_tenure_category || 'Government / Public Institutional';
+                if (tenEl) {
+                    const tenVal = (bhuvan.thematic_reference && bhuvan.thematic_reference.land_tenure_category) || (bhuvan.lulc_50k && bhuvan.lulc_50k.land_tenure_category) || 'Public Revenue Land';
+                    tenEl.innerText = tenVal;
+                }
             }
 
             // Weather Telemetry

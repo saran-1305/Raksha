@@ -25,35 +25,18 @@ class BhuvanClient:
         })
 
     def probe_health(self) -> Dict[str, Any]:
-        """Probes live connectivity to ISRO Bhuvan NRSC servers."""
-        start = time.time()
-        try:
-            # Query standard WMS GetCapabilities with short timeout
-            res = self.session.get(
-                f"{self.wms_base_url}?SERVICE=WMS&REQUEST=GetCapabilities",
-                timeout=2.0
-            )
-            latency = int((time.time() - start) * 1000)
-            status = "live" if res.status_code == 200 else "connected"
-            return {
-                "status": status,
-                "latency_ms": latency,
-                "portal": self.portal_url,
-                "wms_endpoint": self.wms_base_url,
-                "service": "ISRO Bhuvan WMS / NRSC Thematic Services",
-                "version": "1.1.1",
-                "authority": "National Remote Sensing Centre (NRSC) / ISRO"
-            }
-        except Exception:
-            return {
-                "status": "connected",
-                "latency_ms": 140,
-                "portal": self.portal_url,
-                "wms_endpoint": self.wms_base_url,
-                "service": "ISRO Bhuvan National Spatial Framework (High-Resilience Active Mirror)",
-                "version": "1.1.1",
-                "authority": "National Remote Sensing Centre (NRSC) / ISRO"
-            }
+        """Reports the architecture and integration specification for ISRO Bhuvan NRSC thematic layers."""
+        return {
+            "status": "DEMO / ARCHITECTURE",
+            "provenance": "ARCHITECTURE",
+            "wms_connected": False,
+            "portal": self.portal_url,
+            "wms_endpoint": self.wms_base_url,
+            "service": "ISRO Bhuvan / NRSC Thematic Geospatial Services (Planned Production Architecture)",
+            "authority": "National Remote Sensing Centre (NRSC) / ISRO",
+            "version": "1.1.1 (Target WMS Specification)",
+            "notice": "Bhuvan thematic services modeled for demonstration. Production connection pending WMS enterprise credentialing."
+        }
 
     def query_thematic_lulc(self, lat: float, lon: float, site_name: str = "") -> Dict[str, Any]:
         """
@@ -98,9 +81,7 @@ class BhuvanClient:
             lhz_zone = "Non-Prone Relief (Plain Topography)"
             lhz_code = "LHZ-PLAIN"
 
-        flood_recurrence_10yr = "0.0% (Zero Inundation in 10-Yr Bhuvan Disaster Vector Archive)"
-
-        # Generate Bhuvan Thematic Verification Bounding Box
+        # Generate Bhuvan Thematic Verification Bounding Box (Visual Demo Representation)
         delta = 0.004  # ~450m bounding box
         thematic_bbox = [
             [round(lat - delta, 5), round(lon - delta, 5)],
@@ -109,36 +90,45 @@ class BhuvanClient:
             [round(lat - delta, 5), round(lon + delta, 5)]
         ]
 
+        # Modeled drainage corridor and administrative buffer
+        drainage_buffer_poly = [
+            [round(lat - delta * 0.9, 5), round(lon - delta * 1.3, 5)],
+            [round(lat + delta * 0.1, 5), round(lon - delta * 0.9, 5)],
+            [round(lat + delta * 0.9, 5), round(lon - delta * 1.1, 5)],
+            [round(lat + delta * 0.7, 5), round(lon - delta * 1.4, 5)]
+        ]
+
         return {
-            "status": "VERIFIED_BHUVAN_ANCHOR",
+            "section_label": "BHUVAN / NRSC — THEMATIC MAP VISUALIZATION",
+            "status": "DEMO / ARCHITECTURE",
+            "provenance": "DEMO",
+            "is_demo_layer": True,
             "agency": "ISRO / National Remote Sensing Centre (NRSC)",
-            "geoportal": "Bhuvan Thematic Geospatial Services",
+            "geoportal": "Bhuvan Thematic Geospatial Services (Planned Pipeline)",
             "portal_url": self.portal_url,
             "target_site": site_name or "Candidate Relocation Sanctuary",
             "target_coordinates": {"lat": round(lat, 5), "lon": round(lon, 5)},
-            "lulc_50k": {
-                "classification": lulc_class,
-                "code": lulc_code,
-                "scale": "1:50,000 National Spatial Schema",
+            "thematic_reference": {
+                "lulc_context": lulc_class,
+                "lulc_code": lulc_code,
+                "scale": "1:50,000 National Spatial Schema (Illustrative Context)",
                 "land_tenure_category": land_tenure,
-                "environmental_clearance": suitability_tag,
                 "vegetation_cover": vegetation_cover
             },
-            "historical_disaster_screening": {
-                "bhuvan_flood_recurrence_10yr": flood_recurrence_10yr,
-                "flood_risk_level": "VERY_LOW",
-                "landslide_hazard_zonation": lhz_zone,
-                "lhz_code": lhz_code,
-                "drainage_buffer_compliance": "Compliant (> 50m stream buffer confirmed)",
+            "disaster_context_modeling": {
+                "flood_recurrence_context": "Low Vulnerability Corridor (Simulated Context)",
+                "landslide_hazard_context": lhz_zone,
+                "drainage_buffer_context": "50m Stream Hydrological Buffer (Simulated)",
                 "geomorphology": "Stable Alluvial / Colluvial Relief Fan"
             },
-            "wms_layers": {
-                "base_vector": f"{self.wms_base_url}?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=india3",
-                "thematic_lulc": f"{self.thematic_base_url}?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=lulc:50k",
-                "district_cadastre": "https://bhuvan-vec2.nrsc.gov.in/bhuvan/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=vector:district_boundary"
+            "visual_overlays": {
+                "thematic_lulc_boundary": thematic_bbox,
+                "drainage_buffer_corridor": drainage_buffer_poly,
+                "administrative_cadastre": "District / Revenue Boundary Layer (Target Spec)"
             },
             "thematic_bbox": thematic_bbox,
-            "provenance": "ISRO Bhuvan Thematic Disaster Services WMS (NRSC Hyderabad)"
+            "drainage_buffer_poly": drainage_buffer_poly,
+            "technical_honesty_note": "Visual thematic overlay modeling Indian geospatial LULC and flood/drainage buffers. Values are illustrative and not directly fetched from Bhuvan."
         }
 
 bhuvan_service = BhuvanClient()
