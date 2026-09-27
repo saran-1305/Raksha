@@ -13,11 +13,11 @@ export default {
           700: '#0D0D0D',
           text: '#FFFFFF',
           textMuted: '#EAEAEA',
-          accent: '#38bdf8',
-          accentLight: '#7dd3fc',
-          accentLighter: '#bae6fd',
+          accent: '#00E5FF',
+          accentLight: '#84FFFF',
+          accentLighter: '#B2EBF2',
           hazard: '#FF5A36',
-          safe: '#38bdf8'
+          safe: '#00E5FF'
         }
       },
       fontFamily: {
