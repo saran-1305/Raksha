@@ -31,6 +31,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def add_no_cache_headers(request: Request, call_next):
+    response = await call_next(request)
+    if "text/html" in response.headers.get("content-type", ""):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
+
 # Initialize Core Services
 sat_service = SatelliteTelemetryService()
 engine = RelocationEngine(satellite_service=sat_service)

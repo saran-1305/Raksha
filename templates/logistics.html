@@ -497,17 +497,34 @@
                 defaultFleet: 20,
                 defaultSpeed: 25,
                 primaryRoutePolyline: [
-                    [30.3207, 79.2163],
-                    [30.3250, 79.2220],
-                    [30.3320, 79.2310],
-                    [30.3410, 79.2430],
-                    [30.3540, 79.2560]
+                    [30.3207, 79.2163], [30.31577, 79.21403], [30.31145, 79.20933], [30.30676, 79.20841], [30.30264, 79.21074],
+                    [30.29924, 79.2044], [30.30345, 79.20393], [30.30873, 79.19924], [30.31272, 79.20201], [30.31825, 79.20587],
+                    [30.32209, 79.20649], [30.32277, 79.20089], [30.32572, 79.19621], [30.32987, 79.19449], [30.32894, 79.20087],
+                    [30.33131, 79.20591], [30.33141, 79.20852], [30.33525, 79.20592], [30.33942, 79.20158], [30.34221, 79.19877],
+                    [30.34396, 79.20068], [30.3457, 79.2035], [30.34641, 79.20755], [30.34876, 79.20552], [30.3505, 79.20267],
+                    [30.35317, 79.20233], [30.35614, 79.20409], [30.35786, 79.20824], [30.35999, 79.21134], [30.36359, 79.21026],
+                    [30.36394, 79.20724], [30.36623, 79.20633], [30.3687, 79.20196], [30.37069, 79.20315], [30.3731, 79.20677],
+                    [30.38065, 79.20507], [30.38501, 79.20365], [30.38733, 79.20106], [30.38818, 79.19786], [30.39016, 79.19943],
+                    [30.39188, 79.20292], [30.39455, 79.20549], [30.39579, 79.20359], [30.39789, 79.20161], [30.40245, 79.20343],
+                    [30.40484, 79.20564], [30.40744, 79.20636], [30.4105, 79.20426], [30.41111, 79.20479], [30.4144, 79.20589],
+                    [30.40887, 79.20587], [30.40242, 79.20518], [30.39636, 79.20904], [30.3921, 79.21475], [30.38856, 79.21693],
+                    [30.38282, 79.22383], [30.37572, 79.22615], [30.36804, 79.22916], [30.36522, 79.22846], [30.36207, 79.23203],
+                    [30.36347, 79.23552], [30.36108, 79.23669], [30.3596, 79.24087], [30.35486, 79.24737], [30.3540, 79.2560]
                 ],
                 sites: [
                     { id: 'dev-1', name: 'GIC Pipalkoti Campus & Grounds', cap: 350, alloc: 350, distKm: 5.31, lat: 30.3540, lon: 79.2560, isPrimary: true, access: 'NH-58 Paved 2-Lane' },
-                    { id: 'dev-2', name: 'Helang Community Campus & ITI Ground', cap: 250, alloc: 250, distKm: 7.92, lat: 30.3680, lon: 79.2780, isPrimary: false, access: 'Paved Approach Road' },
-                    { id: 'dev-3', name: 'Government Inter College (GIC) Joshimath Corridor Ground', cap: 200, alloc: 120, distKm: 10.68, lat: 30.3850, lon: 79.2990, isPrimary: false, access: 'District Road Paved' },
-                    { id: 'dev-4', name: 'Agriculture & Horticulture Research Station, Marwari', cap: 250, alloc: 0, distKm: 13.01, lat: 30.4010, lon: 79.3150, isPrimary: false, access: 'Highway Link (Reserve)' }
+                    { 
+                        id: 'dev-2', name: 'Helang Community Campus & ITI Ground', cap: 250, alloc: 250, distKm: 7.92, lat: 30.3680, lon: 79.2780, isPrimary: false, access: 'Paved Approach Road',
+                        feederPolyline: [[30.3540, 79.2560], [30.35143, 79.254], [30.34817, 79.25747], [30.35325, 79.26009], [30.34997, 79.26134], [30.34638, 79.26689], [30.34441, 79.27211], [30.3458, 79.27767], [30.35752, 79.28202], [30.36084, 79.281], [30.3661, 79.2805], [30.3680, 79.2780]]
+                    },
+                    { 
+                        id: 'dev-3', name: 'Government Inter College (GIC) Joshimath Corridor Ground', cap: 200, alloc: 120, distKm: 10.68, lat: 30.3850, lon: 79.2990, isPrimary: false, access: 'District Road Paved',
+                        feederPolyline: [[30.3540, 79.2560], [30.35143, 79.254], [30.35325, 79.26009], [30.35922, 79.28638], [30.3661, 79.2805], [30.37114, 79.26827], [30.37489, 79.27702], [30.37817, 79.28254], [30.38269, 79.29693], [30.3850, 79.2990]]
+                    },
+                    { 
+                        id: 'dev-4', name: 'Agriculture & Horticulture Research Station, Marwari', cap: 250, alloc: 0, distKm: 13.01, lat: 30.4010, lon: 79.3150, isPrimary: false, access: 'Highway Link (Reserve)',
+                        feederPolyline: [[30.3850, 79.2990], [30.3920, 79.3080], [30.4010, 79.3150]]
+                    }
                 ],
                 rationale: 'Urgam-Helang mountain road requires agile 25-30 seat mini-buses and 4x4 utility transports. 720 evacuees are completely absorbed across 3 screened sites within 2 rotations.'
             },
@@ -522,24 +539,41 @@
                 primaryRouteName: 'SH-59 Meppadi-Chooralmala Hill Highway (6.57 km)',
                 windowMins: 180, // 3h 00m
                 originCoords: [11.5126, 76.1287],
-                mapCenter: [11.5600, 76.1200],
+                mapCenter: [11.5450, 76.1450],
                 zoom: 12,
                 defaultVehicle: 'truck',
                 defaultCap: 40,
                 defaultFleet: 35,
                 defaultSpeed: 30,
                 primaryRoutePolyline: [
-                    [11.5126, 76.1287],
-                    [11.5280, 76.1295],
-                    [11.5390, 76.1310],
-                    [11.5510, 76.1320],
-                    [11.5623, 76.1614]
+                    [11.5126, 76.1287], [11.51221, 76.12863], [11.51094, 76.12912], [11.51211, 76.13105], [11.5125, 76.13335],
+                    [11.51355, 76.13311], [11.51414, 76.13374], [11.51574, 76.13413], [11.5175, 76.13536], [11.51873, 76.1362],
+                    [11.51975, 76.13565], [11.5215, 76.13559], [11.52157, 76.13472], [11.52176, 76.13344], [11.52288, 76.13419],
+                    [11.52362, 76.13535], [11.52411, 76.13698], [11.52512, 76.13731], [11.5259, 76.13756], [11.52586, 76.13855],
+                    [11.52595, 76.13948], [11.52675, 76.13968], [11.52762, 76.14066], [11.52935, 76.1401], [11.52971, 76.14061],
+                    [11.53062, 76.13877], [11.53199, 76.13852], [11.53169, 76.13652], [11.5313, 76.13511], [11.53307, 76.13521],
+                    [11.53357, 76.13503], [11.53477, 76.13484], [11.53651, 76.13005], [11.53929, 76.12984], [11.54155, 76.12981],
+                    [11.54345, 76.12926], [11.54548, 76.12941], [11.54734, 76.13041], [11.54823, 76.13151], [11.54944, 76.13171],
+                    [11.55069, 76.1327], [11.55269, 76.13205], [11.55281, 76.13364], [11.55342, 76.13617], [11.55431, 76.13849],
+                    [11.55648, 76.1408], [11.55631, 76.14263], [11.55505, 76.14467], [11.554, 76.14637], [11.55482, 76.14781],
+                    [11.55457, 76.14895], [11.55413, 76.15071], [11.55327, 76.15205], [11.55114, 76.15532], [11.55278, 76.15633],
+                    [11.55396, 76.15848], [11.5544, 76.15934], [11.5541, 76.16078], [11.55705, 76.16169], [11.55816, 76.16126],
+                    [11.55956, 76.161], [11.56055, 76.16053], [11.56179, 76.1606], [11.5623, 76.1614]
                 ],
                 sites: [
                     { id: 'way-1', name: "Dr. Moopen's WIMS Medical College & Hospital Campus (Meppadi)", cap: 1100, alloc: 1100, distKm: 6.57, lat: 11.5623, lon: 76.1614, isPrimary: true, access: 'SH-59 Hill Highway' },
-                    { id: 'way-2', name: 'Government Higher Secondary School Meppadi Ground', cap: 650, alloc: 650, distKm: 4.54, lat: 11.5532, lon: 76.1245, isPrimary: false, access: 'Town Road Paved' },
-                    { id: 'way-3', name: 'Meppadi Panchayat Stadium & Community Hall', cap: 550, alloc: 550, distKm: 6.88, lat: 11.5655, lon: 76.1615, isPrimary: false, access: 'Paved Arterial' },
-                    { id: 'way-4', name: 'Taluk Headquarters Hospital Grounds (Vythiri)', cap: 500, alloc: 150, distKm: 10.50, lat: 11.5510, lon: 76.0406, isPrimary: false, access: 'NH-766 Main Corridor' }
+                    { 
+                        id: 'way-2', name: 'Government Higher Secondary School Meppadi Ground', cap: 650, alloc: 650, distKm: 4.54, lat: 11.5532, lon: 76.1245, isPrimary: false, access: 'Town Road Paved',
+                        feederPolyline: [[11.5623, 76.1614], [11.56055, 76.16053], [11.55705, 76.16169], [11.5543, 76.16021], [11.55304, 76.15702], [11.55327, 76.15205], [11.55482, 76.14781], [11.55631, 76.14263], [11.55477, 76.13919], [11.55342, 76.13617], [11.55304, 76.1318], [11.55369, 76.12578], [11.5532, 76.1245]]
+                    },
+                    { 
+                        id: 'way-3', name: 'Meppadi Panchayat Stadium & Community Hall', cap: 550, alloc: 550, distKm: 6.88, lat: 11.5655, lon: 76.1615, isPrimary: false, access: 'Paved Arterial',
+                        feederPolyline: [[11.5623, 76.1614], [11.56317, 76.16221], [11.56436, 76.16215], [11.5655, 76.1615]]
+                    },
+                    { 
+                        id: 'way-4', name: 'Taluk Headquarters Hospital Grounds (Vythiri)', cap: 500, alloc: 150, distKm: 10.50, lat: 11.5510, lon: 76.0406, isPrimary: false, access: 'NH-766 Main Corridor',
+                        feederPolyline: [[11.5532, 76.1245], [11.5515, 76.0850], [11.5510, 76.0406]]
+                    }
                 ],
                 rationale: 'SH-59 hill corridor accommodates 35 regional buses, safely evacuating 2,450 displaced tea estate residents to medical and institutional shelters outside the debris runoff fan.'
             },
@@ -561,16 +595,35 @@
                 defaultFleet: 80,
                 defaultSpeed: 35,
                 primaryRoutePolyline: [
-                    [24.8333, 92.7789],
-                    [24.8050, 92.7710],
-                    [24.7780, 92.7620],
+                    [24.8333, 92.7789], [24.83319, 92.77888], [24.83211, 92.7797], [24.83142, 92.78261], [24.82943, 92.784],
+                    [24.8293, 92.78663], [24.82943, 92.78956], [24.82931, 92.79259], [24.83098, 92.79267], [24.83145, 92.79501],
+                    [24.83178, 92.79871], [24.83094, 92.80058], [24.82659, 92.80022], [24.82334, 92.79977], [24.82001, 92.79833],
+                    [24.81643, 92.79919], [24.81244, 92.79736], [24.81186, 92.79716], [24.80614, 92.79485], [24.80264, 92.79338],
+                    [24.79777, 92.79213], [24.7939, 92.79223], [24.79034, 92.79351], [24.78727, 92.79551], [24.78112, 92.79535],
+                    [24.77618, 92.79244], [24.77188, 92.79311], [24.76696, 92.79318], [24.7648, 92.79412], [24.76245, 92.79598],
+                    [24.76018, 92.79648], [24.75543, 92.79781], [24.75247, 92.7961], [24.74723, 92.79523], [24.74041, 92.79393],
+                    [24.73745, 92.79322], [24.73567, 92.79211], [24.73402, 92.79192], [24.73227, 92.79071], [24.73044, 92.78935],
+                    [24.72856, 92.78737], [24.72651, 92.78583], [24.7256, 92.78361], [24.72424, 92.78071], [24.72474, 92.77927],
+                    [24.72658, 92.77801], [24.72749, 92.77662], [24.72724, 92.77524], [24.72743, 92.77417], [24.72804, 92.77316],
+                    [24.72727, 92.77174], [24.72763, 92.77077], [24.73029, 92.76919], [24.73207, 92.76798], [24.73228, 92.76685],
+                    [24.73298, 92.76491], [24.7347, 92.76274], [24.73549, 92.76282], [24.73707, 92.76306], [24.73825, 92.76366],
+                    [24.73907, 92.76345], [24.73952, 92.76176], [24.73844, 92.75874], [24.7396, 92.75714], [24.74069, 92.75679],
                     [24.7450, 92.7530]
                 ],
                 sites: [
                     { id: 'sil-1', name: 'Assam University Elevated Campus (Durgakona)', cap: 6000, alloc: 6000, distKm: 10.16, lat: 24.7450, lon: 92.7530, isPrimary: true, access: 'Highland Ridge Highway (42m Elev)' },
-                    { id: 'sil-2', name: 'NIT Silchar Highland Sports Arena & Campus', cap: 5200, alloc: 5200, distKm: 8.46, lat: 24.7580, lon: 92.7910, isPrimary: false, access: 'Elevated Expressway (36m Elev)' },
-                    { id: 'sil-3', name: 'District Sports Association (DSA) Stadium Silchar', cap: 3500, alloc: 3500, distKm: 1.87, lat: 24.8250, lon: 92.7950, isPrimary: false, access: 'Elevated Ring Embankment (28m Elev)' },
-                    { id: 'sil-4', name: 'Cachar College Elevated Complex & Grounds', cap: 2000, alloc: 100, distKm: 0.34, lat: 24.8320, lon: 92.7820, isPrimary: false, access: 'College Road Paved (27m Elev)' }
+                    { 
+                        id: 'sil-2', name: 'NIT Silchar Highland Sports Arena & Campus', cap: 5200, alloc: 5200, distKm: 8.46, lat: 24.7580, lon: 92.7910, isPrimary: false, access: 'Elevated Expressway (36m Elev)',
+                        feederPolyline: [[24.7450, 92.7530], [24.74069, 92.75679], [24.73928, 92.76032], [24.74019, 92.76376], [24.73974, 92.77047], [24.74143, 92.77243], [24.74402, 92.77531], [24.74965, 92.77974], [24.75067, 92.78575], [24.75437, 92.7873], [24.7580, 92.7910]]
+                    },
+                    { 
+                        id: 'sil-3', name: 'District Sports Association (DSA) Stadium Silchar', cap: 3500, alloc: 3500, distKm: 1.87, lat: 24.8250, lon: 92.7950, isPrimary: false, access: 'Elevated Ring Embankment (28m Elev)',
+                        feederPolyline: [[24.7450, 92.7530], [24.74069, 92.75679], [24.73952, 92.76176], [24.7357, 92.76281], [24.73029, 92.76919], [24.72744, 92.77396], [24.72582, 92.78433], [24.73242, 92.79092], [24.74041, 92.79393], [24.75848, 92.79711], [24.77618, 92.79244], [24.79376, 92.79223], [24.8069, 92.79505], [24.81818, 92.79882], [24.8250, 92.7950]]
+                    },
+                    { 
+                        id: 'sil-4', name: 'Cachar College Elevated Complex & Grounds', cap: 2000, alloc: 100, distKm: 0.34, lat: 24.8320, lon: 92.7820, isPrimary: false, access: 'College Road Paved (27m Elev)',
+                        feederPolyline: [[24.8333, 92.7789], [24.8320, 92.7820]]
+                    }
                 ],
                 rationale: 'Elevated causeways along NH-37 and Hailakandi corridor safely move 14,800 evacuees to university and collegiate highlands located well above the 23.5m Barak flood crest datum.'
             }
@@ -780,15 +833,16 @@
             }).addTo(routeMap).bindTooltip(`Primary Evacuation Route: ${scen.primaryRouteName} (${scen.primaryDistKm} km)`);
             routeLayers.push(primaryPoly);
 
-            // 4. Secondary Connectors
+            // 4. Secondary Connectors (real road feeder polylines)
             const primSite = scen.sites.find(s => s.isPrimary) || scen.sites[0];
             scen.sites.filter(s => !s.isPrimary).forEach(s => {
-                const secPoly = L.polyline([[primSite.lat, primSite.lon], [s.lat, s.lon]], {
+                const feederCoords = s.feederPolyline || [[primSite.lat, primSite.lon], [s.lat, s.lon]];
+                const secPoly = L.polyline(feederCoords, {
                     color: '#64748b',
                     weight: 2.5,
-                    opacity: 0.7,
+                    opacity: 0.8,
                     dashArray: '4, 4'
-                }).addTo(routeMap).bindTooltip(`Feeder to ${s.name} (${s.distKm} km)`);
+                }).addTo(routeMap).bindTooltip(`Feeder Link to ${s.name} (${s.distKm} km)`);
                 routeLayers.push(secPoly);
             });
 
