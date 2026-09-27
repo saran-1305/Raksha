@@ -123,21 +123,72 @@
 
         <!-- ================= LEFT: ROUTE MAP (~55% / 7 COLS) ================= -->
         <div class="lg:col-span-7 flex flex-col gap-4">
-            <div class="bg-[#080808] border border-white/10 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
-                <div class="flex items-center justify-between border-b border-white/10 pb-2.5">
+                        <div class="bg-[#080808] border border-white/10 rounded-2xl p-4 shadow-xl flex flex-col gap-3">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-2.5">
                     <div class="flex items-center gap-2">
                         <i data-lucide="navigation" class="w-4 h-4 text-slate-400"></i>
                         <h2 class="font-royal font-bold text-sm sm:text-base text-white tracking-wide">
                             Operational Transit Route Map &amp; Candidate Topology
                         </h2>
                     </div>
+
+                    <!-- Basemap Switcher Toolbar & Close-up View Controls -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- Basemap Switcher (Default: OpenStreetMap) -->
+                        <div class="flex items-center gap-1 bg-[#0D1017] p-1 rounded-xl border border-slate-800 text-[11px]">
+                            <button type="button" onclick="setRouteBaseMap('street')" id="btnRouteStreet" class="px-2.5 py-1 rounded-lg bg-slate-700 text-white font-semibold border border-slate-600 transition shadow-sm flex items-center gap-1" title="OpenStreetMap Real Roads & Streets">
+                                <span>🗺️ Street (OSM)</span>
+                            </button>
+                            <button type="button" onclick="setRouteBaseMap('satellite')" id="btnRouteSat" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1" title="High-Resolution Satellite Aerial View">
+                                <span>🛰️ Satellite</span>
+                            </button>
+                            <button type="button" onclick="setRouteBaseMap('terrain')" id="btnRouteTerrain" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1" title="Topographic Elevation Contours">
+                                <span>⛰️ Topo</span>
+                            </button>
+                            <button type="button" onclick="setRouteBaseMap('dark')" id="btnRouteDark" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1" title="Tactical Dark Base">
+                                <span>🕶️ Dark</span>
+                            </button>
+                        </div>
+
+                        <!-- Close-up Street View Focus Controls -->
+                        <div class="flex items-center gap-1 bg-[#0D1017] p-1 rounded-xl border border-slate-800 text-[11px]">
+                            <button type="button" onclick="zoomToCorridor()" class="px-2.5 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition font-medium" title="Fit full evacuation corridor">
+                                <span>Corridor</span>
+                            </button>
+                            <button type="button" onclick="zoomToPrimarySite()" class="px-2.5 py-1 rounded-lg bg-blue-600/30 text-blue-300 border border-blue-500/40 hover:bg-blue-600/40 transition font-medium flex items-center gap-1" title="Close-up Street View of Primary Shelter Facility">
+                                <i data-lucide="zoom-in" class="w-3 h-3"></i>
+                                <span>Close-up Site</span>
+                            </button>
+                            <button type="button" onclick="zoomToOrigin()" class="px-2.5 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition font-medium" title="Close-up Street View of Ground Zero">
+                                <span>Origin</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between text-xs font-poppins gap-2">
                     <span id="mapRouteBadge" class="text-xs font-poppins text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700">
                         Primary Corridor: Urgam-Helang Road ➔ NH-58 Corridor (5.31 km)
+                    </span>
+                    <span class="text-[11px] text-slate-400 hidden sm:inline">
+                        Click any facility pin or route segment for close-up street inspection
                     </span>
                 </div>
 
                 <!-- Leaflet Route Map -->
                 <div id="routeMap" class="w-full h-[520px] rounded-xl border border-white/10 bg-[#050505] relative z-0"></div>
+
+                <!-- Map Legend Bar -->
+                <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-poppins text-slate-400 pt-1 border-t border-slate-800">
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500 ring-2 ring-white"></span> Incident Origin</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-blue-500"></span> Primary Hub (Selected)</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-slate-400 ring-2 ring-slate-600"></span> Secondary Staging Hubs</span>
+                        <span class="flex items-center gap-1"><span class="w-4 h-1 bg-blue-500 rounded"></span> Primary Road Corridor (NH-58)</span>
+                        <span class="flex items-center gap-1"><span class="w-4 h-0.5 border-t-2 border-dashed border-slate-400"></span> Feeder Links</span>
+                    </div>
+                    <span id="mapStatusText" class="text-[10px] text-slate-400">OpenStreetMap Real Roads Active</span>
+                </div>
 
                 <!-- Route Topology Summary -->
                 <div class="grid grid-cols-3 gap-2 font-poppins text-xs text-center">
@@ -151,7 +202,7 @@
                     </div>
                     <div class="p-2.5 rounded-xl bg-[#0D0D0D] border border-white/10">
                         <span class="text-slate-500 text-[10px] block">PRIMARY CANDIDATE 🟢</span>
-                        <span id="topoDest" class="text-white font-bold">Pipalkoti Relief Grounds</span>
+                        <span id="topoDest" class="text-white font-bold">GIC Pipalkoti Campus &amp; Grounds</span>
                     </div>
                 </div>
 
@@ -527,29 +578,117 @@
 
         let currentScenarioKey = 'devgram';
         let routeMap, routeLayers = [];
+        let currentRouteBaseLayer = null;
+        let routeBaseLayers = {};
 
         function initRouteMap() {
             routeMap = L.map('routeMap', {
                 center: SCENARIOS.devgram.mapCenter,
                 zoom: SCENARIOS.devgram.zoom,
-                minZoom: 6,
-                maxZoom: 18,
+                minZoom: 5,
+                maxZoom: 19,
                 zoomControl: false
             });
 
             L.control.zoom({ position: 'bottomright' }).addTo(routeMap);
 
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Tiles &copy; Esri',
-                maxNativeZoom: 16,
-                maxZoom: 19
-            }).addTo(routeMap);
-            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-                maxNativeZoom: 16,
-                maxZoom: 19
-            }).addTo(routeMap);
+            // Configure Multi-Basemaps: OpenStreetMap, Satellite, Topo, Dark
+            routeBaseLayers = {
+                street: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors',
+                    maxNativeZoom: 19,
+                    maxZoom: 19
+                }),
+                satellite: L.layerGroup([
+                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                        attribution: 'Tiles &copy; Esri World Imagery',
+                        maxNativeZoom: 18,
+                        maxZoom: 19
+                    }),
+                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+                        maxNativeZoom: 18,
+                        maxZoom: 19
+                    })
+                ]),
+                terrain: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+                    attribution: 'Tiles &copy; Esri World Topo',
+                    maxNativeZoom: 18,
+                    maxZoom: 19
+                }),
+                dark: L.layerGroup([
+                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                        maxNativeZoom: 16,
+                        maxZoom: 19
+                    }),
+                    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+                        maxNativeZoom: 16,
+                        maxZoom: 19
+                    })
+                ])
+            };
+
+            // DEFAULT TO OPENSTREETMAP (Street View)
+            setRouteBaseMap('street');
 
             renderScenarioMap(SCENARIOS.devgram);
+        }
+
+        function setRouteBaseMap(type) {
+            if (currentRouteBaseLayer) {
+                routeMap.removeLayer(currentRouteBaseLayer);
+            }
+            currentRouteBaseLayer = routeBaseLayers[type] || routeBaseLayers.street;
+            routeMap.addLayer(currentRouteBaseLayer);
+            currentRouteBaseLayer.bringToBack();
+
+            const btns = {
+                street: 'btnRouteStreet',
+                satellite: 'btnRouteSat',
+                terrain: 'btnRouteTerrain',
+                dark: 'btnRouteDark'
+            };
+            Object.keys(btns).forEach(k => {
+                const b = document.getElementById(btns[k]);
+                if (b) {
+                    if (k === type) {
+                        b.className = 'px-2.5 py-1 rounded-lg bg-slate-700 text-white font-semibold border border-slate-600 transition shadow-sm flex items-center gap-1';
+                    } else {
+                        b.className = 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1';
+                    }
+                }
+            });
+
+            const statusEl = document.getElementById('mapStatusText');
+            if (statusEl) {
+                const labels = {
+                    street: 'OpenStreetMap Real Roads Active',
+                    satellite: 'Esri Satellite Aerial & Places Active',
+                    terrain: 'Esri Topographic Contours Active',
+                    dark: 'Tactical Dark Canvas Active'
+                };
+                statusEl.innerText = labels[type] || 'Map Layer Active';
+            }
+        }
+
+        function zoomToCorridor() {
+            const scen = SCENARIOS[currentScenarioKey];
+            if (!scen || !routeMap) return;
+            const allCoords = [scen.originCoords, ...scen.sites.map(s => [s.lat, s.lon]), ...scen.primaryRoutePolyline];
+            const bounds = L.latLngBounds(allCoords);
+            routeMap.fitBounds(bounds, { padding: [45, 45], maxZoom: 14 });
+        }
+
+        function zoomToPrimarySite() {
+            const scen = SCENARIOS[currentScenarioKey];
+            if (!scen || !routeMap) return;
+            const primary = scen.sites.find(s => s.isPrimary) || scen.sites[0];
+            routeMap.flyTo([primary.lat, primary.lon], 16, { duration: 1.2 });
+        }
+
+        function zoomToOrigin() {
+            const scen = SCENARIOS[currentScenarioKey];
+            if (!scen || !routeMap) return;
+            routeMap.flyTo(scen.originCoords, 16, { duration: 1.2 });
         }
 
         function clearMapLayers() {
@@ -559,58 +698,102 @@
 
         function renderScenarioMap(scen) {
             clearMapLayers();
-            routeMap.setView(scen.mapCenter, scen.zoom);
 
             // 1. Origin Marker
             const originMarker = L.circleMarker(scen.originCoords, {
-                radius: 10,
+                radius: 11,
                 fillColor: '#ef4444',
                 color: '#ffffff',
-                weight: 2.5,
-                fillOpacity: 1
-            }).addTo(routeMap).bindPopup(`<b>🔴 Incident Ground Zero:</b> ${scen.name}<br>Exposed Demographic: <b>${scen.pop.toLocaleString()}</b> citizens`);
+                weight: 3,
+                fillOpacity: 0.95
+            }).addTo(routeMap);
+
+            originMarker.bindPopup(`
+                <div style="font-family: 'Poppins', sans-serif; font-size: 11px; line-height: 1.5; color: #0f172a;">
+                    <b style="color: #ef4444; font-size: 12px;">🔴 Incident Ground Zero</b><br>
+                    <b>Location:</b> ${scen.name}<br>
+                    <b>Displaced Exposure:</b> <span style="font-weight: 700; color: #ef4444;">${scen.pop.toLocaleString()} citizens</span><br>
+                    <b>Transit Priority:</b> Immediate Fleet Dispatch<br>
+                    <button onclick="zoomToOrigin()" style="margin-top: 6px; padding: 4px 8px; background: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">🔍 Close-up Street View</button>
+                </div>
+            `);
+
+            originMarker.on('click', () => {
+                routeMap.flyTo(scen.originCoords, 16, { duration: 1.0 });
+            });
             routeLayers.push(originMarker);
+
+            // Subtle Pulse Ring
+            const pulseCircle = L.circle(scen.originCoords, {
+                radius: 400,
+                color: '#ef4444',
+                weight: 1.5,
+                dashArray: '4, 4',
+                fillColor: '#ef4444',
+                fillOpacity: 0.12
+            }).addTo(routeMap);
+            routeLayers.push(pulseCircle);
 
             // 2. Candidate Sites
             scen.sites.forEach(s => {
                 const marker = L.circleMarker([s.lat, s.lon], {
-                    radius: s.isPrimary ? 10 : 7.5,
-                    fillColor: '#10b981',
-                    color: s.isPrimary ? '#3b82f6' : '#ffffff',
-                    weight: s.isPrimary ? 3 : 1.5,
-                    fillOpacity: 1
-                }).addTo(routeMap).bindPopup(`
-                    <div style="font-family: 'Poppins', 'Inter', sans-serif; font-size: 11px;">
-                        <b style="color: #10b981;">🟢 Potential Relocation Site: ${s.name}</b><br>
-                        Allocated Evacuees: <b>${s.alloc.toLocaleString()}</b><br>
-                        Estimated Usable Capacity: <b>${s.cap.toLocaleString()}</b><br>
-                        Road Distance: <b>${s.distKm} km</b><br>
-                        Access Corridor: <b>${s.access}</b>
+                    radius: s.isPrimary ? 12 : 8,
+                    fillColor: s.isPrimary ? '#10b981' : '#64748b',
+                    color: s.isPrimary ? '#2563eb' : '#ffffff',
+                    weight: s.isPrimary ? 3.5 : 1.5,
+                    fillOpacity: 0.95
+                }).addTo(routeMap);
+
+                marker.bindPopup(`
+                    <div style="font-family: 'Poppins', sans-serif; font-size: 11px; line-height: 1.5; color: #0f172a;">
+                        <b style="color: ${s.isPrimary ? '#059669' : '#0284c7'}; font-size: 12px;">
+                            ${s.isPrimary ? '🟢 Primary Intake Hub' : '🔵 Staging Facility'}: ${s.name}
+                        </b><br>
+                        <b>Evacuee Allocation:</b> <span style="font-weight: 700; color: #059669;">${s.alloc.toLocaleString()} Persons</span><br>
+                        <b>Usable Capacity:</b> ${s.cap.toLocaleString()} Persons<br>
+                        <b>Road Corridor Distance:</b> ${s.distKm} km<br>
+                        <b>Access Route:</b> ${s.access}<br>
+                        <button onclick="routeMap.flyTo([${s.lat}, ${s.lon}], 16, {duration: 1.0})" style="margin-top: 6px; padding: 4px 8px; background: #0f172a; color: #38bdf8; border: 1px solid #38bdf8; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 600;">🔍 Close-up Street View</button>
                     </div>
                 `);
+
+                marker.on('click', () => {
+                    routeMap.flyTo([s.lat, s.lon], 16, { duration: 1.0 });
+                });
+
                 routeLayers.push(marker);
             });
 
-            // 3. Primary Route
+            // 3. Primary Route Polyline (Dual-layer for street contrast)
+            const primaryPolyBg = L.polyline(scen.primaryRoutePolyline, {
+                color: '#1e3a8a',
+                weight: 7,
+                opacity: 0.85
+            }).addTo(routeMap);
+            routeLayers.push(primaryPolyBg);
+
             const primaryPoly = L.polyline(scen.primaryRoutePolyline, {
                 color: '#3b82f6',
-                weight: 5,
-                opacity: 0.9,
+                weight: 4.5,
+                opacity: 0.95,
                 dashArray: '8, 8'
-            }).addTo(routeMap).bindTooltip(`Primary Route: ${scen.primaryRouteName} (${scen.primaryDistKm} km)`);
+            }).addTo(routeMap).bindTooltip(`Primary Evacuation Route: ${scen.primaryRouteName} (${scen.primaryDistKm} km)`);
             routeLayers.push(primaryPoly);
 
             // 4. Secondary Connectors
             const primSite = scen.sites.find(s => s.isPrimary) || scen.sites[0];
             scen.sites.filter(s => !s.isPrimary).forEach(s => {
                 const secPoly = L.polyline([[primSite.lat, primSite.lon], [s.lat, s.lon]], {
-                    color: '#38bdf8',
-                    weight: 3,
-                    opacity: 0.6,
+                    color: '#64748b',
+                    weight: 2.5,
+                    opacity: 0.7,
                     dashArray: '4, 4'
                 }).addTo(routeMap).bindTooltip(`Feeder to ${s.name} (${s.distKm} km)`);
                 routeLayers.push(secPoly);
             });
+
+            // Fit corridor automatically
+            zoomToCorridor();
         }
 
         function setScenario(key) {
